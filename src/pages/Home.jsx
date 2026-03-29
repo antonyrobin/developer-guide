@@ -27,7 +27,7 @@ const Home = () => {
                     <a className="btn-primary btn-large" href="/sdlc" rel="noopener noreferrer">
                         Get Started <Rocket className="icon" />
                     </a>
-                    <a className="btn-secondary btn-large" href="https://github.com/antonyrobin" target="_blank" rel="noopener noreferrer">
+                    <a className="btn-secondary btn-large" href="https://github.com/antonyrobin/developer-guide" target="_blank" rel="noopener noreferrer">
                         View GitHub
                     </a>
                 </div>
