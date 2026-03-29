@@ -14,12 +14,435 @@ export const remainingCourses = [
     id: 'sql', title: 'SQL Database', description: 'Relational database management with structured queries.',
     officialDocs: 'https://www.postgresql.org/docs/', tutorialLink: 'https://www.w3schools.com/sql/', exerciseLink: 'https://www.w3schools.com/sql/sql_exercises.asp',
     sections: [
-      { title: 'What is SQL', content: `SQL (Structured Query Language) is the standard language for managing and manipulating relational databases. Relational databases store data in structured tables with rows (records) and columns (fields), linked by relationships (foreign keys).\n\nSQL is declarative — you specify what data you want, not how to get it. The database engine optimizes the execution plan. Major relational databases include PostgreSQL (most feature-rich open source), MySQL/MariaDB (most popular), SQL Server (Microsoft), Oracle, and SQLite (embedded/local).\n\nSQL is divided into sublanguages: DDL (Data Definition Language — CREATE, ALTER, DROP for schema), DML (Data Manipulation Language — SELECT, INSERT, UPDATE, DELETE for data), DCL (Data Control Language — GRANT, REVOKE for permissions), and TCL (Transaction Control — COMMIT, ROLLBACK).`, keyPoints: ['SQL is declarative — specify what, not how.', 'Tables store data in rows and columns.', 'PostgreSQL is the most feature-rich open source RDBMS.', 'DDL for schema, DML for data, DCL for permissions.'] },
-      { title: 'Tables, Schema & Data Types', content: `A table is the fundamental storage unit in SQL. Each table has columns (with specific data types) and rows (each row is a record). The schema is the overall design — all tables, relationships, constraints, and indexes.\n\nCommon data types: INTEGER/BIGINT (whole numbers), DECIMAL/NUMERIC (exact precision), VARCHAR(n) (variable-length string), TEXT (unlimited string), BOOLEAN, DATE, TIMESTAMP, UUID, JSON/JSONB (PostgreSQL).\n\nConstraints enforce data integrity: PRIMARY KEY (unique identifier), FOREIGN KEY (relationships between tables), NOT NULL (required field), UNIQUE (no duplicates), CHECK (custom validation), DEFAULT (fallback value).`, code: `-- Create tables with relationships\nCREATE TABLE users (\n    id SERIAL PRIMARY KEY,\n    name VARCHAR(100) NOT NULL,\n    email VARCHAR(255) UNIQUE NOT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE TABLE posts (\n    id SERIAL PRIMARY KEY,\n    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,\n    title VARCHAR(200) NOT NULL,\n    body TEXT,\n    published BOOLEAN DEFAULT false,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\n-- Add index for performance\nCREATE INDEX idx_posts_user ON posts(user_id);\n\n-- Modify table\nALTER TABLE users ADD COLUMN role VARCHAR(20) DEFAULT 'user';`, codeLabel: 'Table Creation', keyPoints: ['PRIMARY KEY uniquely identifies each row.', 'FOREIGN KEY creates relationships between tables.', 'Always add indexes on columns used in WHERE/JOIN.', 'ON DELETE CASCADE automatically removes related records.'] },
-      { title: 'CRUD Operations', content: `CRUD represents the four basic database operations: Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE). These form the foundation of all data manipulation.\n\nSELECT is the most complex and powerful operation. It supports filtering (WHERE), sorting (ORDER BY), limiting results (LIMIT/OFFSET for pagination), aggregation (COUNT, SUM, AVG, MIN, MAX), grouping (GROUP BY), and filtering groups (HAVING).\n\nAlways use parameterized queries (prepared statements) when incorporating user input to prevent SQL injection attacks.`, code: `-- INSERT\nINSERT INTO users (name, email) VALUES ('Alice', 'alice@mail.com');\nINSERT INTO users (name, email) VALUES\n  ('Bob', 'bob@mail.com'),\n  ('Carol', 'carol@mail.com');\n\n-- SELECT with filtering and sorting\nSELECT name, email FROM users\nWHERE created_at > '2026-01-01'\nORDER BY name ASC\nLIMIT 10 OFFSET 0;\n\n-- Aggregation\nSELECT role, COUNT(*) as user_count\nFROM users\nGROUP BY role\nHAVING COUNT(*) > 5;\n\n-- UPDATE\nUPDATE users SET role = 'admin' WHERE email = 'alice@mail.com';\n\n-- DELETE\nDELETE FROM posts WHERE published = false AND created_at < '2025-01-01';`, codeLabel: 'CRUD Operations', keyPoints: ['SELECT is the most powerful and complex operation.', 'WHERE filters rows, HAVING filters groups.', 'LIMIT/OFFSET for pagination.', 'Always use prepared statements to prevent SQL injection.'] },
-      { title: 'JOINs & Relationships', content: `JOINs combine rows from multiple tables based on related columns. They are fundamental to relational databases and enable complex queries across related data.\n\nINNER JOIN returns only rows that have matches in both tables. LEFT JOIN returns ALL rows from the left table and matching rows from the right (NULL if no match). RIGHT JOIN is the opposite. FULL OUTER JOIN returns all rows from both tables.\n\nSelf-joins join a table to itself (useful for hierarchical data like employees/managers). Cross joins produce a Cartesian product (every row combined with every other row).`, code: `-- INNER JOIN: Users with their posts\nSELECT u.name, p.title, p.created_at\nFROM users u\nINNER JOIN posts p ON u.id = p.user_id\nWHERE p.published = true\nORDER BY p.created_at DESC;\n\n-- LEFT JOIN: All users, even without posts\nSELECT u.name, COUNT(p.id) as post_count\nFROM users u\nLEFT JOIN posts p ON u.id = p.user_id\nGROUP BY u.name\nORDER BY post_count DESC;\n\n-- Multiple JOINs\nSELECT u.name, p.title, c.body as comment\nFROM users u\nJOIN posts p ON u.id = p.user_id\nJOIN comments c ON p.id = c.post_id\nWHERE u.role = 'admin';\n\n-- Subquery\nSELECT name FROM users\nWHERE id IN (SELECT user_id FROM posts GROUP BY user_id HAVING COUNT(*) > 5);`, codeLabel: 'JOIN Examples', keyPoints: ['INNER JOIN: only matching rows from both tables.', 'LEFT JOIN: all rows from left, matches from right.', 'Always use table aliases (u, p) for readability.', 'Prefer JOINs over subqueries for performance.'] },
-      { title: 'Indexes & Performance', content: `Indexes dramatically speed up queries by creating sorted lookup structures (typically B-trees) on specific columns. Without indexes, the database must scan every row in the table (full table scan).\n\nCreate indexes on columns frequently used in WHERE clauses, JOIN conditions, and ORDER BY. Primary keys and UNIQUE constraints automatically create indexes.\n\nHowever, indexes slow down writes (INSERT, UPDATE, DELETE) because the index must be updated. They also consume disk space. Don't index everything — only columns that significantly benefit read performance.\n\nThe EXPLAIN command shows the query execution plan — which indexes are used, estimated row counts, and scan types. Use EXPLAIN ANALYZE for actual execution statistics.`, code: `-- Create indexes\nCREATE INDEX idx_users_email ON users(email);\nCREATE INDEX idx_posts_created ON posts(created_at DESC);\n\n-- Composite index (for queries filtering on both columns)\nCREATE INDEX idx_posts_user_pub ON posts(user_id, published);\n\n-- Analyze query performance\nEXPLAIN ANALYZE\nSELECT * FROM posts WHERE user_id = 42 AND published = true;\n\n-- Output shows:\n-- Index Scan using idx_posts_user_pub on posts\n-- Execution Time: 0.045 ms (fast!)\n\n-- vs without index:\n-- Seq Scan on posts\n-- Execution Time: 125.3 ms (slow!)`, codeLabel: 'Index & Performance', keyPoints: ['Indexes speed up reads but slow down writes.', 'Index columns used in WHERE, JOIN, and ORDER BY.', 'EXPLAIN ANALYZE shows actual query performance.', 'Composite indexes optimize multi-column queries.'] },
-      { title: 'Database Design & Normalization', content: `Good database design prevents data redundancy, anomalies, and inconsistencies. Normalization is the process of organizing tables to minimize duplication.\n\n1NF (First Normal Form): Eliminate repeating groups — each cell contains a single value, not lists. 2NF: Remove partial dependencies — non-key columns must depend on the entire primary key. 3NF: Remove transitive dependencies — non-key columns must depend directly on the primary key, not on other non-key columns.\n\nIn practice, most applications target 3NF. Denormalization (intentionally adding redundancy) is sometimes done for read-heavy workloads where JOIN performance becomes a bottleneck.\n\nDesign principles: Use UUID or auto-incrementing integers for primary keys. Define foreign key constraints with appropriate ON DELETE behavior. Add created_at and updated_at timestamps to every table. Use migration tools to version schema changes.`, keyPoints: ['Normalization reduces data redundancy and anomalies.', 'Most apps should target 3NF (Third Normal Form).', 'Denormalize only when JOIN performance is a proven bottleneck.', 'Use migrations to version schema changes over time.'] }
+      {
+        title: 'What is SQL',
+        content: `SQL (Structured Query Language) is the standard language used to define, query, manipulate, and secure relational databases. Relational databases organize data into tables made of rows and columns, then connect those tables with keys and relationships so information can be queried reliably at scale.\n\nSQL is declarative. You describe what data you need, not how to fetch it step by step. The database engine decides the execution plan, chooses indexes, and optimizes the query under the hood. That is why the same SQL query can work across very large datasets without changing the logic in your application.\n\nSQL is commonly grouped into sublanguages: DDL for schema changes (CREATE, ALTER, DROP), DML for data operations (SELECT, INSERT, UPDATE, DELETE), DCL for permissions (GRANT, REVOKE), and TCL for transaction control (COMMIT, ROLLBACK). PostgreSQL, MySQL, SQL Server, Oracle, and SQLite all speak SQL, though each has dialect-specific features.\n\nTogether, tables, constraints, joins, indexing, set operators, and query-tuning techniques make SQL the backbone of most transactional systems such as e-commerce apps, payroll systems, ERP software, banking platforms, and analytics dashboards.`,
+        keyPoints: [
+          'SQL is declarative: specify what to retrieve, not the algorithm.',
+          'Relational databases store structured data in related tables.',
+          'DDL, DML, DCL, and TCL cover schema, data, security, and transactions.',
+          'SQL powers most production transactional systems and reporting layers.'
+        ]
+      },
+      {
+        title: 'Tables, Schema, Data Types & Constraints',
+        content: `A table is the core storage unit in a relational database. Each column has a defined type, and each row represents a record. The schema is the complete database design: tables, columns, relationships, defaults, constraints, and indexes.\n\nCommon data types include INTEGER/BIGINT for whole numbers, DECIMAL/NUMERIC for exact precision, VARCHAR and TEXT for strings, BOOLEAN for true or false values, DATE and TIMESTAMP for temporal data, UUID for identifiers, and JSON/JSONB for semi-structured data in engines like PostgreSQL.\n\nConstraints act like security guards at the database gate. NOT NULL prevents empty values. UNIQUE prevents duplicates. PRIMARY KEY uniquely identifies each row. FOREIGN KEY enforces relationships between parent and child tables. CHECK restricts allowed ranges or conditions. DEFAULT supplies fallback values automatically when values are omitted during insert.\n\nForeign keys also control delete behavior. ON DELETE CASCADE removes dependent child rows automatically. ON DELETE SET NULL preserves child rows but clears the relationship. ON DELETE RESTRICT blocks deletion if dependent records still exist. Identity or auto-increment columns generate unique numeric values automatically and are commonly used as primary keys.`,
+        code: `CREATE TABLE departments (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    dept_id INTEGER REFERENCES departments(id) ON DELETE SET NULL,
+    name VARCHAR(120) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    salary NUMERIC(10,2) CHECK (salary >= 0),
+    active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE employees
+ADD CONSTRAINT chk_email_format CHECK (position('@' in email) > 1);`,
+        codeLabel: 'Schema & Constraints',
+        image: '/images/sql/advanced-01.png',
+        keyPoints: [
+          'Constraints preserve data accuracy, consistency, and integrity.',
+          'PRIMARY KEY and UNIQUE typically create indexes automatically.',
+          'FOREIGN KEY relationships prevent orphaned records.',
+          'Use CHECK and DEFAULT to enforce business rules at the database layer.'
+        ]
+      },
+      {
+        title: 'CRUD Operations & Filtering',
+        content: `CRUD stands for Create, Read, Update, and Delete. These four operations drive nearly every application that persists relational data. INSERT adds new rows, SELECT reads them, UPDATE changes them, and DELETE removes them.\n\nSELECT is the richest part of SQL. It supports filtering with WHERE, sorting with ORDER BY, pagination with LIMIT and OFFSET, grouping with GROUP BY, aggregated calculations such as COUNT and SUM, and post-group filtering with HAVING. Understanding SELECT deeply is more important than memorizing syntax mechanically.\n\nFiltering should be as precise as possible. Apply restrictive predicates early, request only the columns you need, and avoid SELECT * in production queries unless you truly need every column. Pulling unused data increases network cost, memory use, and query time.\n\nWhen user input is involved, always use parameterized queries or prepared statements in the application layer. SQL injection remains one of the most common and dangerous database vulnerabilities, and string concatenation in queries is the usual cause.`,
+        code: `-- INSERT
+INSERT INTO employees (name, email, dept_id, salary)
+VALUES ('Alice', 'alice@mail.com', 1, 65000.00);
+
+-- READ with filtering, sorting, and paging
+SELECT name, email, salary
+FROM employees
+WHERE active = true AND salary >= 50000
+ORDER BY salary DESC
+LIMIT 10 OFFSET 0;
+
+-- GROUP BY + HAVING
+SELECT dept_id, COUNT(*) AS employee_count, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY dept_id
+HAVING COUNT(*) >= 2;
+
+-- UPDATE
+UPDATE employees
+SET salary = salary * 1.10
+WHERE dept_id = 1;
+
+-- DELETE
+DELETE FROM employees
+WHERE active = false AND created_at < '2025-01-01';`,
+        codeLabel: 'CRUD Operations',
+        keyPoints: [
+          'INSERT, SELECT, UPDATE, and DELETE form the foundation of SQL data work.',
+          'WHERE filters rows; HAVING filters grouped results.',
+          'Avoid SELECT * when only a subset of columns is needed.',
+          'Always parameterize user-driven SQL to prevent injection.'
+        ]
+      },
+      {
+        title: 'JOINs, Self Joins & Relationships',
+        content: `JOINs combine rows from multiple tables using related columns. They are the reason relational databases are so powerful: you can normalize data into separate tables and still query it together when needed.\n\nINNER JOIN returns only rows with matches in both tables. LEFT JOIN returns every row from the left table and matching rows from the right table, filling unmatched columns with NULL. RIGHT JOIN mirrors LEFT JOIN. FULL JOIN returns all rows from both sides, matched where possible. CROSS JOIN creates the Cartesian product of both tables and should be used only intentionally.\n\nA self join joins a table to itself by using aliases. This is useful for employee-manager relationships, category hierarchies, referrals, and dependency graphs. Recursive queries often build on this idea using recursive CTEs so you can walk parent-child trees level by level.\n\nJoin performance depends on good keys, matching data types, selective filtering, and correct indexes on join columns. In advanced systems, reading execution plans matters as much as writing the SQL itself.`,
+        code: `-- INNER JOIN
+SELECT e.name, d.name AS department
+FROM employees e
+INNER JOIN departments d ON d.id = e.dept_id;
+
+-- LEFT JOIN
+SELECT d.name, COUNT(e.id) AS employee_count
+FROM departments d
+LEFT JOIN employees e ON e.dept_id = d.id
+GROUP BY d.name
+ORDER BY employee_count DESC;
+
+-- SELF JOIN: employee -> manager
+SELECT e.name AS employee_name, m.name AS manager_name
+FROM employees e
+LEFT JOIN employees m ON m.id = e.manager_id;
+
+-- Recursive CTE pattern for hierarchies
+WITH RECURSIVE org_chart AS (
+    SELECT id, name, manager_id, 1 AS depth
+    FROM employees
+    WHERE manager_id IS NULL
+  UNION ALL
+    SELECT e.id, e.name, e.manager_id, oc.depth + 1
+    FROM employees e
+    JOIN org_chart oc ON e.manager_id = oc.id
+)
+SELECT * FROM org_chart;`,
+        codeLabel: 'JOIN Patterns',
+        image: '/images/sql/advanced-24.png',
+        keyPoints: [
+          'INNER JOIN returns matches only; LEFT JOIN preserves the left table.',
+          'Self joins compare rows within the same table using aliases.',
+          'Recursive CTEs are the standard pattern for hierarchical SQL data.',
+          'Index join columns and inspect execution plans for slow joins.'
+        ]
+      },
+      {
+        title: 'Set Operators',
+        content: `Set operators combine or compare the results of multiple SELECT statements. They are useful when datasets have compatible column structures and you need merging, overlap detection, or difference analysis without writing long procedural logic.\n\nUNION merges results and removes duplicates. UNION ALL merges results but keeps duplicates, making it faster because the engine does not need an extra deduplication step. INTERSECT returns only rows that appear in both result sets. EXCEPT returns rows from the first query that are absent from the second.\n\nAll participating SELECT statements must return the same number of columns in the same order, and the data types must be compatible. The final ORDER BY applies to the combined output, not the individual source queries unless subqueries are wrapped explicitly.\n\nIn practice, prefer UNION ALL unless you explicitly need duplicate elimination. Distinctness is expensive, and removing duplicates unnecessarily can become a hidden performance cost in reporting queries.`,
+        code: `-- UNION removes duplicates
+SELECT name, department FROM current_employees
+UNION
+SELECT name, department FROM former_employees;
+
+-- UNION ALL keeps duplicates and is faster
+SELECT name, department FROM current_employees
+UNION ALL
+SELECT name, department FROM former_employees;
+
+-- INTERSECT returns common rows
+SELECT email FROM newsletter_subscribers
+INTERSECT
+SELECT email FROM customers;
+
+-- EXCEPT returns rows only in the first result
+SELECT email FROM customers
+EXCEPT
+SELECT email FROM newsletter_subscribers;`,
+        codeLabel: 'Set Operators',
+        image: '/images/sql/advanced-20.png',
+        keyPoints: [
+          'UNION removes duplicates; UNION ALL keeps them and is usually faster.',
+          'INTERSECT finds overlap; EXCEPT finds differences.',
+          'All set-operation queries must return compatible column shapes.',
+          'Use UNION ALL by default when deduplication is not required.'
+        ]
+      },
+      {
+        title: 'Indexes & Performance Tuning',
+        content: `Indexes speed up reads by building fast lookup structures, usually B-trees, on specific columns. Without indexes, the database may perform full table scans that inspect every row. Proper indexing can turn a query from hundreds of milliseconds into fractions of a millisecond.\n\nPrimary keys and unique constraints often create indexes automatically, but secondary indexes are still needed for frequently filtered, joined, or sorted columns. Common choices include single-column indexes, unique indexes, composite indexes for multi-column predicates, clustered indexes in engines that support them, and multiple non-clustered indexes for different access paths.\n\nPerformance tuning goes beyond indexing. Avoid SELECT *, limit unnecessary retrieval, filter early in WHERE clauses, avoid wrapping indexed columns in functions when possible, and replace expensive correlated subqueries with joins or CTEs when the execution plan shows repeated work. EXISTS is often more efficient than IN for large subqueries because it can short-circuit on the first match.\n\nUse EXPLAIN or EXPLAIN ANALYZE to understand how the engine executes a query. Execution plans reveal scans, index usage, join strategies, sort costs, and row estimates. Tuning without reading the plan is mostly guesswork.`,
+        code: `-- Single-column index
+CREATE INDEX idx_employees_email ON employees(email);
+
+-- Composite index for common filters
+CREATE INDEX idx_employees_dept_active ON employees(dept_id, active);
+
+-- Bad: function prevents efficient index use
+SELECT *
+FROM employees
+WHERE YEAR(hire_date) = 2020;
+
+-- Better: sargable predicate
+SELECT *
+FROM employees
+WHERE hire_date >= '2020-01-01'
+  AND hire_date < '2021-01-01';
+
+-- EXISTS often beats IN on large subqueries
+SELECT *
+FROM orders o
+WHERE EXISTS (
+    SELECT 1
+    FROM customers c
+    WHERE c.customer_id = o.customer_id
+      AND c.country = 'USA'
+);
+
+EXPLAIN ANALYZE
+SELECT *
+FROM employees
+WHERE dept_id = 1 AND active = true;`,
+        codeLabel: 'Indexing & Tuning',
+        keyPoints: [
+          'Indexes speed up reads but add write overhead on inserts, updates, and deletes.',
+          'Index columns commonly used in WHERE, JOIN, and ORDER BY clauses.',
+          'Prefer sargable predicates over functions applied to indexed columns.',
+          'Read execution plans before and after tuning changes.'
+        ]
+      },
+      {
+        title: 'SQL Views',
+        content: `A view is a virtual table defined by a stored SELECT query. It does not usually store physical data; instead, the database executes the underlying query when the view is referenced. Views are useful for simplifying repeated joins, exposing a stable interface to applications, and restricting access to base tables.\n\nViews improve readability and maintainability because complex logic can be written once and reused everywhere. They also support abstraction: analysts or applications can query a clean, business-friendly object instead of dealing with raw schema complexity. Security teams often use views to expose only selected columns or filtered subsets of data.\n\nThe tradeoff is that views are not a free performance feature. Large or deeply nested views can become hard to reason about, and some engines have update limitations or require materialized views if you want persisted results. Use them to simplify access patterns, not to hide poor schema design.`,
+        code: `CREATE VIEW active_employee_details AS
+SELECT e.id,
+       e.name,
+       e.email,
+       d.name AS department
+FROM employees e
+JOIN departments d ON d.id = e.dept_id
+WHERE e.active = true;
+
+SELECT *
+FROM active_employee_details
+ORDER BY name;`,
+        codeLabel: 'SQL View',
+        image: '/images/sql/concepts-08.png',
+        keyPoints: [
+          'A view stores query logic, not usually the data itself.',
+          'Views simplify repeated complex SELECT statements.',
+          'Views can improve security by hiding base-table details.',
+          'Do not assume views automatically improve performance.'
+        ]
+      },
+      {
+        title: 'Triggers',
+        content: `A trigger is a special database object that runs automatically when a defined event occurs on a table or view. Typical trigger events are INSERT, UPDATE, and DELETE. Triggers are used for auditing, enforcing business rules, maintaining derived data, and blocking invalid state transitions.\n\nAFTER triggers run after the original data modification succeeds. INSTEAD OF triggers replace the underlying operation and are commonly used on views or when you need to intercept and rewrite behavior before data changes are applied.\n\nTriggers are powerful but easy to abuse. They add hidden execution paths, can slow down writes, and make debugging harder because extra SQL runs implicitly behind ordinary DML statements. Keep trigger logic short, deterministic, and well documented. If application-level code can handle a workflow more transparently, that is often preferable.`,
+        code: `CREATE TRIGGER trg_log_employee_insert
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO audit_log(table_name, action_name, record_id, created_at)
+    VALUES ('employees', 'INSERT', NEW.id, CURRENT_TIMESTAMP);
+END;
+
+-- SQL Server style concept
+-- CREATE TRIGGER trg_InsertEmployee ON Employee AFTER INSERT AS
+-- BEGIN
+--   PRINT 'Record Inserted Successfully';
+-- END;`,
+        codeLabel: 'Trigger Example',
+        image: '/images/sql/concepts-10.png',
+        keyPoints: [
+          'Triggers execute automatically on INSERT, UPDATE, or DELETE events.',
+          'AFTER triggers run post-change; INSTEAD OF triggers intercept the action.',
+          'Triggers help with auditing and business-rule enforcement.',
+          'Overusing triggers makes debugging and performance tuning harder.'
+        ]
+      },
+      {
+        title: 'SQL Functions',
+        content: `A SQL function encapsulates reusable logic inside the database and returns either a scalar value or a table result. Functions are useful for calculations, formatting, reusable business rules, and query composition.\n\nScalar functions return a single value. Table-valued functions return a result set and can often be joined like a regular table. Functions improve reuse and shorten repeated query logic, especially when the same transformation appears in many reports or stored routines.\n\nThe downside is performance. Complex user-defined functions can become bottlenecks, especially scalar functions called row by row in very large queries. Use them when they genuinely improve reuse or clarity, but validate with execution plans and runtime measurements instead of assuming they are free abstractions.`,
+        code: `CREATE FUNCTION add_bonus(@salary INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @result INT;
+    SET @result = @salary + 5000;
+    RETURN @result;
+END;
+
+SELECT name, dbo.add_bonus(salary) AS revised_salary
+FROM Employee;`,
+        codeLabel: 'SQL Function',
+        image: '/images/sql/concepts-09.png',
+        keyPoints: [
+          'Functions return either a scalar value or a table result.',
+          'Functions improve reuse for repeated calculations and transformations.',
+          'Large row-by-row scalar functions can hurt query performance.',
+          'Use functions for clarity, but verify cost in production workloads.'
+        ]
+      },
+      {
+        title: 'Stored Procedures',
+        content: `A stored procedure is a named collection of SQL statements stored in the database and executed on demand. Procedures are useful for multi-step workflows, controlled write operations, parameterized business logic, and reducing repeated network chatter between an application and the database.\n\nStored procedures can accept input parameters, return output values, execute conditional logic, open transactions, and coordinate multiple SQL statements as a single unit. Because the logic lives in the database, procedures can also help centralize access control and keep application code thinner.\n\nThey are not automatically better than application code. Overly large procedures can become difficult to test and version. The best use cases are write-heavy workflows, administrative routines, or well-defined operations that benefit from being close to the data.`,
+        code: `CREATE PROCEDURE GetEmployeeById
+    @EmpID INT
+AS
+BEGIN
+    SELECT EmployeeID, Name, Department, Salary
+    FROM Employee
+    WHERE EmployeeID = @EmpID;
+END;
+
+EXEC GetEmployeeById 1;`,
+        codeLabel: 'Stored Procedure',
+        image: '/images/sql/concepts-07.png',
+        keyPoints: [
+          'Stored procedures group reusable SQL statements behind a callable interface.',
+          'They support parameters, conditional logic, and transactions.',
+          'Procedures can improve security by restricting direct table access.',
+          'Keep procedures focused; huge procedural blobs become maintenance problems.'
+        ]
+      },
+      {
+        title: 'CTE (Common Table Expression)',
+        content: `A Common Table Expression, or CTE, is a temporary named result set defined with the WITH keyword and used within a single SQL statement. CTEs make complex queries more readable by breaking them into logical steps.\n\nCTEs are especially useful for layered transformations, reusable aggregates inside one query, recursive traversals, and replacing deeply nested subqueries with something easier to read and maintain. Recursive CTEs are the standard SQL technique for trees, org charts, threaded comments, and parent-child hierarchies.\n\nCTEs improve clarity, but they are not magic performance boosters. Depending on the engine and the optimizer, a CTE may be inlined or materialized. For large data volumes, test the execution plan and compare alternatives such as derived tables, temp tables, or indexed staging tables.`,
+        code: `WITH DepartmentSalary AS (
+    SELECT dept_id, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY dept_id
+)
+SELECT e.name, e.salary, ds.avg_salary
+FROM employees e
+JOIN DepartmentSalary ds ON ds.dept_id = e.dept_id
+WHERE e.salary > ds.avg_salary;
+
+-- Recursive CTE example pattern
+WITH RECURSIVE numbers AS (
+    SELECT 1 AS n
+  UNION ALL
+    SELECT n + 1 FROM numbers WHERE n < 5
+)
+SELECT * FROM numbers;`,
+        codeLabel: 'CTE Example',
+        image: '/images/sql/concepts-06.png',
+        keyPoints: [
+          'CTEs make complex SQL easier to read and maintain.',
+          'Use recursive CTEs for hierarchical or iterative query patterns.',
+          'CTEs exist only for the duration of a single statement.',
+          'Always compare execution plans for large or performance-critical CTEs.'
+        ]
+      },
+      {
+        title: 'Dynamic SQL',
+        content: `Dynamic SQL builds a query string at runtime and then executes it. This is useful when filters, table names, sort clauses, or optional predicates are not known until execution time. Administrative tooling, generic reporting systems, and metadata-driven database utilities often rely on dynamic SQL.\n\nThe major risk is SQL injection. If dynamic SQL is built by concatenating raw user input, attackers can inject arbitrary commands. The safe pattern is to parameterize values, validate object names against allowlists, and use engine-specific safe execution helpers such as sp_executesql in SQL Server.\n\nDynamic SQL is powerful when flexibility is required, but it should be the exception rather than the default. If a static parameterized query can solve the problem, it is usually easier to secure, debug, and optimize.`,
+        code: `DECLARE @sql NVARCHAR(MAX);
+DECLARE @dept NVARCHAR(50);
+
+SET @dept = 'HR';
+SET @sql = N'SELECT EmployeeID, Name, Department
+             FROM Employee
+             WHERE Department = @Department';
+
+EXEC sp_executesql
+    @sql,
+    N'@Department NVARCHAR(50)',
+    @Department = @dept;`,
+        codeLabel: 'Dynamic SQL',
+        image: '/images/sql/concepts-01.png',
+        keyPoints: [
+          'Dynamic SQL constructs statements at runtime for flexible querying.',
+          'Use parameterization and validation to prevent SQL injection.',
+          'Prefer static SQL when the query shape is already known.',
+          'sp_executesql is safer than raw string execution in SQL Server.'
+        ]
+      },
+      {
+        title: 'ROW_NUMBER()',
+        content: `ROW_NUMBER() is a window function that assigns a unique sequential number to each row in a result set according to an ORDER BY inside the OVER clause. It is commonly used for pagination, top-N queries, deduplication, and deterministic row labeling.\n\nBecause ROW_NUMBER() always assigns unique numbers, tied values still receive different positions. If two employees have the same salary, one still gets row 1 and the other row 2 depending on the ordering rules. That makes ROW_NUMBER() ideal when you need a strict sequence rather than shared ranks.\n\nWindow functions do not collapse rows the way GROUP BY does. They let you calculate values across a logical window while preserving every original row in the result. That distinction is central to advanced analytical SQL.`,
+        code: `SELECT
+    ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num,
+    name,
+    salary
+FROM Employee;
+
+-- Pagination pattern
+WITH OrderedEmployees AS (
+    SELECT
+        ROW_NUMBER() OVER (ORDER BY EmployeeID) AS rn,
+        EmployeeID,
+        Name
+    FROM Employee
+)
+SELECT *
+FROM OrderedEmployees
+WHERE rn BETWEEN 11 AND 20;`,
+        codeLabel: 'ROW_NUMBER()',
+        image: '/images/sql/concepts-02.png',
+        keyPoints: [
+          'ROW_NUMBER() assigns a unique sequence based on the ORDER BY clause.',
+          'Useful for pagination, top-N queries, and deduplication patterns.',
+          'Tied values still get different row numbers.',
+          'Window functions preserve row detail instead of grouping rows away.'
+        ]
+      },
+      {
+        title: 'RANK() & PARTITION BY',
+        content: `RANK() is a window function that assigns rank positions based on an ordering expression. Unlike ROW_NUMBER(), ties receive the same rank, and later ranks are skipped. If two rows tie for first place, the next row receives rank 3.\n\nPARTITION BY divides the result set into logical groups and then applies the window function independently within each partition. This is how you build group-wise rankings, department leaderboards, per-category top sellers, or rolling metrics partitioned by customer, region, or month.\n\nTogether, RANK() and PARTITION BY are core analytical SQL tools. They are widely used in reporting, dashboards, leaderboard features, and data engineering pipelines where you need local rankings inside each business segment rather than across the whole table.`,
+        code: `SELECT
+    department,
+    name,
+    salary,
+    RANK() OVER (ORDER BY salary DESC) AS overall_rank,
+    ROW_NUMBER() OVER (
+        PARTITION BY department
+        ORDER BY salary DESC
+    ) AS dept_row_num
+FROM Employee;
+
+-- Top paid employee in each department
+WITH ranked AS (
+    SELECT
+        department,
+        name,
+        salary,
+        ROW_NUMBER() OVER (
+            PARTITION BY department
+            ORDER BY salary DESC
+        ) AS rn
+    FROM Employee
+)
+SELECT *
+FROM ranked
+WHERE rn = 1;`,
+        codeLabel: 'RANK() & PARTITION BY',
+        image: '/images/sql/concepts-03.png',
+        keyPoints: [
+          'RANK() gives the same rank to ties and skips later rank numbers.',
+          'PARTITION BY restarts the window function inside each logical group.',
+          'Use these together for department-level or category-level rankings.',
+          'They are foundational for analytical and reporting SQL.'
+        ]
+      },
+      {
+        title: 'Normalization & Denormalization',
+        content: `Normalization organizes relational data to reduce redundancy and prevent insert, update, and delete anomalies. Each normal form introduces stricter rules for dependency management and schema decomposition. In practice, most application databases aim for 3NF, with BCNF or higher reserved for more specialized designs.\n\n1NF requires atomic values and no repeating groups. 2NF removes partial dependencies so non-key attributes depend on the whole key. 3NF removes transitive dependencies so non-key attributes do not depend on other non-key attributes. BCNF strengthens the rule further so every determinant is a superkey. 4NF removes multi-valued dependencies, and 5NF removes problematic join dependencies.\n\nDenormalization intentionally adds redundancy to speed up reads and simplify expensive joins. Common patterns include merged tables, duplicated lookup values, precomputed totals, flattened reporting tables, JSON columns for nested read models, and summary tables for aggregates.\n\nThe tradeoff is clear: normalization improves consistency and integrity, while denormalization improves read performance. Design should follow workload reality, not theory alone. Start normalized, measure the bottlenecks, then denormalize carefully where proven beneficial.`,
+        code: `-- Example of a summary table used for denormalized reporting
+CREATE TABLE daily_sales_summary (
+    sales_date DATE PRIMARY KEY,
+    total_sales NUMERIC(12,2) NOT NULL,
+    total_orders INTEGER NOT NULL
+);
+
+-- Refresh summary from normalized transactional data
+INSERT INTO daily_sales_summary (sales_date, total_sales, total_orders)
+SELECT
+    order_date::date,
+    SUM(amount) AS total_sales,
+    COUNT(*) AS total_orders
+FROM orders
+GROUP BY order_date::date;`,
+        codeLabel: 'Normalization vs Denormalization',
+        image: '/images/sql/advanced-12.png',
+        keyPoints: [
+          '1NF through 5NF progressively reduce redundancy and anomalies.',
+          'Most application schemas target 3NF unless special needs justify more.',
+          'Denormalization improves read speed by introducing controlled redundancy.',
+          'Normalize first, then denormalize only for measured performance reasons.'
+        ]
+      }
     ]
   },
   {
