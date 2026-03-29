@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#0f172a"/>
+  <text x="70" y="88" fill="#fff" font-size="40" font-family="Segoe UI, Arial" font-weight="700">Azure DevOps Branching Strategy</text>
+  <text x="70" y="124" fill="#cbd5e1" font-size="22" font-family="Segoe UI, Arial">Feature branches feed development, releases stabilize, hotfixes protect production</text>
+
+  <g stroke-width="10" fill="none" stroke-linecap="round">
+    <path d="M120 520 H1080" stroke="#22c55e"/>
+    <path d="M200 410 H930" stroke="#38bdf8"/>
+    <path d="M360 300 H800" stroke="#f59e0b"/>
+    <path d="M320 230 C380 230, 400 410, 470 410" stroke="#a78bfa"/>
+    <path d="M470 230 C530 230, 550 410, 620 410" stroke="#a78bfa"/>
+    <path d="M620 230 C680 230, 700 410, 770 410" stroke="#a78bfa"/>
+    <path d="M850 520 C880 520, 900 410, 930 410" stroke="#fb7185"/>
+  </g>
+
+  <g font-family="Segoe UI, Arial" font-weight="700" fill="#fff">
+    <text x="120" y="550" font-size="28">main</text>
+    <text x="200" y="440" font-size="28">development</text>
+    <text x="360" y="270" font-size="24">feature/login</text>
+    <text x="510" y="270" font-size="24">feature/api</text>
+    <text x="660" y="270" font-size="24">feature/ui</text>
+    <text x="905" y="555" font-size="24">hotfix</text>
+    <text x="880" y="380" font-size="24">release/1.0</text>
+  </g>
+
+  <g fill="#e2e8f0" font-family="Segoe UI, Arial" font-size="20">
+    <text x="120" y="600">Protected production branch</text>
+    <text x="200" y="470">Integration branch for approved work</text>
+    <text x="340" y="200">Small isolated PRs</text>
+    <text x="860" y="600">Emergency production fix</text>
+    <text x="835" y="410">Final QA before release</text>
+  </g>
+
+  <g fill="#e5f0ff">
+    <circle cx="220" cy="520" r="12"/><circle cx="480" cy="520" r="12"/><circle cx="760" cy="520" r="12"/><circle cx="980" cy="520" r="12"/>
+    <circle cx="260" cy="410" r="12"/><circle cx="520" cy="410" r="12"/><circle cx="780" cy="410" r="12"/><circle cx="930" cy="410" r="12"/>
+    <circle cx="360" cy="300" r="12"/><circle cx="510" cy="300" r="12"/><circle cx="660" cy="300" r="12"/>
+  </g>
+
+  <rect x="70" y="620" width="1060" height="54" rx="16" fill="#111c33" stroke="#334155"/>
+  <text x="100" y="655" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">Rule of thumb: never push directly to main, keep features short-lived, and merge through PRs with status checks.</text>
+</svg>

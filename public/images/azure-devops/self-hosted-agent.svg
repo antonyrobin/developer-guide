@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#101828"/>
+  <text x="70" y="88" fill="#fff" font-size="40" font-family="Segoe UI, Arial" font-weight="700">Self-hosted Agent Topology</text>
+  <text x="70" y="124" fill="#cbd5e1" font-size="22" font-family="Segoe UI, Arial">Run pipelines on your own machine when you need private network access or custom tools</text>
+
+  <rect x="90" y="210" width="280" height="250" rx="26" fill="#173d72"/>
+  <text x="230" y="265" text-anchor="middle" fill="#fff" font-size="30" font-family="Segoe UI, Arial" font-weight="700">Azure DevOps</text>
+  <text x="230" y="308" text-anchor="middle" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">Organization</text>
+  <text x="230" y="340" text-anchor="middle" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">Agent Pool</text>
+  <text x="230" y="372" text-anchor="middle" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">Pipeline Queue</text>
+
+  <rect x="470" y="170" width="280" height="330" rx="26" fill="#1e293b" stroke="#60a5fa" stroke-width="3"/>
+  <text x="610" y="225" text-anchor="middle" fill="#fff" font-size="30" font-family="Segoe UI, Arial" font-weight="700">Local Machine</text>
+  <text x="610" y="272" text-anchor="middle" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">config.cmd / config.sh</text>
+  <text x="610" y="306" text-anchor="middle" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">PAT authentication</text>
+  <text x="610" y="340" text-anchor="middle" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">Agent service online</text>
+  <text x="610" y="374" text-anchor="middle" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">Tooling: SDKs, CLI, VPN</text>
+  <text x="610" y="408" text-anchor="middle" fill="#dbeafe" font-size="20" font-family="Segoe UI, Arial">Capabilities / demands</text>
+
+  <rect x="850" y="210" width="260" height="250" rx="26" fill="#164e63"/>
+  <text x="980" y="265" text-anchor="middle" fill="#fff" font-size="30" font-family="Segoe UI, Arial" font-weight="700">Target Access</text>
+  <text x="980" y="308" text-anchor="middle" fill="#ccfbf1" font-size="20" font-family="Segoe UI, Arial">Private network</text>
+  <text x="980" y="340" text-anchor="middle" fill="#ccfbf1" font-size="20" font-family="Segoe UI, Arial">Internal package feeds</text>
+  <text x="980" y="372" text-anchor="middle" fill="#ccfbf1" font-size="20" font-family="Segoe UI, Arial">On-prem systems</text>
+
+  <g stroke="#8bd3ff" stroke-width="8" fill="none" stroke-linecap="round">
+    <path d="M370 335 H470"/>
+    <path d="M750 335 H850"/>
+  </g>
+  <g fill="#8bd3ff">
+    <polygon points="470,335 450,323 450,347"/>
+    <polygon points="850,335 830,323 830,347"/>
+  </g>
+
+  <rect x="100" y="555" width="1000" height="95" rx="20" fill="#f8fafc"/>
+  <text x="130" y="605" fill="#0f172a" font-size="22" font-family="Segoe UI, Arial">Use self-hosted agents when hosted agents cannot reach the environment or when the build depends on installed local software.</text>
+</svg>

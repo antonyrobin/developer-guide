@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#0b1220"/>
+  <text x="70" y="88" fill="#fff" font-size="40" font-family="Segoe UI, Arial" font-weight="700">Variable Precedence in Azure Pipelines</text>
+  <text x="70" y="124" fill="#bfdbfe" font-size="22" font-family="Segoe UI, Arial">When the same variable name appears in multiple places, higher scope wins</text>
+
+  <g font-family="Segoe UI, Arial" text-anchor="middle">
+    <polygon points="600,180 980,620 220,620" fill="#13233d" stroke="#4d85c5" stroke-width="4"/>
+    <rect x="470" y="210" width="260" height="72" rx="20" fill="#ef4444"/>
+    <text x="600" y="255" fill="#fff" font-size="28" font-weight="700">Queue-time</text>
+    <text x="600" y="280" fill="#fee2e2" font-size="16">Highest priority</text>
+
+    <rect x="405" y="320" width="390" height="80" rx="20" fill="#f97316"/>
+    <text x="600" y="366" fill="#fff" font-size="28" font-weight="700">Job-level YAML</text>
+    <text x="600" y="392" fill="#ffedd5" font-size="16">Overrides stage and root</text>
+
+    <rect x="345" y="430" width="510" height="80" rx="20" fill="#22c55e"/>
+    <text x="600" y="476" fill="#fff" font-size="28" font-weight="700">Stage-level and root YAML / UI vars</text>
+    <text x="600" y="502" fill="#dcfce7" font-size="16">Scoped overrides inside the pipeline</text>
+
+    <rect x="280" y="540" width="640" height="80" rx="20" fill="#2563eb"/>
+    <text x="600" y="586" fill="#fff" font-size="28" font-weight="700">Variable groups</text>
+    <text x="600" y="612" fill="#dbeafe" font-size="16">Shared config and secrets, but lowest precedence</text>
+  </g>
+
+  <text x="70" y="680" fill="#cbd5e1" font-size="20" font-family="Segoe UI, Arial">Tip: store shared secrets in variable groups, then override environment-specific values in YAML only when needed.</text>
+</svg>
