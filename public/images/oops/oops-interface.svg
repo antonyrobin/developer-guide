@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="gi1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1565C0;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0D47A1;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="gi2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#43A047;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#2E7D32;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="gi3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F4511E;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#D84315;stop-opacity:1"/>
+    </linearGradient>
+    <marker id="ai" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  </defs>
+  <rect width="600" height="300" rx="12" fill="#f8f9fa"/>
+  <text x="300" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">Interface — Contract Pattern</text>
+  <!-- Interface box -->
+  <rect x="190" y="48" width="220" height="65" rx="10" fill="url(#gi1)"/>
+  <text x="300" y="70" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">«interface» Printable</text>
+  <text x="300" y="90" text-anchor="middle" fill="#BBDEFB" font-size="12">+ print(): void</text>
+  <text x="300" y="104" text-anchor="middle" fill="#BBDEFB" font-size="12">+ format(): String</text>
+  <!-- Arrows -->
+  <line x1="200" y1="113" x2="120" y2="153" stroke="#555" stroke-width="2" stroke-dasharray="6,3"/>
+  <polygon points="120,153 128,147 130,155" fill="#555"/>
+  <line x1="300" y1="113" x2="300" y2="153" stroke="#555" stroke-width="2" stroke-dasharray="6,3"/>
+  <polygon points="300,153 294,143 306,143" fill="#555"/>
+  <line x1="400" y1="113" x2="480" y2="153" stroke="#555" stroke-width="2" stroke-dasharray="6,3"/>
+  <polygon points="480,153 472,147 470,155" fill="#555"/>
+  <!-- Implementations -->
+  <rect x="30" y="155" width="180" height="65" rx="10" fill="url(#gi2)"/>
+  <text x="120" y="180" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Document</text>
+  <text x="120" y="200" text-anchor="middle" fill="#C8E6C9" font-size="11">print() { ... }</text>
+  <rect x="210" y="155" width="180" height="65" rx="10" fill="url(#gi3)"/>
+  <text x="300" y="180" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Invoice</text>
+  <text x="300" y="200" text-anchor="middle" fill="#FFCCBC" font-size="11">print() { ... }</text>
+  <rect x="390" y="155" width="180" height="65" rx="10" fill="#7B1FA2"/>
+  <text x="480" y="180" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Report</text>
+  <text x="480" y="200" text-anchor="middle" fill="#E1BEE7" font-size="11">print() { ... }</text>
+  <!-- Key points -->
+  <rect x="50" y="240" width="500" height="45" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+  <text x="300" y="258" text-anchor="middle" fill="#0D47A1" font-size="12" font-weight="bold">All methods are public &amp; abstract by default</text>
+  <text x="300" y="275" text-anchor="middle" fill="#1565C0" font-size="11">Supports multiple inheritance • Uses "implements" keyword</text>
+</svg>

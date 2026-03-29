@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="gp1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#9C27B0;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#7B1FA2;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="gp2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E91E63;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#C2185B;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="gp3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0097A7;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="gp4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF5722;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#E64A19;stop-opacity:1"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  </defs>
+  <rect width="600" height="300" rx="12" fill="#f8f9fa"/>
+  <text x="300" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">Polymorphism — "Many Forms"</text>
+  <!-- Central method -->
+  <rect x="210" y="50" width="180" height="50" rx="10" fill="url(#gp1)"/>
+  <text x="300" y="72" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">shape.area()</text>
+  <text x="300" y="90" text-anchor="middle" fill="#e1bee7" font-size="11">Same method call</text>
+  <!-- Arrows -->
+  <path d="M230 100 L130 138" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M300 100 L300 138" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M370 100 L470 138" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- Circle -->
+  <rect x="50" y="140" width="160" height="70" rx="10" fill="url(#gp2)"/>
+  <text x="130" y="167" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Circle</text>
+  <text x="130" y="187" text-anchor="middle" fill="#fce4ec" font-size="12">π × r² = 78.54</text>
+  <!-- Rectangle -->
+  <rect x="220" y="140" width="160" height="70" rx="10" fill="url(#gp3)"/>
+  <text x="300" y="167" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Rectangle</text>
+  <text x="300" y="187" text-anchor="middle" fill="#e0f7fa" font-size="12">w × h = 24</text>
+  <!-- Triangle -->
+  <rect x="390" y="140" width="160" height="70" rx="10" fill="url(#gp4)"/>
+  <text x="470" y="167" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Triangle</text>
+  <text x="470" y="187" text-anchor="middle" fill="#fbe9e7" font-size="12">½ × b × h = 15</text>
+  <!-- Types -->
+  <rect x="50" y="232" width="240" height="50" rx="8" fill="#E8EAF6" stroke="#5C6BC0" stroke-width="1.5"/>
+  <text x="170" y="253" text-anchor="middle" fill="#283593" font-size="13" font-weight="bold">Compile-Time (Overloading)</text>
+  <text x="170" y="270" text-anchor="middle" fill="#5C6BC0" font-size="11">Same name, different params</text>
+  <rect x="310" y="232" width="240" height="50" rx="8" fill="#FFF3E0" stroke="#FF9800" stroke-width="1.5"/>
+  <text x="430" y="253" text-anchor="middle" fill="#E65100" font-size="13" font-weight="bold">Run-Time (Overriding)</text>
+  <text x="430" y="270" text-anchor="middle" fill="#FF9800" font-size="11">Same name, different class</text>
+</svg>
