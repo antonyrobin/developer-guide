@@ -1,0 +1,25 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#F5F7F4"/>
+  <text x="78" y="100" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Code Review, Coverage, and PR Checklist Automation</text>
+  <text x="78" y="138" fill="#4E6A50" font-size="20" font-family="Segoe UI, Arial, sans-serif">Actions can reject weak pull requests before reviewers spend time on them.</text>
+
+  <rect x="100" y="236" width="280" height="300" rx="26" fill="#E8F1FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="156" y="292" fill="#184A95" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Review checks</text>
+  <text x="132" y="350" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Lint and unit tests</text>
+  <text x="132" y="386" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Required reviewers</text>
+  <text x="132" y="422" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Comment / label automation</text>
+
+  <rect x="460" y="236" width="280" height="300" rx="26" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="514" y="292" fill="#11643B" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Coverage gates</text>
+  <text x="494" y="350" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Upload report artifact</text>
+  <text x="494" y="386" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Fail below threshold</text>
+  <text x="494" y="422" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Post summary in PR</text>
+
+  <rect x="820" y="236" width="280" height="300" rx="26" fill="#FFF3D9" stroke="#DDAE4B" stroke-width="2"/>
+  <text x="866" y="292" fill="#8A5B07" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">PR checklist</text>
+  <text x="854" y="350" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Template completed</text>
+  <text x="854" y="386" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Linked issue present</text>
+  <text x="854" y="422" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Screenshots / notes included</text>
+
+  <text x="106" y="612" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Best use of Actions in review: automate objective checks so human reviewers can focus on correctness, design, and risk.</text>
+</svg>

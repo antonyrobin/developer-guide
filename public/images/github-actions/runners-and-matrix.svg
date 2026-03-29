@@ -1,0 +1,26 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#F5F7F4"/>
+  <text x="74" y="100" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Runners, Matrix Builds, and Self-Hosted Options</text>
+  <text x="74" y="138" fill="#4E6A50" font-size="20" font-family="Segoe UI, Arial, sans-serif">Choose the runner type first, then decide whether jobs should fan out across OS and versions.</text>
+
+  <rect x="90" y="220" width="300" height="290" rx="26" fill="#E8F1FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="134" y="276" fill="#184A95" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">GitHub-hosted</text>
+  <text x="122" y="338" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">ubuntu-latest</text>
+  <text x="122" y="374" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">windows-latest</text>
+  <text x="122" y="410" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">macos-latest</text>
+  <text x="122" y="446" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Fast to start, no maintenance</text>
+
+  <rect x="450" y="220" width="300" height="290" rx="26" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="496" y="276" fill="#11643B" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Matrix Strategy</text>
+  <text x="486" y="338" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Node 18 / 20 / 22</text>
+  <text x="486" y="374" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Linux + Windows</text>
+  <text x="486" y="410" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Find cross-platform problems early</text>
+
+  <rect x="810" y="220" width="300" height="290" rx="26" fill="#FFF3D9" stroke="#DDAE4B" stroke-width="2"/>
+  <text x="848" y="276" fill="#8A5B07" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Self-hosted Runner</text>
+  <text x="846" y="338" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Private network access</text>
+  <text x="846" y="374" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Custom tools and licenses</text>
+  <text x="846" y="410" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">More control, more maintenance</text>
+
+  <text x="108" y="606" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Default advice: start with GitHub-hosted runners; add matrix builds for compatibility; use self-hosted only for clear infrastructure or tooling constraints.</text>
+</svg>

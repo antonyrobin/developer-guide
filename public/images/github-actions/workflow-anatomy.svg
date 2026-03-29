@@ -1,0 +1,35 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" fill="#F4F6F3"/>
+  <rect x="56" y="52" width="1088" height="656" rx="30" fill="#FBFCFA" stroke="#C9D3C1" stroke-width="2"/>
+  <text x="88" y="114" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">GitHub Actions Workflow Anatomy</text>
+  <text x="88" y="152" fill="#4E6A50" font-size="20" font-family="Segoe UI, Arial, sans-serif">A workflow file is built from events, jobs, steps, and reusable actions.</text>
+
+  <rect x="92" y="222" width="220" height="136" rx="22" fill="#E8F1FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="154" y="280" fill="#184A95" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">on:</text>
+  <text x="124" y="320" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">push, pull_request,</text>
+  <text x="124" y="350" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">workflow_dispatch</text>
+
+  <rect x="366" y="222" width="220" height="136" rx="22" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="428" y="280" fill="#11643B" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">jobs:</text>
+  <text x="400" y="320" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">build, test, deploy</text>
+  <text x="408" y="350" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">run in parallel or order</text>
+
+  <rect x="640" y="222" width="220" height="136" rx="22" fill="#FFF3D9" stroke="#DDAE4B" stroke-width="2"/>
+  <text x="700" y="280" fill="#8A5B07" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">steps:</text>
+  <text x="674" y="320" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">checkout, setup,</text>
+  <text x="696" y="350" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">build, test, publish</text>
+
+  <rect x="914" y="222" width="220" height="136" rx="22" fill="#F4EDFF" stroke="#A78BFA" stroke-width="2"/>
+  <text x="948" y="280" fill="#5B34B4" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">uses / run</text>
+  <text x="944" y="320" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Marketplace actions</text>
+  <text x="974" y="350" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">or shell commands</text>
+
+  <path d="M312 290H366" stroke="#6C97DA" stroke-width="5" stroke-linecap="round"/>
+  <path d="M586 290H640" stroke="#70C58F" stroke-width="5" stroke-linecap="round"/>
+  <path d="M860 290H914" stroke="#C59C38" stroke-width="5" stroke-linecap="round"/>
+
+  <rect x="160" y="452" width="880" height="176" rx="28" fill="#F7FAF6" stroke="#D9E2D2" stroke-width="2"/>
+  <text x="194" y="510" fill="#1F2937" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Mental model</text>
+  <text x="194" y="554" fill="#2B313B" font-size="23" font-family="Segoe UI, Arial, sans-serif">Event starts workflow → workflow schedules jobs → jobs run steps → steps execute actions and scripts → outputs can gate later jobs.</text>
+  <text x="194" y="596" fill="#2B313B" font-size="23" font-family="Segoe UI, Arial, sans-serif">Most debugging becomes easier once you know which level failed: trigger, job, step, action, or script.</text>
+</svg>

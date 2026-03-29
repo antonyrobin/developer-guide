@@ -1,0 +1,27 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="#F5F7F4"/>
+  <text x="72" y="98" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Trigger Events and PR Checks</text>
+  <text x="72" y="136" fill="#4E6A50" font-size="20" font-family="Segoe UI, Arial, sans-serif">Different events start different workflows, but pull requests are the most important quality gate.</text>
+
+  <rect x="86" y="228" width="180" height="112" rx="22" fill="#E8F1FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="140" y="294" fill="#184A95" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">push</text>
+
+  <rect x="314" y="228" width="210" height="112" rx="22" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="346" y="294" fill="#11643B" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">pull_request</text>
+
+  <rect x="572" y="228" width="250" height="112" rx="22" fill="#FFF3D9" stroke="#DDAE4B" stroke-width="2"/>
+  <text x="604" y="294" fill="#8A5B07" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">workflow_dispatch</text>
+
+  <rect x="870" y="228" width="224" height="112" rx="22" fill="#F4EDFF" stroke="#A78BFA" stroke-width="2"/>
+  <text x="920" y="294" fill="#5B34B4" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">schedule</text>
+
+  <path d="M419 340V438" stroke="#7BB48C" stroke-width="5" stroke-linecap="round"/>
+  <path d="M419 438H770" stroke="#7BB48C" stroke-width="5" stroke-linecap="round"/>
+  <path d="M770 438V482" stroke="#7BB48C" stroke-width="5" stroke-linecap="round"/>
+
+  <rect x="570" y="482" width="400" height="134" rx="24" fill="#FBFCFA" stroke="#CBD6C5" stroke-width="2"/>
+  <text x="618" y="540" fill="#1F2937" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">PR quality workflow</text>
+  <text x="614" y="578" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">lint + test + coverage + security + review rules</text>
+
+  <text x="88" y="592" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Typical rule: run fast validation on pull requests, broader deployment flows on main branch or manual dispatch.</text>
+</svg>
