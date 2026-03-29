@@ -1,0 +1,33 @@
+<svg width="1200" height="680" viewBox="0 0 1200 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="680" fill="#F7F4EF"/>
+  <text x="72" y="98" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">AWS Serverless Delivery Flow</text>
+  <text x="72" y="136" fill="#7C5A2C" font-size="20" font-family="Segoe UI, Arial, sans-serif">One common path from user request to durable storage and observability.</text>
+
+  <rect x="74" y="236" width="170" height="120" rx="24" fill="#FFF1D6" stroke="#E6B567" stroke-width="2"/>
+  <text x="128" y="305" fill="#8A4B08" font-size="26" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Route 53</text>
+
+  <rect x="300" y="236" width="170" height="120" rx="24" fill="#E6F0FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="346" y="305" fill="#184A95" font-size="26" font-family="Segoe UI, Arial, sans-serif" font-weight="700">API Gateway</text>
+
+  <rect x="526" y="236" width="170" height="120" rx="24" fill="#FCE8D8" stroke="#E39A54" stroke-width="2"/>
+  <text x="579" y="305" fill="#A8540A" font-size="26" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Lambda</text>
+
+  <rect x="752" y="170" width="170" height="120" rx="24" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="803" y="239" fill="#11643B" font-size="26" font-family="Segoe UI, Arial, sans-serif" font-weight="700">DynamoDB</text>
+
+  <rect x="752" y="382" width="170" height="120" rx="24" fill="#FFF3BF" stroke="#D5A900" stroke-width="2"/>
+  <text x="825" y="451" fill="#8A6A00" font-size="26" font-family="Segoe UI, Arial, sans-serif" font-weight="700">S3</text>
+
+  <rect x="978" y="236" width="150" height="120" rx="24" fill="#F3EDFF" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1004" y="305" fill="#5B34B4" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700">CloudWatch</text>
+
+  <path d="M244 296H300" stroke="#C38D45" stroke-width="5" stroke-linecap="round"/>
+  <path d="M470 296H526" stroke="#7CA7F0" stroke-width="5" stroke-linecap="round"/>
+  <path d="M696 296H752" stroke="#D88635" stroke-width="5" stroke-linecap="round"/>
+  <path d="M696 296H734V442H752" stroke="#D88635" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M922 230H950V296H978" stroke="#7E6AE6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M922 442H950V296H978" stroke="#7E6AE6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="84" y="546" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Pattern: DNS → API → function compute → database or object store → logs and alarms.</text>
+  <text x="84" y="584" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">This is a strong beginner architecture because it is small, event-driven, and easy to evolve.</text>
+</svg>

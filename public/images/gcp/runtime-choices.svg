@@ -1,0 +1,25 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="#F4F8F7"/>
+  <text x="72" y="96" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">GCP Runtime Choices</text>
+  <text x="72" y="134" fill="#3D6B61" font-size="20" font-family="Segoe UI, Arial, sans-serif">Choose the smallest operational model that still fits the workload.</text>
+
+  <rect x="96" y="210" width="300" height="340" rx="28" fill="#E7F0FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="158" y="264" fill="#184A95" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Compute Engine</text>
+  <text x="128" y="326" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Full VM control</text>
+  <text x="128" y="364" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Best for legacy apps</text>
+  <text x="128" y="402" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Patch and scale VMs yourself</text>
+
+  <rect x="450" y="210" width="300" height="340" rx="28" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="533" y="264" fill="#11643B" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Cloud Run</text>
+  <text x="482" y="326" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Deploy a container</text>
+  <text x="482" y="364" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Scale to zero</text>
+  <text x="482" y="402" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Ideal for APIs and event handlers</text>
+
+  <rect x="804" y="210" width="300" height="340" rx="28" fill="#FFF4D8" stroke="#E0B85B" stroke-width="2"/>
+  <text x="885" y="264" fill="#8A5B07" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="700">GKE</text>
+  <text x="836" y="326" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Kubernetes orchestration</text>
+  <text x="836" y="364" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Best for many services</text>
+  <text x="836" y="402" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Highest flexibility and complexity</text>
+
+  <text x="122" y="610" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Decision rule: VM when you need host control, Cloud Run when you want speed, GKE when you need platform orchestration.</text>
+</svg>

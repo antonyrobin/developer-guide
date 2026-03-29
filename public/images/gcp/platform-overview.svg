@@ -1,0 +1,41 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" fill="#F3F7F6"/>
+  <rect x="56" y="56" width="1088" height="648" rx="32" fill="#FCFEFD" stroke="#BDD9CF" stroke-width="2"/>
+  <text x="86" y="120" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">GCP Platform Overview</text>
+  <text x="86" y="158" fill="#3D6B61" font-size="20" font-family="Segoe UI, Arial, sans-serif">Projects, IAM, compute choices, data systems, and Google-managed networking.</text>
+
+  <rect x="90" y="208" width="300" height="180" rx="24" fill="#E7F0FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="122" y="254" fill="#184A95" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Project Boundary</text>
+  <text x="122" y="294" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Billing + APIs</text>
+  <text x="122" y="326" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">IAM roles and permissions</text>
+  <text x="122" y="358" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Audit and quotas</text>
+
+  <rect x="450" y="208" width="300" height="180" rx="24" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="482" y="254" fill="#11643B" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Compute</text>
+  <text x="482" y="294" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Compute Engine VMs</text>
+  <text x="482" y="326" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Cloud Run containers</text>
+  <text x="482" y="358" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">GKE for Kubernetes</text>
+
+  <rect x="810" y="208" width="300" height="180" rx="24" fill="#FFF4D8" stroke="#E0B85B" stroke-width="2"/>
+  <text x="842" y="254" fill="#8A5B07" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Data</text>
+  <text x="842" y="294" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Cloud Storage</text>
+  <text x="842" y="326" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Cloud SQL / Firestore</text>
+  <text x="842" y="358" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">BigQuery analytics</text>
+
+  <rect x="190" y="448" width="300" height="180" rx="24" fill="#FDEBEC" stroke="#E28A93" stroke-width="2"/>
+  <text x="222" y="494" fill="#9A2837" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Networking</text>
+  <text x="222" y="534" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Global VPC design</text>
+  <text x="222" y="566" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Cloud Load Balancing</text>
+  <text x="222" y="598" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Cloud CDN at the edge</text>
+
+  <rect x="550" y="448" width="300" height="180" rx="24" fill="#F3EDFF" stroke="#A78BFA" stroke-width="2"/>
+  <text x="582" y="494" fill="#5B34B4" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Operations</text>
+  <text x="582" y="534" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Cloud Logging</text>
+  <text x="582" y="566" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Cloud Monitoring</text>
+  <text x="582" y="598" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Alerting and SRE workflow</text>
+
+  <path d="M390 298H450" stroke="#6AA1E4" stroke-width="4" stroke-linecap="round"/>
+  <path d="M750 298H810" stroke="#7BBC8B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M340 448V404H650V448" stroke="#74A995" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M960 388V520H850" stroke="#BA9D54" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

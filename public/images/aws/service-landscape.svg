@@ -1,0 +1,41 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" fill="#F6F3EE"/>
+  <rect x="60" y="56" width="1080" height="648" rx="32" fill="#FFFDF9" stroke="#D8C8AF" stroke-width="2"/>
+  <text x="90" y="120" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">AWS Service Landscape</text>
+  <text x="90" y="158" fill="#7C5A2C" font-size="20" font-family="Segoe UI, Arial, sans-serif">Compute, storage, networking, security, and observability as one platform.</text>
+
+  <rect x="90" y="208" width="300" height="180" rx="24" fill="#FFF1D6" stroke="#E8B76D" stroke-width="2"/>
+  <text x="120" y="254" fill="#8A4B08" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Compute</text>
+  <text x="120" y="294" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">EC2 for VMs</text>
+  <text x="120" y="326" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Lambda for event-driven code</text>
+  <text x="120" y="358" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">ECS / EKS for containers</text>
+
+  <rect x="450" y="208" width="300" height="180" rx="24" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="480" y="254" fill="#11643B" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Storage & Data</text>
+  <text x="480" y="294" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">S3 for object storage</text>
+  <text x="480" y="326" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">RDS / Aurora for SQL</text>
+  <text x="480" y="358" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">DynamoDB for low-latency NoSQL</text>
+
+  <rect x="810" y="208" width="300" height="180" rx="24" fill="#E6F0FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="840" y="254" fill="#194B96" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Networking</text>
+  <text x="840" y="294" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">VPC, subnets, route tables</text>
+  <text x="840" y="326" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">ALB / NLB for traffic routing</text>
+  <text x="840" y="358" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Route 53 + CloudFront at the edge</text>
+
+  <rect x="190" y="448" width="300" height="180" rx="24" fill="#FDEBEC" stroke="#E28A93" stroke-width="2"/>
+  <text x="220" y="494" fill="#9A2837" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Security</text>
+  <text x="220" y="534" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">IAM roles and policies</text>
+  <text x="220" y="566" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">KMS for encryption</text>
+  <text x="220" y="598" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Security Groups and NACLs</text>
+
+  <rect x="550" y="448" width="300" height="180" rx="24" fill="#F3EDFF" stroke="#A78BFA" stroke-width="2"/>
+  <text x="580" y="494" fill="#5B34B4" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Operations</text>
+  <text x="580" y="534" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">CloudWatch metrics and logs</text>
+  <text x="580" y="566" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">CloudTrail audit history</text>
+  <text x="580" y="598" fill="#2B313B" font-size="21" font-family="Segoe UI, Arial, sans-serif">Auto Scaling and alarms</text>
+
+  <path d="M390 298H450" stroke="#B68C53" stroke-width="4" stroke-linecap="round"/>
+  <path d="M750 298H810" stroke="#6FA8D6" stroke-width="4" stroke-linecap="round"/>
+  <path d="M340 448V404H650V448" stroke="#C7A16B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M960 388V520H850" stroke="#7CA7F0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
