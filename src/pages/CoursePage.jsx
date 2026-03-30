@@ -17,9 +17,15 @@ const CoursePage = () => {
   const { id } = useParams();
   const course = courses.find((c) => c.id === id);
   const [activeTab, setActiveTab] = useState(0);
+  const [prevId, setPrevId] = useState(id);
+
+  // Reset tab synchronously when the course changes (before render completes)
+  if (id !== prevId) {
+    setPrevId(id);
+    setActiveTab(0);
+  }
 
   useEffect(() => {
-    setActiveTab(0);
     window.scrollTo(0, 0);
   }, [id]);
 
