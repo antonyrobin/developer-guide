@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460">
+  <rect width="900" height="460" rx="16" fill="#0e1525"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">.NET Platform Overview</text>
+  <text x="450" y="70" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Segoe UI,Arial,sans-serif">C# runs on the .NET runtime — cross-platform since .NET 5+</text>
+
+  <!-- .NET Runtime box -->
+  <rect x="60" y="95" width="780" height="100" rx="16" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+  <text x="450" y="125" text-anchor="middle" fill="#a5b4fc" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">.NET Runtime (CLR)</text>
+  <text x="170" y="160" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Garbage Collection</text>
+  <text x="370" y="160" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">JIT Compilation</text>
+  <text x="560" y="160" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Type Safety</text>
+  <text x="730" y="160" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Cross-Platform</text>
+
+  <!-- Application types row -->
+  <rect x="60" y="220" width="150" height="80" rx="12" fill="#1e40af"/>
+  <text x="135" y="253" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Web</text>
+  <text x="135" y="278" text-anchor="middle" fill="#bfdbfe" font-size="12" font-family="Segoe UI,Arial,sans-serif">ASP.NET Core</text>
+
+  <rect x="230" y="220" width="150" height="80" rx="12" fill="#7c3aed"/>
+  <text x="305" y="253" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Desktop</text>
+  <text x="305" y="278" text-anchor="middle" fill="#e9d5ff" font-size="12" font-family="Segoe UI,Arial,sans-serif">WPF · MAUI</text>
+
+  <rect x="400" y="220" width="150" height="80" rx="12" fill="#0e9e9b"/>
+  <text x="475" y="253" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Mobile</text>
+  <text x="475" y="278" text-anchor="middle" fill="#d4f5f4" font-size="12" font-family="Segoe UI,Arial,sans-serif">.NET MAUI</text>
+
+  <rect x="570" y="220" width="150" height="80" rx="12" fill="#b91c1c"/>
+  <text x="645" y="253" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Games</text>
+  <text x="645" y="278" text-anchor="middle" fill="#fecaca" font-size="12" font-family="Segoe UI,Arial,sans-serif">Unity Engine</text>
+
+  <rect x="740" y="220" width="100" height="80" rx="12" fill="#0078d4"/>
+  <text x="790" y="253" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Cloud</text>
+  <text x="790" y="278" text-anchor="middle" fill="#d4e4ff" font-size="12" font-family="Segoe UI,Arial,sans-serif">Azure</text>
+
+  <!-- Tools row -->
+  <text x="70" y="340" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">TOOLS &amp; ECOSYSTEM</text>
+  <rect x="60" y="355" width="180" height="45" rx="10" fill="#1e293b"/>
+  <text x="150" y="383" text-anchor="middle" fill="#a5b4fc" font-size="14" font-family="Segoe UI,Arial,sans-serif">Visual Studio 2022</text>
+  <rect x="255" y="355" width="140" height="45" rx="10" fill="#1e293b"/>
+  <text x="325" y="383" text-anchor="middle" fill="#a5b4fc" font-size="14" font-family="Segoe UI,Arial,sans-serif">NuGet Packages</text>
+  <rect x="410" y="355" width="140" height="45" rx="10" fill="#1e293b"/>
+  <text x="480" y="383" text-anchor="middle" fill="#a5b4fc" font-size="14" font-family="Segoe UI,Arial,sans-serif">dotnet CLI</text>
+  <rect x="565" y="355" width="140" height="45" rx="10" fill="#1e293b"/>
+  <text x="635" y="383" text-anchor="middle" fill="#a5b4fc" font-size="14" font-family="Segoe UI,Arial,sans-serif">EF Core ORM</text>
+  <rect x="720" y="355" width="120" height="45" rx="10" fill="#1e293b"/>
+  <text x="780" y="383" text-anchor="middle" fill="#a5b4fc" font-size="14" font-family="Segoe UI,Arial,sans-serif">xUnit Testing</text>
+
+  <text x="450" y="435" text-anchor="middle" fill="#64748b" font-size="13" font-family="Segoe UI,Arial,sans-serif">Windows · macOS · Linux — One codebase, multiple platforms</text>
+</svg>

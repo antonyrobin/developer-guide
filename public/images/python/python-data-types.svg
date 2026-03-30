@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <rect width="900" height="440" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Python Built-in Data Types</text>
+
+  <!-- Primitives -->
+  <text x="70" y="90" fill="#94a3b8" font-size="15" font-weight="600" font-family="Segoe UI,Arial,sans-serif">PRIMITIVES</text>
+  <rect x="60" y="105" width="120" height="55" rx="10" fill="#1e40af"/>
+  <text x="120" y="130" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">int</text>
+  <text x="120" y="148" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">42, -7, 10**100</text>
+  <rect x="195" y="105" width="120" height="55" rx="10" fill="#1e40af"/>
+  <text x="255" y="130" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">float</text>
+  <text x="255" y="148" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">3.14, -0.5</text>
+  <rect x="330" y="105" width="120" height="55" rx="10" fill="#1e40af"/>
+  <text x="390" y="130" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">str</text>
+  <text x="390" y="148" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">"hello", f'{x}'</text>
+  <rect x="465" y="105" width="120" height="55" rx="10" fill="#1e40af"/>
+  <text x="525" y="130" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">bool</text>
+  <text x="525" y="148" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">True, False</text>
+  <rect x="600" y="105" width="120" height="55" rx="10" fill="#475569"/>
+  <text x="660" y="130" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">None</text>
+  <text x="660" y="148" text-anchor="middle" fill="#cbd5e1" font-size="11" font-family="Segoe UI,Arial,sans-serif">null equivalent</text>
+
+  <!-- Collections -->
+  <text x="70" y="200" fill="#94a3b8" font-size="15" font-weight="600" font-family="Segoe UI,Arial,sans-serif">COLLECTIONS</text>
+  <rect x="60" y="215" width="190" height="70" rx="10" fill="#166534"/>
+  <text x="155" y="242" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">list</text>
+  <text x="155" y="262" text-anchor="middle" fill="#bbf7d0" font-size="12" font-family="Segoe UI,Arial,sans-serif">Ordered · Mutable · [1,"a"]</text>
+
+  <rect x="270" y="215" width="190" height="70" rx="10" fill="#854d0e"/>
+  <text x="365" y="242" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">tuple</text>
+  <text x="365" y="262" text-anchor="middle" fill="#fef3c7" font-size="12" font-family="Segoe UI,Arial,sans-serif">Ordered · Immutable · (1,"a")</text>
+
+  <rect x="480" y="215" width="190" height="70" rx="10" fill="#7c2d12"/>
+  <text x="575" y="242" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">dict</text>
+  <text x="575" y="262" text-anchor="middle" fill="#fed7aa" font-size="12" font-family="Segoe UI,Arial,sans-serif">Key-Value · {"k": "v"}</text>
+
+  <rect x="690" y="215" width="150" height="70" rx="10" fill="#4c1d95"/>
+  <text x="765" y="242" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">set</text>
+  <text x="765" y="262" text-anchor="middle" fill="#e9d5ff" font-size="12" font-family="Segoe UI,Arial,sans-serif">Unique · {1, 2, 3}</text>
+
+  <!-- Mutable vs Immutable -->
+  <text x="70" y="330" fill="#94a3b8" font-size="15" font-weight="600" font-family="Segoe UI,Arial,sans-serif">MUTABILITY</text>
+  <rect x="60" y="345" width="380" height="55" rx="10" fill="#1e293b"/>
+  <text x="250" y="367" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Mutable: list, dict, set</text>
+  <text x="250" y="388" text-anchor="middle" fill="#86efac" font-size="12" font-family="Segoe UI,Arial,sans-serif">Can be changed after creation</text>
+
+  <rect x="460" y="345" width="380" height="55" rx="10" fill="#1e293b"/>
+  <text x="650" y="367" text-anchor="middle" fill="#f87171" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Immutable: int, float, str, tuple</text>
+  <text x="650" y="388" text-anchor="middle" fill="#fca5a5" font-size="12" font-family="Segoe UI,Arial,sans-serif">Cannot be changed — new object created</text>
+</svg>

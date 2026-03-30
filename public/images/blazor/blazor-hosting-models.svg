@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <rect width="900" height="400" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Blazor Hosting Models</text>
+
+  <!-- Blazor Server -->
+  <rect x="50" y="80" width="380" height="280" rx="14" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+  <text x="240" y="115" text-anchor="middle" fill="#a5b4fc" font-size="20" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Blazor Server</text>
+
+  <rect x="80" y="135" width="140" height="50" rx="8" fill="#7c3aed"/>
+  <text x="150" y="166" text-anchor="middle" fill="#fff" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Browser (UI)</text>
+
+  <line x1="220" y1="155" x2="250" y2="155" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="262" y="148" fill="#fbbf24" font-size="11" font-family="Segoe UI,Arial,sans-serif">Signal</text>
+  <text x="262" y="163" fill="#fbbf24" font-size="11" font-family="Segoe UI,Arial,sans-serif">R</text>
+
+  <rect x="280" y="135" width="130" height="50" rx="8" fill="#1e40af"/>
+  <text x="345" y="166" text-anchor="middle" fill="#fff" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Server (.NET)</text>
+
+  <text x="240" y="215" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">C# runs on the server</text>
+  <text x="240" y="240" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">UI diffs sent via SignalR WebSocket</text>
+  <rect x="80" y="260" width="140" height="28" rx="6" fill="#0f172a"/>
+  <text x="150" y="279" text-anchor="middle" fill="#4ade80" font-size="12" font-family="Segoe UI,Arial,sans-serif">+ Fast load time</text>
+  <rect x="80" y="295" width="140" height="28" rx="6" fill="#0f172a"/>
+  <text x="150" y="314" text-anchor="middle" fill="#4ade80" font-size="12" font-family="Segoe UI,Arial,sans-serif">+ Full .NET APIs</text>
+  <rect x="240" y="260" width="170" height="28" rx="6" fill="#0f172a"/>
+  <text x="325" y="279" text-anchor="middle" fill="#f87171" font-size="12" font-family="Segoe UI,Arial,sans-serif">- Requires connection</text>
+  <rect x="240" y="295" width="170" height="28" rx="6" fill="#0f172a"/>
+  <text x="325" y="314" text-anchor="middle" fill="#f87171" font-size="12" font-family="Segoe UI,Arial,sans-serif">- Server latency</text>
+
+  <!-- Blazor WebAssembly -->
+  <rect x="470" y="80" width="380" height="280" rx="14" fill="#1e293b" stroke="#0d9488" stroke-width="2"/>
+  <text x="660" y="115" text-anchor="middle" fill="#5eead4" font-size="20" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Blazor WebAssembly</text>
+
+  <rect x="500" y="135" width="320" height="50" rx="8" fill="#0e7490"/>
+  <text x="660" y="157" text-anchor="middle" fill="#fff" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Browser (.NET Runtime via WASM)</text>
+  <text x="660" y="175" text-anchor="middle" fill="#d4f5f4" font-size="11" font-family="Segoe UI,Arial,sans-serif">Everything runs client-side</text>
+
+  <text x="660" y="215" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">C# compiled to WebAssembly</text>
+  <text x="660" y="240" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">.NET runtime downloaded to browser</text>
+  <rect x="500" y="260" width="150" height="28" rx="6" fill="#0f172a"/>
+  <text x="575" y="279" text-anchor="middle" fill="#4ade80" font-size="12" font-family="Segoe UI,Arial,sans-serif">+ Works offline</text>
+  <rect x="500" y="295" width="150" height="28" rx="6" fill="#0f172a"/>
+  <text x="575" y="314" text-anchor="middle" fill="#4ade80" font-size="12" font-family="Segoe UI,Arial,sans-serif">+ No server needed</text>
+  <rect x="670" y="260" width="150" height="28" rx="6" fill="#0f172a"/>
+  <text x="745" y="279" text-anchor="middle" fill="#f87171" font-size="12" font-family="Segoe UI,Arial,sans-serif">- Larger download</text>
+  <rect x="670" y="295" width="150" height="28" rx="6" fill="#0f172a"/>
+  <text x="745" y="314" text-anchor="middle" fill="#f87171" font-size="12" font-family="Segoe UI,Arial,sans-serif">- Slower startup</text>
+</svg>

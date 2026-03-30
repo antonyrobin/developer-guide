@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <rect width="900" height="470" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">React Component Tree</text>
+  <text x="450" y="70" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Segoe UI,Arial,sans-serif">UI built from a tree of composable components</text>
+
+  <!-- App root -->
+  <rect x="350" y="90" width="200" height="50" rx="12" fill="#0e7490"/>
+  <text x="450" y="120" text-anchor="middle" fill="#fff" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">&lt;App /&gt;</text>
+
+  <!-- Lines to children -->
+  <line x1="400" y1="140" x2="200" y2="185" stroke="#475569" stroke-width="2"/>
+  <line x1="450" y1="140" x2="450" y2="185" stroke="#475569" stroke-width="2"/>
+  <line x1="500" y1="140" x2="700" y2="185" stroke="#475569" stroke-width="2"/>
+
+  <!-- Header -->
+  <rect x="110" y="185" width="180" height="50" rx="10" fill="#1e40af"/>
+  <text x="200" y="216" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">&lt;Header /&gt;</text>
+
+  <!-- Main -->
+  <rect x="360" y="185" width="180" height="50" rx="10" fill="#166534"/>
+  <text x="450" y="216" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">&lt;Main /&gt;</text>
+
+  <!-- Footer -->
+  <rect x="610" y="185" width="180" height="50" rx="10" fill="#7c3aed"/>
+  <text x="700" y="216" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">&lt;Footer /&gt;</text>
+
+  <!-- Lines from Header -->
+  <line x1="160" y1="235" x2="100" y2="285" stroke="#475569" stroke-width="1.5"/>
+  <line x1="240" y1="235" x2="280" y2="285" stroke="#475569" stroke-width="1.5"/>
+
+  <rect x="30" y="285" width="150" height="42" rx="8" fill="#1e293b"/>
+  <text x="105" y="312" text-anchor="middle" fill="#60a5fa" font-size="14" font-family="Segoe UI,Arial,sans-serif">&lt;Logo /&gt;</text>
+  <rect x="210" y="285" width="150" height="42" rx="8" fill="#1e293b"/>
+  <text x="285" y="312" text-anchor="middle" fill="#60a5fa" font-size="14" font-family="Segoe UI,Arial,sans-serif">&lt;Nav /&gt;</text>
+
+  <!-- Lines from Main -->
+  <line x1="420" y1="235" x2="370" y2="285" stroke="#475569" stroke-width="1.5"/>
+  <line x1="480" y1="235" x2="530" y2="285" stroke="#475569" stroke-width="1.5"/>
+
+  <rect x="300" y="285" width="150" height="42" rx="8" fill="#1e293b"/>
+  <text x="375" y="312" text-anchor="middle" fill="#4ade80" font-size="14" font-family="Segoe UI,Arial,sans-serif">&lt;Sidebar /&gt;</text>
+  <rect x="470" y="285" width="150" height="42" rx="8" fill="#1e293b"/>
+  <text x="545" y="312" text-anchor="middle" fill="#4ade80" font-size="14" font-family="Segoe UI,Arial,sans-serif">&lt;Content /&gt;</text>
+
+  <!-- Lines from Content -->
+  <line x1="510" y1="327" x2="470" y2="365" stroke="#475569" stroke-width="1.2"/>
+  <line x1="570" y1="327" x2="610" y2="365" stroke="#475569" stroke-width="1.2"/>
+
+  <rect x="400" y="365" width="140" height="38" rx="8" fill="#1a1a2e"/>
+  <text x="470" y="390" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">&lt;Card /&gt;</text>
+  <rect x="560" y="365" width="140" height="38" rx="8" fill="#1a1a2e"/>
+  <text x="630" y="390" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">&lt;Card /&gt;</text>
+
+  <!-- Legend -->
+  <rect x="100" y="420" width="700" height="38" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="450" y="445" text-anchor="middle" fill="#64748b" font-size="13" font-family="Segoe UI,Arial,sans-serif">Props flow down ↓ · Events bubble up ↑ · State is local unless lifted or shared via Context</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">React Virtual DOM Reconciliation</text>
+
+  <!-- Step labels -->
+  <text x="150" y="85" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">1. State Change</text>
+  <text x="450" y="85" text-anchor="middle" fill="#60a5fa" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">2. Diff (Reconciliation)</text>
+  <text x="750" y="85" text-anchor="middle" fill="#fbbf24" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">3. Patch Real DOM</text>
+
+  <!-- Virtual DOM Old -->
+  <rect x="40" y="100" width="220" height="250" rx="14" fill="#1e293b"/>
+  <text x="150" y="130" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Previous Virtual DOM</text>
+
+  <rect x="90" y="145" width="120" height="32" rx="6" fill="#374151"/>
+  <text x="150" y="167" text-anchor="middle" fill="#9ca3af" font-size="13" font-family="Segoe UI,Arial,sans-serif">&lt;div&gt;</text>
+  <rect x="70" y="190" width="80" height="28" rx="6" fill="#374151"/>
+  <text x="110" y="210" text-anchor="middle" fill="#9ca3af" font-size="12" font-family="Segoe UI,Arial,sans-serif">&lt;h1&gt;</text>
+  <rect x="160" y="190" width="80" height="28" rx="6" fill="#374151"/>
+  <text x="200" y="210" text-anchor="middle" fill="#9ca3af" font-size="12" font-family="Segoe UI,Arial,sans-serif">&lt;p&gt;old</text>
+  <rect x="70" y="230" width="80" height="28" rx="6" fill="#374151"/>
+  <text x="110" y="250" text-anchor="middle" fill="#9ca3af" font-size="12" font-family="Segoe UI,Arial,sans-serif">&lt;ul&gt;</text>
+
+  <!-- Arrow -->
+  <polygon points="275,225 305,210 305,215 330,215 330,235 305,235 305,240" fill="#60a5fa"/>
+
+  <!-- Virtual DOM New -->
+  <rect x="340" y="100" width="220" height="250" rx="14" fill="#1e293b"/>
+  <text x="450" y="130" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">New Virtual DOM</text>
+
+  <rect x="390" y="145" width="120" height="32" rx="6" fill="#374151"/>
+  <text x="450" y="167" text-anchor="middle" fill="#9ca3af" font-size="13" font-family="Segoe UI,Arial,sans-serif">&lt;div&gt;</text>
+  <rect x="370" y="190" width="80" height="28" rx="6" fill="#374151"/>
+  <text x="410" y="210" text-anchor="middle" fill="#9ca3af" font-size="12" font-family="Segoe UI,Arial,sans-serif">&lt;h1&gt;</text>
+  <rect x="460" y="190" width="80" height="28" rx="6" fill="#16a34a" stroke="#4ade80" stroke-width="2"/>
+  <text x="500" y="210" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">&lt;p&gt;new</text>
+  <rect x="370" y="230" width="80" height="28" rx="6" fill="#374151"/>
+  <text x="410" y="250" text-anchor="middle" fill="#9ca3af" font-size="12" font-family="Segoe UI,Arial,sans-serif">&lt;ul&gt;</text>
+
+  <!-- Arrow to real DOM -->
+  <polygon points="575,225 605,210 605,215 630,215 630,235 605,235 605,240" fill="#fbbf24"/>
+
+  <!-- Real DOM -->
+  <rect x="640" y="100" width="220" height="250" rx="14" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="750" y="130" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Real DOM (Browser)</text>
+
+  <rect x="690" y="145" width="120" height="32" rx="6" fill="#374151"/>
+  <text x="750" y="167" text-anchor="middle" fill="#9ca3af" font-size="13" font-family="Segoe UI,Arial,sans-serif">&lt;div&gt;</text>
+  <rect x="670" y="190" width="80" height="28" rx="6" fill="#374151"/>
+  <text x="710" y="210" text-anchor="middle" fill="#9ca3af" font-size="12" font-family="Segoe UI,Arial,sans-serif">&lt;h1&gt;</text>
+  <rect x="760" y="190" width="80" height="28" rx="6" fill="#16a34a" stroke="#4ade80" stroke-width="2"/>
+  <text x="800" y="210" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">&lt;p&gt;new</text>
+  <rect x="670" y="230" width="80" height="28" rx="6" fill="#374151"/>
+  <text x="710" y="250" text-anchor="middle" fill="#9ca3af" font-size="12" font-family="Segoe UI,Arial,sans-serif">&lt;ul&gt;</text>
+
+  <!-- Bottom note -->
+  <rect x="100" y="370" width="700" height="38" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="450" y="395" text-anchor="middle" fill="#64748b" font-size="13" font-family="Segoe UI,Arial,sans-serif">Only the changed &lt;p&gt; node is updated in the real DOM — minimal, efficient updates</text>
+</svg>

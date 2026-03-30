@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <rect width="900" height="440" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Spring Boot Layered Architecture</text>
+
+  <!-- Client -->
+  <rect x="50" y="100" width="140" height="60" rx="12" fill="#7c3aed"/>
+  <text x="120" y="136" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Client</text>
+  <polygon points="190,130 220,122 220,138" fill="#4ade80"/>
+
+  <!-- Controller -->
+  <rect x="230" y="90" width="160" height="80" rx="12" fill="#166534"/>
+  <text x="310" y="125" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Controller</text>
+  <text x="310" y="148" text-anchor="middle" fill="#bbf7d0" font-size="12" font-family="Segoe UI,Arial,sans-serif">@RestController</text>
+  <text x="310" y="163" text-anchor="middle" fill="#86efac" font-size="11" font-family="Segoe UI,Arial,sans-serif">HTTP endpoints</text>
+
+  <polygon points="390,130 420,122 420,138" fill="#60a5fa"/>
+
+  <!-- Service -->
+  <rect x="430" y="90" width="160" height="80" rx="12" fill="#1e40af"/>
+  <text x="510" y="125" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Service</text>
+  <text x="510" y="148" text-anchor="middle" fill="#bfdbfe" font-size="12" font-family="Segoe UI,Arial,sans-serif">@Service</text>
+  <text x="510" y="163" text-anchor="middle" fill="#93c5fd" font-size="11" font-family="Segoe UI,Arial,sans-serif">Business logic</text>
+
+  <polygon points="590,130 620,122 620,138" fill="#fbbf24"/>
+
+  <!-- Repository -->
+  <rect x="630" y="90" width="160" height="80" rx="12" fill="#854d0e"/>
+  <text x="710" y="125" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Repository</text>
+  <text x="710" y="148" text-anchor="middle" fill="#fef3c7" font-size="12" font-family="Segoe UI,Arial,sans-serif">@Repository</text>
+  <text x="710" y="163" text-anchor="middle" fill="#fde68a" font-size="11" font-family="Segoe UI,Arial,sans-serif">Data access (JPA)</text>
+
+  <line x1="710" y1="170" x2="710" y2="210" stroke="#f87171" stroke-width="2"/>
+  <polygon points="710,210 703,198 717,198" fill="#f87171"/>
+
+  <!-- Database -->
+  <rect x="640" y="215" width="140" height="50" rx="10" fill="#7c2d12"/>
+  <text x="710" y="246" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Database</text>
+
+  <!-- Spring Boot Features -->
+  <rect x="80" y="300" width="740" height="110" rx="14" fill="#1e293b" stroke="#6ee7b7" stroke-width="2"/>
+  <text x="450" y="330" text-anchor="middle" fill="#6ee7b7" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Spring Boot Auto-Configuration</text>
+  <text x="170" y="365" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Embedded Tomcat</text>
+  <text x="340" y="365" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Dependency Injection</text>
+  <text x="520" y="365" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Spring Security</text>
+  <text x="690" y="365" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Spring Data JPA</text>
+  <text x="170" y="390" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Actuator Metrics</text>
+  <text x="340" y="390" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">application.properties</text>
+  <text x="520" y="390" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Starter Dependencies</text>
+  <text x="690" y="390" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Profile Management</text>
+</svg>

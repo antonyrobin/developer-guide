@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <rect width="900" height="440" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Design Patterns Overview</text>
+  <text x="450" y="70" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Segoe UI,Arial,sans-serif">Gang of Four (GoF) — 23 classic patterns in three categories</text>
+
+  <!-- Creational -->
+  <rect x="40" y="95" width="260" height="300" rx="14" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="170" y="125" text-anchor="middle" fill="#4ade80" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Creational</text>
+  <text x="170" y="148" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">How objects are created</text>
+
+  <rect x="60" y="165" width="220" height="35" rx="8" fill="#166534"/>
+  <text x="170" y="188" text-anchor="middle" fill="#fff" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Singleton</text>
+  <rect x="60" y="208" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="170" y="231" text-anchor="middle" fill="#bbf7d0" font-size="14" font-family="Segoe UI,Arial,sans-serif">Factory Method</text>
+  <rect x="60" y="251" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="170" y="274" text-anchor="middle" fill="#bbf7d0" font-size="14" font-family="Segoe UI,Arial,sans-serif">Abstract Factory</text>
+  <rect x="60" y="294" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="170" y="317" text-anchor="middle" fill="#bbf7d0" font-size="14" font-family="Segoe UI,Arial,sans-serif">Builder</text>
+  <rect x="60" y="337" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="170" y="360" text-anchor="middle" fill="#bbf7d0" font-size="14" font-family="Segoe UI,Arial,sans-serif">Prototype</text>
+
+  <!-- Structural -->
+  <rect x="320" y="95" width="260" height="300" rx="14" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="450" y="125" text-anchor="middle" fill="#60a5fa" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Structural</text>
+  <text x="450" y="148" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">How objects are composed</text>
+
+  <rect x="340" y="165" width="220" height="35" rx="8" fill="#1e40af"/>
+  <text x="450" y="188" text-anchor="middle" fill="#fff" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Adapter</text>
+  <rect x="340" y="208" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="450" y="231" text-anchor="middle" fill="#bfdbfe" font-size="14" font-family="Segoe UI,Arial,sans-serif">Decorator</text>
+  <rect x="340" y="251" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="450" y="274" text-anchor="middle" fill="#bfdbfe" font-size="14" font-family="Segoe UI,Arial,sans-serif">Facade</text>
+  <rect x="340" y="294" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="450" y="317" text-anchor="middle" fill="#bfdbfe" font-size="14" font-family="Segoe UI,Arial,sans-serif">Proxy</text>
+  <rect x="340" y="337" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="450" y="360" text-anchor="middle" fill="#bfdbfe" font-size="14" font-family="Segoe UI,Arial,sans-serif">Composite</text>
+
+  <!-- Behavioral -->
+  <rect x="600" y="95" width="260" height="300" rx="14" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="730" y="125" text-anchor="middle" fill="#fbbf24" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Behavioral</text>
+  <text x="730" y="148" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">How objects interact</text>
+
+  <rect x="620" y="165" width="220" height="35" rx="8" fill="#854d0e"/>
+  <text x="730" y="188" text-anchor="middle" fill="#fff" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Observer</text>
+  <rect x="620" y="208" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="730" y="231" text-anchor="middle" fill="#fef3c7" font-size="14" font-family="Segoe UI,Arial,sans-serif">Strategy</text>
+  <rect x="620" y="251" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="730" y="274" text-anchor="middle" fill="#fef3c7" font-size="14" font-family="Segoe UI,Arial,sans-serif">Command</text>
+  <rect x="620" y="294" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="730" y="317" text-anchor="middle" fill="#fef3c7" font-size="14" font-family="Segoe UI,Arial,sans-serif">Iterator</text>
+  <rect x="620" y="337" width="220" height="35" rx="8" fill="#0f172a"/>
+  <text x="730" y="360" text-anchor="middle" fill="#fef3c7" font-size="14" font-family="Segoe UI,Arial,sans-serif">State</text>
+
+  <text x="450" y="425" text-anchor="middle" fill="#64748b" font-size="13" font-family="Segoe UI,Arial,sans-serif">Patterns are language-agnostic solutions to recurring design problems</text>
+</svg>
