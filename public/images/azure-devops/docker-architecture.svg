@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="350">
+      <stop offset="0%" stop-color="#EEF2FF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="800" height="350" rx="16" fill="url(#bg)"/>
+  <text x="400" y="35" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="#002D6E">Docker Architecture</text>
+  <!-- Developer -->
+  <rect x="40" y="80" width="130" height="70" rx="10" fill="#fff" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="105" y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#5B21B6">Developer</text>
+  <text x="105" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Writes Code +</text>
+  <text x="105" y="145" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Dockerfile</text>
+  <!-- Arrow to Image -->
+  <line x1="170" y1="115" x2="220" y2="115" stroke="#8B5CF6" stroke-width="2"/>
+  <polygon points="218,110 228,115 218,120" fill="#8B5CF6"/>
+  <!-- Docker Image -->
+  <rect x="230" y="70" width="160" height="90" rx="10" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="310" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#1D4ED8">Docker Image</text>
+  <text x="310" y="120" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Built from Dockerfile</text>
+  <text x="310" y="137" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Immutable template</text>
+  <!-- Arrow to Registry -->
+  <line x1="390" y1="115" x2="440" y2="115" stroke="#3B82F6" stroke-width="2"/>
+  <polygon points="438,110 448,115 438,120" fill="#3B82F6"/>
+  <!-- Registry -->
+  <rect x="450" y="70" width="160" height="90" rx="10" fill="#F3E8FF" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="530" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#5B21B6">Registry</text>
+  <text x="530" y="120" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Docker Hub / ACR</text>
+  <text x="530" y="137" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Store &amp; share images</text>
+  <!-- Arrow to Containers -->
+  <line x1="610" y1="115" x2="650" y2="115" stroke="#10B981" stroke-width="2"/>
+  <polygon points="648,110 658,115 648,120" fill="#10B981"/>
+  <!-- Containers -->
+  <rect x="660" y="60" width="120" height="40" rx="6" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5"/>
+  <text x="720" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#065F46">Container 1</text>
+  <rect x="660" y="110" width="120" height="40" rx="6" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5"/>
+  <text x="720" y="135" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#065F46">Container 2</text>
+  <!-- Dockerfile -->
+  <rect x="60" y="200" width="260" height="130" rx="10" fill="#1E293B" filter="url(#shadow)"/>
+  <text x="80" y="225" font-family="monospace" font-size="12" fill="#60A5FA">FROM</text><text x="117" y="225" font-family="monospace" font-size="12" fill="#E2E8F0"> node:18-alpine</text>
+  <text x="80" y="248" font-family="monospace" font-size="12" fill="#60A5FA">WORKDIR</text><text x="145" y="248" font-family="monospace" font-size="12" fill="#E2E8F0"> /app</text>
+  <text x="80" y="271" font-family="monospace" font-size="12" fill="#60A5FA">COPY</text><text x="117" y="271" font-family="monospace" font-size="12" fill="#E2E8F0"> . .</text>
+  <text x="80" y="294" font-family="monospace" font-size="12" fill="#60A5FA">RUN</text><text x="110" y="294" font-family="monospace" font-size="12" fill="#E2E8F0"> npm install</text>
+  <text x="80" y="317" font-family="monospace" font-size="12" fill="#60A5FA">CMD</text><text x="110" y="317" font-family="monospace" font-size="12" fill="#E2E8F0"> ["node", "server.js"]</text>
+  <!-- Commands -->
+  <rect x="360" y="200" width="400" height="130" rx="10" fill="#fff" stroke="#CBD5E1" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="560" y="225" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#002D6E">Key Commands</text>
+  <text x="380" y="252" font-family="monospace" font-size="11" fill="#3B82F6">docker build -t myapp .</text><text x="570" y="252" font-family="Inter,sans-serif" font-size="11" fill="#6B7280"> Build image</text>
+  <text x="380" y="275" font-family="monospace" font-size="11" fill="#3B82F6">docker run -p 3000:3000 myapp</text><text x="640" y="275" font-family="Inter,sans-serif" font-size="11" fill="#6B7280"> Run</text>
+  <text x="380" y="298" font-family="monospace" font-size="11" fill="#3B82F6">docker ps</text><text x="460" y="298" font-family="Inter,sans-serif" font-size="11" fill="#6B7280"> List containers</text>
+  <text x="380" y="321" font-family="monospace" font-size="11" fill="#3B82F6">docker push myapp</text><text x="530" y="321" font-family="Inter,sans-serif" font-size="11" fill="#6B7280"> Push to registry</text>
+</svg>

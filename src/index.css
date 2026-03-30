@@ -850,6 +850,60 @@ button {
   color: var(--text-secondary);
 }
 
+/* Inline markdown styles */
+.course-body-text .inline-code {
+  background-color: var(--accent);
+  color: var(--primary);
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.course-body-text .content-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: var(--transition);
+}
+
+.course-body-text .content-link:hover {
+  color: var(--primary-hover);
+  text-decoration-thickness: 2px;
+}
+
+.course-body-text strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.course-body-text em {
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+.content-subheading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-top: 0.5rem;
+}
+
+.content-subheading-lg {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--secondary);
+  margin-top: 0.75rem;
+}
+
+.content-subheading .content-link,
+.content-subheading-lg .content-link {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
 /* Key Points Full Width */
 .key-points-full {
   display: flex;

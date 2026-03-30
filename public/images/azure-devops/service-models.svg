@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="350">
+      <stop offset="0%" stop-color="#EEF2FF"/>
+      <stop offset="100%" stop-color="#E0E7FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="800" height="350" rx="16" fill="url(#bg)"/>
+  <text x="400" y="38" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="#002D6E">Cloud Service Models — IaaS vs PaaS vs SaaS</text>
+  <!-- On-Premises -->
+  <rect x="30" y="60" width="170" height="270" rx="10" fill="#fff" stroke="#6B7280" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="30" y="60" width="170" height="42" rx="10" fill="#6B7280"/>
+  <rect x="30" y="82" width="170" height="20" fill="#6B7280"/>
+  <text x="115" y="88" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="#fff">On-Premises</text>
+  <rect x="48" y="115" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="115" y="134" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Applications</text>
+  <rect x="48" y="150" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="115" y="169" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Data</text>
+  <rect x="48" y="185" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="115" y="204" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Runtime</text>
+  <rect x="48" y="220" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="115" y="239" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">OS</text>
+  <rect x="48" y="255" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="115" y="274" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Networking</text>
+  <rect x="48" y="290" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="115" y="309" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Hardware</text>
+  <!-- IaaS -->
+  <rect x="220" y="60" width="170" height="270" rx="10" fill="#fff" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="220" y="60" width="170" height="42" rx="10" fill="#3B82F6"/>
+  <rect x="220" y="82" width="170" height="20" fill="#3B82F6"/>
+  <text x="305" y="88" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="#fff">IaaS</text>
+  <rect x="238" y="115" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="305" y="134" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Applications</text>
+  <rect x="238" y="150" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="305" y="169" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Data</text>
+  <rect x="238" y="185" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="305" y="204" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Runtime</text>
+  <rect x="238" y="220" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="305" y="239" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">OS</text>
+  <rect x="238" y="255" width="134" height="28" rx="4" fill="#93C5FD"/><text x="305" y="274" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#1E3A8A">Networking ☁️</text>
+  <rect x="238" y="290" width="134" height="28" rx="4" fill="#93C5FD"/><text x="305" y="309" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#1E3A8A">Hardware ☁️</text>
+  <!-- PaaS -->
+  <rect x="410" y="60" width="170" height="270" rx="10" fill="#fff" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="410" y="60" width="170" height="42" rx="10" fill="#10B981"/>
+  <rect x="410" y="82" width="170" height="20" fill="#10B981"/>
+  <text x="495" y="88" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="#fff">PaaS</text>
+  <rect x="428" y="115" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="495" y="134" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Applications</text>
+  <rect x="428" y="150" width="134" height="28" rx="4" fill="#FCA5A5"/><text x="495" y="169" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#7F1D1D">Data</text>
+  <rect x="428" y="185" width="134" height="28" rx="4" fill="#6EE7B7"/><text x="495" y="204" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#064E3B">Runtime ☁️</text>
+  <rect x="428" y="220" width="134" height="28" rx="4" fill="#6EE7B7"/><text x="495" y="239" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#064E3B">OS ☁️</text>
+  <rect x="428" y="255" width="134" height="28" rx="4" fill="#6EE7B7"/><text x="495" y="274" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#064E3B">Networking ☁️</text>
+  <rect x="428" y="290" width="134" height="28" rx="4" fill="#6EE7B7"/><text x="495" y="309" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#064E3B">Hardware ☁️</text>
+  <!-- SaaS -->
+  <rect x="600" y="60" width="170" height="270" rx="10" fill="#fff" stroke="#8B5CF6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="600" y="60" width="170" height="42" rx="10" fill="#8B5CF6"/>
+  <rect x="600" y="82" width="170" height="20" fill="#8B5CF6"/>
+  <text x="685" y="88" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="#fff">SaaS</text>
+  <rect x="618" y="115" width="134" height="28" rx="4" fill="#DDD6FE"/><text x="685" y="134" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#4C1D95">Applications ☁️</text>
+  <rect x="618" y="150" width="134" height="28" rx="4" fill="#DDD6FE"/><text x="685" y="169" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#4C1D95">Data ☁️</text>
+  <rect x="618" y="185" width="134" height="28" rx="4" fill="#DDD6FE"/><text x="685" y="204" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#4C1D95">Runtime ☁️</text>
+  <rect x="618" y="220" width="134" height="28" rx="4" fill="#DDD6FE"/><text x="685" y="239" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#4C1D95">OS ☁️</text>
+  <rect x="618" y="255" width="134" height="28" rx="4" fill="#DDD6FE"/><text x="685" y="274" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#4C1D95">Networking ☁️</text>
+  <rect x="618" y="290" width="134" height="28" rx="4" fill="#DDD6FE"/><text x="685" y="309" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#4C1D95">Hardware ☁️</text>
+  <!-- Legend -->
+  <rect x="240" y="340" width="14" height="14" rx="3" fill="#FCA5A5"/><text x="260" y="352" font-family="Inter,sans-serif" font-size="11" fill="#6B7280">You Manage</text>
+  <rect x="360" y="340" width="14" height="14" rx="3" fill="#93C5FD"/><text x="380" y="352" font-family="Inter,sans-serif" font-size="11" fill="#6B7280">Cloud Provider Manages</text>
+</svg>

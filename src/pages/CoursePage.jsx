@@ -4,6 +4,15 @@ import { courses } from '../data/courses';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool } from 'lucide-react';
 
+/* Lightweight inline-markdown → HTML converter (content is developer-controlled, not user input) */
+function parseMarkdown(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code class="inline-code">$1</code>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="content-link">$1</a>');
+}
+
 const CoursePage = () => {
   const { id } = useParams();
   const course = courses.find((c) => c.id === id);
@@ -95,9 +104,15 @@ const CoursePage = () => {
 
             {/* Main Content Text */}
             <div className="course-body-text">
-              {section.content.split('\n\n').map((paragraph, i) => (
-                <p key={i} className="course-paragraph">{paragraph}</p>
-              ))}
+              {section.content.split('\n\n').map((paragraph, i) => {
+                if (paragraph.startsWith('### ')) {
+                  return <h3 key={i} className="content-subheading" dangerouslySetInnerHTML={{ __html: parseMarkdown(paragraph.slice(4)) }} />;
+                }
+                if (paragraph.startsWith('## ')) {
+                  return <h2 key={i} className="content-subheading-lg" dangerouslySetInnerHTML={{ __html: parseMarkdown(paragraph.slice(3)) }} />;
+                }
+                return <p key={i} className="course-paragraph" dangerouslySetInnerHTML={{ __html: parseMarkdown(paragraph) }} />;
+              })}
             </div>
 
             {/* Image */}

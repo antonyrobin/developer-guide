@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="360">
+      <stop offset="0%" stop-color="#EEF2FF"/>
+      <stop offset="100%" stop-color="#FEF3C7"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="800" height="360" rx="16" fill="url(#bg)"/>
+  <text x="400" y="40" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="#002D6E">Azure Storage Access Tiers</text>
+  <!-- Hot -->
+  <rect x="40" y="70" width="220" height="260" rx="12" fill="#fff" stroke="#EF4444" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="40" y="70" width="220" height="50" rx="12" fill="#EF4444"/>
+  <rect x="40" y="96" width="220" height="24" fill="#EF4444"/>
+  <text x="150" y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="#fff">🔥 Hot Tier</text>
+  <text x="150" y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#374151">Frequently accessed data</text>
+  <text x="150" y="185" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Storage Cost: Highest</text>
+  <text x="150" y="210" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Transaction Cost: Lowest</text>
+  <text x="150" y="245" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Access: Instant</text>
+  <text x="150" y="280" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9CA3AF">e.g., Active app data,</text>
+  <text x="150" y="296" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9CA3AF">current website images</text>
+  <!-- Cool -->
+  <rect x="290" y="70" width="220" height="260" rx="12" fill="#fff" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="290" y="70" width="220" height="50" rx="12" fill="#3B82F6"/>
+  <rect x="290" y="96" width="220" height="24" fill="#3B82F6"/>
+  <text x="400" y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="#fff">❄️ Cool Tier</text>
+  <text x="400" y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#374151">Infrequently accessed data</text>
+  <text x="400" y="185" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Storage Cost: Lower</text>
+  <text x="400" y="210" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Transaction Cost: Higher</text>
+  <text x="400" y="245" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Access: Instant</text>
+  <text x="400" y="280" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9CA3AF">e.g., Backups, older logs,</text>
+  <text x="400" y="296" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9CA3AF">30+ days inactivity</text>
+  <!-- Archive -->
+  <rect x="540" y="70" width="220" height="260" rx="12" fill="#fff" stroke="#6B7280" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="540" y="70" width="220" height="50" rx="12" fill="#6B7280"/>
+  <rect x="540" y="96" width="220" height="24" fill="#6B7280"/>
+  <text x="650" y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="#fff">📦 Archive Tier</text>
+  <text x="650" y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#374151">Rarely accessed data</text>
+  <text x="650" y="185" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Storage Cost: Lowest</text>
+  <text x="650" y="210" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Transaction Cost: Highest</text>
+  <text x="650" y="245" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Access: Requires Rehydration</text>
+  <text x="650" y="280" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9CA3AF">e.g., Compliance archives,</text>
+  <text x="650" y="296" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9CA3AF">historical records</text>
+</svg>

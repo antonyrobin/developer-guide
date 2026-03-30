@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="340">
+      <stop offset="0%" stop-color="#EEF2FF"/>
+      <stop offset="100%" stop-color="#E0E7FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="800" height="340" rx="16" fill="url(#bg)"/>
+  <text x="400" y="35" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="#002D6E">Scaling — Vertical vs Horizontal</text>
+  <!-- Vertical Scaling -->
+  <text x="200" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#1D4ED8">Vertical Scaling (Scale Up/Down)</text>
+  <rect x="100" y="85" width="80" height="100" rx="8" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="140" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1E3A8A">4 GB</text>
+  <text x="140" y="145" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#1E3A8A">2 CPU</text>
+  <!-- Arrow -->
+  <text x="220" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" fill="#3B82F6">→</text>
+  <rect x="250" y="75" width="100" height="120" rx="8" fill="#93C5FD" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="300" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#1E3A8A">8 GB</text>
+  <text x="300" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#1E3A8A">4 CPU</text>
+  <text x="200" y="225" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Add more power to</text>
+  <text x="200" y="242" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">the same machine</text>
+  <text x="200" y="270" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#10B981">✓ Simpler setup</text>
+  <text x="200" y="290" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#EF4444">✗ Hardware limits</text>
+  <text x="200" y="310" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#EF4444">✗ Single point of failure</text>
+  <!-- Divider -->
+  <line x1="400" y1="55" x2="400" y2="330" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <!-- Horizontal Scaling -->
+  <text x="600" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#10B981">Horizontal Scaling (Scale Out/In)</text>
+  <rect x="470" y="85" width="70" height="80" rx="8" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="505" y="125" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#065F46">Server 1</text>
+  <rect x="555" y="85" width="70" height="80" rx="8" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="590" y="125" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#065F46">Server 2</text>
+  <rect x="640" y="85" width="70" height="80" rx="8" fill="#A7F3D0" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+  <text x="675" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#065F46">Server 3</text>
+  <text x="675" y="133" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#065F46">(new)</text>
+  <!-- Load Balancer above -->
+  <rect x="500" y="185" width="200" height="32" rx="6" fill="#E0E7FF" stroke="#6366F1" stroke-width="1.5"/>
+  <text x="600" y="206" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#4338CA">Load Balancer</text>
+  <text x="600" y="245" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">Add more machines</text>
+  <text x="600" y="262" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">to share the load</text>
+  <text x="600" y="290" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#10B981">✓ No upper limit</text>
+  <text x="600" y="310" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#10B981">✓ Redundancy &amp; fault tolerance</text>
+  <text x="600" y="330" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#EF4444">✗ More complex setup</text>
+</svg>
