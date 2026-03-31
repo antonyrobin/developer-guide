@@ -36,6 +36,9 @@ const courseKeywords = {
 /* Lightweight inline-markdown → HTML converter (content is developer-controlled, not user input) */
 function parseMarkdown(text) {
   return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>')
     .replace(/`(.+?)`/g, '<code class="inline-code">$1</code>')
