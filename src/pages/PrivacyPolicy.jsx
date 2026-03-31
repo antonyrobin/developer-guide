@@ -159,8 +159,8 @@ const PrivacyPolicy = () => {
           </p>
           <div className="legal-contact-card">
             <p><strong>QuickDevGuide</strong></p>
-            <p>Email: contact@quickdevguide.com</p>
-            <p>GitHub: github.com/antonyrobin</p>
+            <p>Email: contact@guide.rexexoans.com</p>
+            <p>GitHub: <a href="https://github.com/antonyrobin/developer-guide" target="_blank" rel="noopener noreferrer">https://github.com/antonyrobin/developer-guide</a></p>
           </div>
         </section>
       </div>
