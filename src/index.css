@@ -1118,6 +1118,29 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Route-transition animations (CSS-based, immune to React lifecycle issues) */
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes contentIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-pop-in {
+  animation: popIn 0.45s ease both;
+}
+.animate-card-in {
+  animation: cardIn 0.3s ease both;
+}
+.animate-content-in {
+  animation: contentIn 0.2s ease both;
+}
+
 .search-input-wrapper {
   display: flex;
   align-items: center;

@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { courses } from '../data/courses';
 import { BookOpen, Rocket, Terminal, Database, Cloud, Layout } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useSEO } from '../hooks/useSEO';
 
 const Home = () => {
@@ -15,15 +14,10 @@ const Home = () => {
     return (
         <div className="home-page">
             <header className="hero-section">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="hero-logo"
-                >
+                <div className="hero-logo animate-pop-in">
                     <BookOpen className="hero-icon" />
                     <span>Quick<span className="hero-accent">Dev</span></span>
-                </motion.div>
+                </div>
                 <div className="hero-content">
                     <h1 className="hero-title">Master Modern Development in Minutes</h1>
                     <p className="hero-subtitle">
@@ -49,11 +43,9 @@ const Home = () => {
                 <div className="courses-grid">
                     {courses.map((course, idx) => (
                         <NavLink key={course.id} to={`/${course.id}`} className="course-card-link">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, delay: idx * 0.04 }}
-                                className="course-card"
+                            <div
+                                className="course-card animate-card-in"
+                                style={{ animationDelay: `${idx * 0.04}s` }}
                             >
                                 <div className="course-bg-icon">
                                     <Rocket className="icon-huge" />
@@ -71,7 +63,7 @@ const Home = () => {
                                         Learn More &rarr;
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         </NavLink>
                     ))}
                 </div>

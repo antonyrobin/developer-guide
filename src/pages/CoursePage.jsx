@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { courses } from '../data/courses';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 
@@ -48,17 +47,12 @@ const CoursePage = () => {
   const course = courses.find((c) => c.id === id);
   const [activeTab, setActiveTab] = useState(0);
   const [prevId, setPrevId] = useState(id);
-  const hasMounted = useRef(false);
 
   // Reset tab synchronously when the course changes (before render completes)
   if (id !== prevId) {
     setPrevId(id);
     setActiveTab(0);
   }
-
-  useEffect(() => {
-    hasMounted.current = true;
-  }, []);
 
   useSEO({
     title: course ? course.title : null,
@@ -134,14 +128,9 @@ const CoursePage = () => {
 
       {/* Main Content */}
       <div className="course-main">
-        <AnimatePresence mode="wait">
-          <motion.div
+          <div
             key={id + activeTab}
-            initial={hasMounted.current ? { opacity: 0, y: 10 } : false}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="course-content-wrapper"
+            className="course-content-wrapper animate-content-in"
           >
             {/* Header */}
             <div className="course-header-info">
@@ -234,8 +223,7 @@ const CoursePage = () => {
                 </button>
               )}
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </div>
       </div>
     </div>
   );
