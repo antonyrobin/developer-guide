@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360">
+  <rect width="520" height="360" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">Java Collections Framework</text>
+  <!-- Collection Interface -->
+  <rect x="130" y="42" width="120" height="28" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <text x="190" y="60" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold" font-family="system-ui">Collection</text>
+  <!-- Branches from Collection -->
+  <path d="M160 70 L160 90 L80 90 L80 100" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+  <path d="M190 70 L190 90 L190 100" stroke="#10b981" stroke-width="1.5" fill="none"/>
+  <path d="M220 70 L220 90 L310 90 L310 100" stroke="#a78bfa" stroke-width="1.5" fill="none"/>
+  <!-- Map separate -->
+  <rect x="400" y="42" width="100" height="28" rx="6" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+  <text x="450" y="60" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold" font-family="system-ui">Map</text>
+  <path d="M450 70 L450 100" stroke="#ef4444" stroke-width="1.5" fill="none"/>
+  <!-- List Interface -->
+  <rect x="25" y="102" width="110" height="28" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="80" y="120" text-anchor="middle" fill="#3b82f6" font-size="10" font-weight="bold" font-family="system-ui">List (ordered)</text>
+  <!-- List implementations -->
+  <path d="M50 130 L50 145" stroke="#3b82f6" stroke-width="1" fill="none"/>
+  <path d="M110 130 L110 145" stroke="#3b82f6" stroke-width="1" fill="none"/>
+  <rect x="15" y="147" width="80" height="55" rx="5" fill="#0f172a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="55" y="165" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold" font-family="system-ui">ArrayList</text>
+  <text x="55" y="179" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Dynamic array</text>
+  <text x="55" y="192" text-anchor="middle" fill="#10b981" font-size="7" font-family="system-ui">Read: O(1)</text>
+  <rect x="105" y="147" width="80" height="55" rx="5" fill="#0f172a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="145" y="165" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold" font-family="system-ui">LinkedList</text>
+  <text x="145" y="179" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Doubly linked</text>
+  <text x="145" y="192" text-anchor="middle" fill="#10b981" font-size="7" font-family="system-ui">Insert: O(1)</text>
+  <!-- Set Interface -->
+  <rect x="135" y="102" width="110" height="28" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="190" y="120" text-anchor="middle" fill="#10b981" font-size="10" font-weight="bold" font-family="system-ui">Set (unique)</text>
+  <!-- Set implementations -->
+  <path d="M190 130 L190 145" stroke="#10b981" stroke-width="1" fill="none"/>
+  <rect x="195" y="147" width="90" height="55" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="240" y="165" text-anchor="middle" fill="#10b981" font-size="9" font-weight="bold" font-family="system-ui">HashSet</text>
+  <text x="240" y="179" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">No order, O(1)</text>
+  <text x="240" y="192" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Uses HashMap</text>
+  <rect x="195" y="208" width="90" height="28" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="240" y="226" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">TreeSet (sorted)</text>
+  <!-- Queue Interface -->
+  <rect x="255" y="102" width="115" height="28" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="312" y="120" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">Queue (FIFO)</text>
+  <!-- Queue implementations -->
+  <path d="M312 130 L312 145" stroke="#a78bfa" stroke-width="1" fill="none"/>
+  <rect x="295" y="147" width="100" height="55" rx="5" fill="#0f172a" stroke="#a78bfa" stroke-width="1"/>
+  <text x="345" y="165" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">PriorityQueue</text>
+  <text x="345" y="179" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Priority heap</text>
+  <text x="345" y="192" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Head = lowest</text>
+  <rect x="295" y="208" width="100" height="28" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="345" y="226" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">ArrayDeque (fast)</text>
+  <!-- Map implementations -->
+  <rect x="405" y="102" width="100" height="28" rx="6" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="455" y="120" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold" font-family="system-ui">Map (K → V)</text>
+  <path d="M430 130 L430 145" stroke="#ef4444" stroke-width="1" fill="none"/>
+  <path d="M475 130 L475 145" stroke="#ef4444" stroke-width="1" fill="none"/>
+  <rect x="400" y="147" width="100" height="55" rx="5" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+  <text x="450" y="165" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="bold" font-family="system-ui">HashMap</text>
+  <text x="450" y="179" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Unordered, O(1)</text>
+  <text x="450" y="192" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Most used</text>
+  <rect x="400" y="208" width="100" height="28" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="450" y="226" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">TreeMap (sorted)</text>
+  <!-- Comparison Table -->
+  <rect x="20" y="252" width="480" height="95" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="272" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold" font-family="system-ui">Quick Comparison</text>
+  <text x="80" y="292" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold" font-family="system-ui">ArrayList</text>
+  <text x="80" y="306" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Fast read O(1)</text>
+  <text x="80" y="320" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Slow insert O(n)</text>
+  <text x="210" y="292" text-anchor="middle" fill="#10b981" font-size="9" font-weight="bold" font-family="system-ui">HashSet</text>
+  <text x="210" y="306" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">No duplicates</text>
+  <text x="210" y="320" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Fast O(1)</text>
+  <text x="340" y="292" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="bold" font-family="system-ui">HashMap</text>
+  <text x="340" y="306" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Key-Value pairs</text>
+  <text x="340" y="320" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Fast O(1)</text>
+  <text x="460" y="292" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">PriorityQueue</text>
+  <text x="460" y="306" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Priority order</text>
+  <text x="460" y="320" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">O(log n)</text>
+</svg>

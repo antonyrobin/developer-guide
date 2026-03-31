@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260">
+  <rect width="520" height="260" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">Indexes &amp; Performance</text>
+  <!-- Without Index -->
+  <rect x="20" y="48" width="230" height="90" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="135" y="68" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold" font-family="system-ui">Without Index — Full Table Scan</text>
+  <rect x="35" y="80" width="20" height="14" rx="2" fill="#ef4444" opacity="0.3"/>
+  <rect x="60" y="80" width="20" height="14" rx="2" fill="#ef4444" opacity="0.3"/>
+  <rect x="85" y="80" width="20" height="14" rx="2" fill="#ef4444" opacity="0.3"/>
+  <rect x="110" y="80" width="20" height="14" rx="2" fill="#ef4444" opacity="0.3"/>
+  <rect x="135" y="80" width="20" height="14" rx="2" fill="#ef4444" opacity="0.3"/>
+  <rect x="160" y="80" width="20" height="14" rx="2" fill="#10b981"/>
+  <rect x="185" y="80" width="20" height="14" rx="2" fill="#ef4444" opacity="0.3"/>
+  <rect x="210" y="80" width="20" height="14" rx="2" fill="#ef4444" opacity="0.3"/>
+  <text x="135" y="112" text-anchor="middle" fill="#ef4444" font-size="9" font-family="system-ui">Checks every row — O(n)</text>
+  <text x="135" y="128" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Slow for large tables</text>
+  <!-- With Index -->
+  <rect x="270" y="48" width="230" height="90" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="385" y="68" text-anchor="middle" fill="#10b981" font-size="10" font-weight="bold" font-family="system-ui">With Index — B-Tree Lookup</text>
+  <!-- B-tree mini -->
+  <rect x="365" y="80" width="40" height="16" rx="3" fill="#10b981" opacity="0.3"/>
+  <text x="385" y="92" text-anchor="middle" fill="#10b981" font-size="7" font-family="system-ui">root</text>
+  <path d="M375 96 L350 106" stroke="#10b981" stroke-width="1" fill="none"/>
+  <path d="M395 96 L420 106" stroke="#10b981" stroke-width="1" fill="none"/>
+  <rect x="330" y="106" width="40" height="14" rx="3" fill="#10b981" opacity="0.2"/>
+  <rect x="400" y="106" width="40" height="14" rx="3" fill="#10b981"/>
+  <text x="420" y="116" text-anchor="middle" fill="#0f172a" font-size="7" font-weight="bold" font-family="system-ui">found!</text>
+  <text x="385" y="134" text-anchor="middle" fill="#10b981" font-size="9" font-family="system-ui">Direct lookup — O(log n)</text>
+  <!-- Index Types -->
+  <rect x="20" y="155" width="480" height="90" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="175" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold" font-family="system-ui">Index Types</text>
+  <rect x="35" y="188" width="88" height="45" rx="5" fill="#0f172a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="79" y="205" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold" font-family="system-ui">Single Column</text>
+  <text x="79" y="220" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">One column</text>
+  <rect x="133" y="188" width="88" height="45" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="177" y="205" text-anchor="middle" fill="#10b981" font-size="9" font-weight="bold" font-family="system-ui">Composite</text>
+  <text x="177" y="220" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Multi-column</text>
+  <rect x="231" y="188" width="88" height="45" rx="5" fill="#0f172a" stroke="#a78bfa" stroke-width="1"/>
+  <text x="275" y="205" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">Unique</text>
+  <text x="275" y="220" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">No duplicates</text>
+  <rect x="329" y="188" width="80" height="45" rx="5" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="369" y="205" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="bold" font-family="system-ui">Clustered</text>
+  <text x="369" y="220" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Physical order</text>
+  <rect x="419" y="188" width="70" height="45" rx="5" fill="#0f172a" stroke="#06b6d4" stroke-width="1"/>
+  <text x="454" y="205" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="bold" font-family="system-ui">Partial</text>
+  <text x="454" y="220" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Filtered</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320">
+  <rect width="520" height="320" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">Control Flow &amp; Enums</text>
+  <!-- if-else if-else -->
+  <rect x="20" y="48" width="240" height="125" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#3b82f6" font-size="11" font-weight="bold" font-family="system-ui">Decision Making</text>
+  <!-- Diamond -->
+  <polygon points="80,90 120,78 160,90 120,102" fill="#0f172a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="120" y="94" text-anchor="middle" fill="#3b82f6" font-size="8" font-family="system-ui">condition?</text>
+  <!-- Branches -->
+  <path d="M80 90 L50 90 L50 120" stroke="#10b981" stroke-width="1" fill="none" marker-end="url(#a4)"/>
+  <defs><marker id="a4" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#475569"/></marker></defs>
+  <text x="45" y="86" fill="#10b981" font-size="8" font-family="system-ui">true</text>
+  <rect x="30" y="122" width="55" height="22" rx="3" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="57" y="137" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Block A</text>
+  <path d="M160 90 L190 90 L190 120" stroke="#ef4444" stroke-width="1" fill="none" marker-end="url(#a4)"/>
+  <text x="195" y="86" fill="#ef4444" font-size="8" font-family="system-ui">false</text>
+  <rect x="168" y="122" width="55" height="22" rx="3" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+  <text x="195" y="137" text-anchor="middle" fill="#ef4444" font-size="8" font-family="system-ui">Block B</text>
+  <text x="140" y="162" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">if / else if / else / switch</text>
+  <!-- Loops -->
+  <rect x="275" y="48" width="225" height="125" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="387" y="68" text-anchor="middle" fill="#10b981" font-size="11" font-weight="bold" font-family="system-ui">Loop Statements</text>
+  <rect x="290" y="82" width="60" height="28" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="320" y="100" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="bold" font-family="monospace">for</text>
+  <rect x="360" y="82" width="60" height="28" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="390" y="100" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="bold" font-family="monospace">while</text>
+  <rect x="430" y="82" width="60" height="28" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="460" y="100" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="bold" font-family="monospace">do-while</text>
+  <rect x="290" y="118" width="90" height="28" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="335" y="136" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="bold" font-family="monospace">for-each</text>
+  <text x="440" y="136" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">break | continue</text>
+  <text x="387" y="165" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Repeat code blocks efficiently</text>
+  <!-- Enum Section -->
+  <rect x="20" y="190" width="480" height="115" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="260" y="212" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="bold" font-family="system-ui">Enums — Type-Safe Constants</text>
+  <!-- Enum Example -->
+  <rect x="40" y="225" width="130" height="65" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="105" y="243" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="bold" font-family="system-ui">TrafficLight</text>
+  <text x="105" y="260" text-anchor="middle" fill="#ef4444" font-size="9" font-family="monospace">RED</text>
+  <text x="105" y="275" text-anchor="middle" fill="#f59e0b" font-size="9" font-family="monospace">YELLOW</text>
+  <text x="105" y="290" text-anchor="middle" fill="#10b981" font-size="9" font-family="monospace">GREEN</text>
+  <!-- Arrow -->
+  <path d="M170 260 L200 260" stroke="#475569" stroke-width="1.5" fill="none" marker-end="url(#a4)"/>
+  <!-- Enum Features -->
+  <rect x="210" y="225" width="270" height="65" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="345" y="245" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">Can have fields, constructors, methods</text>
+  <text x="345" y="262" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">Constructors are always private</text>
+  <text x="345" y="279" text-anchor="middle" fill="#10b981" font-size="9" font-family="system-ui">Works perfectly with switch statements</text>
+</svg>

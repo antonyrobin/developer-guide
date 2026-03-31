@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">SQL Schema &amp; Constraints</text>
+  <!-- Table visualization -->
+  <rect x="30" y="48" width="220" height="175" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#3b82f6" font-size="11" font-weight="bold" font-family="system-ui">employees</text>
+  <line x1="30" y1="76" x2="250" y2="76" stroke="#475569" stroke-width="1"/>
+  <text x="45" y="94" fill="#f59e0b" font-size="9" font-family="monospace">id</text>
+  <text x="135" y="94" fill="#94a3b8" font-size="8" font-family="system-ui">SERIAL PK</text>
+  <text x="45" y="112" fill="#e2e8f0" font-size="9" font-family="monospace">name</text>
+  <text x="135" y="112" fill="#94a3b8" font-size="8" font-family="system-ui">VARCHAR NOT NULL</text>
+  <text x="45" y="130" fill="#e2e8f0" font-size="9" font-family="monospace">email</text>
+  <text x="135" y="130" fill="#94a3b8" font-size="8" font-family="system-ui">VARCHAR UNIQUE</text>
+  <text x="45" y="148" fill="#10b981" font-size="9" font-family="monospace">dept_id</text>
+  <text x="135" y="148" fill="#94a3b8" font-size="8" font-family="system-ui">INTEGER FK</text>
+  <text x="45" y="166" fill="#e2e8f0" font-size="9" font-family="monospace">salary</text>
+  <text x="135" y="166" fill="#94a3b8" font-size="8" font-family="system-ui">NUMERIC CHECK</text>
+  <text x="45" y="184" fill="#e2e8f0" font-size="9" font-family="monospace">active</text>
+  <text x="135" y="184" fill="#94a3b8" font-size="8" font-family="system-ui">BOOLEAN DEFAULT</text>
+  <text x="45" y="202" fill="#e2e8f0" font-size="9" font-family="monospace">created_at</text>
+  <text x="135" y="202" fill="#94a3b8" font-size="8" font-family="system-ui">TIMESTAMP</text>
+  <!-- FK arrow -->
+  <path d="M250 148 L280 148 L280 82 L310 82" stroke="#10b981" stroke-width="1.5" fill="none" marker-end="url(#a5)"/>
+  <defs><marker id="a5" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#10b981"/></marker></defs>
+  <!-- Departments table -->
+  <rect x="310" y="48" width="190" height="85" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="405" y="68" text-anchor="middle" fill="#10b981" font-size="11" font-weight="bold" font-family="system-ui">departments</text>
+  <line x1="310" y1="76" x2="500" y2="76" stroke="#475569" stroke-width="1"/>
+  <text x="325" y="94" fill="#f59e0b" font-size="9" font-family="monospace">id</text>
+  <text x="415" y="94" fill="#94a3b8" font-size="8" font-family="system-ui">SERIAL PK</text>
+  <text x="325" y="112" fill="#e2e8f0" font-size="9" font-family="monospace">name</text>
+  <text x="415" y="112" fill="#94a3b8" font-size="8" font-family="system-ui">VARCHAR UNIQUE</text>
+  <!-- Constraints Legend -->
+  <rect x="310" y="150" width="190" height="73" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="405" y="170" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold" font-family="system-ui">Constraints</text>
+  <text x="325" y="188" fill="#3b82f6" font-size="8" font-family="system-ui">PK</text>
+  <text x="350" y="188" fill="#94a3b8" font-size="8" font-family="system-ui">Primary Key</text>
+  <text x="425" y="188" fill="#10b981" font-size="8" font-family="system-ui">FK</text>
+  <text x="450" y="188" fill="#94a3b8" font-size="8" font-family="system-ui">Foreign Key</text>
+  <text x="325" y="206" fill="#a78bfa" font-size="8" font-family="system-ui">UNIQUE</text>
+  <text x="380" y="206" fill="#94a3b8" font-size="8" font-family="system-ui">No duplicates</text>
+  <!-- ON DELETE behavior -->
+  <rect x="30" y="240" width="470" height="45" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="258" text-anchor="middle" fill="#e2e8f0" font-size="9" font-weight="bold" font-family="system-ui">ON DELETE Behaviors</text>
+  <text x="110" y="276" text-anchor="middle" fill="#ef4444" font-size="8" font-family="system-ui">CASCADE (remove children)</text>
+  <text x="290" y="276" text-anchor="middle" fill="#f59e0b" font-size="8" font-family="system-ui">SET NULL (clear FK)</text>
+  <text x="440" y="276" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="system-ui">RESTRICT (block delete)</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f1f5f9" font-family="Arial,sans-serif" font-size="18" font-weight="bold">Encapsulation</text>
+  <!-- Without encapsulation -->
+  <rect x="20" y="50" width="230" height="115" rx="8" fill="#ef4444" opacity="0.1" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="135" y="72" text-anchor="middle" fill="#ef4444" font-family="Arial,sans-serif" font-size="12" font-weight="bold">✗ Without Encapsulation</text>
+  <text x="35" y="95" fill="#fca5a5" font-family="monospace" font-size="10">account.balance = -500</text>
+  <text x="35" y="112" fill="#fca5a5" font-family="monospace" font-size="10">account.password = ""</text>
+  <text x="35" y="132" fill="#94a3b8" font-family="Arial,sans-serif" font-size="10">Direct access → No validation</text>
+  <text x="35" y="148" fill="#94a3b8" font-family="Arial,sans-serif" font-size="10">Data corruption possible</text>
+  <!-- With encapsulation -->
+  <rect x="270" y="50" width="230" height="115" rx="8" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="1.5"/>
+  <text x="385" y="72" text-anchor="middle" fill="#10b981" font-family="Arial,sans-serif" font-size="12" font-weight="bold">✓ With Encapsulation</text>
+  <text x="285" y="95" fill="#6ee7b7" font-family="monospace" font-size="10">account.deposit(500)</text>
+  <text x="285" y="112" fill="#6ee7b7" font-family="monospace" font-size="10">account.getBalance()</text>
+  <text x="285" y="132" fill="#94a3b8" font-family="Arial,sans-serif" font-size="10">Controlled access → Validated</text>
+  <text x="285" y="148" fill="#94a3b8" font-family="Arial,sans-serif" font-size="10">Data integrity maintained</text>
+  <!-- Class diagram -->
+  <rect x="130" y="185" width="260" height="105" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="260" y="208" text-anchor="middle" fill="#3b82f6" font-family="Arial,sans-serif" font-size="13" font-weight="bold">BankAccount</text>
+  <line x1="145" y1="215" x2="375" y2="215" stroke="#334155" stroke-width="1"/>
+  <text x="150" y="233" fill="#ef4444" font-family="monospace" font-size="10">- balance: double</text>
+  <text x="260" y="233" fill="#64748b" font-family="monospace" font-size="9">(private)</text>
+  <line x1="145" y1="242" x2="375" y2="242" stroke="#334155" stroke-width="1"/>
+  <text x="150" y="258" fill="#10b981" font-family="monospace" font-size="10">+ deposit(amount)</text>
+  <text x="260" y="258" fill="#64748b" font-family="monospace" font-size="9">(public)</text>
+  <text x="150" y="275" fill="#10b981" font-family="monospace" font-size="10">+ getBalance()</text>
+  <text x="260" y="275" fill="#64748b" font-family="monospace" font-size="9">(public)</text>
+</svg>
