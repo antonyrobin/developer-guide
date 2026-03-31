@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { courses } from '../data/courses';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -48,12 +48,17 @@ const CoursePage = () => {
   const course = courses.find((c) => c.id === id);
   const [activeTab, setActiveTab] = useState(0);
   const [prevId, setPrevId] = useState(id);
+  const hasMounted = useRef(false);
 
   // Reset tab synchronously when the course changes (before render completes)
   if (id !== prevId) {
     setPrevId(id);
     setActiveTab(0);
   }
+
+  useEffect(() => {
+    hasMounted.current = true;
+  }, []);
 
   useSEO({
     title: course ? course.title : null,
@@ -132,7 +137,7 @@ const CoursePage = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={id + activeTab}
-            initial={{ opacity: 0, y: 10 }}
+            initial={hasMounted.current ? { opacity: 0, y: 10 } : false}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
