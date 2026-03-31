@@ -1,8 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Shield, ArrowLeft } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 const PrivacyPolicy = () => {
+  useSEO({
+    title: 'Privacy Policy',
+    description: 'QuickDevGuide Privacy Policy — Learn how we collect, use, and protect your personal information when you use our developer reference guide.',
+    keywords: 'privacy policy, data protection, cookies, QuickDevGuide'
+  });
+
   return (
     <div className="legal-page">
       <div className="legal-header">

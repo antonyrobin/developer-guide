@@ -1,8 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FileText, ArrowLeft } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 const TermsOfService = () => {
+  useSEO({
+    title: 'Terms of Service',
+    description: 'QuickDevGuide Terms of Service — Read our terms and conditions for using the developer quick-reference guide and educational resources.',
+    keywords: 'terms of service, terms and conditions, usage policy, QuickDevGuide'
+  });
+
   return (
     <div className="legal-page">
       <div className="legal-header">

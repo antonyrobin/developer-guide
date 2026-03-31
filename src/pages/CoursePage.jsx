@@ -3,6 +3,36 @@ import { useParams, Navigate } from 'react-router-dom';
 import { courses } from '../data/courses';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
+
+/* Course-specific SEO keywords map */
+const courseKeywords = {
+  sdlc: 'SDLC, software development life cycle, agile, scrum, waterfall, kanban, V-model, sprint, software engineering',
+  html: 'HTML, HTML5, web development, semantic HTML, forms, tables, accessibility, markup language',
+  css: 'CSS, CSS3, flexbox, grid, responsive design, animations, media queries, web styling',
+  javascript: 'JavaScript, ES6, DOM, async await, promises, closures, prototypes, web development',
+  oops: 'OOP, object oriented programming, classes, inheritance, polymorphism, encapsulation, abstraction, SOLID principles',
+  java: 'Java, JVM, Spring, collections framework, exception handling, multithreading, enterprise programming',
+  csharp: 'C#, .NET, LINQ, async programming, entity framework, object oriented, Microsoft development',
+  python: 'Python, Django, Flask, data science, machine learning, automation, scripting, pip',
+  react: 'React, JSX, hooks, useState, useEffect, components, virtual DOM, frontend framework',
+  php: 'PHP, Laravel, Composer, server-side scripting, web development, MySQL, Eloquent ORM',
+  sql: 'SQL, database, PostgreSQL, MySQL, joins, indexes, normalization, stored procedures, queries',
+  nosql: 'NoSQL, MongoDB, Redis, document database, key-value store, schema design, aggregation',
+  docker: 'Docker, containers, Dockerfile, Docker Compose, DevOps, microservices, deployment',
+  'spring-boot': 'Spring Boot, Java framework, REST API, Spring MVC, JPA, microservices, enterprise Java',
+  blazor: 'Blazor, C# web, WebAssembly, .NET frontend, Razor components, SignalR',
+  'dotnet-api': '.NET Core, Web API, REST, C# backend, Entity Framework, middleware, authentication',
+  django: 'Django, Python web framework, ORM, templates, REST framework, admin panel, MVT',
+  aws: 'AWS, Amazon Web Services, EC2, S3, Lambda, cloud computing, serverless, IAM',
+  gcp: 'GCP, Google Cloud Platform, Cloud Run, BigQuery, Pub/Sub, Kubernetes, cloud services',
+  'data-structure': 'data structures, algorithms, arrays, linked lists, trees, graphs, hash tables, sorting',
+  'sys-arch': 'system architecture, microservices, scalability, load balancing, caching, message queues, design',
+  'design-patterns': 'design patterns, singleton, factory, observer, strategy, SOLID, Gang of Four, software design',
+  github: 'GitHub, Git, version control, repositories, pull requests, branches, collaboration',
+  'github-actions': 'GitHub Actions, CI/CD, workflows, YAML, automation, continuous integration, deployment',
+  'azure-devops': 'Azure DevOps, pipelines, boards, repos, CI/CD, Microsoft DevOps, agile project management'
+};
 
 /* Lightweight inline-markdown → HTML converter (content is developer-controlled, not user input) */
 function parseMarkdown(text) {
@@ -24,6 +54,12 @@ const CoursePage = () => {
     setPrevId(id);
     setActiveTab(0);
   }
+
+  useSEO({
+    title: course ? course.title : null,
+    description: course ? `Learn ${course.title} — ${course.description} Concise explanations, code examples, and visual diagrams on QuickDevGuide.` : null,
+    keywords: course ? (courseKeywords[course.id] || `${course.title}, programming, developer guide, tutorial`) : null
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);

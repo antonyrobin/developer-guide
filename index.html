@@ -5,12 +5,68 @@
     <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/color/48/source-code.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>QuickDevGuide | Developer Quick Reference</title>
+    <meta name="description" content="QuickDevGuide — A curated developer quick-reference guide with concise explanations, code examples, and visual diagrams across 28+ technologies including JavaScript, React, Java, Python, SQL, Docker, AWS, and more." />
+    <meta name="keywords" content="developer guide, programming tutorial, quick reference, JavaScript, React, Java, Python, C#, SQL, Docker, AWS, GCP, HTML, CSS, OOP, SDLC, Spring Boot, .NET, Django, design patterns, data structures, system architecture, GitHub Actions, Azure DevOps" />
+    <meta name="author" content="QuickDevGuide" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="QuickDevGuide" />
+    <meta property="og:title" content="QuickDevGuide | Developer Quick Reference" />
+    <meta property="og:description" content="A curated developer quick-reference guide with concise explanations, code examples, and visual diagrams across 28+ technologies." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="QuickDevGuide | Developer Quick Reference" />
+    <meta name="twitter:description" content="A curated developer quick-reference guide with concise explanations, code examples, and visual diagrams across 28+ technologies." />
+    <link rel="canonical" href="https://quickdevguide.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      /* Initial loading indicator — removed once React mounts */
+      #initial-loader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: #0a0a0f;
+        color: #e2e8f0;
+        font-family: 'Inter', system-ui, sans-serif;
+        gap: 1rem;
+      }
+      #initial-loader .loader-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      #initial-loader .loader-accent { color: #f59e0b; }
+      #initial-loader .loader-bar {
+        width: 200px;
+        height: 3px;
+        background: #1e293b;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      #initial-loader .loader-bar::after {
+        content: '';
+        display: block;
+        width: 40%;
+        height: 100%;
+        background: #f59e0b;
+        border-radius: 4px;
+        animation: loader-slide 1s ease-in-out infinite;
+      }
+      @keyframes loader-slide {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(350%); }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="initial-loader">
+        <div class="loader-title">Quick<span class="loader-accent">Dev</span>Guide</div>
+        <div class="loader-bar"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
