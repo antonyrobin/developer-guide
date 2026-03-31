@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { courses } from '../data/courses';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 
@@ -37,6 +36,9 @@ const courseKeywords = {
 /* Lightweight inline-markdown → HTML converter (content is developer-controlled, not user input) */
 function parseMarkdown(text) {
   return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>')
     .replace(/`(.+?)`/g, '<code class="inline-code">$1</code>')
@@ -129,14 +131,9 @@ const CoursePage = () => {
 
       {/* Main Content */}
       <div className="course-main">
-        <AnimatePresence mode="wait">
-          <motion.div
+          <div
             key={id + activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="course-content-wrapper"
+            className="course-content-wrapper animate-content-in"
           >
             {/* Header */}
             <div className="course-header-info">
@@ -229,8 +226,7 @@ const CoursePage = () => {
                 </button>
               )}
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </div>
       </div>
     </div>
   );
