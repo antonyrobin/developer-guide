@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 340">
+  <rect width="850" height="340" rx="12" fill="#0f172a"/>
+  <text x="425" y="36" text-anchor="middle" fill="#f1f5f9" font-family="Arial, sans-serif" font-size="20" font-weight="bold">SDLC — Six Core Phases</text>
+  <!-- Phase 1 -->
+  <rect x="20" y="65" width="120" height="90" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+  <circle cx="80" cy="88" r="14" fill="#3b82f6"/>
+  <text x="80" y="93" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">1</text>
+  <text x="80" y="120" text-anchor="middle" fill="#93c5fd" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Requirement</text>
+  <text x="80" y="135" text-anchor="middle" fill="#93c5fd" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Analysis</text>
+  <!-- Arrow -->
+  <polygon points="145,110 163,100 163,120" fill="#475569"/>
+  <!-- Phase 2 -->
+  <rect x="168" y="65" width="120" height="90" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+  <circle cx="228" cy="88" r="14" fill="#8b5cf6"/>
+  <text x="228" y="93" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">2</text>
+  <text x="228" y="125" text-anchor="middle" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Design</text>
+  <!-- Arrow -->
+  <polygon points="293,110 311,100 311,120" fill="#475569"/>
+  <!-- Phase 3 -->
+  <rect x="316" y="65" width="120" height="90" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+  <circle cx="376" cy="88" r="14" fill="#10b981"/>
+  <text x="376" y="93" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">3</text>
+  <text x="376" y="125" text-anchor="middle" fill="#6ee7b7" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Development</text>
+  <!-- Arrow -->
+  <polygon points="441,110 459,100 459,120" fill="#475569"/>
+  <!-- Phase 4 -->
+  <rect x="464" y="65" width="120" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <circle cx="524" cy="88" r="14" fill="#f59e0b"/>
+  <text x="524" y="93" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">4</text>
+  <text x="524" y="125" text-anchor="middle" fill="#fcd34d" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Testing</text>
+  <!-- Arrow -->
+  <polygon points="589,110 607,100 607,120" fill="#475569"/>
+  <!-- Phase 5 -->
+  <rect x="612" y="65" width="120" height="90" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="672" cy="88" r="14" fill="#ef4444"/>
+  <text x="672" y="93" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">5</text>
+  <text x="672" y="125" text-anchor="middle" fill="#fca5a5" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Deployment</text>
+  <!-- Arrow down -->
+  <polygon points="762,110 780,100 780,120" fill="#475569"/>
+  <!-- Phase 6 -->
+  <rect x="692" y="185" width="138" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/>
+  <circle cx="761" cy="208" r="14" fill="#06b6d4"/>
+  <text x="761" y="213" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">6</text>
+  <text x="761" y="245" text-anchor="middle" fill="#67e8f9" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Maintenance</text>
+  <!-- Feedback arrow -->
+  <path d="M692,230 L100,230 L100,160 L140,160" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <polygon points="140,155 140,165 150,160" fill="#475569"/>
+  <text x="395" y="255" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="11" font-style="italic">Feedback loop — maintenance feeds back into requirements</text>
+  <!-- Descriptions -->
+  <text x="80" y="300" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">Gather needs</text>
+  <text x="228" y="300" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">Plan blueprint</text>
+  <text x="376" y="300" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">Write code</text>
+  <text x="524" y="300" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">Find bugs</text>
+  <text x="672" y="300" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">Go live</text>
+  <text x="761" y="300" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">Fix &amp; evolve</text>
+</svg>

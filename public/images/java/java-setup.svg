@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">Java Setup &amp; Environment</text>
+  <!-- Step 1: Download -->
+  <rect x="20" y="48" width="150" height="80" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <circle cx="45" cy="68" r="12" fill="#3b82f6" opacity="0.2"/>
+  <text x="45" y="72" text-anchor="middle" fill="#3b82f6" font-size="12" font-weight="bold" font-family="system-ui">1</text>
+  <text x="105" y="70" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold" font-family="system-ui">Download JDK</text>
+  <text x="95" y="88" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Adoptium / Oracle</text>
+  <text x="95" y="102" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Windows / macOS / Linux</text>
+  <text x="95" y="116" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">OpenJDK recommended</text>
+  <!-- Arrow -->
+  <path d="M170 88 L185 88" stroke="#475569" stroke-width="1.5" fill="none" marker-end="url(#a2)"/>
+  <defs><marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#475569"/></marker></defs>
+  <!-- Step 2: Environment Variables -->
+  <rect x="190" y="48" width="150" height="80" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <circle cx="215" cy="68" r="12" fill="#10b981" opacity="0.2"/>
+  <text x="215" y="72" text-anchor="middle" fill="#10b981" font-size="12" font-weight="bold" font-family="system-ui">2</text>
+  <text x="275" y="70" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold" font-family="system-ui">Set JAVA_HOME</text>
+  <text x="265" y="88" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Environment Variables</text>
+  <text x="265" y="102" text-anchor="middle" fill="#06b6d4" font-size="8" font-family="monospace">JAVA_HOME=path/jdk</text>
+  <text x="265" y="116" text-anchor="middle" fill="#06b6d4" font-size="8" font-family="monospace">PATH+=%JAVA_HOME%\bin</text>
+  <!-- Arrow -->
+  <path d="M340 88 L355 88" stroke="#475569" stroke-width="1.5" fill="none" marker-end="url(#a2)"/>
+  <!-- Step 3: Verify -->
+  <rect x="360" y="48" width="140" height="80" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <circle cx="385" cy="68" r="12" fill="#a78bfa" opacity="0.2"/>
+  <text x="385" y="72" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="bold" font-family="system-ui">3</text>
+  <text x="440" y="70" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold" font-family="system-ui">Verify</text>
+  <text x="430" y="90" text-anchor="middle" fill="#06b6d4" font-size="9" font-family="monospace">java -version</text>
+  <text x="430" y="106" text-anchor="middle" fill="#06b6d4" font-size="9" font-family="monospace">javac -version</text>
+  <!-- IDE Section -->
+  <rect x="20" y="148" width="480" height="55" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="260" y="168" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="bold" font-family="system-ui">Choose an IDE</text>
+  <text x="110" y="190" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">IntelliJ IDEA (recommended)</text>
+  <text x="280" y="190" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">Eclipse</text>
+  <text x="410" y="190" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">VS Code + Java Pack</text>
+  <!-- JDK Components -->
+  <rect x="20" y="220" width="480" height="65" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.2"/>
+  <text x="260" y="240" text-anchor="middle" fill="#3b82f6" font-size="11" font-weight="bold" font-family="system-ui">JDK Components</text>
+  <rect x="40" y="250" width="90" height="25" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="85" y="267" text-anchor="middle" fill="#10b981" font-size="9" font-weight="bold" font-family="system-ui">javac</text>
+  <rect x="145" y="250" width="90" height="25" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="190" y="267" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">JRE / JVM</text>
+  <rect x="250" y="250" width="90" height="25" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="295" y="267" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="bold" font-family="system-ui">jdb</text>
+  <rect x="355" y="250" width="90" height="25" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="400" y="267" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="bold" font-family="system-ui">javadoc</text>
+</svg>

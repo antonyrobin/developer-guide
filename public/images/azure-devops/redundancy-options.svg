@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="380">
+      <stop offset="0%" stop-color="#EEF2FF"/>
+      <stop offset="100%" stop-color="#E0E7FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="800" height="380" rx="16" fill="url(#bg)"/>
+  <text x="400" y="38" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="#002D6E">Azure Storage Redundancy Options</text>
+  <!-- Header Row -->
+  <rect x="30" y="60" width="140" height="40" rx="6" fill="#0047AB"/>
+  <text x="100" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">Type</text>
+  <rect x="180" y="60" width="80" height="40" rx="6" fill="#0047AB"/>
+  <text x="220" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">Copies</text>
+  <rect x="270" y="60" width="130" height="40" rx="6" fill="#0047AB"/>
+  <text x="335" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">Data Centers</text>
+  <rect x="410" y="60" width="90" height="40" rx="6" fill="#0047AB"/>
+  <text x="455" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">Regions</text>
+  <rect x="510" y="60" width="260" height="40" rx="6" fill="#0047AB"/>
+  <text x="640" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">Protects Against</text>
+  <!-- LRS -->
+  <rect x="30" y="110" width="740" height="50" rx="8" fill="#fff" filter="url(#shadow)"/>
+  <text x="100" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#1D4ED8">LRS</text>
+  <text x="220" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">3</text>
+  <text x="335" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">1</text>
+  <text x="455" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">1</text>
+  <text x="640" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" fill="#6B7280">Server / Rack failure</text>
+  <!-- ZRS -->
+  <rect x="30" y="170" width="740" height="50" rx="8" fill="#F0F4FF" filter="url(#shadow)"/>
+  <text x="100" y="200" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#1D4ED8">ZRS</text>
+  <text x="220" y="200" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">3</text>
+  <text x="335" y="200" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">3</text>
+  <text x="455" y="200" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">1</text>
+  <text x="640" y="200" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" fill="#6B7280">Data center outage</text>
+  <!-- GRS -->
+  <rect x="30" y="230" width="740" height="50" rx="8" fill="#fff" filter="url(#shadow)"/>
+  <text x="100" y="260" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#1D4ED8">GRS</text>
+  <text x="220" y="260" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">6</text>
+  <text x="335" y="260" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">2</text>
+  <text x="455" y="260" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">2</text>
+  <text x="640" y="260" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" fill="#6B7280">Regional disaster</text>
+  <!-- GZRS -->
+  <rect x="30" y="290" width="740" height="50" rx="8" fill="#F0F4FF" filter="url(#shadow)"/>
+  <text x="100" y="320" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#1D4ED8">GZRS</text>
+  <text x="220" y="320" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">6</text>
+  <text x="335" y="320" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">4</text>
+  <text x="455" y="320" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#374151">2</text>
+  <text x="640" y="320" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" fill="#6B7280">Zone + Regional disaster</text>
+  <!-- Footer note -->
+  <text x="400" y="365" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#9CA3AF">RA-GRS / RA-GZRS adds a secondary Read-Only endpoint for the secondary region</text>
+</svg>

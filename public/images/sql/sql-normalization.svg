@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280">
+  <rect width="520" height="280" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">Normalization &amp; Denormalization</text>
+  <!-- Normalization side -->
+  <rect x="20" y="48" width="235" height="215" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="137" y="68" text-anchor="middle" fill="#3b82f6" font-size="11" font-weight="bold" font-family="system-ui">Normalization</text>
+  <text x="137" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Reduce redundancy, improve integrity</text>
+  <rect x="35" y="95" width="205" height="26" rx="4" fill="#0f172a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="60" y="112" fill="#3b82f6" font-size="9" font-weight="bold" font-family="system-ui">1NF</text>
+  <text x="130" y="112" fill="#94a3b8" font-size="8" font-family="system-ui">Atomic values, no repeating groups</text>
+  <rect x="35" y="127" width="205" height="26" rx="4" fill="#0f172a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="60" y="144" fill="#3b82f6" font-size="9" font-weight="bold" font-family="system-ui">2NF</text>
+  <text x="135" y="144" fill="#94a3b8" font-size="8" font-family="system-ui">Remove partial dependencies</text>
+  <rect x="35" y="159" width="205" height="26" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+  <text x="60" y="176" fill="#10b981" font-size="9" font-weight="bold" font-family="system-ui">3NF</text>
+  <text x="135" y="176" fill="#10b981" font-size="8" font-family="system-ui">Remove transitive dependencies</text>
+  <rect x="35" y="191" width="205" height="26" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="62" y="208" fill="#94a3b8" font-size="9" font-weight="bold" font-family="system-ui">BCNF</text>
+  <text x="145" y="208" fill="#94a3b8" font-size="8" font-family="system-ui">Every determinant is a key</text>
+  <rect x="35" y="223" width="205" height="26" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="65" y="240" fill="#94a3b8" font-size="9" font-weight="bold" font-family="system-ui">4NF/5NF</text>
+  <text x="155" y="240" fill="#94a3b8" font-size="8" font-family="system-ui">Multi-valued/join deps</text>
+  <!-- Arrow -->
+  <text x="260" y="160" text-anchor="middle" fill="#475569" font-size="18" font-family="system-ui">⇄</text>
+  <!-- Denormalization side -->
+  <rect x="270" y="48" width="230" height="215" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="385" y="68" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="bold" font-family="system-ui">Denormalization</text>
+  <text x="385" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Add redundancy for read speed</text>
+  <rect x="285" y="95" width="200" height="35" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="385" y="110" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">Merged / Flattened tables</text>
+  <text x="385" y="123" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Fewer JOINs needed</text>
+  <rect x="285" y="137" width="200" height="35" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="385" y="152" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">Precomputed summaries</text>
+  <text x="385" y="165" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Aggregate tables</text>
+  <rect x="285" y="179" width="200" height="35" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="385" y="194" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">Duplicated lookup values</text>
+  <text x="385" y="207" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Avoid repeated joins</text>
+  <rect x="285" y="221" width="200" height="30" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="385" y="240" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">JSON columns for nested reads</text>
+</svg>

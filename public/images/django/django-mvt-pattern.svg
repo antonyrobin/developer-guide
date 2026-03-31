@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Django MVT Pattern</text>
+  <text x="450" y="70" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Segoe UI,Arial,sans-serif">Model → View → Template — Django's interpretation of MVC</text>
+
+  <!-- Browser -->
+  <rect x="340" y="95" width="220" height="55" rx="12" fill="#475569"/>
+  <text x="450" y="129" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Browser (User)</text>
+  <line x1="450" y1="150" x2="450" y2="185" stroke="#4ade80" stroke-width="2"/>
+  <polygon points="450,185 443,175 457,175" fill="#4ade80"/>
+
+  <!-- URL Dispatcher -->
+  <rect x="340" y="188" width="220" height="45" rx="10" fill="#0e7490"/>
+  <text x="450" y="216" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">URL Dispatcher (urls.py)</text>
+  <line x1="450" y1="233" x2="450" y2="265" stroke="#60a5fa" stroke-width="2"/>
+  <polygon points="450,265 443,255 457,255" fill="#60a5fa"/>
+
+  <!-- View -->
+  <rect x="300" y="268" width="300" height="70" rx="14" fill="#166534" stroke="#4ade80" stroke-width="2"/>
+  <text x="450" y="298" text-anchor="middle" fill="#fff" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">View (views.py)</text>
+  <text x="450" y="320" text-anchor="middle" fill="#bbf7d0" font-size="13" font-family="Segoe UI,Arial,sans-serif">Business logic — like a Controller in MVC</text>
+
+  <!-- Model arrow -->
+  <line x1="300" y1="305" x2="170" y2="305" stroke="#fbbf24" stroke-width="2"/>
+  <polygon points="170,305 180,298 180,312" fill="#fbbf24"/>
+
+  <!-- Model -->
+  <rect x="40" y="275" width="130" height="60" rx="12" fill="#854d0e"/>
+  <text x="105" y="302" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Model</text>
+  <text x="105" y="322" text-anchor="middle" fill="#fef3c7" font-size="12" font-family="Segoe UI,Arial,sans-serif">models.py</text>
+  <line x1="105" y1="335" x2="105" y2="370" stroke="#f87171" stroke-width="2"/>
+
+  <rect x="40" y="370" width="130" height="35" rx="8" fill="#7c2d12"/>
+  <text x="105" y="393" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Database</text>
+
+  <!-- Template arrow -->
+  <line x1="600" y1="305" x2="730" y2="305" stroke="#c084fc" stroke-width="2"/>
+  <polygon points="730,305 720,298 720,312" fill="#c084fc"/>
+
+  <!-- Template -->
+  <rect x="730" y="275" width="130" height="60" rx="12" fill="#7c3aed"/>
+  <text x="795" y="302" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Template</text>
+  <text x="795" y="322" text-anchor="middle" fill="#e9d5ff" font-size="12" font-family="Segoe UI,Arial,sans-serif">HTML + DTL</text>
+
+  <!-- Legend -->
+  <rect x="200" y="370" width="500" height="38" rx="10" fill="#1e293b"/>
+  <text x="450" y="395" text-anchor="middle" fill="#64748b" font-size="13" font-family="Segoe UI,Arial,sans-serif">DTL = Django Template Language · ORM maps Python classes to database tables</text>
+</svg>

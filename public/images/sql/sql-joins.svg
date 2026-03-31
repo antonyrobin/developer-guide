@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280">
+  <rect width="520" height="280" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">SQL JOIN Types</text>
+  <!-- Table A -->
+  <circle cx="140" cy="130" r="70" fill="none" stroke="#3b82f6" stroke-width="2"/>
+  <text x="100" y="125" fill="#3b82f6" font-size="12" font-weight="bold" font-family="system-ui">A</text>
+  <!-- Table B -->
+  <circle cx="230" cy="130" r="70" fill="none" stroke="#10b981" stroke-width="2"/>
+  <text x="270" y="125" fill="#10b981" font-size="12" font-weight="bold" font-family="system-ui">B</text>
+  <!-- Overlap area label -->
+  <text x="185" y="135" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="bold" font-family="system-ui">A∩B</text>
+  <!-- JOIN types -->
+  <rect x="330" y="45" width="170" height="35" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="415" y="58" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold" font-family="system-ui">INNER JOIN</text>
+  <text x="415" y="72" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Only matching rows</text>
+  <rect x="330" y="90" width="170" height="35" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="415" y="103" text-anchor="middle" fill="#3b82f6" font-size="10" font-weight="bold" font-family="system-ui">LEFT JOIN</text>
+  <text x="415" y="117" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">All A + matching B</text>
+  <rect x="330" y="135" width="170" height="35" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="415" y="148" text-anchor="middle" fill="#10b981" font-size="10" font-weight="bold" font-family="system-ui">RIGHT JOIN</text>
+  <text x="415" y="162" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">All B + matching A</text>
+  <rect x="330" y="180" width="170" height="35" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="415" y="193" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">FULL JOIN</text>
+  <text x="415" y="207" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">All rows from both</text>
+  <!-- Self Join & Cross -->
+  <rect x="30" y="225" width="220" height="40" rx="6" fill="#1e293b" stroke="#06b6d4" stroke-width="1.2"/>
+  <text x="140" y="243" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="bold" font-family="system-ui">SELF JOIN</text>
+  <text x="140" y="258" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Table joins itself (e.g., manager-employee)</text>
+  <rect x="265" y="225" width="235" height="40" rx="6" fill="#1e293b" stroke="#ef4444" stroke-width="1.2"/>
+  <text x="382" y="243" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold" font-family="system-ui">CROSS JOIN</text>
+  <text x="382" y="258" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Cartesian product — every A row × every B row</text>
+</svg>

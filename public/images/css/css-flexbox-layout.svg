@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340">
+  <rect width="520" height="340" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f1f5f9" font-family="Arial,sans-serif" font-size="18" font-weight="bold">Flexbox Layout</text>
+  <!-- Main Axis arrow -->
+  <line x1="30" y1="60" x2="490" y2="60" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="260" y="55" text-anchor="middle" fill="#3b82f6" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Main Axis →</text>
+  <defs>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6Z" fill="#3b82f6"/></marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6Z" fill="#8b5cf6"/></marker>
+  </defs>
+  <!-- Cross Axis arrow -->
+  <line x1="15" y1="75" x2="15" y2="230" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrowPurple)"/>
+  <text x="12" y="155" fill="#8b5cf6" font-family="Arial,sans-serif" font-size="11" font-weight="bold" transform="rotate(-90 12 155)">Cross Axis ↓</text>
+  <!-- Flex container -->
+  <rect x="35" y="75" width="450" height="155" rx="8" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="45" y="92" fill="#94a3b8" font-family="monospace" font-size="10">display: flex</text>
+  <!-- Flex items -->
+  <rect x="55" y="105" width="100" height="110" rx="6" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="105" y="155" text-anchor="middle" fill="#93c5fd" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Item 1</text>
+  <text x="105" y="172" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="9">flex: 1</text>
+  <rect x="175" y="105" width="100" height="110" rx="6" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1.5"/>
+  <text x="225" y="155" text-anchor="middle" fill="#6ee7b7" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Item 2</text>
+  <text x="225" y="172" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="9">flex: 2</text>
+  <rect x="295" y="105" width="100" height="110" rx="6" fill="#f59e0b" opacity="0.3" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="345" y="155" text-anchor="middle" fill="#fcd34d" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Item 3</text>
+  <text x="345" y="172" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="9">flex: 1</text>
+  <!-- Gap indicator -->
+  <line x1="155" y1="220" x2="175" y2="220" stroke="#ef4444" stroke-width="2"/>
+  <text x="165" y="235" text-anchor="middle" fill="#ef4444" font-family="monospace" font-size="9">gap</text>
+  <!-- Properties summary -->
+  <rect x="35" y="250" width="220" height="80" rx="6" fill="#1e293b"/>
+  <text x="145" y="270" text-anchor="middle" fill="#3b82f6" font-family="Arial,sans-serif" font-size="12" font-weight="bold">justify-content</text>
+  <text x="145" y="288" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="10">flex-start | center</text>
+  <text x="145" y="303" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="10">space-between | space-around</text>
+  <text x="145" y="318" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="10">↔ Main Axis alignment</text>
+  <rect x="270" y="250" width="215" height="80" rx="6" fill="#1e293b"/>
+  <text x="377" y="270" text-anchor="middle" fill="#8b5cf6" font-family="Arial,sans-serif" font-size="12" font-weight="bold">align-items</text>
+  <text x="377" y="288" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="10">stretch | center</text>
+  <text x="377" y="303" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="10">flex-start | flex-end</text>
+  <text x="377" y="318" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="10">↕ Cross Axis alignment</text>
+</svg>

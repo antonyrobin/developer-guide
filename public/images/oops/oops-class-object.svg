@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320">
+  <rect width="520" height="320" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f1f5f9" font-family="Arial,sans-serif" font-size="18" font-weight="bold">Class &amp; Object</text>
+  <!-- Class blueprint -->
+  <rect x="20" y="50" width="230" height="230" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+  <text x="135" y="75" text-anchor="middle" fill="#3b82f6" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Class (Blueprint)</text>
+  <line x1="35" y1="85" x2="235" y2="85" stroke="#334155" stroke-width="1"/>
+  <text x="40" y="105" fill="#93c5fd" font-family="monospace" font-size="11">class Car {</text>
+  <text x="55" y="125" fill="#94a3b8" font-family="monospace" font-size="10">color: String</text>
+  <text x="55" y="142" fill="#94a3b8" font-family="monospace" font-size="10">speed: Number</text>
+  <text x="55" y="159" fill="#94a3b8" font-family="monospace" font-size="10">model: String</text>
+  <line x1="35" y1="170" x2="235" y2="170" stroke="#334155" stroke-width="1"/>
+  <text x="55" y="190" fill="#94a3b8" font-family="monospace" font-size="10">startEngine()</text>
+  <text x="55" y="207" fill="#94a3b8" font-family="monospace" font-size="10">accelerate()</text>
+  <text x="55" y="224" fill="#94a3b8" font-family="monospace" font-size="10">brake()</text>
+  <text x="40" y="245" fill="#93c5fd" font-family="monospace" font-size="11">}</text>
+  <text x="135" y="272" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="10">No memory allocated</text>
+  <!-- Arrow -->
+  <text x="266" y="160" fill="#f59e0b" font-family="Arial,sans-serif" font-size="16" font-weight="bold">→</text>
+  <text x="266" y="178" fill="#f59e0b" font-family="monospace" font-size="9">new</text>
+  <!-- Objects -->
+  <rect x="290" y="50" width="210" height="105" rx="8" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1.5"/>
+  <text x="395" y="73" text-anchor="middle" fill="#6ee7b7" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Object: myCar</text>
+  <text x="305" y="93" fill="#94a3b8" font-family="monospace" font-size="10">color: "Red"</text>
+  <text x="305" y="110" fill="#94a3b8" font-family="monospace" font-size="10">speed: 120</text>
+  <text x="305" y="127" fill="#94a3b8" font-family="monospace" font-size="10">model: "Tesla"</text>
+  <text x="395" y="147" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="9">Memory allocated ✓</text>
+  <rect x="290" y="170" width="210" height="105" rx="8" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="395" y="193" text-anchor="middle" fill="#fcd34d" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Object: yourCar</text>
+  <text x="305" y="213" fill="#94a3b8" font-family="monospace" font-size="10">color: "Blue"</text>
+  <text x="305" y="230" fill="#94a3b8" font-family="monospace" font-size="10">speed: 80</text>
+  <text x="305" y="247" fill="#94a3b8" font-family="monospace" font-size="10">model: "Honda"</text>
+  <text x="395" y="268" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="9">Memory allocated ✓</text>
+  <!-- Note -->
+  <rect x="20" y="290" width="480" height="24" rx="4" fill="#1e293b"/>
+  <text x="260" y="306" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="10">One class → many objects, each with unique data but shared methods</text>
+</svg>

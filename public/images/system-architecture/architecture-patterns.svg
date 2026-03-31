@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <rect width="900" height="440" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">System Architecture Patterns</text>
+
+  <!-- Monolithic -->
+  <rect x="40" y="80" width="250" height="160" rx="14" fill="#1e293b" stroke="#f87171" stroke-width="2"/>
+  <text x="165" y="110" text-anchor="middle" fill="#f87171" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Monolithic</text>
+  <rect x="60" y="120" width="210" height="100" rx="8" fill="#374151"/>
+  <text x="165" y="148" text-anchor="middle" fill="#fff" font-size="13" font-family="Segoe UI,Arial,sans-serif">UI + Business Logic + DB</text>
+  <text x="165" y="170" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Single deployable unit</text>
+  <text x="165" y="190" text-anchor="middle" fill="#86efac" font-size="11" font-family="Segoe UI,Arial,sans-serif">+ Simple to develop &amp; deploy</text>
+  <text x="165" y="208" text-anchor="middle" fill="#fca5a5" font-size="11" font-family="Segoe UI,Arial,sans-serif">- Hard to scale &amp; maintain</text>
+
+  <!-- Microservices -->
+  <rect x="325" y="80" width="250" height="160" rx="14" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="450" y="110" text-anchor="middle" fill="#4ade80" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Microservices</text>
+  <rect x="340" y="122" width="60" height="35" rx="6" fill="#166534"/>
+  <text x="370" y="144" text-anchor="middle" fill="#fff" font-size="10" font-family="Segoe UI,Arial,sans-serif">Auth</text>
+  <rect x="410" y="122" width="60" height="35" rx="6" fill="#166534"/>
+  <text x="440" y="144" text-anchor="middle" fill="#fff" font-size="10" font-family="Segoe UI,Arial,sans-serif">Orders</text>
+  <rect x="480" y="122" width="80" height="35" rx="6" fill="#166534"/>
+  <text x="520" y="144" text-anchor="middle" fill="#fff" font-size="10" font-family="Segoe UI,Arial,sans-serif">Payments</text>
+  <rect x="340" y="165" width="80" height="35" rx="6" fill="#166534"/>
+  <text x="380" y="187" text-anchor="middle" fill="#fff" font-size="10" font-family="Segoe UI,Arial,sans-serif">Inventory</text>
+  <rect x="430" y="165" width="70" height="35" rx="6" fill="#166534"/>
+  <text x="465" y="187" text-anchor="middle" fill="#fff" font-size="10" font-family="Segoe UI,Arial,sans-serif">Email</text>
+  <text x="450" y="220" text-anchor="middle" fill="#86efac" font-size="11" font-family="Segoe UI,Arial,sans-serif">+ Independent scaling &amp; deploy</text>
+  <text x="450" y="234" text-anchor="middle" fill="#fca5a5" font-size="11" font-family="Segoe UI,Arial,sans-serif">- Complex orchestration</text>
+
+  <!-- Serverless -->
+  <rect x="610" y="80" width="250" height="160" rx="14" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="735" y="110" text-anchor="middle" fill="#60a5fa" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Serverless</text>
+  <rect x="630" y="125" width="90" height="30" rx="6" fill="#1e40af"/>
+  <text x="675" y="145" text-anchor="middle" fill="#fff" font-size="11" font-family="Segoe UI,Arial,sans-serif">Function A</text>
+  <rect x="730" y="125" width="90" height="30" rx="6" fill="#1e40af"/>
+  <text x="775" y="145" text-anchor="middle" fill="#fff" font-size="11" font-family="Segoe UI,Arial,sans-serif">Function B</text>
+  <rect x="630" y="162" width="90" height="30" rx="6" fill="#1e40af"/>
+  <text x="675" y="182" text-anchor="middle" fill="#fff" font-size="11" font-family="Segoe UI,Arial,sans-serif">Function C</text>
+  <text x="735" y="213" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Event-driven, pay-per-use</text>
+  <text x="735" y="228" text-anchor="middle" fill="#86efac" font-size="11" font-family="Segoe UI,Arial,sans-serif">+ Zero server management</text>
+
+  <!-- Common patterns -->
+  <rect x="60" y="270" width="780" height="140" rx="14" fill="#1e293b"/>
+  <text x="450" y="300" text-anchor="middle" fill="#fbbf24" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Key Architecture Concepts</text>
+
+  <rect x="80" y="320" width="150" height="38" rx="8" fill="#0f172a"/>
+  <text x="155" y="344" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Load Balancing</text>
+  <rect x="245" y="320" width="150" height="38" rx="8" fill="#0f172a"/>
+  <text x="320" y="344" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">API Gateway</text>
+  <rect x="410" y="320" width="150" height="38" rx="8" fill="#0f172a"/>
+  <text x="485" y="344" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Message Queues</text>
+  <rect x="575" y="320" width="120" height="38" rx="8" fill="#0f172a"/>
+  <text x="635" y="344" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Caching</text>
+  <rect x="710" y="320" width="120" height="38" rx="8" fill="#0f172a"/>
+  <text x="770" y="344" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">CDN</text>
+
+  <text x="210" y="390" text-anchor="middle" fill="#64748b" font-size="12" font-family="Segoe UI,Arial,sans-serif">Horizontal Scaling</text>
+  <text x="450" y="390" text-anchor="middle" fill="#64748b" font-size="12" font-family="Segoe UI,Arial,sans-serif">Event-Driven Architecture</text>
+  <text x="690" y="390" text-anchor="middle" fill="#64748b" font-size="12" font-family="Segoe UI,Arial,sans-serif">CQRS &amp; Event Sourcing</text>
+</svg>

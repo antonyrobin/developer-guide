@@ -3,8 +3,15 @@ import { NavLink } from 'react-router-dom';
 import { courses } from '../data/courses';
 import { BookOpen, Rocket, Terminal, Database, Cloud, Layout } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useSEO } from '../hooks/useSEO';
 
 const Home = () => {
+    useSEO({
+        title: null,
+        description: 'QuickDevGuide — A curated developer quick-reference guide with concise explanations, code examples, and visual diagrams across 28+ technologies including JavaScript, React, Java, Python, SQL, Docker, AWS, and more.',
+        keywords: 'developer guide, programming tutorial, quick reference, JavaScript, React, Java, Python, C#, SQL, Docker, AWS, GCP, HTML, CSS, OOP, SDLC, Spring Boot, .NET, Django, design patterns, data structures, system architecture, GitHub Actions, Azure DevOps'
+    });
+
     return (
         <div className="home-page">
             <header className="hero-section">
@@ -43,10 +50,9 @@ const Home = () => {
                     {courses.map((course, idx) => (
                         <NavLink key={course.id} to={`/${course.id}`} className="course-card-link">
                             <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, delay: idx * 0.05 }}
-                                viewport={{ once: true }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3, delay: idx * 0.04 }}
                                 className="course-card"
                             >
                                 <div className="course-bg-icon">

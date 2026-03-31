@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420">
+  <rect width="700" height="420" rx="12" fill="#0f172a"/>
+  <text x="350" y="36" text-anchor="middle" fill="#f1f5f9" font-family="Arial, sans-serif" font-size="20" font-weight="bold">Waterfall Model</text>
+  <!-- Step 1 -->
+  <rect x="30" y="60" width="200" height="44" rx="8" fill="#3b82f6"/>
+  <text x="130" y="87" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Requirements</text>
+  <polygon points="130,104 120,104 130,118 140,104" fill="#475569"/>
+  <!-- Step 2 -->
+  <rect x="80" y="122" width="200" height="44" rx="8" fill="#8b5cf6"/>
+  <text x="180" y="149" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">System Design</text>
+  <polygon points="180,166 170,166 180,180 190,166" fill="#475569"/>
+  <!-- Step 3 -->
+  <rect x="130" y="184" width="200" height="44" rx="8" fill="#10b981"/>
+  <text x="230" y="211" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Implementation</text>
+  <polygon points="230,228 220,228 230,242 240,228" fill="#475569"/>
+  <!-- Step 4 -->
+  <rect x="180" y="246" width="200" height="44" rx="8" fill="#f59e0b"/>
+  <text x="280" y="273" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Testing</text>
+  <polygon points="280,290 270,290 280,304 290,290" fill="#475569"/>
+  <!-- Step 5 -->
+  <rect x="230" y="308" width="200" height="44" rx="8" fill="#ef4444"/>
+  <text x="330" y="335" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Deployment</text>
+  <polygon points="330,352 320,352 330,366 340,352" fill="#475569"/>
+  <!-- Step 6 -->
+  <rect x="280" y="370" width="200" height="44" rx="8" fill="#06b6d4"/>
+  <text x="380" y="397" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="bold">Maintenance</text>
+  <!-- Side labels -->
+  <text x="510" y="87" fill="#94a3b8" font-family="Arial, sans-serif" font-size="11">Gather &amp; document needs</text>
+  <text x="510" y="149" fill="#94a3b8" font-family="Arial, sans-serif" font-size="11">Architecture &amp; UI blueprint</text>
+  <text x="510" y="211" fill="#94a3b8" font-family="Arial, sans-serif" font-size="11">Developers write code</text>
+  <text x="510" y="273" fill="#94a3b8" font-family="Arial, sans-serif" font-size="11">Verify quality &amp; bugs</text>
+  <text x="510" y="335" fill="#94a3b8" font-family="Arial, sans-serif" font-size="11">Launch to production</text>
+  <text x="510" y="397" fill="#94a3b8" font-family="Arial, sans-serif" font-size="11">Fix, update, improve</text>
+  <!-- No going back indicator -->
+  <line x1="490" y1="70" x2="490" y2="405" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="622" y="240" text-anchor="middle" fill="#ef4444" font-family="Arial, sans-serif" font-size="11" font-weight="bold">No going back !</text>
+  <text x="622" y="258" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="10" font-style="italic">Sequential &amp; linear</text>
+</svg>

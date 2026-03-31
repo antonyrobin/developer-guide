@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">Window Functions — ROW_NUMBER, RANK, PARTITION BY</text>
+  <!-- Table data -->
+  <rect x="20" y="48" width="230" height="185" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="135" y="68" text-anchor="middle" fill="#3b82f6" font-size="10" font-weight="bold" font-family="system-ui">employees (sorted by salary DESC)</text>
+  <!-- Header -->
+  <rect x="30" y="76" width="210" height="20" rx="0" fill="#0f172a"/>
+  <text x="55" y="90" text-anchor="middle" fill="#94a3b8" font-size="8" font-weight="bold" font-family="system-ui">dept</text>
+  <text x="110" y="90" text-anchor="middle" fill="#94a3b8" font-size="8" font-weight="bold" font-family="system-ui">name</text>
+  <text x="165" y="90" text-anchor="middle" fill="#94a3b8" font-size="8" font-weight="bold" font-family="system-ui">salary</text>
+  <text x="215" y="90" text-anchor="middle" fill="#94a3b8" font-size="8" font-weight="bold" font-family="system-ui">row#</text>
+  <!-- Row 1 -->
+  <text x="55" y="110" text-anchor="middle" fill="#3b82f6" font-size="8" font-family="system-ui">Eng</text>
+  <text x="110" y="110" text-anchor="middle" fill="#e2e8f0" font-size="8" font-family="system-ui">Alice</text>
+  <text x="165" y="110" text-anchor="middle" fill="#10b981" font-size="8" font-family="monospace">120K</text>
+  <text x="215" y="110" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="bold" font-family="system-ui">1</text>
+  <!-- Row 2 -->
+  <text x="55" y="128" text-anchor="middle" fill="#3b82f6" font-size="8" font-family="system-ui">Eng</text>
+  <text x="110" y="128" text-anchor="middle" fill="#e2e8f0" font-size="8" font-family="system-ui">Bob</text>
+  <text x="165" y="128" text-anchor="middle" fill="#10b981" font-size="8" font-family="monospace">110K</text>
+  <text x="215" y="128" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="bold" font-family="system-ui">2</text>
+  <!-- Row 3 -->
+  <text x="55" y="146" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="system-ui">Sales</text>
+  <text x="110" y="146" text-anchor="middle" fill="#e2e8f0" font-size="8" font-family="system-ui">Charlie</text>
+  <text x="165" y="146" text-anchor="middle" fill="#10b981" font-size="8" font-family="monospace">105K</text>
+  <text x="215" y="146" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="bold" font-family="system-ui">3</text>
+  <!-- Row 4 -->
+  <text x="55" y="164" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="system-ui">Sales</text>
+  <text x="110" y="164" text-anchor="middle" fill="#e2e8f0" font-size="8" font-family="system-ui">Diana</text>
+  <text x="165" y="164" text-anchor="middle" fill="#10b981" font-size="8" font-family="monospace">105K</text>
+  <text x="215" y="164" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="bold" font-family="system-ui">4</text>
+  <!-- Row 5 -->
+  <text x="55" y="182" text-anchor="middle" fill="#3b82f6" font-size="8" font-family="system-ui">Eng</text>
+  <text x="110" y="182" text-anchor="middle" fill="#e2e8f0" font-size="8" font-family="system-ui">Eve</text>
+  <text x="165" y="182" text-anchor="middle" fill="#10b981" font-size="8" font-family="monospace">95K</text>
+  <text x="215" y="182" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="bold" font-family="system-ui">5</text>
+  <!-- Partition visualization -->
+  <rect x="30" y="195" width="210" height="30" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="135" y="214" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">PARTITION BY dept resets numbering</text>
+  <!-- Right side: Function comparison -->
+  <rect x="270" y="48" width="230" height="75" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="385" y="68" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold" font-family="system-ui">ROW_NUMBER()</text>
+  <text x="385" y="86" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">Always unique: 1, 2, 3, 4, 5</text>
+  <text x="385" y="102" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Ties get different numbers</text>
+  <text x="385" y="116" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Best for pagination &amp; dedup</text>
+  <rect x="270" y="130" width="230" height="75" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="385" y="150" text-anchor="middle" fill="#3b82f6" font-size="10" font-weight="bold" font-family="system-ui">RANK()</text>
+  <text x="385" y="168" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">Ties share rank: 1, 2, 3, 3, 5</text>
+  <text x="385" y="184" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Skips numbers after ties</text>
+  <text x="385" y="198" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Best for leaderboards</text>
+  <rect x="270" y="212" width="230" height="75" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="385" y="232" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">DENSE_RANK()</text>
+  <text x="385" y="250" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="system-ui">Ties share rank: 1, 2, 3, 3, 4</text>
+  <text x="385" y="266" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">No gaps in numbering</text>
+  <text x="385" y="280" text-anchor="middle" fill="#10b981" font-size="8" font-family="system-ui">Best for continuous ranking</text>
+</svg>
