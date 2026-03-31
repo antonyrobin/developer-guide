@@ -1,27 +1,38 @@
-<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="700" fill="#F5F7F4"/>
-  <text x="72" y="98" fill="#1F2937" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Trigger Events and PR Checks</text>
-  <text x="72" y="136" fill="#4E6A50" font-size="20" font-family="Segoe UI, Arial, sans-serif">Different events start different workflows, but pull requests are the most important quality gate.</text>
+<svg width="1200" height="650" viewBox="0 0 1200 650" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="650" fill="#F5F7F4"/>
 
-  <rect x="86" y="228" width="180" height="112" rx="22" fill="#E8F1FF" stroke="#7CA7F0" stroke-width="2"/>
-  <text x="140" y="294" fill="#184A95" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">push</text>
+  <!-- Title -->
+  <text x="78" y="76" fill="#1F2937" font-size="34" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Trigger Events and PR Checks</text>
+  <text x="78" y="108" fill="#4E6A50" font-size="17" font-family="Segoe UI, Arial, sans-serif">Different events start workflows. Pull requests are the most important quality gate.</text>
 
-  <rect x="314" y="228" width="210" height="112" rx="22" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
-  <text x="346" y="294" fill="#11643B" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">pull_request</text>
+  <!-- push box -->
+  <rect x="78" y="160" width="170" height="100" rx="18" fill="#E8F1FF" stroke="#7CA7F0" stroke-width="2"/>
+  <text x="163" y="218" fill="#184A95" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700" text-anchor="middle">push</text>
 
-  <rect x="572" y="228" width="250" height="112" rx="22" fill="#FFF3D9" stroke="#DDAE4B" stroke-width="2"/>
-  <text x="604" y="294" fill="#8A5B07" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">workflow_dispatch</text>
+  <!-- pull_request box -->
+  <rect x="296" y="160" width="230" height="100" rx="18" fill="#E8F7F0" stroke="#69C596" stroke-width="2"/>
+  <text x="411" y="218" fill="#11643B" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700" text-anchor="middle">pull_request</text>
 
-  <rect x="870" y="228" width="224" height="112" rx="22" fill="#F4EDFF" stroke="#A78BFA" stroke-width="2"/>
-  <text x="920" y="294" fill="#5B34B4" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">schedule</text>
+  <!-- workflow_dispatch box -->
+  <rect x="574" y="160" width="280" height="100" rx="18" fill="#FFF3D9" stroke="#DDAE4B" stroke-width="2"/>
+  <text x="714" y="218" fill="#8A5B07" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700" text-anchor="middle">workflow_dispatch</text>
 
-  <path d="M419 340V438" stroke="#7BB48C" stroke-width="5" stroke-linecap="round"/>
-  <path d="M419 438H770" stroke="#7BB48C" stroke-width="5" stroke-linecap="round"/>
-  <path d="M770 438V482" stroke="#7BB48C" stroke-width="5" stroke-linecap="round"/>
+  <!-- schedule box -->
+  <rect x="902" y="160" width="210" height="100" rx="18" fill="#F4EDFF" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1007" y="218" fill="#5B34B4" font-size="24" font-family="Segoe UI, Arial, sans-serif" font-weight="700" text-anchor="middle">schedule</text>
 
-  <rect x="570" y="482" width="400" height="134" rx="24" fill="#FBFCFA" stroke="#CBD6C5" stroke-width="2"/>
-  <text x="618" y="540" fill="#1F2937" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">PR quality workflow</text>
-  <text x="614" y="578" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">lint + test + coverage + security + review rules</text>
+  <!-- Connection from pull_request down to PR quality box -->
+  <line x1="411" y1="260" x2="411" y2="370" stroke="#69C596" stroke-width="2.5" stroke-dasharray="8,5"/>
+  <polygon points="405,370 411,382 417,370" fill="#69C596"/>
 
-  <text x="88" y="592" fill="#2B313B" font-size="22" font-family="Segoe UI, Arial, sans-serif">Typical rule: run fast validation on pull requests, broader deployment flows on main branch or manual dispatch.</text>
+  <!-- PR quality workflow box -->
+  <rect x="200" y="384" width="500" height="130" rx="18" fill="#FBFCFA" stroke="#CBD6C5" stroke-width="2"/>
+  <text x="450" y="428" fill="#1F2937" font-size="22" font-family="Segoe UI, Arial, sans-serif" font-weight="700" text-anchor="middle">PR Quality Workflow</text>
+  <line x1="240" y1="442" x2="660" y2="442" stroke="#CBD6C5" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="450" y="470" fill="#2B313B" font-size="15" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle">lint · test · coverage · security · review rules</text>
+  <text x="450" y="498" fill="#69C596" font-size="13" font-family="Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="middle">Must pass before merge</text>
+
+  <!-- Bottom note -->
+  <text x="78" y="576" fill="#2B313B" font-size="16" font-family="Segoe UI, Arial, sans-serif">Run fast validation on pull requests.</text>
+  <text x="78" y="600" fill="#2B313B" font-size="16" font-family="Segoe UI, Arial, sans-serif">Trigger broader deployment flows on push to main or manual dispatch.</text>
 </svg>
