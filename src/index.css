@@ -90,126 +90,102 @@ button {
   padding: 2rem 1rem;
 }
 
-/* Turnstile Gate */
-.turnstile-shell {
-  position: relative;
-  min-height: 100vh;
+/* Turnstile Footer Widget */
+.footer-turnstile-wrap {
+  max-width: var(--max-width);
+  margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
 }
 
-.turnstile-app-frame {
-  min-height: 100vh;
-  transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-.turnstile-app-frame.is-locked {
-  filter: blur(8px);
-  pointer-events: none;
-  user-select: none;
-}
-
-.turnstile-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  background:
-    radial-gradient(circle at top, rgba(0, 71, 171, 0.14), transparent 36%),
-    rgba(248, 250, 252, 0.84);
-  backdrop-filter: blur(14px);
-}
-
-.turnstile-card {
-  width: min(100%, 34rem);
-  padding: 2rem;
-  border: 1px solid rgba(226, 232, 240, 0.95);
-  border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.18);
-}
-
-.turnstile-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.875rem;
-  border-radius: 999px;
-  background: rgba(0, 71, 171, 0.08);
-  color: var(--primary);
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
-.turnstile-title {
-  margin-top: 1.25rem;
-  font-size: clamp(1.75rem, 3vw, 2.4rem);
-  line-height: 1.1;
-  color: var(--text-primary);
-}
-
-.turnstile-copy,
-.turnstile-note,
-.turnstile-status,
-.turnstile-error {
-  margin-top: 0.9rem;
-  color: var(--text-secondary);
-}
-
-.turnstile-note {
-  padding: 0.875rem 1rem;
-  border-radius: 0.9rem;
-  background: rgba(224, 231, 255, 0.6);
-  font-size: 0.95rem;
-}
-
-.turnstile-widget-frame {
-  margin-top: 1.5rem;
-  display: flex;
-  justify-content: center;
+.turnstile-footer-widget {
   padding: 1.25rem;
-  border: 1px solid var(--border);
   border-radius: 1rem;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.turnstile-widget {
-  min-height: 65px;
+.turnstile-footer-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.turnstile-error-block {
-  margin-top: 1rem;
-}
-
-.turnstile-error {
-  color: #b91c1c;
-}
-
-.turnstile-retry-btn {
-  margin-top: 0.9rem;
+.turnstile-footer-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  width: fit-content;
+  padding: 0.45rem 0.8rem;
   border-radius: 999px;
-  background: var(--primary);
-  color: white;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 
-.turnstile-retry-btn:hover {
-  background: var(--primary-hover);
+.turnstile-footer-copy,
+.turnstile-footer-note,
+.turnstile-footer-status,
+.turnstile-footer-success,
+.turnstile-footer-error {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.turnstile-footer-note {
+  margin-top: 0.75rem;
+}
+
+.turnstile-footer-frame {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  min-height: 88px;
+  padding: 0.9rem;
+  border-radius: 0.9rem;
+  background: rgba(15, 23, 42, 0.18);
+}
+
+.turnstile-footer-slot {
+  min-height: 65px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.turnstile-footer-success {
+  margin-top: 0.8rem;
+  color: #bbf7d0;
+}
+
+.turnstile-footer-error-block {
+  margin-top: 0.85rem;
+}
+
+.turnstile-footer-error {
+  color: #fecaca;
+}
+
+.turnstile-footer-retry {
+  margin-top: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--secondary);
+  font-weight: 700;
+}
+
+.turnstile-footer-retry:hover {
+  background: #e2e8f0;
 }
 
 @media (max-width: 640px) {
-  .turnstile-card {
-    padding: 1.4rem;
-    border-radius: 1.1rem;
-  }
-
-  .turnstile-widget-frame {
-    padding: 0.875rem;
+  .turnstile-footer-frame {
+    padding: 0.75rem;
     overflow-x: auto;
   }
 }

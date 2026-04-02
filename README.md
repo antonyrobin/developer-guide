@@ -144,15 +144,38 @@ npm run lint
 
 ## Bot Protection
 
-The app now includes a client-side Cloudflare Turnstile gate before the main SPA becomes interactive. This helps reduce casual automated traffic against the public frontend.
+The app now includes a client-side Cloudflare Turnstile widget in the footer. It runs in silent `interaction-only` mode, so most legitimate users pass without seeing a visible challenge. If Cloudflare considers the request suspicious, it can still present an interactive challenge inside the widget area.
 
-Because this project is currently frontend-only, Turnstile verification is performed in the browser and used as an access gate for the SPA session. For stronger protection, add a backend endpoint that validates Turnstile tokens server-side before serving protected API operations or privileged content.
+Because this project is currently frontend-only, the footer widget is informational and client-side only. It does not provide strong access control by itself. For real bot blocking, add a backend endpoint that validates Turnstile tokens server-side before serving protected API operations or privileged content.
 
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for the full text.
 
 In practical terms, the MIT License allows you to use, modify, publish, distribute, and reuse the code in personal or commercial projects as long as the copyright notice and license text are preserved.
+
+## Open Source Details
+
+QuickDevGuide is distributed as an open source project under the MIT License.
+
+This means you may:
+
+- Use the project for personal, educational, or commercial work.
+- Modify the source code to fit your own needs.
+- Redistribute the original or modified version.
+- Include the code in larger private or public projects.
+
+This also means you must:
+
+- Keep the existing copyright notice.
+- Keep the MIT license text when redistributing substantial portions of the project.
+- Respect third-party licenses for dependencies and external assets.
+
+## Copyright
+
+Copyright (c) 2026 Antony Robin.
+
+Unless otherwise stated, the source code and repository-authored documentation in this project are covered by the MIT License. A separate copyright notice is also provided in the `COPYRIGHT` file for reference.
 
 ### Important note on third-party content
 

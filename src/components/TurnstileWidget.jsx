@@ -3,27 +3,9 @@ import { ShieldCheck, RefreshCw } from 'lucide-react';
 
 const TURNSTILE_SCRIPT_ID = 'cloudflare-turnstile-script';
 const TURNSTILE_SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-const TURNSTILE_SESSION_KEY = 'quickdevguide.turnstile.verifiedUntil';
-const TURNSTILE_SESSION_WINDOW_MS = 1000 * 60 * 60 * 6;
 const TURNSTILE_TEST_SITE_KEY = '1x00000000000000000000AA';
 
 let turnstileScriptPromise;
-
-function getStoredVerification() {
-  const storedValue = window.sessionStorage.getItem(TURNSTILE_SESSION_KEY);
-  const verifiedUntil = Number(storedValue);
-
-  if (!Number.isFinite(verifiedUntil)) {
-    return false;
-  }
-
-  return verifiedUntil > Date.now();
-}
-
-function persistVerification() {
-  const verifiedUntil = Date.now() + TURNSTILE_SESSION_WINDOW_MS;
-  window.sessionStorage.setItem(TURNSTILE_SESSION_KEY, String(verifiedUntil));
-}
 
 function getTurnstileSiteKey() {
   const configuredSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim();
@@ -70,24 +52,20 @@ function loadTurnstileScript() {
   return turnstileScriptPromise;
 }
 
-const TurnstileGate = ({ children }) => {
+const TurnstileWidget = () => {
   const widgetContainerRef = useRef(null);
   const widgetIdRef = useRef(null);
-  const [isVerified, setIsVerified] = useState(() => getStoredVerification());
+  const [isVerified, setIsVerified] = useState(false);
   const [isWidgetReady, setIsWidgetReady] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const siteKey = getTurnstileSiteKey();
   const isUsingTestKey = import.meta.env.DEV && !import.meta.env.VITE_TURNSTILE_SITE_KEY;
   const configurationError = !siteKey
-    ? 'Cloudflare Turnstile is not configured. Add VITE_TURNSTILE_SITE_KEY to enable bot protection.'
+    ? 'Cloudflare Turnstile is not configured. Add VITE_TURNSTILE_SITE_KEY to enable the footer widget.'
     : '';
 
   useEffect(() => {
-    if (isVerified) {
-      return undefined;
-    }
-
     if (!siteKey) {
       return undefined;
     }
@@ -114,21 +92,25 @@ const TurnstileGate = ({ children }) => {
         widgetIdRef.current = turnstile.render(widgetContainerRef.current, {
           sitekey: siteKey,
           theme: 'light',
-          appearance: 'always',
+          appearance: 'interaction-only',
+          execution: 'render',
+          action: 'footer_widget',
+          retry: 'auto',
+          'refresh-expired': 'auto',
           callback: () => {
-            persistVerification();
             setIsVerified(true);
             setErrorMessage('');
           },
           'expired-callback': () => {
             setIsVerified(false);
-            setErrorMessage('Verification expired. Please complete the challenge again.');
+            setErrorMessage('Verification expired. Cloudflare will refresh the check automatically.');
             if (widgetIdRef.current !== null && window.turnstile) {
               window.turnstile.reset(widgetIdRef.current);
             }
           },
           'error-callback': () => {
-            setErrorMessage('Verification failed. Please retry the Turnstile challenge.');
+            setIsVerified(false);
+            setErrorMessage('Verification failed. Retry the widget or check your Turnstile configuration.');
           }
         });
 
@@ -145,74 +127,57 @@ const TurnstileGate = ({ children }) => {
     return () => {
       isCancelled = true;
     };
-  }, [isVerified, siteKey]);
+  }, [siteKey]);
 
   const handleRetry = () => {
     setErrorMessage('');
 
     if (widgetIdRef.current !== null && window.turnstile) {
       window.turnstile.reset(widgetIdRef.current);
-      return;
     }
-
-    setIsWidgetReady(false);
-    turnstileScriptPromise = undefined;
-    const existingScript = document.getElementById(TURNSTILE_SCRIPT_ID);
-    if (existingScript) {
-      existingScript.remove();
-    }
-    setIsVerified(false);
   };
 
   return (
-    <div className="turnstile-shell">
-      <div className={`turnstile-app-frame ${isVerified ? 'is-verified' : 'is-locked'}`} aria-hidden={!isVerified}>
-        {children}
+    <section className="turnstile-footer-widget" aria-label="Cloudflare Turnstile verification">
+      <div className="turnstile-footer-header">
+        <div className="turnstile-footer-badge">
+          <ShieldCheck className="icon-small" />
+          <span>Cloudflare Turnstile</span>
+        </div>
+        <p className="turnstile-footer-copy">
+          Background verification runs here without blocking the page. Cloudflare may still request interaction for suspicious traffic.
+        </p>
       </div>
 
-      {!isVerified && (
-        <div className="turnstile-overlay" role="dialog" aria-modal="true" aria-labelledby="turnstile-title">
-          <div className="turnstile-card">
-            <div className="turnstile-badge">
-              <ShieldCheck className="icon" />
-              <span>Protected by Cloudflare Turnstile</span>
-            </div>
+      {isUsingTestKey && (
+        <p className="turnstile-footer-note">
+          Development mode is using Cloudflare&apos;s public test site key.
+        </p>
+      )}
 
-            <h1 id="turnstile-title" className="turnstile-title">Verify access to QuickDevGuide</h1>
-            <p className="turnstile-copy">
-              Complete the challenge to continue into the developer guide. This reduces automated traffic against the public app.
-            </p>
+      <div className="turnstile-footer-frame">
+        <div ref={widgetContainerRef} className="turnstile-footer-slot" />
+      </div>
 
-            {isUsingTestKey && (
-              <p className="turnstile-note">
-                Development mode is using Cloudflare's public test site key. Set `VITE_TURNSTILE_SITE_KEY` for real protection.
-              </p>
-            )}
+      {!configurationError && !isWidgetReady && !errorMessage && (
+        <p className="turnstile-footer-status">Checking browser integrity...</p>
+      )}
 
-            <div className="turnstile-widget-frame">
-              <div ref={widgetContainerRef} className="turnstile-widget" />
-            </div>
+      {isVerified && <p className="turnstile-footer-success">Verification passed.</p>}
 
-            {!isWidgetReady && !errorMessage && (
-              <p className="turnstile-status">Loading verification challenge...</p>
-            )}
-
-            {(errorMessage || configurationError) && (
-              <div className="turnstile-error-block">
-                <p className="turnstile-error">{errorMessage || configurationError}</p>
-                {!configurationError && (
-                  <button type="button" className="turnstile-retry-btn" onClick={handleRetry}>
-                    <RefreshCw className="icon-small" />
-                    <span>Retry</span>
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
+      {(configurationError || errorMessage) && (
+        <div className="turnstile-footer-error-block">
+          <p className="turnstile-footer-error">{configurationError || errorMessage}</p>
+          {!configurationError && (
+            <button type="button" className="turnstile-footer-retry" onClick={handleRetry}>
+              <RefreshCw className="icon-small" />
+              <span>Retry</span>
+            </button>
+          )}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
-export default TurnstileGate;
+export default TurnstileWidget;
