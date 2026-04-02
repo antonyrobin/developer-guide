@@ -154,6 +154,29 @@ This project is licensed under the MIT License. See the `LICENSE` file for the f
 
 In practical terms, the MIT License allows you to use, modify, publish, distribute, and reuse the code in personal or commercial projects as long as the copyright notice and license text are preserved.
 
+## Open Source Details
+
+QuickDevGuide is distributed as an open source project under the MIT License.
+
+This means you may:
+
+- Use the project for personal, educational, or commercial work.
+- Modify the source code to fit your own needs.
+- Redistribute the original or modified version.
+- Include the code in larger private or public projects.
+
+This also means you must:
+
+- Keep the existing copyright notice.
+- Keep the MIT license text when redistributing substantial portions of the project.
+- Respect third-party licenses for dependencies and external assets.
+
+## Copyright
+
+Copyright (c) 2026 Antony Robin.
+
+Unless otherwise stated, the source code and repository-authored documentation in this project are covered by the MIT License. A separate copyright notice is also provided in the `COPYRIGHT` file for reference.
+
 ### Important note on third-party content
 
 - External documentation links referenced in the course content remain the property of their respective owners.

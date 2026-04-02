@@ -15,6 +15,10 @@ const Footer = () => {
           <p className="footer-tagline">
             The ultimate quick-reference guide for modern developers. Master new technologies with simplified explanations and practical examples.
           </p>
+
+          <div className="footer-turnstile-wrap">
+            <TurnstileWidget />
+          </div>
         </div>
 
         <div className="footer-links-group">
@@ -50,16 +54,16 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} QuickDevGuide. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} QuickDevGuide. Released under the <a
+                href="https://github.com/antonyrobin/developer-guide/blob/main/LICENSE"
+                target="_blank"
+                rel="noopener noreferrer"
+              >MIT License</a>. Free and Open Source.</p>
         <div className="footer-bottom-links">
           <NavLink to="/privacy-policy">Privacy Policy</NavLink>
           <NavLink to="/terms-of-service">Terms of Service</NavLink>
         </div>
-      </div>
-
-      <div className="footer-turnstile-wrap">
-        <TurnstileWidget />
-      </div>
+      </div>      
     </footer>
   );
 };
