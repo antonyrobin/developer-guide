@@ -90,6 +90,130 @@ button {
   padding: 2rem 1rem;
 }
 
+/* Turnstile Gate */
+.turnstile-shell {
+  position: relative;
+  min-height: 100vh;
+}
+
+.turnstile-app-frame {
+  min-height: 100vh;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.turnstile-app-frame.is-locked {
+  filter: blur(8px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.turnstile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at top, rgba(0, 71, 171, 0.14), transparent 36%),
+    rgba(248, 250, 252, 0.84);
+  backdrop-filter: blur(14px);
+}
+
+.turnstile-card {
+  width: min(100%, 34rem);
+  padding: 2rem;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.18);
+}
+
+.turnstile-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 999px;
+  background: rgba(0, 71, 171, 0.08);
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.turnstile-title {
+  margin-top: 1.25rem;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.turnstile-copy,
+.turnstile-note,
+.turnstile-status,
+.turnstile-error {
+  margin-top: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.turnstile-note {
+  padding: 0.875rem 1rem;
+  border-radius: 0.9rem;
+  background: rgba(224, 231, 255, 0.6);
+  font-size: 0.95rem;
+}
+
+.turnstile-widget-frame {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.turnstile-widget {
+  min-height: 65px;
+}
+
+.turnstile-error-block {
+  margin-top: 1rem;
+}
+
+.turnstile-error {
+  color: #b91c1c;
+}
+
+.turnstile-retry-btn {
+  margin-top: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+}
+
+.turnstile-retry-btn:hover {
+  background: var(--primary-hover);
+}
+
+@media (max-width: 640px) {
+  .turnstile-card {
+    padding: 1.4rem;
+    border-radius: 1.1rem;
+  }
+
+  .turnstile-widget-frame {
+    padding: 0.875rem;
+    overflow-x: auto;
+  }
+}
+
 @media (min-width: 768px) {
   .main-content { padding: 3rem 2rem; }
 }

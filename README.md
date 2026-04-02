@@ -87,6 +87,19 @@ developer-guide/
 npm install
 ```
 
+### Configure Cloudflare Turnstile
+
+1. Create a Cloudflare Turnstile widget in your Cloudflare dashboard.
+2. Copy the site key for your domain.
+3. Create a local `.env` file in the project root.
+4. Set `VITE_TURNSTILE_SITE_KEY` to your Turnstile site key.
+
+```env
+VITE_TURNSTILE_SITE_KEY=your_cloudflare_turnstile_site_key
+```
+
+In development, the app falls back to Cloudflare's public test site key if `VITE_TURNSTILE_SITE_KEY` is not set. In production, you should always configure a real site key.
+
 ### Start the development server
 
 ```bash
@@ -128,6 +141,12 @@ npm run lint
 - Edit the relevant module in `src/data/courses-data`.
 - Keep route ids stable if existing links should continue to work.
 - Prefer structured sections with concise explanations, sample code, and key takeaways.
+
+## Bot Protection
+
+The app now includes a client-side Cloudflare Turnstile gate before the main SPA becomes interactive. This helps reduce casual automated traffic against the public frontend.
+
+Because this project is currently frontend-only, Turnstile verification is performed in the browser and used as an access gate for the SPA session. For stronger protection, add a backend endpoint that validates Turnstile tokens server-side before serving protected API operations or privileged content.
 
 ## License
 
