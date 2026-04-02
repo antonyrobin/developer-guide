@@ -144,9 +144,9 @@ npm run lint
 
 ## Bot Protection
 
-The app now includes a client-side Cloudflare Turnstile gate before the main SPA becomes interactive. This helps reduce casual automated traffic against the public frontend.
+The app now includes a client-side Cloudflare Turnstile widget in the footer. It runs in silent `interaction-only` mode, so most legitimate users pass without seeing a visible challenge. If Cloudflare considers the request suspicious, it can still present an interactive challenge inside the widget area.
 
-Because this project is currently frontend-only, Turnstile verification is performed in the browser and used as an access gate for the SPA session. For stronger protection, add a backend endpoint that validates Turnstile tokens server-side before serving protected API operations or privileged content.
+Because this project is currently frontend-only, the footer widget is informational and client-side only. It does not provide strong access control by itself. For real bot blocking, add a backend endpoint that validates Turnstile tokens server-side before serving protected API operations or privileged content.
 
 ## License
 

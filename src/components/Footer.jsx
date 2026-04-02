@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
+import TurnstileWidget from './TurnstileWidget';
 
 const Footer = () => {
   return (
@@ -54,6 +55,10 @@ const Footer = () => {
           <NavLink to="/privacy-policy">Privacy Policy</NavLink>
           <NavLink to="/terms-of-service">Terms of Service</NavLink>
         </div>
+      </div>
+
+      <div className="footer-turnstile-wrap">
+        <TurnstileWidget />
       </div>
     </footer>
   );
