@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
-import TurnstileWidget from './TurnstileWidget';
 
 const Footer = () => {
   return (
@@ -15,10 +14,6 @@ const Footer = () => {
           <p className="footer-tagline">
             The ultimate quick-reference guide for modern developers. Master new technologies with simplified explanations and practical examples.
           </p>
-
-          <div className="footer-turnstile-wrap">
-            <TurnstileWidget />
-          </div>
         </div>
 
         <div className="footer-links-group">
