@@ -4,6 +4,7 @@ import { ShieldCheck, RefreshCw } from 'lucide-react';
 const TURNSTILE_SCRIPT_ID = 'cloudflare-turnstile-script';
 const TURNSTILE_SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
 const TURNSTILE_TEST_SITE_KEY = '1x00000000000000000000AA';
+const VERIFICATION_STORAGE_KEY = 'turnstile_verified';
 
 let turnstileScriptPromise;
 
@@ -52,21 +53,31 @@ function loadTurnstileScript() {
   return turnstileScriptPromise;
 }
 
-const TurnstileWidget = () => {
+const TurnstileGate = ({ children }) => {
   const widgetContainerRef = useRef(null);
   const widgetIdRef = useRef(null);
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(() => {
+    // Check session storage on initial render
+    return sessionStorage.getItem(VERIFICATION_STORAGE_KEY) === 'true';
+  });
   const [isWidgetReady, setIsWidgetReady] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const siteKey = getTurnstileSiteKey();
   const isUsingTestKey = import.meta.env.DEV && !import.meta.env.VITE_TURNSTILE_SITE_KEY;
   const configurationError = !siteKey
-    ? 'Cloudflare Turnstile is not configured. Add VITE_TURNSTILE_SITE_KEY to enable the footer widget.'
+    ? 'Cloudflare Turnstile is not configured. Add VITE_TURNSTILE_SITE_KEY to enable bot detection.'
     : '';
 
   useEffect(() => {
+    // If already verified from session, skip
+    if (isVerified) {
+      return;
+    }
+
     if (!siteKey) {
+      setIsLoading(false);
       return undefined;
     }
 
@@ -76,6 +87,7 @@ const TurnstileWidget = () => {
       try {
         setErrorMessage('');
         setIsWidgetReady(false);
+        setIsLoading(true);
 
         const turnstile = await loadTurnstileScript();
 
@@ -92,32 +104,39 @@ const TurnstileWidget = () => {
         widgetIdRef.current = turnstile.render(widgetContainerRef.current, {
           sitekey: siteKey,
           theme: 'light',
-          appearance: 'interaction-only',
+          appearance: 'always',
           execution: 'render',
-          action: 'footer_widget',
+          action: 'website_entry',
           retry: 'auto',
           'refresh-expired': 'auto',
           callback: () => {
             setIsVerified(true);
+            sessionStorage.setItem(VERIFICATION_STORAGE_KEY, 'true');
             setErrorMessage('');
+            setIsLoading(false);
           },
           'expired-callback': () => {
             setIsVerified(false);
-            setErrorMessage('Verification expired. Cloudflare will refresh the check automatically.');
+            sessionStorage.removeItem(VERIFICATION_STORAGE_KEY);
+            setErrorMessage('Verification expired. Please verify again.');
             if (widgetIdRef.current !== null && window.turnstile) {
               window.turnstile.reset(widgetIdRef.current);
             }
           },
           'error-callback': () => {
             setIsVerified(false);
-            setErrorMessage('Verification failed. Retry the widget or check your Turnstile configuration.');
+            sessionStorage.removeItem(VERIFICATION_STORAGE_KEY);
+            setErrorMessage('Verification failed. Please try again.');
+            setIsLoading(false);
           }
         });
 
         setIsWidgetReady(true);
+        setIsLoading(false);
       } catch (error) {
         if (!isCancelled) {
           setErrorMessage(error.message || 'Failed to initialize Cloudflare Turnstile.');
+          setIsLoading(false);
         }
       }
     };
@@ -127,57 +146,71 @@ const TurnstileWidget = () => {
     return () => {
       isCancelled = true;
     };
-  }, [siteKey]);
+  }, [siteKey, isVerified]);
 
   const handleRetry = () => {
     setErrorMessage('');
+    setIsLoading(true);
 
     if (widgetIdRef.current !== null && window.turnstile) {
       window.turnstile.reset(widgetIdRef.current);
     }
   };
 
+  if (isVerified) {
+    return children;
+  }
+
   return (
-    <section className="turnstile-footer-widget" aria-label="Cloudflare Turnstile verification">
-      <div className="turnstile-footer-header">
-        <div className="turnstile-footer-badge">
-          <ShieldCheck className="icon-small" />
-          <span>Cloudflare Turnstile</span>
+    <div className="turnstile-gate-overlay">
+      <div className="turnstile-gate-container">
+        <div className="turnstile-gate-content">
+          <div className="turnstile-gate-header">
+            <ShieldCheck className="turnstile-gate-icon" />
+            <h1 className="turnstile-gate-title">Verify you're human</h1>
+            <p className="turnstile-gate-subtitle">
+              This helps us keep our site secure.
+            </p>
+          </div>
+
+          <div className="turnstile-gate-widget-wrapper">
+            {isUsingTestKey && (
+              <div className="turnstile-gate-test-notice">
+                <span>Test Mode</span>
+              </div>
+            )}
+
+            <div className="turnstile-gate-widget">
+              <div ref={widgetContainerRef} className="turnstile-gate-slot" />
+            </div>
+
+            {isLoading && !errorMessage && !configurationError && (
+              <div className="turnstile-gate-loading">
+                <div className="turnstile-gate-spinner"></div>
+                <span>Loading verification...</span>
+              </div>
+            )}
+
+            {configurationError && (
+              <div className="turnstile-gate-error">
+                <p>{configurationError}</p>
+              </div>
+            )}
+
+            {errorMessage && !configurationError && (
+              <div className="turnstile-gate-error">
+                <p>{errorMessage}</p>
+                <button type="button" className="turnstile-gate-retry" onClick={handleRetry}>
+                  <RefreshCw className="icon-small" />
+                  <span>Try again</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-        <p className="turnstile-footer-copy">
-          Background verification runs here without blocking the page. Cloudflare may still request interaction for suspicious traffic.
-        </p>
       </div>
-
-      {isUsingTestKey && (
-        <p className="turnstile-footer-note">
-          Development mode is using Cloudflare&apos;s public test site key.
-        </p>
-      )}
-
-      <div className="turnstile-footer-frame">
-        <div ref={widgetContainerRef} className="turnstile-footer-slot" />
-      </div>
-
-      {!configurationError && !isWidgetReady && !errorMessage && (
-        <p className="turnstile-footer-status">Checking browser integrity...</p>
-      )}
-
-      {isVerified && <p className="turnstile-footer-success">Verification passed.</p>}
-
-      {(configurationError || errorMessage) && (
-        <div className="turnstile-footer-error-block">
-          <p className="turnstile-footer-error">{configurationError || errorMessage}</p>
-          {!configurationError && (
-            <button type="button" className="turnstile-footer-retry" onClick={handleRetry}>
-              <RefreshCw className="icon-small" />
-              <span>Retry</span>
-            </button>
-          )}
-        </div>
-      )}
-    </section>
+    </div>
   );
 };
 
-export default TurnstileWidget;
+export default TurnstileGate;

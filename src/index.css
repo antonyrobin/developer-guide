@@ -190,6 +190,168 @@ button {
   }
 }
 
+/* Turnstile Gate */
+.turnstile-gate-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.turnstile-gate-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 400px;
+  width: 90%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.turnstile-gate-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.turnstile-gate-header {
+  margin-bottom: 2rem;
+}
+
+.turnstile-gate-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #059669;
+  margin-bottom: 1rem;
+}
+
+.turnstile-gate-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.turnstile-gate-subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.turnstile-gate-widget-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.turnstile-gate-test-notice {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #f59e0b;
+  color: #ffffff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.turnstile-gate-widget {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  min-height: 88px;
+}
+
+.turnstile-gate-slot {
+  min-height: 65px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.turnstile-gate-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.turnstile-gate-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #059669;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.turnstile-gate-error {
+  text-align: center;
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  margin-top: 1rem;
+}
+
+.turnstile-gate-retry {
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: #dc2626;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.turnstile-gate-retry:hover {
+  background: #b91c1c;
+}
+
+@media (max-width: 640px) {
+  .turnstile-gate-container {
+    margin: 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  .turnstile-gate-content {
+    padding: 1.5rem;
+  }
+
+  .turnstile-gate-widget {
+    padding: 1rem;
+  }
+}
+
 @media (min-width: 768px) {
   .main-content { padding: 3rem 2rem; }
 }
