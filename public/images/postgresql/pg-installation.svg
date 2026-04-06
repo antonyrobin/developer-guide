@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="bold" font-family="system-ui">Installation &amp; Setup</text>
+  <!-- Platform boxes -->
+  <rect x="20" y="48" width="115" height="75" rx="6" fill="#1e293b" stroke="#60a5fa" stroke-width="1.2"/>
+  <text x="77" y="68" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold" font-family="system-ui">Windows</text>
+  <text x="77" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">choco install</text>
+  <text x="77" y="97" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">postgresql16</text>
+  <text x="77" y="115" text-anchor="middle" fill="#4ade80" font-size="7" font-family="system-ui">+ pgAdmin GUI</text>
+  <rect x="145" y="48" width="115" height="75" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.2"/>
+  <text x="202" y="68" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui">macOS</text>
+  <text x="202" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">brew install</text>
+  <text x="202" y="97" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">postgresql@16</text>
+  <text x="202" y="115" text-anchor="middle" fill="#4ade80" font-size="7" font-family="system-ui">Homebrew</text>
+  <rect x="270" y="48" width="115" height="75" rx="6" fill="#1e293b" stroke="#f87171" stroke-width="1.2"/>
+  <text x="327" y="68" text-anchor="middle" fill="#f87171" font-size="10" font-weight="bold" font-family="system-ui">Linux</text>
+  <text x="327" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">apt install</text>
+  <text x="327" y="97" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">postgresql-16</text>
+  <text x="327" y="115" text-anchor="middle" fill="#4ade80" font-size="7" font-family="system-ui">Official APT Repo</text>
+  <rect x="395" y="48" width="110" height="75" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="450" y="68" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">Docker ★</text>
+  <text x="450" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">postgres:16</text>
+  <text x="450" y="97" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">-alpine</text>
+  <text x="450" y="115" text-anchor="middle" fill="#4ade80" font-size="7" font-family="system-ui">Recommended</text>
+  <!-- Post-install steps -->
+  <rect x="20" y="140" width="485" height="85" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="160" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold" font-family="system-ui">Post-Installation Steps</text>
+  <text x="35" y="180" fill="#fbbf24" font-size="9" font-family="monospace">1.</text>
+  <text x="55" y="180" fill="#94a3b8" font-size="9" font-family="system-ui">Connect: psql -U postgres</text>
+  <text x="35" y="198" fill="#fbbf24" font-size="9" font-family="monospace">2.</text>
+  <text x="55" y="198" fill="#94a3b8" font-size="9" font-family="system-ui">Verify: SELECT version();</text>
+  <text x="35" y="216" fill="#fbbf24" font-size="9" font-family="monospace">3.</text>
+  <text x="55" y="216" fill="#94a3b8" font-size="9" font-family="system-ui">Create DB: CREATE DATABASE myapp;</text>
+  <!-- Docker compose hint -->
+  <rect x="20" y="240" width="485" height="45" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1"/>
+  <text x="260" y="260" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">Docker Compose (Production-Ready)</text>
+  <text x="260" y="278" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">image: postgres:16-alpine | volumes: pgdata | ports: 5432:5432</text>
+</svg>

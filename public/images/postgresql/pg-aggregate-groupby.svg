@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">Aggregate Functions &amp; GROUP BY</text>
+  <!-- Aggregate functions -->
+  <rect x="20" y="48" width="240" height="120" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="bold" font-family="system-ui">Aggregate Functions</text>
+  <text x="35" y="88" fill="#60a5fa" font-size="9" font-family="monospace">COUNT(*)</text>
+  <text x="135" y="88" fill="#94a3b8" font-size="8" font-family="system-ui">Number of rows</text>
+  <text x="35" y="104" fill="#4ade80" font-size="9" font-family="monospace">SUM(col)</text>
+  <text x="135" y="104" fill="#94a3b8" font-size="8" font-family="system-ui">Total value</text>
+  <text x="35" y="120" fill="#fbbf24" font-size="9" font-family="monospace">AVG(col)</text>
+  <text x="135" y="120" fill="#94a3b8" font-size="8" font-family="system-ui">Average value</text>
+  <text x="35" y="136" fill="#f87171" font-size="9" font-family="monospace">MIN / MAX</text>
+  <text x="135" y="136" fill="#94a3b8" font-size="8" font-family="system-ui">Smallest / Largest</text>
+  <text x="35" y="152" fill="#a78bfa" font-size="9" font-family="monospace">STRING_AGG</text>
+  <text x="135" y="152" fill="#94a3b8" font-size="8" font-family="system-ui">Concatenate strings</text>
+  <!-- GROUP BY flow -->
+  <rect x="275" y="48" width="230" height="120" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="390" y="68" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold" font-family="system-ui">Grouping</text>
+  <text x="290" y="88" fill="#60a5fa" font-size="9" font-weight="bold" font-family="system-ui">GROUP BY</text>
+  <text x="375" y="88" fill="#94a3b8" font-size="8" font-family="system-ui">Divide into groups</text>
+  <text x="290" y="108" fill="#fbbf24" font-size="9" font-weight="bold" font-family="system-ui">HAVING</text>
+  <text x="375" y="108" fill="#94a3b8" font-size="8" font-family="system-ui">Filter groups</text>
+  <text x="290" y="128" fill="#f87171" font-size="9" font-weight="bold" font-family="system-ui">ROLLUP</text>
+  <text x="375" y="128" fill="#94a3b8" font-size="8" font-family="system-ui">Hierarchical subtotals</text>
+  <text x="290" y="148" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">CUBE</text>
+  <text x="375" y="148" fill="#94a3b8" font-size="8" font-family="system-ui">All combinations</text>
+  <!-- Example visualization -->
+  <rect x="20" y="185" width="485" height="100" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="205" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold" font-family="system-ui">WHERE vs HAVING</text>
+  <text x="140" y="230" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold" font-family="system-ui">WHERE</text>
+  <text x="140" y="248" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Filters individual rows</text>
+  <text x="140" y="264" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Before aggregation</text>
+  <line x1="260" y1="220" x2="260" y2="275" stroke="#475569" stroke-dasharray="3,3"/>
+  <text x="390" y="230" text-anchor="middle" fill="#4ade80" font-size="9" font-weight="bold" font-family="system-ui">HAVING</text>
+  <text x="390" y="248" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Filters grouped results</text>
+  <text x="390" y="264" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">After aggregation</text>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Testing Strategy — .NET Core Web API</text>
+
+  <!-- Test Pyramid -->
+  <text x="200" y="82" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Test Pyramid</text>
+
+  <!-- E2E -->
+  <polygon points="200,100 130,180 270,180" fill="#b91c1c"/>
+  <text x="200" y="155" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="Segoe UI,Arial,sans-serif">E2E</text>
+  <text x="200" y="170" text-anchor="middle" fill="#fecaca" font-size="9" font-family="Segoe UI,Arial,sans-serif">Few</text>
+
+  <!-- Integration -->
+  <polygon points="200,180 100,280 300,280" fill="#1e40af"/>
+  <rect x="130" y="180" width="140" height="0" fill="none"/>
+  <text x="200" y="240" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Integration</text>
+  <text x="200" y="258" text-anchor="middle" fill="#bfdbfe" font-size="9" font-family="Segoe UI,Arial,sans-serif">Some</text>
+
+  <!-- Unit -->
+  <polygon points="200,280 60,390 340,390" fill="#166534"/>
+  <text x="200" y="345" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Unit Tests</text>
+  <text x="200" y="365" text-anchor="middle" fill="#bbf7d0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Many — Fast &amp; Isolated</text>
+
+  <!-- Testing tools -->
+  <text x="630" y="82" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Testing Tools &amp; Patterns</text>
+
+  <rect x="400" y="98" width="230" height="70" rx="10" fill="#166534"/>
+  <text x="515" y="122" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Unit Testing</text>
+  <text x="515" y="142" text-anchor="middle" fill="#bbf7d0" font-size="11" font-family="Segoe UI,Arial,sans-serif">xUnit + Moq</text>
+  <text x="515" y="158" text-anchor="middle" fill="#86efac" font-size="10" font-family="Segoe UI,Arial,sans-serif">Arrange → Act → Assert</text>
+
+  <rect x="650" y="98" width="230" height="70" rx="10" fill="#1e40af"/>
+  <text x="765" y="122" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Integration Testing</text>
+  <text x="765" y="142" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">WebApplicationFactory</text>
+  <text x="765" y="158" text-anchor="middle" fill="#93c5fd" font-size="10" font-family="Segoe UI,Arial,sans-serif">Real HTTP pipeline</text>
+
+  <rect x="400" y="182" width="230" height="70" rx="10" fill="#7c3aed"/>
+  <text x="515" y="206" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Mocking</text>
+  <text x="515" y="226" text-anchor="middle" fill="#ddd6fe" font-size="11" font-family="Segoe UI,Arial,sans-serif">Mock&lt;IService&gt;</text>
+  <text x="515" y="242" text-anchor="middle" fill="#c4b5fd" font-size="10" font-family="Segoe UI,Arial,sans-serif">Isolate dependencies</text>
+
+  <rect x="650" y="182" width="230" height="70" rx="10" fill="#854d0e"/>
+  <text x="765" y="206" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Test Database</text>
+  <text x="765" y="226" text-anchor="middle" fill="#fde68a" font-size="11" font-family="Segoe UI,Arial,sans-serif">InMemoryDatabase</text>
+  <text x="765" y="242" text-anchor="middle" fill="#fcd34d" font-size="10" font-family="Segoe UI,Arial,sans-serif">No external deps</text>
+
+  <!-- Test example -->
+  <rect x="400" y="268" width="480" height="135" rx="10" fill="#0a0f1a" stroke="#334155" stroke-width="1"/>
+  <text x="420" y="290" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">// Unit Test Example</text>
+  <text x="420" y="308" fill="#a78bfa" font-size="11" font-family="Consolas,monospace">[Fact]</text>
+  <text x="420" y="326" fill="#4ade80" font-size="11" font-family="Consolas,monospace">public async Task GetById_Returns_Product()</text>
+  <text x="420" y="344" fill="#e2e8f0" font-size="11" font-family="Consolas,monospace">{</text>
+  <text x="440" y="360" fill="#60a5fa" font-size="11" font-family="Consolas,monospace">var mock = new Mock&lt;IProductRepo&gt;();</text>
+  <text x="440" y="376" fill="#fbbf24" font-size="11" font-family="Consolas,monospace">var result = await svc.GetByIdAsync(1);</text>
+  <text x="440" y="392" fill="#f87171" font-size="11" font-family="Consolas,monospace">Assert.Equal("Test", result.Name);</text>
+  <text x="420" y="400" fill="#e2e8f0" font-size="11" font-family="Consolas,monospace">}</text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="bold" font-family="system-ui">PostgreSQL with Application Frameworks</text>
+  <!-- Node.js -->
+  <rect x="20" y="48" width="150" height="72" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="95" y="66" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">Node.js</text>
+  <text x="30" y="82" fill="#94a3b8" font-size="7.5" font-family="system-ui">Driver: pg (node-postgres)</text>
+  <text x="30" y="96" fill="#94a3b8" font-size="7.5" font-family="system-ui">ORM: Prisma, Drizzle</text>
+  <text x="30" y="110" fill="#60a5fa" font-size="7.5" font-family="system-ui">Query: Knex.js</text>
+  <!-- Python -->
+  <rect x="185" y="48" width="150" height="72" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="260" y="66" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui">Python</text>
+  <text x="195" y="82" fill="#94a3b8" font-size="7.5" font-family="system-ui">Driver: psycopg2/3</text>
+  <text x="195" y="96" fill="#94a3b8" font-size="7.5" font-family="system-ui">ORM: SQLAlchemy, Django</text>
+  <text x="195" y="110" fill="#60a5fa" font-size="7.5" font-family="system-ui">Async: asyncpg</text>
+  <!-- Java -->
+  <rect x="350" y="48" width="155" height="72" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+  <text x="427" y="66" text-anchor="middle" fill="#f87171" font-size="10" font-weight="bold" font-family="system-ui">Java</text>
+  <text x="360" y="82" fill="#94a3b8" font-size="7.5" font-family="system-ui">Driver: JDBC (pgjdbc)</text>
+  <text x="360" y="96" fill="#94a3b8" font-size="7.5" font-family="system-ui">ORM: Hibernate, JPA</text>
+  <text x="360" y="110" fill="#60a5fa" font-size="7.5" font-family="system-ui">Spring Data JPA</text>
+  <!-- .NET -->
+  <rect x="20" y="135" width="150" height="72" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="95" y="153" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">.NET / C#</text>
+  <text x="30" y="169" fill="#94a3b8" font-size="7.5" font-family="system-ui">Driver: Npgsql</text>
+  <text x="30" y="183" fill="#94a3b8" font-size="7.5" font-family="system-ui">ORM: EF Core</text>
+  <text x="30" y="197" fill="#60a5fa" font-size="7.5" font-family="system-ui">Dapper micro-ORM</text>
+  <!-- Go -->
+  <rect x="185" y="135" width="150" height="72" rx="8" fill="#1e293b" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="260" y="153" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="bold" font-family="system-ui">Go</text>
+  <text x="195" y="169" fill="#94a3b8" font-size="7.5" font-family="system-ui">Driver: pgx, lib/pq</text>
+  <text x="195" y="183" fill="#94a3b8" font-size="7.5" font-family="system-ui">ORM: GORM, sqlc</text>
+  <text x="195" y="197" fill="#60a5fa" font-size="7.5" font-family="system-ui">Type-safe queries</text>
+  <!-- Ruby -->
+  <rect x="350" y="135" width="155" height="72" rx="8" fill="#1e293b" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="427" y="153" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold" font-family="system-ui">Ruby</text>
+  <text x="360" y="169" fill="#94a3b8" font-size="7.5" font-family="system-ui">Driver: pg gem</text>
+  <text x="360" y="183" fill="#94a3b8" font-size="7.5" font-family="system-ui">ORM: ActiveRecord</text>
+  <text x="360" y="197" fill="#60a5fa" font-size="7.5" font-family="system-ui">Rails migrations</text>
+  <!-- Connection Pooling -->
+  <rect x="20" y="222" width="485" height="65" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="244" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold" font-family="system-ui">Connection Pooling &amp; Best Practices</text>
+  <text x="100" y="264" text-anchor="middle" fill="#4ade80" font-size="8" font-weight="bold" font-family="system-ui">PgBouncer</text>
+  <text x="100" y="278" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Lightweight pooler</text>
+  <text x="260" y="264" text-anchor="middle" fill="#fbbf24" font-size="8" font-weight="bold" font-family="system-ui">Pgpool-II</text>
+  <text x="260" y="278" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Load balancing</text>
+  <text x="420" y="264" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" font-family="system-ui">Built-in Pool</text>
+  <text x="420" y="278" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">App-level (HikariCP)</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="bold" font-family="system-ui">JSONB — NoSQL in PostgreSQL</text>
+  <!-- JSON vs JSONB -->
+  <rect x="20" y="48" width="160" height="90" rx="6" fill="#1e293b" stroke="#f87171" stroke-width="1.2"/>
+  <text x="100" y="68" text-anchor="middle" fill="#f87171" font-size="10" font-weight="bold" font-family="system-ui">JSON</text>
+  <text x="35" y="86" fill="#94a3b8" font-size="8" font-family="system-ui">• Text storage</text>
+  <text x="35" y="100" fill="#94a3b8" font-size="8" font-family="system-ui">• No indexing</text>
+  <text x="35" y="114" fill="#94a3b8" font-size="8" font-family="system-ui">• Preserves format</text>
+  <text x="35" y="128" fill="#f87171" font-size="8" font-family="system-ui">• Parse on every read</text>
+  <rect x="190" y="48" width="160" height="90" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="270" y="68" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">JSONB ★</text>
+  <text x="205" y="86" fill="#94a3b8" font-size="8" font-family="system-ui">• Binary storage</text>
+  <text x="205" y="100" fill="#4ade80" font-size="8" font-family="system-ui">• GIN indexable</text>
+  <text x="205" y="114" fill="#4ade80" font-size="8" font-family="system-ui">• In-place updates</text>
+  <text x="205" y="128" fill="#4ade80" font-size="8" font-family="system-ui">• Pre-parsed (fast)</text>
+  <!-- Key operators -->
+  <rect x="365" y="48" width="140" height="90" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.2"/>
+  <text x="435" y="68" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui">Operators</text>
+  <text x="378" y="86" fill="#60a5fa" font-size="8" font-family="monospace">-&gt;</text>
+  <text x="410" y="86" fill="#94a3b8" font-size="7" font-family="system-ui">Get as JSON</text>
+  <text x="378" y="100" fill="#4ade80" font-size="8" font-family="monospace">-&gt;&gt;</text>
+  <text x="410" y="100" fill="#94a3b8" font-size="7" font-family="system-ui">Get as text</text>
+  <text x="378" y="114" fill="#fbbf24" font-size="8" font-family="monospace">@&gt;</text>
+  <text x="410" y="114" fill="#94a3b8" font-size="7" font-family="system-ui">Contains</text>
+  <text x="378" y="128" fill="#f87171" font-size="8" font-family="monospace">?</text>
+  <text x="410" y="128" fill="#94a3b8" font-size="7" font-family="system-ui">Key exists</text>
+  <!-- Update operators -->
+  <rect x="20" y="150" width="485" height="55" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1"/>
+  <text x="260" y="170" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">JSONB Modification</text>
+  <text x="80" y="192" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="monospace">jsonb_set()</text>
+  <text x="200" y="192" text-anchor="middle" fill="#4ade80" font-size="8" font-family="monospace">||  merge</text>
+  <text x="310" y="192" text-anchor="middle" fill="#f87171" font-size="8" font-family="monospace">-  delete key</text>
+  <text x="430" y="192" text-anchor="middle" fill="#fbbf24" font-size="8" font-family="monospace">#-  delete path</text>
+  <!-- NoSQL advantage -->
+  <rect x="20" y="220" width="485" height="65" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="260" y="240" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">NoSQL Flexibility + SQL Power</text>
+  <text x="260" y="258" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Document store patterns • Variable schemas • Metadata • Event data</text>
+  <text x="260" y="274" text-anchor="middle" fill="#e2e8f0" font-size="8" font-family="system-ui">Full ACID transactions • JOINs • Constraints • GIN indexing</text>
+</svg>

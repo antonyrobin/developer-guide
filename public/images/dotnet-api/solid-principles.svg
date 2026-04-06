@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">SOLID Principles in .NET</text>
+
+  <!-- S -->
+  <rect x="40" y="75" width="160" height="140" rx="12" fill="#166534"/>
+  <rect x="40" y="75" width="160" height="40" rx="12" fill="#15803d"/>
+  <text x="120" y="102" text-anchor="middle" fill="#fff" font-size="28" font-weight="800" font-family="Segoe UI,Arial,sans-serif">S</text>
+  <text x="120" y="135" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Single</text>
+  <text x="120" y="152" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Responsibility</text>
+  <text x="120" y="175" text-anchor="middle" fill="#bbf7d0" font-size="10" font-family="Segoe UI,Arial,sans-serif">One class = one job</text>
+  <text x="120" y="190" text-anchor="middle" fill="#86efac" font-size="9" font-family="Segoe UI,Arial,sans-serif">Controller ≠ Business Logic</text>
+
+  <!-- O -->
+  <rect x="215" y="75" width="160" height="140" rx="12" fill="#1e40af"/>
+  <rect x="215" y="75" width="160" height="40" rx="12" fill="#1d4ed8"/>
+  <text x="295" y="102" text-anchor="middle" fill="#fff" font-size="28" font-weight="800" font-family="Segoe UI,Arial,sans-serif">O</text>
+  <text x="295" y="135" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Open/Closed</text>
+  <text x="295" y="175" text-anchor="middle" fill="#bfdbfe" font-size="10" font-family="Segoe UI,Arial,sans-serif">Open for extension</text>
+  <text x="295" y="190" text-anchor="middle" fill="#93c5fd" font-size="9" font-family="Segoe UI,Arial,sans-serif">Closed for modification</text>
+
+  <!-- L -->
+  <rect x="390" y="75" width="160" height="140" rx="12" fill="#7c3aed"/>
+  <rect x="390" y="75" width="160" height="40" rx="12" fill="#7c3aed"/>
+  <text x="470" y="102" text-anchor="middle" fill="#fff" font-size="28" font-weight="800" font-family="Segoe UI,Arial,sans-serif">L</text>
+  <text x="470" y="135" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Liskov</text>
+  <text x="470" y="152" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Substitution</text>
+  <text x="470" y="175" text-anchor="middle" fill="#ddd6fe" font-size="10" font-family="Segoe UI,Arial,sans-serif">Subtypes replaceable</text>
+  <text x="470" y="190" text-anchor="middle" fill="#c4b5fd" font-size="9" font-family="Segoe UI,Arial,sans-serif">Derived ≈ Base class</text>
+
+  <!-- I -->
+  <rect x="565" y="75" width="160" height="140" rx="12" fill="#854d0e"/>
+  <rect x="565" y="75" width="160" height="40" rx="12" fill="#a16207"/>
+  <text x="645" y="102" text-anchor="middle" fill="#fff" font-size="28" font-weight="800" font-family="Segoe UI,Arial,sans-serif">I</text>
+  <text x="645" y="135" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Interface</text>
+  <text x="645" y="152" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Segregation</text>
+  <text x="645" y="175" text-anchor="middle" fill="#fde68a" font-size="10" font-family="Segoe UI,Arial,sans-serif">Small, focused interfaces</text>
+  <text x="645" y="190" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="Segoe UI,Arial,sans-serif">No unused dependencies</text>
+
+  <!-- D -->
+  <rect x="740" y="75" width="120" height="140" rx="12" fill="#b91c1c"/>
+  <rect x="740" y="75" width="120" height="40" rx="12" fill="#dc2626"/>
+  <text x="800" y="102" text-anchor="middle" fill="#fff" font-size="28" font-weight="800" font-family="Segoe UI,Arial,sans-serif">D</text>
+  <text x="800" y="135" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Dependency</text>
+  <text x="800" y="152" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Inversion</text>
+  <text x="800" y="175" text-anchor="middle" fill="#fecaca" font-size="10" font-family="Segoe UI,Arial,sans-serif">Depend on</text>
+  <text x="800" y="190" text-anchor="middle" fill="#fca5a5" font-size="9" font-family="Segoe UI,Arial,sans-serif">abstractions</text>
+
+  <!-- Example flow -->
+  <text x="450" y="240" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">SOLID in Practice — Dependency Flow</text>
+
+  <rect x="80" y="260" width="200" height="50" rx="10" fill="#1e3a5f"/>
+  <text x="180" y="283" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">ProductsController</text>
+  <text x="180" y="300" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">HTTP layer only</text>
+
+  <polygon points="280,285 310,278 310,292" fill="#4ade80"/>
+  <text x="295" y="270" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">injects</text>
+
+  <rect x="315" y="260" width="200" height="50" rx="10" fill="#1e3a5f" stroke="#a78bfa" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="415" y="283" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">IProductService</text>
+  <text x="415" y="300" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Interface (abstraction)</text>
+
+  <polygon points="515,285 545,278 545,292" fill="#4ade80"/>
+  <text x="530" y="270" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">implements</text>
+
+  <rect x="550" y="260" width="200" height="50" rx="10" fill="#1e3a5f"/>
+  <text x="650" y="283" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">ProductService</text>
+  <text x="650" y="300" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Business logic</text>
+
+  <!-- DI Container -->
+  <rect x="200" y="340" width="500" height="60" rx="10" fill="#0a0f1a" stroke="#334155" stroke-width="1"/>
+  <text x="450" y="365" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">DI Container (Program.cs)</text>
+  <text x="450" y="385" text-anchor="middle" fill="#4ade80" font-size="12" font-family="Consolas,monospace">builder.Services.AddScoped&lt;IProductService, ProductService&gt;();</text>
+</svg>

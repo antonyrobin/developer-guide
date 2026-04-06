@@ -5,6 +5,8 @@ import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool
 import { useSEO } from '../hooks/useSEO';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 /* Course-specific SEO keywords map */
 const courseKeywords = {
@@ -35,17 +37,7 @@ const courseKeywords = {
   'azure-devops': 'Azure DevOps, pipelines, boards, repos, CI/CD, Microsoft DevOps, agile project management'
 };
 
-/* Lightweight inline-markdown → HTML converter (content is developer-controlled, not user input) */
-function parseMarkdown(text) {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>')
-    .replace(/`(.+?)`/g, '<code class="inline-code">$1</code>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="content-link">$1</a>');
-}
+
 
 const getLanguage = (courseId) => {
   const map = {
@@ -176,15 +168,57 @@ const CoursePage = () => {
 
             {/* Main Content Text */}
             <div className="course-body-text">
-              {section.content.split('\n\n').map((paragraph, i) => {
-                if (paragraph.startsWith('### ')) {
-                  return <h3 key={i} className="content-subheading" dangerouslySetInnerHTML={{ __html: parseMarkdown(paragraph.slice(4)) }} />;
-                }
-                if (paragraph.startsWith('## ')) {
-                  return <h2 key={i} className="content-subheading-lg" dangerouslySetInnerHTML={{ __html: parseMarkdown(paragraph.slice(3)) }} />;
-                }
-                return <p key={i} className="course-paragraph" dangerouslySetInnerHTML={{ __html: parseMarkdown(paragraph) }} />;
-              })}
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h1: ({node, ...props}) => <h1 className="course-heading mt-6 mb-4" style={{ marginTop: '1.5rem', marginBottom: '1rem' }} {...props} />,
+                  h2: ({node, ...props}) => <h2 className="content-subheading-lg mt-6" style={{ marginTop: '1.5rem' }} {...props} />,
+                  h3: ({node, ...props}) => <h3 className="content-subheading mt-4" style={{ marginTop: '1rem' }} {...props} />,
+                  h4: ({node, ...props}) => <h4 className="font-bold mt-4" style={{ marginTop: '1rem' }} {...props} />,
+                  p: ({node, ...props}) => <p className="course-paragraph my-2" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
+                  ul: ({node, ...props}) => <ul className="course-paragraph my-2" style={{ listStyleType: 'disc', paddingLeft: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
+                  ol: ({node, ...props}) => <ol className="course-paragraph my-2" style={{ listStyleType: 'decimal', paddingLeft: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
+                  li: ({node, ...props}) => <li className="mb-1" style={{ marginBottom: '0.25rem' }} {...props} />,
+                  a: ({node, ...props}) => <a className="content-link" target="_blank" rel="noopener noreferrer" {...props} />,
+                  strong: ({node, ...props}) => <strong style={{ color: 'var(--text-primary)', fontWeight: 700 }} {...props} />,
+                  em: ({node, ...props}) => <em style={{ fontStyle: 'italic', color: 'var(--text-primary)' }} {...props} />,
+                  code({node, inline, className, children, ...props}) {
+                    const match = /language-(\w+)/.exec(className || '')
+                    return !inline && match ? (
+                      <div className="code-section" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+                        <div className="code-block-container" style={{ position: 'relative' }}>
+                          <SyntaxHighlighter
+                            language={match[1]}
+                            style={vscDarkPlus}
+                            customStyle={{ margin: 0, padding: 0, background: 'transparent', fontSize: '0.875rem' }}
+                            codeTagProps={{ style: { fontFamily: 'var(--font-mono)' } }}
+                            {...props}
+                          >
+                            {String(children).replace(/\n$/, '')}
+                          </SyntaxHighlighter>
+                          <button
+                            className="btn-copy"
+                            onClick={() => navigator.clipboard.writeText(String(children))}
+                          >
+                            Copy
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <code className="inline-code" {...props}>
+                        {children}
+                      </code>
+                    )
+                  },
+                  img: ({node, ...props}) => (
+                    <div className="course-image-container my-4" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+                      <img className="course-image" {...props} />
+                    </div>
+                  )
+                }}
+              >
+                {section.content}
+              </ReactMarkdown>
             </div>
 
             {/* Image */}

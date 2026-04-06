@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Multi-Tenancy with Row-Level Security</text>
+
+  <!-- Tenant requests -->
+  <rect x="40" y="75" width="160" height="50" rx="10" fill="#1e40af"/>
+  <text x="120" y="105" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Tenant A Request</text>
+  <rect x="40" y="135" width="160" height="50" rx="10" fill="#166534"/>
+  <text x="120" y="165" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Tenant B Request</text>
+  <rect x="40" y="195" width="160" height="50" rx="10" fill="#854d0e"/>
+  <text x="120" y="225" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Tenant C Request</text>
+
+  <!-- Arrow to JWT -->
+  <polygon points="200,105 220,98 220,112" fill="#60a5fa"/>
+  <polygon points="200,165 220,158 220,172" fill="#4ade80"/>
+  <polygon points="200,225 220,218 220,232" fill="#fbbf24"/>
+
+  <!-- JWT extraction -->
+  <rect x="225" y="100" width="200" height="145" rx="12" fill="#7c3aed"/>
+  <text x="325" y="128" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">JWT Token</text>
+  <text x="325" y="152" text-anchor="middle" fill="#ddd6fe" font-size="11" font-family="Segoe UI,Arial,sans-serif">Extract Claims:</text>
+  <text x="325" y="172" text-anchor="middle" fill="#e9d5ff" font-size="12" font-family="Consolas,monospace">tid = tenant_id</text>
+  <text x="325" y="192" text-anchor="middle" fill="#e9d5ff" font-size="12" font-family="Consolas,monospace">sub = user_id</text>
+  <text x="325" y="212" text-anchor="middle" fill="#e9d5ff" font-size="12" font-family="Consolas,monospace">roles = ["Admin"]</text>
+
+  <!-- Arrow to context -->
+  <polygon points="425,170 450,163 450,177" fill="#60a5fa"/>
+
+  <!-- Tenant context -->
+  <rect x="455" y="115" width="200" height="115" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="555" y="142" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">TenantContext</text>
+  <text x="555" y="165" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Sets DB session:</text>
+  <text x="555" y="185" text-anchor="middle" fill="#4ade80" font-size="10" font-family="Consolas,monospace">set_config(</text>
+  <text x="555" y="200" text-anchor="middle" fill="#4ade80" font-size="10" font-family="Consolas,monospace">'app.tenant_id',</text>
+  <text x="555" y="215" text-anchor="middle" fill="#4ade80" font-size="10" font-family="Consolas,monospace">'{tenant_id}')</text>
+
+  <!-- Arrow to DB -->
+  <polygon points="655,170 680,163 680,177" fill="#60a5fa"/>
+
+  <!-- Database with RLS -->
+  <rect x="685" y="80" width="180" height="180" rx="12" fill="#166534"/>
+  <text x="775" y="108" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">PostgreSQL + RLS</text>
+
+  <rect x="700" y="118" width="150" height="24" rx="4" fill="#15803d"/>
+  <text x="775" y="135" text-anchor="middle" fill="#bbf7d0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Tenant A rows ✓</text>
+  <rect x="700" y="148" width="150" height="24" rx="4" fill="#374151"/>
+  <text x="775" y="165" text-anchor="middle" fill="#6b7280" font-size="10" font-family="Segoe UI,Arial,sans-serif">Tenant B rows ✗</text>
+  <rect x="700" y="178" width="150" height="24" rx="4" fill="#374151"/>
+  <text x="775" y="195" text-anchor="middle" fill="#6b7280" font-size="10" font-family="Segoe UI,Arial,sans-serif">Tenant C rows ✗</text>
+  <text x="775" y="230" text-anchor="middle" fill="#86efac" font-size="10" font-family="Segoe UI,Arial,sans-serif">RLS Policy filters</text>
+  <text x="775" y="248" text-anchor="middle" fill="#86efac" font-size="10" font-family="Segoe UI,Arial,sans-serif">data automatically</text>
+
+  <!-- RLS Policy -->
+  <text x="450" y="285" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Row-Level Security Policy</text>
+
+  <rect x="80" y="300" width="740" height="100" rx="10" fill="#0a0f1a" stroke="#334155" stroke-width="1"/>
+  <text x="100" y="322" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">-- Enable RLS</text>
+  <text x="100" y="340" fill="#4ade80" font-size="12" font-family="Consolas,monospace">ALTER TABLE products ENABLE ROW LEVEL SECURITY;</text>
+  <text x="100" y="362" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">-- Create isolation policy</text>
+  <text x="100" y="380" fill="#4ade80" font-size="12" font-family="Consolas,monospace">CREATE POLICY tenant_isolation ON products</text>
+  <text x="120" y="395" fill="#60a5fa" font-size="12" font-family="Consolas,monospace">USING (tenant_id = current_setting('app.tenant_id')::uuid);</text>
+</svg>

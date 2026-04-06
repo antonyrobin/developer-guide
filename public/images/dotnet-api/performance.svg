@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Performance &amp; Optimization</text>
+
+  <!-- Native AOT -->
+  <rect x="40" y="75" width="250" height="120" rx="12" fill="#166534"/>
+  <text x="165" y="102" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Native AOT</text>
+  <text x="165" y="125" text-anchor="middle" fill="#bbf7d0" font-size="11" font-family="Segoe UI,Arial,sans-serif">Ahead-of-Time compilation</text>
+  <rect x="60" y="140" width="96" height="40" rx="6" fill="#15803d"/>
+  <text x="108" y="157" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Fast Startup</text>
+  <text x="108" y="172" text-anchor="middle" fill="#86efac" font-size="9" font-family="Segoe UI,Arial,sans-serif">~10ms</text>
+  <rect x="168" y="140" width="104" height="40" rx="6" fill="#15803d"/>
+  <text x="220" y="157" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Low Memory</text>
+  <text x="220" y="172" text-anchor="middle" fill="#86efac" font-size="9" font-family="Segoe UI,Arial,sans-serif">~30MB</text>
+
+  <!-- Span<T> -->
+  <rect x="310" y="75" width="250" height="120" rx="12" fill="#1e40af"/>
+  <text x="435" y="102" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Span&lt;T&gt; &amp; Memory&lt;T&gt;</text>
+  <text x="435" y="125" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">Zero-allocation patterns</text>
+  <rect x="325" y="140" width="110" height="40" rx="6" fill="#1d4ed8"/>
+  <text x="380" y="157" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Stack alloc</text>
+  <text x="380" y="172" text-anchor="middle" fill="#93c5fd" font-size="9" font-family="Segoe UI,Arial,sans-serif">No GC pressure</text>
+  <rect x="445" y="140" width="100" height="40" rx="6" fill="#1d4ed8"/>
+  <text x="495" y="157" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Slicing</text>
+  <text x="495" y="172" text-anchor="middle" fill="#93c5fd" font-size="9" font-family="Segoe UI,Arial,sans-serif">No copy</text>
+
+  <!-- Caching -->
+  <rect x="580" y="75" width="280" height="120" rx="12" fill="#854d0e"/>
+  <text x="720" y="102" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Caching Strategies</text>
+  <text x="720" y="125" text-anchor="middle" fill="#fde68a" font-size="11" font-family="Segoe UI,Arial,sans-serif">Reduce database round-trips</text>
+  <rect x="595" y="140" width="120" height="40" rx="6" fill="#a16207"/>
+  <text x="655" y="157" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Redis</text>
+  <text x="655" y="172" text-anchor="middle" fill="#fcd34d" font-size="9" font-family="Segoe UI,Arial,sans-serif">Distributed</text>
+  <rect x="725" y="140" width="120" height="40" rx="6" fill="#a16207"/>
+  <text x="785" y="157" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">In-Memory</text>
+  <text x="785" y="172" text-anchor="middle" fill="#fcd34d" font-size="9" font-family="Segoe UI,Arial,sans-serif">IMemoryCache</text>
+
+  <!-- Async -->
+  <rect x="40" y="215" width="400" height="85" rx="12" fill="#7c3aed"/>
+  <text x="240" y="240" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Async/Await Best Practices</text>
+  <text x="240" y="262" text-anchor="middle" fill="#ddd6fe" font-size="11" font-family="Segoe UI,Arial,sans-serif">✓ Async all the way down   ✓ Use ValueTask for hot paths</text>
+  <text x="240" y="280" text-anchor="middle" fill="#ddd6fe" font-size="11" font-family="Segoe UI,Arial,sans-serif">✗ Avoid async void   ✗ Don't block with .Result</text>
+
+  <!-- DB optimization -->
+  <rect x="460" y="215" width="400" height="85" rx="12" fill="#b91c1c"/>
+  <text x="660" y="240" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Database Optimization</text>
+  <text x="660" y="262" text-anchor="middle" fill="#fecaca" font-size="11" font-family="Segoe UI,Arial,sans-serif">✓ .Include() for eager loading   ✓ Pagination</text>
+  <text x="660" y="280" text-anchor="middle" fill="#fecaca" font-size="11" font-family="Segoe UI,Arial,sans-serif">✓ .AsNoTracking()   ✓ Proper indexes</text>
+
+  <!-- Profiling tools -->
+  <text x="450" y="330" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Profiling &amp; Monitoring Tools</text>
+
+  <rect x="60" y="345" width="180" height="55" rx="8" fill="#1e3a5f"/>
+  <text x="150" y="368" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">dotnet-trace</text>
+  <text x="150" y="386" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Performance tracing</text>
+
+  <rect x="260" y="345" width="180" height="55" rx="8" fill="#1e3a5f"/>
+  <text x="350" y="368" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">dotnet-counters</text>
+  <text x="350" y="386" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Real-time metrics</text>
+
+  <rect x="460" y="345" width="180" height="55" rx="8" fill="#1e3a5f"/>
+  <text x="550" y="368" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">OpenTelemetry</text>
+  <text x="550" y="386" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Distributed tracing</text>
+
+  <rect x="660" y="345" width="180" height="55" rx="8" fill="#1e3a5f"/>
+  <text x="750" y="368" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Health Checks</text>
+  <text x="750" y="386" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">K8s readiness probes</text>
+</svg>

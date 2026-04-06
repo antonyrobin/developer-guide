@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">ASP.NET Core Middleware Pipeline</text>
+
+  <!-- Request entry -->
+  <rect x="30" y="90" width="120" height="50" rx="10" fill="#7c3aed"/>
+  <text x="90" y="120" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">HTTP Request</text>
+  <polygon points="150,115 175,108 175,122" fill="#60a5fa"/>
+
+  <!-- Middleware 1 -->
+  <rect x="180" y="80" width="110" height="70" rx="10" fill="#0e7490"/>
+  <text x="235" y="110" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Exception</text>
+  <text x="235" y="126" text-anchor="middle" fill="#d4f5f4" font-size="11" font-family="Segoe UI,Arial,sans-serif">Handler</text>
+  <polygon points="290,115 310,108 310,122" fill="#60a5fa"/>
+
+  <!-- Middleware 2 -->
+  <rect x="315" y="80" width="100" height="70" rx="10" fill="#854d0e"/>
+  <text x="365" y="110" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">CORS</text>
+  <text x="365" y="126" text-anchor="middle" fill="#fde68a" font-size="11" font-family="Segoe UI,Arial,sans-serif">Policy</text>
+  <polygon points="415,115 435,108 435,122" fill="#60a5fa"/>
+
+  <!-- Middleware 3 -->
+  <rect x="440" y="80" width="115" height="70" rx="10" fill="#166534"/>
+  <text x="497" y="110" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Authentication</text>
+  <text x="497" y="126" text-anchor="middle" fill="#bbf7d0" font-size="11" font-family="Segoe UI,Arial,sans-serif">JWT Bearer</text>
+  <polygon points="555,115 575,108 575,122" fill="#60a5fa"/>
+
+  <!-- Middleware 4 -->
+  <rect x="580" y="80" width="115" height="70" rx="10" fill="#1e40af"/>
+  <text x="637" y="110" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Authorization</text>
+  <text x="637" y="126" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">[Authorize]</text>
+  <polygon points="695,115 715,108 715,122" fill="#60a5fa"/>
+
+  <!-- Controller -->
+  <rect x="720" y="80" width="140" height="70" rx="10" fill="#b91c1c"/>
+  <text x="790" y="110" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Controller</text>
+  <text x="790" y="126" text-anchor="middle" fill="#fecaca" font-size="11" font-family="Segoe UI,Arial,sans-serif">Action Method</text>
+
+  <!-- Response arrow (return path) -->
+  <line x1="790" y1="150" x2="790" y2="175" stroke="#fbbf24" stroke-width="2"/>
+  <line x1="790" y1="175" x2="90" y2="175" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6,3"/>
+  <line x1="90" y1="175" x2="90" y2="195" stroke="#fbbf24" stroke-width="2"/>
+  <polygon points="90,200 82,188 98,188" fill="#fbbf24"/>
+  <rect x="30" y="200" width="120" height="40" rx="8" fill="#374151"/>
+  <text x="90" y="225" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">JSON Response</text>
+
+  <text x="450" y="175" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">← Response passes back through each middleware</text>
+
+  <!-- Order matters section -->
+  <text x="450" y="268" text-anchor="middle" fill="#94a3b8" font-size="15" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Correct Middleware Order in Program.cs</text>
+
+  <rect x="100" y="282" width="700" height="120" rx="10" fill="#0a0f1a" stroke="#334155" stroke-width="1"/>
+  <text x="120" y="305" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">// Order matters!</text>
+  <text x="120" y="322" fill="#4ade80" font-size="12" font-family="Consolas,monospace">app.UseExceptionHandler();</text>
+  <text x="400" y="322" fill="#64748b" font-size="10" font-family="Consolas,monospace">// 1. Catch all errors</text>
+  <text x="120" y="339" fill="#4ade80" font-size="12" font-family="Consolas,monospace">app.UseHttpsRedirection();</text>
+  <text x="400" y="339" fill="#64748b" font-size="10" font-family="Consolas,monospace">// 2. Force HTTPS</text>
+  <text x="120" y="356" fill="#4ade80" font-size="12" font-family="Consolas,monospace">app.UseCors();</text>
+  <text x="400" y="356" fill="#64748b" font-size="10" font-family="Consolas,monospace">// 3. Handle CORS</text>
+  <text x="120" y="373" fill="#4ade80" font-size="12" font-family="Consolas,monospace">app.UseAuthentication();</text>
+  <text x="400" y="373" fill="#64748b" font-size="10" font-family="Consolas,monospace">// 4. Who are you?</text>
+  <text x="120" y="390" fill="#4ade80" font-size="12" font-family="Consolas,monospace">app.UseAuthorization();</text>
+  <text x="400" y="390" fill="#64748b" font-size="10" font-family="Consolas,monospace">// 5. Are you allowed?</text>
+</svg>

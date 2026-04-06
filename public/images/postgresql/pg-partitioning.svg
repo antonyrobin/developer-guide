@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="bold" font-family="system-ui">Table Partitioning</text>
+  <!-- Strategies -->
+  <rect x="20" y="48" width="155" height="80" rx="6" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="97" y="68" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold" font-family="system-ui">RANGE</text>
+  <text x="35" y="86" fill="#94a3b8" font-size="8" font-family="system-ui">Value ranges</text>
+  <text x="35" y="100" fill="#94a3b8" font-size="8" font-family="system-ui">Time-series data</text>
+  <text x="35" y="114" fill="#4ade80" font-size="7" font-family="system-ui">By month / year</text>
+  <rect x="185" y="48" width="155" height="80" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="262" y="68" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui">LIST</text>
+  <text x="200" y="86" fill="#94a3b8" font-size="8" font-family="system-ui">Explicit values</text>
+  <text x="200" y="100" fill="#94a3b8" font-size="8" font-family="system-ui">Multi-tenant</text>
+  <text x="200" y="114" fill="#4ade80" font-size="7" font-family="system-ui">By tenant_id / region</text>
+  <rect x="350" y="48" width="155" height="80" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="427" y="68" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">HASH</text>
+  <text x="365" y="86" fill="#94a3b8" font-size="8" font-family="system-ui">Hash of column</text>
+  <text x="365" y="100" fill="#94a3b8" font-size="8" font-family="system-ui">Even distribution</text>
+  <text x="365" y="114" fill="#4ade80" font-size="7" font-family="system-ui">N equal partitions</text>
+  <!-- Partition pruning -->
+  <rect x="20" y="145" width="485" height="55" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="260" y="165" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">Partition Pruning (Automatic)</text>
+  <text x="260" y="185" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">PostgreSQL skips irrelevant partitions during query planning</text>
+  <text x="260" y="196" text-anchor="middle" fill="#fbbf24" font-size="7" font-family="system-ui">Include partition key in WHERE to enable pruning</text>
+  <!-- Benefits -->
+  <rect x="20" y="215" width="240" height="70" rx="6" fill="#1e293b" stroke="#f87171" stroke-width="1"/>
+  <text x="140" y="235" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold" font-family="system-ui">Benefits</text>
+  <text x="35" y="252" fill="#94a3b8" font-size="8" font-family="system-ui">• Faster queries on large tables</text>
+  <text x="35" y="266" fill="#94a3b8" font-size="8" font-family="system-ui">• Efficient data archival (DETACH)</text>
+  <text x="35" y="280" fill="#94a3b8" font-size="8" font-family="system-ui">• Smaller VACUUM / REINDEX</text>
+  <!-- When -->
+  <rect x="275" y="215" width="230" height="70" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1"/>
+  <text x="390" y="235" text-anchor="middle" fill="#fbbf24" font-size="9" font-weight="bold" font-family="system-ui">When to Partition</text>
+  <text x="290" y="252" fill="#94a3b8" font-size="8" font-family="system-ui">• Tables &gt; 10M rows</text>
+  <text x="290" y="266" fill="#94a3b8" font-size="8" font-family="system-ui">• Queries on partition key</text>
+  <text x="290" y="280" fill="#94a3b8" font-size="8" font-family="system-ui">• Need to drop old data fast</text>
+</svg>

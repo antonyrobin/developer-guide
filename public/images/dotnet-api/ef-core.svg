@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Entity Framework Core — ORM Flow</text>
+
+  <!-- Application layer -->
+  <rect x="60" y="75" width="780" height="65" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="450" y="98" text-anchor="middle" fill="#a78bfa" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Application Layer</text>
+  <text x="450" y="118" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Controllers → Services → Repositories (C# / LINQ)</text>
+
+  <!-- Arrow down -->
+  <polygon points="450,140 442,150 458,150" fill="#60a5fa"/>
+
+  <!-- EF Core layer -->
+  <rect x="130" y="155" width="640" height="90" rx="12" fill="#512bd4"/>
+  <text x="450" y="182" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Entity Framework Core</text>
+
+  <rect x="155" y="196" width="140" height="35" rx="6" fill="#6d28d9"/>
+  <text x="225" y="218" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">DbContext</text>
+
+  <rect x="310" y="196" width="140" height="35" rx="6" fill="#6d28d9"/>
+  <text x="380" y="218" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">DbSet&lt;T&gt;</text>
+
+  <rect x="465" y="196" width="140" height="35" rx="6" fill="#6d28d9"/>
+  <text x="535" y="218" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Change Tracker</text>
+
+  <rect x="620" y="196" width="130" height="35" rx="6" fill="#6d28d9"/>
+  <text x="685" y="218" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Migrations</text>
+
+  <!-- Arrow down -->
+  <polygon points="450,245 442,255 458,255" fill="#60a5fa"/>
+  <text x="500" y="254" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Translates LINQ → SQL</text>
+
+  <!-- Database layer -->
+  <rect x="200" y="262" width="500" height="55" rx="12" fill="#166534"/>
+  <text x="450" y="288" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">PostgreSQL / SQL Server</text>
+  <text x="450" y="306" text-anchor="middle" fill="#bbf7d0" font-size="11" font-family="Segoe UI,Arial,sans-serif">Tables · Indexes · Stored Procedures</text>
+
+  <!-- Key patterns -->
+  <text x="450" y="345" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Key Patterns</text>
+
+  <rect x="40" y="360" width="195" height="45" rx="8" fill="#1e3a5f"/>
+  <text x="137" y="380" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">.Include()</text>
+  <text x="137" y="396" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Eager load relations</text>
+
+  <rect x="250" y="360" width="195" height="45" rx="8" fill="#1e3a5f"/>
+  <text x="347" y="380" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">.AsNoTracking()</text>
+  <text x="347" y="396" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Read-only performance</text>
+
+  <rect x="460" y="360" width="195" height="45" rx="8" fill="#1e3a5f"/>
+  <text x="557" y="380" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Fluent API</text>
+  <text x="557" y="396" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Entity configuration</text>
+
+  <rect x="670" y="360" width="195" height="45" rx="8" fill="#1e3a5f"/>
+  <text x="767" y="380" text-anchor="middle" fill="#f87171" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Query Filters</text>
+  <text x="767" y="396" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Soft delete / tenants</text>
+</svg>

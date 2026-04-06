@@ -23,6 +23,7 @@ import { systemArchitectureCourse } from './courses-data/system-architecture';
 import { designPatternsCourse } from './courses-data/design-patterns';
 import { githubCourse } from './courses-data/github';
 import { githubActionsCourse } from './courses-data/github-actions';
+import { postgresqlCourse } from './courses-data/postgresql';
 
 export const courses = [
   sdlcCourse,
@@ -49,5 +50,6 @@ export const courses = [
   systemArchitectureCourse,
   designPatternsCourse,
   githubCourse,
-  githubActionsCourse
+  githubActionsCourse,
+  postgresqlCourse
 ];
