@@ -3,6 +3,8 @@ import { useParams, Navigate } from 'react-router-dom';
 import { courses } from '../data/courses';
 import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 /* Course-specific SEO keywords map */
 const courseKeywords = {
@@ -44,6 +46,37 @@ function parseMarkdown(text) {
     .replace(/`(.+?)`/g, '<code class="inline-code">$1</code>')
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="content-link">$1</a>');
 }
+
+const getLanguage = (courseId) => {
+  const map = {
+    javascript: 'javascript',
+    react: 'jsx',
+    html: 'html',
+    css: 'css',
+    python: 'python',
+    java: 'java',
+    csharp: 'csharp',
+    php: 'php',
+    sql: 'sql',
+    nosql: 'javascript',
+    docker: 'bash',
+    'spring-boot': 'java',
+    blazor: 'csharp',
+    'dotnet-api': 'csharp',
+    django: 'python',
+    aws: 'bash',
+    gcp: 'bash',
+    github: 'bash',
+    'github-actions': 'yaml',
+    'azure-devops': 'yaml',
+    'data-structure': 'javascript',
+    'sys-arch': 'text',
+    'design-patterns': 'javascript',
+    oops: 'javascript',
+    sdlc: 'text'
+  };
+  return map[courseId] || 'javascript';
+};
 
 const CoursePage = () => {
   const { id } = useParams();
@@ -173,9 +206,23 @@ const CoursePage = () => {
                   <span>{section.codeLabel || 'Code Example'}</span>
                 </h3>
                 <div className="code-block-container">
-                  <pre className="code-block">
-                    <code>{section.code}</code>
-                  </pre>
+                  <SyntaxHighlighter
+                    language={getLanguage(id)}
+                    style={vscDarkPlus}
+                    customStyle={{
+                      margin: 0,
+                      padding: 0,
+                      background: 'transparent',
+                      fontSize: '0.875rem'
+                    }}
+                    codeTagProps={{
+                      style: {
+                        fontFamily: 'var(--font-mono)'
+                      }
+                    }}
+                  >
+                    {section.code}
+                  </SyntaxHighlighter>
                   <button
                     className="btn-copy"
                     onClick={() => {
