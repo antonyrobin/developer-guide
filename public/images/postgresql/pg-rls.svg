@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f87171" font-size="15" font-weight="bold" font-family="system-ui">Row Level Security (RLS)</text>
+  <!-- How it works -->
+  <rect x="20" y="48" width="240" height="95" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#f87171" font-size="10" font-weight="bold" font-family="system-ui">How RLS Works</text>
+  <text x="35" y="88" fill="#fbbf24" font-size="8" font-family="monospace">1.</text>
+  <text x="55" y="88" fill="#94a3b8" font-size="8" font-family="system-ui">ENABLE ROW LEVEL SECURITY</text>
+  <text x="35" y="106" fill="#fbbf24" font-size="8" font-family="monospace">2.</text>
+  <text x="55" y="106" fill="#94a3b8" font-size="8" font-family="system-ui">CREATE POLICY with rules</text>
+  <text x="35" y="124" fill="#fbbf24" font-size="8" font-family="monospace">3.</text>
+  <text x="55" y="124" fill="#94a3b8" font-size="8" font-family="system-ui">PG enforces automatically</text>
+  <!-- Policy types -->
+  <rect x="275" y="48" width="230" height="95" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="390" y="68" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">Policy Clauses</text>
+  <text x="290" y="88" fill="#60a5fa" font-size="8" font-weight="bold" font-family="system-ui">USING</text>
+  <text x="340" y="88" fill="#94a3b8" font-size="8" font-family="system-ui">Which rows to read</text>
+  <text x="290" y="106" fill="#4ade80" font-size="8" font-weight="bold" font-family="system-ui">WITH CHECK</text>
+  <text x="370" y="106" fill="#94a3b8" font-size="8" font-family="system-ui">Which rows to write</text>
+  <text x="290" y="124" fill="#fbbf24" font-size="8" font-weight="bold" font-family="system-ui">PERMISSIVE</text>
+  <text x="375" y="124" fill="#94a3b8" font-size="8" font-family="system-ui">OR'd together</text>
+  <text x="290" y="138" fill="#f87171" font-size="8" font-weight="bold" font-family="system-ui">RESTRICTIVE</text>
+  <text x="375" y="138" fill="#94a3b8" font-size="8" font-family="system-ui">AND'd with permissive</text>
+  <!-- Use cases -->
+  <rect x="20" y="160" width="485" height="55" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.2"/>
+  <text x="260" y="180" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">Use Cases</text>
+  <text x="80" y="200" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="system-ui">Multi-Tenant</text>
+  <text x="190" y="200" text-anchor="middle" fill="#fbbf24" font-size="8" font-family="system-ui">Role-Based Access</text>
+  <text x="320" y="200" text-anchor="middle" fill="#f87171" font-size="8" font-family="system-ui">GDPR / HIPAA</text>
+  <text x="430" y="200" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="system-ui">Supabase Security</text>
+  <!-- current_setting -->
+  <rect x="20" y="230" width="485" height="55" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.2"/>
+  <text x="260" y="250" text-anchor="middle" fill="#fbbf24" font-size="9" font-weight="bold" font-family="system-ui">Pass App Context to PostgreSQL</text>
+  <text x="260" y="270" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="monospace">SET app.current_user_id = '1';</text>
+  <text x="260" y="282" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">USING (user_id = current_setting('app.current_user_id')::bigint)</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="bold" font-family="system-ui">Transactions &amp; Concurrency</text>
+  <!-- ACID -->
+  <rect x="20" y="48" width="240" height="85" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="bold" font-family="system-ui">ACID Properties</text>
+  <text x="35" y="88" fill="#f87171" font-size="9" font-weight="bold" font-family="system-ui">A</text>
+  <text x="55" y="88" fill="#94a3b8" font-size="8" font-family="system-ui">Atomicity — all or nothing</text>
+  <text x="35" y="104" fill="#fbbf24" font-size="9" font-weight="bold" font-family="system-ui">C</text>
+  <text x="55" y="104" fill="#94a3b8" font-size="8" font-family="system-ui">Consistency — valid states</text>
+  <text x="35" y="120" fill="#4ade80" font-size="9" font-weight="bold" font-family="system-ui">I</text>
+  <text x="55" y="120" fill="#94a3b8" font-size="8" font-family="system-ui">Isolation — no interference</text>
+  <text x="35" y="128" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">D</text>
+  <text x="55" y="128" fill="#94a3b8" font-size="8" font-family="system-ui">Durability — survives crashes</text>
+  <!-- Isolation levels -->
+  <rect x="275" y="48" width="230" height="85" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="390" y="68" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui">Isolation Levels</text>
+  <text x="290" y="88" fill="#4ade80" font-size="8" font-family="system-ui">READ COMMITTED</text>
+  <text x="430" y="88" fill="#94a3b8" font-size="7" font-family="system-ui">(default)</text>
+  <text x="290" y="104" fill="#60a5fa" font-size="8" font-family="system-ui">REPEATABLE READ</text>
+  <text x="430" y="104" fill="#94a3b8" font-size="7" font-family="system-ui">(snapshot)</text>
+  <text x="290" y="120" fill="#f87171" font-size="8" font-family="system-ui">SERIALIZABLE</text>
+  <text x="430" y="120" fill="#94a3b8" font-size="7" font-family="system-ui">(strictest)</text>
+  <!-- MVCC -->
+  <rect x="20" y="148" width="485" height="45" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="260" y="168" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">MVCC (Multi-Version Concurrency Control)</text>
+  <text x="260" y="186" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Writers never block readers • Readers never block writers • Snapshot-based</text>
+  <!-- Locking patterns -->
+  <rect x="20" y="208" width="240" height="75" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1"/>
+  <text x="140" y="228" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">Locking Patterns</text>
+  <text x="35" y="248" fill="#60a5fa" font-size="8" font-family="monospace">FOR UPDATE</text>
+  <text x="140" y="248" fill="#94a3b8" font-size="7" font-family="system-ui">Pessimistic lock</text>
+  <text x="35" y="262" fill="#4ade80" font-size="8" font-family="monospace">SKIP LOCKED</text>
+  <text x="140" y="262" fill="#94a3b8" font-size="7" font-family="system-ui">Job queue pattern</text>
+  <text x="35" y="276" fill="#fbbf24" font-size="8" font-family="monospace">Advisory Lock</text>
+  <text x="140" y="276" fill="#94a3b8" font-size="7" font-family="system-ui">App-level</text>
+  <!-- Savepoints -->
+  <rect x="275" y="208" width="230" height="75" rx="6" fill="#1e293b" stroke="#f87171" stroke-width="1"/>
+  <text x="390" y="228" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold" font-family="system-ui">Transaction Features</text>
+  <text x="290" y="248" fill="#94a3b8" font-size="8" font-family="system-ui">BEGIN / COMMIT / ROLLBACK</text>
+  <text x="290" y="262" fill="#94a3b8" font-size="8" font-family="system-ui">SAVEPOINT for partial rollback</text>
+  <text x="290" y="276" fill="#94a3b8" font-size="8" font-family="system-ui">Nested via savepoints</text>
+</svg>

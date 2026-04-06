@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="bold" font-family="system-ui">CRUD Operations</text>
+  <!-- CRUD boxes -->
+  <rect x="20" y="48" width="115" height="65" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="77" y="68" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold" font-family="system-ui">INSERT</text>
+  <text x="77" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Create rows</text>
+  <text x="77" y="98" text-anchor="middle" fill="#fbbf24" font-size="7" font-family="monospace">+ RETURNING</text>
+  <rect x="145" y="48" width="115" height="65" rx="6" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="202" y="68" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="bold" font-family="system-ui">SELECT</text>
+  <text x="202" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Read data</text>
+  <text x="202" y="98" text-anchor="middle" fill="#fbbf24" font-size="7" font-family="monospace">WHERE, ORDER BY</text>
+  <rect x="270" y="48" width="115" height="65" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="327" y="68" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold" font-family="system-ui">UPDATE</text>
+  <text x="327" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Modify rows</text>
+  <text x="327" y="98" text-anchor="middle" fill="#fbbf24" font-size="7" font-family="monospace">SET, WHERE</text>
+  <rect x="395" y="48" width="110" height="65" rx="6" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+  <text x="450" y="68" text-anchor="middle" fill="#f87171" font-size="11" font-weight="bold" font-family="system-ui">DELETE</text>
+  <text x="450" y="84" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Remove rows</text>
+  <text x="450" y="98" text-anchor="middle" fill="#fbbf24" font-size="7" font-family="monospace">WHERE clause</text>
+  <!-- Operators -->
+  <rect x="20" y="128" width="240" height="80" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1"/>
+  <text x="140" y="148" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">Comparison Operators</text>
+  <text x="35" y="168" fill="#94a3b8" font-size="8" font-family="monospace">= != &lt; &gt; &lt;= &gt;=</text>
+  <text x="35" y="184" fill="#94a3b8" font-size="8" font-family="monospace">BETWEEN IN LIKE ILIKE</text>
+  <text x="35" y="200" fill="#94a3b8" font-size="8" font-family="monospace">IS NULL IS NOT NULL</text>
+  <!-- UPSERT -->
+  <rect x="275" y="128" width="230" height="80" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1"/>
+  <text x="390" y="148" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">PostgreSQL Extras</text>
+  <text x="290" y="168" fill="#60a5fa" font-size="8" font-family="system-ui">RETURNING</text>
+  <text x="370" y="168" fill="#94a3b8" font-size="8" font-family="system-ui">Get modified data back</text>
+  <text x="290" y="184" fill="#fbbf24" font-size="8" font-family="system-ui">ON CONFLICT</text>
+  <text x="370" y="184" fill="#94a3b8" font-size="8" font-family="system-ui">Upsert behavior</text>
+  <text x="290" y="200" fill="#a78bfa" font-size="8" font-family="system-ui">ILIKE</text>
+  <text x="370" y="200" fill="#94a3b8" font-size="8" font-family="system-ui">Case-insensitive LIKE</text>
+  <!-- Logical ops -->
+  <rect x="20" y="224" width="485" height="60" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="244" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold" font-family="system-ui">SELECT Pipeline</text>
+  <text x="60" y="268" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" font-family="system-ui">FROM</text>
+  <text x="115" y="268" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">→</text>
+  <text x="145" y="268" text-anchor="middle" fill="#f87171" font-size="8" font-weight="bold" font-family="system-ui">WHERE</text>
+  <text x="195" y="268" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">→</text>
+  <text x="235" y="268" text-anchor="middle" fill="#fbbf24" font-size="8" font-weight="bold" font-family="system-ui">GROUP BY</text>
+  <text x="300" y="268" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">→</text>
+  <text x="340" y="268" text-anchor="middle" fill="#a78bfa" font-size="8" font-weight="bold" font-family="system-ui">HAVING</text>
+  <text x="390" y="268" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">→</text>
+  <text x="430" y="268" text-anchor="middle" fill="#4ade80" font-size="8" font-weight="bold" font-family="system-ui">ORDER BY</text>
+  <text x="480" y="268" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">→ LIMIT</text>
+</svg>

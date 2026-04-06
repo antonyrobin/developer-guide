@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f59e0b" font-size="15" font-weight="bold" font-family="system-ui">Security Best Practices</text>
+  <!-- Authentication -->
+  <rect x="20" y="48" width="240" height="105" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold" font-family="system-ui">Authentication (pg_hba.conf)</text>
+  <text x="35" y="88" fill="#4ade80" font-size="8" font-family="monospace">scram-sha-256</text>
+  <text x="150" y="88" fill="#94a3b8" font-size="7" font-family="system-ui">★ Recommended</text>
+  <text x="35" y="104" fill="#94a3b8" font-size="8" font-family="monospace">md5</text>
+  <text x="150" y="104" fill="#f87171" font-size="7" font-family="system-ui">Legacy (avoid)</text>
+  <text x="35" y="120" fill="#60a5fa" font-size="8" font-family="monospace">cert</text>
+  <text x="150" y="120" fill="#94a3b8" font-size="7" font-family="system-ui">Client certificate</text>
+  <text x="35" y="136" fill="#a78bfa" font-size="8" font-family="monospace">peer/ident</text>
+  <text x="150" y="136" fill="#94a3b8" font-size="7" font-family="system-ui">OS user matching</text>
+  <text x="35" y="148" fill="#f87171" font-size="8" font-family="monospace">reject</text>
+  <text x="150" y="148" fill="#94a3b8" font-size="7" font-family="system-ui">Deny connection</text>
+  <!-- Authorization -->
+  <rect x="275" y="48" width="230" height="105" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="390" y="68" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold" font-family="system-ui">Authorization (RBAC)</text>
+  <text x="290" y="88" fill="#4ade80" font-size="8" font-family="system-ui">CREATE ROLE app_readonly</text>
+  <text x="290" y="104" fill="#fbbf24" font-size="8" font-family="system-ui">CREATE ROLE app_readwrite</text>
+  <text x="290" y="120" fill="#94a3b8" font-size="8" font-family="system-ui">GRANT role TO user</text>
+  <text x="290" y="136" fill="#f87171" font-size="8" font-family="system-ui">REVOKE ALL FROM PUBLIC</text>
+  <text x="290" y="148" fill="#94a3b8" font-size="7" font-family="system-ui">Principle of least privilege</text>
+  <!-- Encryption -->
+  <rect x="20" y="168" width="485" height="45" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1.2"/>
+  <text x="260" y="188" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">Encryption</text>
+  <text x="120" y="206" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="system-ui">SSL/TLS (in transit)</text>
+  <text x="290" y="206" text-anchor="middle" fill="#4ade80" font-size="8" font-family="system-ui">Disk encryption (at rest)</text>
+  <text x="440" y="206" text-anchor="middle" fill="#fbbf24" font-size="8" font-family="system-ui">pgcrypto (column)</text>
+  <!-- Hardening checklist -->
+  <rect x="20" y="228" width="485" height="57" rx="6" fill="#1e293b" stroke="#f87171" stroke-width="1.2"/>
+  <text x="260" y="248" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold" font-family="system-ui">Hardening Checklist</text>
+  <text x="35" y="265" fill="#94a3b8" font-size="7" font-family="system-ui">✓ scram-sha-256</text>
+  <text x="130" y="265" fill="#94a3b8" font-size="7" font-family="system-ui">✓ Enable SSL</text>
+  <text x="215" y="265" fill="#94a3b8" font-size="7" font-family="system-ui">✓ Least privilege</text>
+  <text x="320" y="265" fill="#94a3b8" font-size="7" font-family="system-ui">✓ Enable RLS</text>
+  <text x="35" y="280" fill="#94a3b8" font-size="7" font-family="system-ui">✓ Parameterized queries</text>
+  <text x="170" y="280" fill="#94a3b8" font-size="7" font-family="system-ui">✓ Restrict pg_hba.conf IPs</text>
+  <text x="340" y="280" fill="#f87171" font-size="7" font-family="system-ui">✗ Never use trust in production</text>
+</svg>

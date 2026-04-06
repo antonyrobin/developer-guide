@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="bold" font-family="system-ui">Views &amp; Materialized Views</text>
+  <!-- Regular view -->
+  <rect x="20" y="48" width="230" height="110" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="135" y="68" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="bold" font-family="system-ui">Regular View</text>
+  <text x="35" y="90" fill="#94a3b8" font-size="8" font-family="system-ui">• Saved query (virtual table)</text>
+  <text x="35" y="106" fill="#94a3b8" font-size="8" font-family="system-ui">• Re-executes on every query</text>
+  <text x="35" y="122" fill="#94a3b8" font-size="8" font-family="system-ui">• No storage overhead</text>
+  <text x="35" y="138" fill="#4ade80" font-size="8" font-family="system-ui">• Simple views auto-updatable</text>
+  <text x="35" y="152" fill="#94a3b8" font-size="8" font-family="system-ui">• Security boundary</text>
+  <!-- Materialized view -->
+  <rect x="270" y="48" width="230" height="110" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="385" y="68" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold" font-family="system-ui">Materialized View</text>
+  <text x="285" y="90" fill="#94a3b8" font-size="8" font-family="system-ui">• Physically stores result</text>
+  <text x="285" y="106" fill="#94a3b8" font-size="8" font-family="system-ui">• Manual REFRESH required</text>
+  <text x="285" y="122" fill="#4ade80" font-size="8" font-family="system-ui">• Fast reads (pre-computed)</text>
+  <text x="285" y="138" fill="#94a3b8" font-size="8" font-family="system-ui">• Indexable like a table</text>
+  <text x="285" y="152" fill="#94a3b8" font-size="8" font-family="system-ui">• Great for dashboards</text>
+  <!-- Refresh options -->
+  <rect x="20" y="175" width="485" height="55" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1"/>
+  <text x="260" y="195" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">Refresh Strategies</text>
+  <text x="130" y="218" text-anchor="middle" fill="#f87171" font-size="8" font-weight="bold" font-family="system-ui">REFRESH</text>
+  <text x="130" y="226" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Blocks reads</text>
+  <text x="260" y="218" text-anchor="middle" fill="#4ade80" font-size="8" font-weight="bold" font-family="system-ui">CONCURRENTLY</text>
+  <text x="260" y="226" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">No blocking (needs UNIQUE idx)</text>
+  <text x="400" y="218" text-anchor="middle" fill="#fbbf24" font-size="8" font-weight="bold" font-family="system-ui">pg_cron</text>
+  <text x="400" y="226" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="system-ui">Automated schedule</text>
+  <!-- Use cases -->
+  <rect x="20" y="245" width="485" height="40" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="265" text-anchor="middle" fill="#e2e8f0" font-size="9" font-weight="bold" font-family="system-ui">Ideal For</text>
+  <text x="100" y="280" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="system-ui">Dashboards</text>
+  <text x="210" y="280" text-anchor="middle" fill="#4ade80" font-size="8" font-family="system-ui">Reports</text>
+  <text x="310" y="280" text-anchor="middle" fill="#fbbf24" font-size="8" font-family="system-ui">Search Indexes</text>
+  <text x="430" y="280" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="system-ui">Read Models</text>
+</svg>

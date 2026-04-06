@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="bold" font-family="system-ui">Full-Text Search</text>
+  <!-- Core concepts -->
+  <rect x="20" y="48" width="240" height="100" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold" font-family="system-ui">Core Concepts</text>
+  <text x="35" y="88" fill="#4ade80" font-size="9" font-family="monospace">tsvector</text>
+  <text x="110" y="88" fill="#94a3b8" font-size="8" font-family="system-ui">Normalized word list</text>
+  <text x="35" y="106" fill="#fbbf24" font-size="9" font-family="monospace">tsquery</text>
+  <text x="110" y="106" fill="#94a3b8" font-size="8" font-family="system-ui">Search query (AND/OR/NOT)</text>
+  <text x="35" y="124" fill="#f87171" font-size="9" font-family="monospace">@@</text>
+  <text x="110" y="124" fill="#94a3b8" font-size="8" font-family="system-ui">Match operator</text>
+  <text x="35" y="142" fill="#a78bfa" font-size="9" font-family="monospace">ts_rank()</text>
+  <text x="110" y="142" fill="#94a3b8" font-size="8" font-family="system-ui">Relevance scoring</text>
+  <!-- Search pipeline -->
+  <rect x="275" y="48" width="230" height="100" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="390" y="68" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">Search Features</text>
+  <text x="290" y="88" fill="#60a5fa" font-size="8" font-family="system-ui">Stemming</text>
+  <text x="360" y="88" fill="#94a3b8" font-size="7" font-family="system-ui">running → run</text>
+  <text x="290" y="104" fill="#fbbf24" font-size="8" font-family="system-ui">Stop words</text>
+  <text x="360" y="104" fill="#94a3b8" font-size="7" font-family="system-ui">the, is, a → removed</text>
+  <text x="290" y="120" fill="#f87171" font-size="8" font-family="system-ui">Weights A-D</text>
+  <text x="360" y="120" fill="#94a3b8" font-size="7" font-family="system-ui">Title A &gt; Body B</text>
+  <text x="290" y="136" fill="#a78bfa" font-size="8" font-family="system-ui">ts_headline()</text>
+  <text x="360" y="136" fill="#94a3b8" font-size="7" font-family="system-ui">Highlighted snippets</text>
+  <!-- Fuzzy search -->
+  <rect x="20" y="165" width="485" height="55" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.2"/>
+  <text x="260" y="185" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui">Fuzzy Search (pg_trgm)</text>
+  <text x="260" y="205" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Trigram similarity matching • Typo tolerance • Search-as-you-type</text>
+  <text x="260" y="215" text-anchor="middle" fill="#4ade80" font-size="7" font-family="monospace">WHERE title % 'postgre'  →  similarity() &gt; threshold</text>
+  <!-- No Elasticsearch needed -->
+  <rect x="20" y="235" width="485" height="50" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1"/>
+  <text x="260" y="255" text-anchor="middle" fill="#e2e8f0" font-size="9" font-weight="bold" font-family="system-ui">Built-in — No Elasticsearch Needed</text>
+  <text x="260" y="275" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">GIN index on tsvector → fast full-text search on millions of rows</text>
+</svg>

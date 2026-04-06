@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#f87171" font-size="15" font-weight="bold" font-family="system-ui">Performance Tuning &amp; Optimization</text>
+  <!-- Config params -->
+  <rect x="20" y="48" width="240" height="130" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#f87171" font-size="10" font-weight="bold" font-family="system-ui">Key Configuration</text>
+  <text x="35" y="88" fill="#60a5fa" font-size="8" font-family="monospace">shared_buffers</text>
+  <text x="155" y="88" fill="#94a3b8" font-size="7" font-family="system-ui">25% of RAM</text>
+  <text x="35" y="104" fill="#4ade80" font-size="8" font-family="monospace">effective_cache</text>
+  <text x="155" y="104" fill="#94a3b8" font-size="7" font-family="system-ui">75% of RAM</text>
+  <text x="35" y="120" fill="#fbbf24" font-size="8" font-family="monospace">work_mem</text>
+  <text x="155" y="120" fill="#94a3b8" font-size="7" font-family="system-ui">16-256 MB per op</text>
+  <text x="35" y="136" fill="#f87171" font-size="8" font-family="monospace">maint_work_mem</text>
+  <text x="155" y="136" fill="#94a3b8" font-size="7" font-family="system-ui">256 MB - 1 GB</text>
+  <text x="35" y="152" fill="#a78bfa" font-size="8" font-family="monospace">random_page_cost</text>
+  <text x="165" y="152" fill="#94a3b8" font-size="7" font-family="system-ui">1.1 (SSD)</text>
+  <text x="35" y="168" fill="#e2e8f0" font-size="8" font-family="monospace">max_connections</text>
+  <text x="165" y="168" fill="#94a3b8" font-size="7" font-family="system-ui">100-200</text>
+  <!-- Checklist -->
+  <rect x="275" y="48" width="230" height="130" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="390" y="68" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">Optimization Checklist</text>
+  <text x="290" y="88" fill="#94a3b8" font-size="8" font-family="system-ui">✓ EXPLAIN ANALYZE queries</text>
+  <text x="290" y="104" fill="#94a3b8" font-size="8" font-family="system-ui">✓ Add indexes for Seq Scans</text>
+  <text x="290" y="120" fill="#94a3b8" font-size="8" font-family="system-ui">✓ Use covering indexes</text>
+  <text x="290" y="136" fill="#94a3b8" font-size="8" font-family="system-ui">✓ Avoid SELECT *</text>
+  <text x="290" y="152" fill="#94a3b8" font-size="8" font-family="system-ui">✓ Replace correlated subqs</text>
+  <text x="290" y="168" fill="#94a3b8" font-size="8" font-family="system-ui">✓ Connection pooling</text>
+  <!-- Pooling -->
+  <rect x="20" y="195" width="485" height="40" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.2"/>
+  <text x="260" y="215" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui">Connection Pooling (Required for Production)</text>
+  <text x="160" y="230" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="system-ui">PgBouncer</text>
+  <text x="310" y="230" text-anchor="middle" fill="#4ade80" font-size="8" font-family="system-ui">Supavisor</text>
+  <text x="430" y="230" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="system-ui">Built-in Pool</text>
+  <!-- Cache hit -->
+  <rect x="20" y="250" width="485" height="35" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="272" text-anchor="middle" fill="#e2e8f0" font-size="8" font-family="system-ui">Cache hit ratio should be <tspan fill="#4ade80" font-weight="bold">&gt; 99%</tspan> — Monitor with pg_statio_user_tables</text>
+</svg>

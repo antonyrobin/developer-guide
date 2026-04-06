@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#fbbf24" font-size="15" font-weight="bold" font-family="system-ui">Backup, Recovery &amp; Maintenance</text>
+  <!-- Backup methods -->
+  <rect x="20" y="48" width="240" height="115" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold" font-family="system-ui">Backup Methods</text>
+  <text x="35" y="88" fill="#60a5fa" font-size="8" font-family="monospace">pg_dump</text>
+  <text x="110" y="88" fill="#94a3b8" font-size="7" font-family="system-ui">Logical, single DB</text>
+  <text x="35" y="104" fill="#4ade80" font-size="8" font-family="monospace">pg_dumpall</text>
+  <text x="110" y="104" fill="#94a3b8" font-size="7" font-family="system-ui">All DBs + roles</text>
+  <text x="35" y="120" fill="#f87171" font-size="8" font-family="monospace">pg_basebackup</text>
+  <text x="135" y="120" fill="#94a3b8" font-size="7" font-family="system-ui">Physical, fast</text>
+  <text x="35" y="136" fill="#a78bfa" font-size="8" font-family="monospace">WAL Archiving</text>
+  <text x="135" y="136" fill="#94a3b8" font-size="7" font-family="system-ui">Point-in-time (PITR)</text>
+  <text x="35" y="155" fill="#4ade80" font-size="7" font-family="system-ui">Best: pg_basebackup + WAL = PITR</text>
+  <!-- Maintenance -->
+  <rect x="275" y="48" width="230" height="115" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="390" y="68" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold" font-family="system-ui">Maintenance Tasks</text>
+  <text x="290" y="88" fill="#60a5fa" font-size="9" font-weight="bold" font-family="system-ui">VACUUM</text>
+  <text x="355" y="88" fill="#94a3b8" font-size="7" font-family="system-ui">Reclaim dead tuples</text>
+  <text x="290" y="106" fill="#fbbf24" font-size="9" font-weight="bold" font-family="system-ui">ANALYZE</text>
+  <text x="355" y="106" fill="#94a3b8" font-size="7" font-family="system-ui">Update planner stats</text>
+  <text x="290" y="124" fill="#f87171" font-size="9" font-weight="bold" font-family="system-ui">REINDEX</text>
+  <text x="355" y="124" fill="#94a3b8" font-size="7" font-family="system-ui">Rebuild bloated indexes</text>
+  <text x="290" y="142" fill="#a78bfa" font-size="9" font-weight="bold" font-family="system-ui">pg_repack</text>
+  <text x="365" y="142" fill="#94a3b8" font-size="7" font-family="system-ui">Online table reorg</text>
+  <text x="290" y="155" fill="#4ade80" font-size="7" font-family="system-ui">Autovacuum runs automatically</text>
+  <!-- WAL -->
+  <rect x="20" y="178" width="485" height="45" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1.2"/>
+  <text x="260" y="198" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold" font-family="system-ui">WAL (Write-Ahead Logging)</text>
+  <text x="260" y="215" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">All changes written to WAL first → Crash recovery guaranteed</text>
+  <!-- Monitoring -->
+  <rect x="20" y="238" width="485" height="48" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="258" text-anchor="middle" fill="#e2e8f0" font-size="9" font-weight="bold" font-family="system-ui">Key Monitoring Views</text>
+  <text x="85" y="278" text-anchor="middle" fill="#60a5fa" font-size="7" font-family="monospace">pg_stat_activity</text>
+  <text x="220" y="278" text-anchor="middle" fill="#4ade80" font-size="7" font-family="monospace">pg_stat_user_tables</text>
+  <text x="365" y="278" text-anchor="middle" fill="#fbbf24" font-size="7" font-family="monospace">pg_stat_user_indexes</text>
+  <text x="475" y="278" text-anchor="middle" fill="#f87171" font-size="7" font-family="monospace">pg_stat_bgwriter</text>
+</svg>

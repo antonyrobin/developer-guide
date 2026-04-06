@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300">
+  <rect width="520" height="300" rx="12" fill="#0f172a"/>
+  <text x="260" y="28" text-anchor="middle" fill="#a78bfa" font-size="15" font-weight="bold" font-family="system-ui">Window Functions</text>
+  <!-- Function table -->
+  <rect x="20" y="48" width="240" height="160" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="140" y="68" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="bold" font-family="system-ui">Window Functions</text>
+  <text x="35" y="88" fill="#60a5fa" font-size="8" font-family="monospace">ROW_NUMBER()</text>
+  <text x="145" y="88" fill="#94a3b8" font-size="7" font-family="system-ui">Unique sequential #</text>
+  <text x="35" y="104" fill="#4ade80" font-size="8" font-family="monospace">RANK()</text>
+  <text x="145" y="104" fill="#94a3b8" font-size="7" font-family="system-ui">Rank with gaps</text>
+  <text x="35" y="120" fill="#fbbf24" font-size="8" font-family="monospace">DENSE_RANK()</text>
+  <text x="145" y="120" fill="#94a3b8" font-size="7" font-family="system-ui">Rank without gaps</text>
+  <text x="35" y="136" fill="#f87171" font-size="8" font-family="monospace">LAG() / LEAD()</text>
+  <text x="145" y="136" fill="#94a3b8" font-size="7" font-family="system-ui">Previous / Next row</text>
+  <text x="35" y="152" fill="#fb923c" font-size="8" font-family="monospace">NTILE(n)</text>
+  <text x="145" y="152" fill="#94a3b8" font-size="7" font-family="system-ui">Divide into buckets</text>
+  <text x="35" y="168" fill="#e2e8f0" font-size="8" font-family="monospace">FIRST_VALUE()</text>
+  <text x="145" y="168" fill="#94a3b8" font-size="7" font-family="system-ui">First in frame</text>
+  <text x="35" y="184" fill="#e2e8f0" font-size="8" font-family="monospace">SUM() OVER()</text>
+  <text x="145" y="184" fill="#94a3b8" font-size="7" font-family="system-ui">Running aggregate</text>
+  <!-- Syntax -->
+  <rect x="275" y="48" width="230" height="80" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="390" y="68" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold" font-family="system-ui">Syntax</text>
+  <text x="290" y="88" fill="#fbbf24" font-size="8" font-family="monospace">func() OVER (</text>
+  <text x="300" y="102" fill="#4ade80" font-size="8" font-family="monospace">PARTITION BY col</text>
+  <text x="300" y="116" fill="#a78bfa" font-size="8" font-family="monospace">ORDER BY col</text>
+  <text x="290" y="126" fill="#fbbf24" font-size="8" font-family="monospace">)</text>
+  <!-- Frame -->
+  <rect x="275" y="140" width="230" height="68" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1"/>
+  <text x="390" y="158" text-anchor="middle" fill="#fbbf24" font-size="9" font-weight="bold" font-family="system-ui">Frame Specification</text>
+  <text x="290" y="175" fill="#94a3b8" font-size="7" font-family="system-ui">ROWS BETWEEN ... AND ...</text>
+  <text x="290" y="190" fill="#94a3b8" font-size="7" font-family="system-ui">RANGE BETWEEN ... AND ...</text>
+  <text x="290" y="200" fill="#4ade80" font-size="7" font-family="system-ui">Cumulative • Sliding • Time-based</text>
+  <!-- Key insight -->
+  <rect x="20" y="225" width="485" height="60" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="260" y="245" text-anchor="middle" fill="#e2e8f0" font-size="9" font-weight="bold" font-family="system-ui">Key Insight</text>
+  <text x="260" y="265" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="system-ui">Window functions compute across related rows WITHOUT collapsing them.</text>
+  <text x="260" y="278" text-anchor="middle" fill="#4ade80" font-size="8" font-family="system-ui">Use named windows: WINDOW w AS (...) to avoid repetition</text>
+</svg>
