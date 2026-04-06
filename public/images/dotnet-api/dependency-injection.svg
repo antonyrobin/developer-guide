@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Dependency Injection — Service Lifetimes</text>
+
+  <!-- DI Container -->
+  <rect x="300" y="70" width="300" height="45" rx="10" fill="#512bd4"/>
+  <text x="450" y="98" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">DI Container (Program.cs)</text>
+
+  <!-- Arrows down -->
+  <line x1="200" y1="115" x2="200" y2="140" stroke="#475569" stroke-width="1.5"/>
+  <line x1="450" y1="115" x2="450" y2="140" stroke="#475569" stroke-width="1.5"/>
+  <line x1="700" y1="115" x2="700" y2="140" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Transient -->
+  <rect x="80" y="140" width="240" height="110" rx="12" fill="#166534"/>
+  <text x="200" y="168" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Transient</text>
+  <text x="200" y="190" text-anchor="middle" fill="#bbf7d0" font-size="12" font-family="Segoe UI,Arial,sans-serif">New instance every injection</text>
+  <text x="200" y="210" text-anchor="middle" fill="#86efac" font-size="11" font-family="Segoe UI,Arial,sans-serif">Lightweight, stateless services</text>
+  <text x="200" y="235" text-anchor="middle" fill="#4ade80" font-size="10" font-family="Consolas,monospace">AddTransient&lt;I, T&gt;()</text>
+
+  <!-- Scoped -->
+  <rect x="340" y="140" width="240" height="110" rx="12" fill="#1e40af"/>
+  <text x="460" y="168" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Scoped</text>
+  <text x="460" y="190" text-anchor="middle" fill="#bfdbfe" font-size="12" font-family="Segoe UI,Arial,sans-serif">One instance per HTTP request</text>
+  <text x="460" y="210" text-anchor="middle" fill="#93c5fd" font-size="11" font-family="Segoe UI,Arial,sans-serif">DbContext, services, repos</text>
+  <text x="460" y="235" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="Consolas,monospace">AddScoped&lt;I, T&gt;()</text>
+
+  <!-- Singleton -->
+  <rect x="600" y="140" width="240" height="110" rx="12" fill="#b91c1c"/>
+  <text x="720" y="168" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Singleton</text>
+  <text x="720" y="190" text-anchor="middle" fill="#fecaca" font-size="12" font-family="Segoe UI,Arial,sans-serif">One instance for app lifetime</text>
+  <text x="720" y="210" text-anchor="middle" fill="#fca5a5" font-size="11" font-family="Segoe UI,Arial,sans-serif">Caches, config, HttpClient</text>
+  <text x="720" y="235" text-anchor="middle" fill="#f87171" font-size="10" font-family="Consolas,monospace">AddSingleton&lt;I, T&gt;()</text>
+
+  <!-- Injection Flow -->
+  <text x="450" y="280" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Constructor Injection Flow</text>
+
+  <rect x="60" y="298" width="220" height="45" rx="8" fill="#1e3a5f"/>
+  <text x="170" y="325" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Controller</text>
+
+  <polygon points="280,320 305,313 305,327" fill="#fbbf24"/>
+
+  <rect x="310" y="298" width="220" height="45" rx="8" fill="#1e3a5f"/>
+  <text x="420" y="325" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Service (IService)</text>
+
+  <polygon points="530,320 555,313 555,327" fill="#fbbf24"/>
+
+  <rect x="560" y="298" width="280" height="45" rx="8" fill="#1e3a5f"/>
+  <text x="700" y="325" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Repository (IRepository)</text>
+
+  <!-- Registration example -->
+  <rect x="100" y="360" width="700" height="45" rx="8" fill="#0a0f1a" stroke="#334155" stroke-width="1"/>
+  <text x="120" y="382" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">// Program.cs</text>
+  <text x="120" y="397" fill="#4ade80" font-size="11" font-family="Consolas,monospace">builder.Services.AddScoped&lt;IProductService, ProductService&gt;();</text>
+  <text x="556" y="397" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">// Most common lifetime</text>
+</svg>

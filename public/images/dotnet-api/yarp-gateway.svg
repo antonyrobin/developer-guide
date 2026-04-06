@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">YARP API Gateway — Request Routing</text>
+
+  <!-- Clients -->
+  <rect x="40" y="80" width="130" height="42" rx="8" fill="#7c3aed"/>
+  <text x="105" y="106" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Web Client</text>
+  <rect x="40" y="132" width="130" height="42" rx="8" fill="#7c3aed"/>
+  <text x="105" y="158" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Mobile App</text>
+  <rect x="40" y="184" width="130" height="42" rx="8" fill="#7c3aed"/>
+  <text x="105" y="210" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Desktop App</text>
+
+  <!-- Arrows to gateway -->
+  <polygon points="170,106 195,99 195,113" fill="#60a5fa"/>
+  <polygon points="170,158 195,151 195,165" fill="#60a5fa"/>
+  <polygon points="170,210 195,203 195,217" fill="#60a5fa"/>
+
+  <!-- YARP Gateway -->
+  <rect x="200" y="70" width="280" height="180" rx="14" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
+  <text x="340" y="97" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">YARP API Gateway</text>
+  <text x="340" y="114" text-anchor="middle" fill="#bfdbfe" font-size="10" font-family="Segoe UI,Arial,sans-serif">Single Entry Point · Kestrel Server</text>
+
+  <rect x="218" y="125" width="115" height="30" rx="6" fill="#2563eb"/>
+  <text x="275" y="145" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">JWT Validation</text>
+
+  <rect x="345" y="125" width="115" height="30" rx="6" fill="#2563eb"/>
+  <text x="402" y="145" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Rate Limiting</text>
+
+  <rect x="218" y="163" width="115" height="30" rx="6" fill="#2563eb"/>
+  <text x="275" y="183" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">CORS Handling</text>
+
+  <rect x="345" y="163" width="115" height="30" rx="6" fill="#2563eb"/>
+  <text x="402" y="183" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Load Balancing</text>
+
+  <rect x="218" y="200" width="242" height="30" rx="6" fill="#2563eb"/>
+  <text x="339" y="220" text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Request Logging · Correlation IDs</text>
+
+  <!-- Arrows to services -->
+  <polygon points="480,110 505,103 505,117" fill="#4ade80"/>
+  <polygon points="480,150 505,143 505,157" fill="#4ade80"/>
+  <polygon points="480,190 505,183 505,197" fill="#4ade80"/>
+  <polygon points="480,230 505,223 505,237" fill="#4ade80"/>
+
+  <!-- Route labels -->
+  <text x="493" y="100" fill="#94a3b8" font-size="8" font-family="Consolas,monospace">/api/v1/identity/*</text>
+  <text x="493" y="140" fill="#94a3b8" font-size="8" font-family="Consolas,monospace">/api/v1/catalog/*</text>
+  <text x="493" y="180" fill="#94a3b8" font-size="8" font-family="Consolas,monospace">/api/v1/commerce/*</text>
+  <text x="493" y="220" fill="#94a3b8" font-size="8" font-family="Consolas,monospace">/api/v1/engage/*</text>
+
+  <!-- Backend services -->
+  <rect x="600" y="80" width="260" height="50" rx="10" fill="#166534"/>
+  <text x="730" y="102" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Identity Service :8081</text>
+  <text x="730" y="120" text-anchor="middle" fill="#bbf7d0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Auth, Users, Tenants, RBAC</text>
+
+  <rect x="600" y="140" width="260" height="50" rx="10" fill="#854d0e"/>
+  <text x="730" y="162" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Catalog Service :8082</text>
+  <text x="730" y="180" text-anchor="middle" fill="#fde68a" font-size="10" font-family="Segoe UI,Arial,sans-serif">Products, Inventory, Files</text>
+
+  <rect x="600" y="200" width="260" height="50" rx="10" fill="#b91c1c"/>
+  <text x="730" y="222" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Commerce Service :8083</text>
+  <text x="730" y="240" text-anchor="middle" fill="#fecaca" font-size="10" font-family="Segoe UI,Arial,sans-serif">Orders, Billing, Payments</text>
+
+  <!-- Config example -->
+  <text x="450" y="282" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Route Configuration (appsettings.json)</text>
+
+  <rect x="80" y="295" width="740" height="110" rx="10" fill="#0a0f1a" stroke="#334155" stroke-width="1"/>
+  <text x="100" y="318" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">"ReverseProxy": {</text>
+  <text x="120" y="336" fill="#fbbf24" font-size="11" font-family="Consolas,monospace">"Routes": {</text>
+  <text x="140" y="354" fill="#4ade80" font-size="11" font-family="Consolas,monospace">"identity-route": { "ClusterId": "identity", "Match": { "Path": "/api/v1/identity/{**catch-all}" } }</text>
+  <text x="140" y="372" fill="#60a5fa" font-size="11" font-family="Consolas,monospace">"catalog-route":  { "ClusterId": "catalog",  "Match": { "Path": "/api/v1/catalog/{**catch-all}" } }</text>
+  <text x="120" y="390" fill="#fbbf24" font-size="11" font-family="Consolas,monospace">},</text>
+  <text x="120" y="400" fill="#f87171" font-size="11" font-family="Consolas,monospace">"Clusters": { "identity": { "Address": "http://identity:8081" } }</text>
+</svg>

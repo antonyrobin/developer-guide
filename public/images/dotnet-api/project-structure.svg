@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Solution &amp; Project Structure</text>
+
+  <!-- Solution file -->
+  <rect x="340" y="68" width="220" height="36" rx="8" fill="#512bd4"/>
+  <text x="450" y="91" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">MyApiSolution.sln</text>
+
+  <!-- Lines from solution -->
+  <line x1="370" y1="104" x2="150" y2="130" stroke="#475569" stroke-width="1.5"/>
+  <line x1="450" y1="104" x2="450" y2="130" stroke="#475569" stroke-width="1.5"/>
+  <line x1="530" y1="104" x2="750" y2="130" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- src folder -->
+  <rect x="50" y="130" width="200" height="30" rx="6" fill="#1e40af"/>
+  <text x="150" y="150" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">src/</text>
+
+  <!-- tests folder -->
+  <rect x="350" y="130" width="200" height="30" rx="6" fill="#854d0e"/>
+  <text x="450" y="150" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">tests/</text>
+
+  <!-- docker-compose -->
+  <rect x="650" y="130" width="200" height="30" rx="6" fill="#374151"/>
+  <text x="750" y="150" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">docker-compose.yml</text>
+
+  <!-- src children -->
+  <line x1="100" y1="160" x2="100" y2="182" stroke="#475569" stroke-width="1.5"/>
+  <line x1="200" y1="160" x2="200" y2="182" stroke="#475569" stroke-width="1.5"/>
+
+  <rect x="30" y="182" width="140" height="28" rx="6" fill="#166534"/>
+  <text x="100" y="201" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Services/</text>
+
+  <rect x="180" y="182" width="140" height="28" rx="6" fill="#7c3aed"/>
+  <text x="250" y="201" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Shared/</text>
+
+  <!-- Service projects -->
+  <line x1="100" y1="210" x2="100" y2="232" stroke="#475569" stroke-width="1"/>
+
+  <rect x="20" y="232" width="120" height="55" rx="8" fill="#1e3a5f"/>
+  <text x="80" y="253" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Identity.API</text>
+  <text x="80" y="270" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">Controllers/</text>
+  <text x="80" y="281" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">Services/ Data/</text>
+
+  <rect x="150" y="232" width="120" height="55" rx="8" fill="#1e3a5f"/>
+  <text x="210" y="253" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Catalog.API</text>
+  <text x="210" y="270" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">Modules/</text>
+  <text x="210" y="281" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">Products/ Data/</text>
+
+  <rect x="280" y="232" width="120" height="55" rx="8" fill="#1e3a5f"/>
+  <text x="340" y="253" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Commerce.API</text>
+  <text x="340" y="270" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">Modules/</text>
+  <text x="340" y="281" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">Orders/ Billing/</text>
+
+  <!-- Project internals -->
+  <text x="450" y="255" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Project Layout</text>
+
+  <rect x="430" y="267" width="440" height="140" rx="10" fill="#0a0f1a" stroke="#334155" stroke-width="1"/>
+  <text x="450" y="290" fill="#a78bfa" font-size="12" font-family="Consolas,monospace">MyApi/</text>
+  <text x="470" y="308" fill="#4ade80" font-size="12" font-family="Consolas,monospace">├── Program.cs</text>
+  <text x="630" y="308" fill="#64748b" font-size="10" font-family="Consolas,monospace">← Entry point</text>
+  <text x="470" y="324" fill="#60a5fa" font-size="12" font-family="Consolas,monospace">├── Controllers/</text>
+  <text x="630" y="324" fill="#64748b" font-size="10" font-family="Consolas,monospace">← API endpoints</text>
+  <text x="470" y="340" fill="#fbbf24" font-size="12" font-family="Consolas,monospace">├── Services/</text>
+  <text x="630" y="340" fill="#64748b" font-size="10" font-family="Consolas,monospace">← Business logic</text>
+  <text x="470" y="356" fill="#f87171" font-size="12" font-family="Consolas,monospace">├── Data/</text>
+  <text x="630" y="356" fill="#64748b" font-size="10" font-family="Consolas,monospace">← DbContext, Configs</text>
+  <text x="470" y="372" fill="#e2e8f0" font-size="12" font-family="Consolas,monospace">├── Models/</text>
+  <text x="630" y="372" fill="#64748b" font-size="10" font-family="Consolas,monospace">← Entities, DTOs</text>
+  <text x="470" y="388" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">└── appsettings.json</text>
+  <text x="630" y="388" fill="#64748b" font-size="10" font-family="Consolas,monospace">← Configuration</text>
+</svg>

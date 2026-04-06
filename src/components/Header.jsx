@@ -12,6 +12,7 @@ const Header = () => {
 
   const filteredCourses = searchTerm.trim()
     ? courses.filter(c =>
+        c.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         c.description.toLowerCase().includes(searchTerm.toLowerCase())
       )
