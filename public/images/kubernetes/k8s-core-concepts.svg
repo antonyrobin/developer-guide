@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <rect width="900" height="480" rx="16" fill="#0f172a"/>
+  <text x="450" y="40" text-anchor="middle" fill="#fff" font-size="22" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Kubernetes Core Concepts</text>
+  <text x="450" y="60" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">How K8s resources connect</text>
+
+  <!-- Deployment -->
+  <rect x="30" y="85" width="175" height="70" rx="10" fill="#1e293b" stroke="#326ce5" stroke-width="2"/>
+  <text x="117" y="112" text-anchor="middle" fill="#326ce5" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Deployment</text>
+  <text x="117" y="132" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">replicas: 2 · rolling updates</text>
+  <text x="117" y="146" text-anchor="middle" fill="#64748b" font-size="9" font-family="Segoe UI,Arial,sans-serif">Manages ReplicaSet</text>
+
+  <line x1="205" y1="120" x2="245" y2="120" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="243,115 253,120 243,125" fill="#475569"/>
+  <text x="225" y="112" text-anchor="middle" fill="#64748b" font-size="8" font-family="Segoe UI,Arial,sans-serif">creates</text>
+
+  <!-- Pod 1 -->
+  <rect x="255" y="85" width="120" height="70" rx="10" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="315" y="112" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Pod</text>
+  <text x="315" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Container(s)</text>
+  <text x="315" y="146" text-anchor="middle" fill="#64748b" font-size="9" font-family="Segoe UI,Arial,sans-serif">Smallest unit</text>
+
+  <!-- Pod 2 -->
+  <rect x="390" y="85" width="120" height="70" rx="10" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="450" y="112" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Pod</text>
+  <text x="450" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Container(s)</text>
+  <text x="450" y="146" text-anchor="middle" fill="#64748b" font-size="9" font-family="Segoe UI,Arial,sans-serif">Replica</text>
+
+  <!-- Service -->
+  <rect x="545" y="85" width="155" height="70" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="622" y="112" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Service</text>
+  <text x="622" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Stable DNS endpoint</text>
+  <text x="622" y="146" text-anchor="middle" fill="#64748b" font-size="9" font-family="Segoe UI,Arial,sans-serif">Load balances to pods</text>
+
+  <line x1="510" y1="120" x2="543" y2="120" stroke="#fbbf24" stroke-width="1.5"/>
+  <polygon points="541,115 551,120 541,125" fill="#fbbf24"/>
+  <text x="527" y="112" text-anchor="middle" fill="#64748b" font-size="8" font-family="Segoe UI,Arial,sans-serif">routes</text>
+
+  <!-- Ingress -->
+  <rect x="730" y="85" width="140" height="70" rx="10" fill="#1e293b" stroke="#fb923c" stroke-width="2"/>
+  <text x="800" y="112" text-anchor="middle" fill="#fb923c" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Ingress</text>
+  <text x="800" y="130" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">HTTP/HTTPS routing</text>
+  <text x="800" y="146" text-anchor="middle" fill="#64748b" font-size="9" font-family="Segoe UI,Arial,sans-serif">TLS termination</text>
+
+  <line x1="700" y1="120" x2="728" y2="120" stroke="#fb923c" stroke-width="1.5"/>
+  <polygon points="726,115 736,120 726,125" fill="#fb923c"/>
+
+  <!-- Row 2: Configuration -->
+  <text x="155" y="195" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Configuration</text>
+
+  <rect x="30" y="210" width="140" height="60" rx="8" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="100" y="235" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">ConfigMap</text>
+  <text x="100" y="255" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Non-sensitive config</text>
+
+  <rect x="185" y="210" width="140" height="60" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+  <text x="255" y="235" text-anchor="middle" fill="#f87171" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Secret</text>
+  <text x="255" y="255" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Passwords, tokens</text>
+
+  <!-- Arrows from config to Pod -->
+  <line x1="100" y1="210" x2="300" y2="155" stroke="#22d3ee" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="255" y1="210" x2="330" y2="155" stroke="#f87171" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="210" y="182" text-anchor="middle" fill="#64748b" font-size="8" font-family="Segoe UI,Arial,sans-serif">injected as env vars</text>
+
+  <!-- Row 2: Storage & Scaling -->
+  <text x="550" y="195" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Storage &amp; Scaling</text>
+
+  <rect x="430" y="210" width="125" height="60" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="492" y="235" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">PVC</text>
+  <text x="492" y="255" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Persistent storage</text>
+
+  <rect x="570" y="210" width="125" height="60" rx="8" fill="#1e293b" stroke="#e879f9" stroke-width="1.5"/>
+  <text x="632" y="235" text-anchor="middle" fill="#e879f9" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">HPA</text>
+  <text x="632" y="255" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Auto-scale pods</text>
+
+  <rect x="710" y="210" width="155" height="60" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="787" y="235" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Namespace</text>
+  <text x="787" y="255" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Resource isolation</text>
+
+  <!-- Row 3: Workload types -->
+  <text x="300" y="315" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Workload Types</text>
+
+  <rect x="30" y="330" width="165" height="60" rx="8" fill="#1e293b" stroke="#326ce5" stroke-width="1.5"/>
+  <text x="112" y="355" text-anchor="middle" fill="#326ce5" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Deployment</text>
+  <text x="112" y="375" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Stateless services</text>
+
+  <rect x="210" y="330" width="165" height="60" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="292" y="355" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">StatefulSet</text>
+  <text x="292" y="375" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Databases (stable ID)</text>
+
+  <rect x="390" y="330" width="165" height="60" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="472" y="355" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Job</text>
+  <text x="472" y="375" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Run-to-completion</text>
+
+  <rect x="570" y="330" width="165" height="60" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+  <text x="652" y="355" text-anchor="middle" fill="#f87171" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">CronJob</text>
+  <text x="652" y="375" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Scheduled tasks</text>
+
+  <!-- Legend -->
+  <rect x="60" y="440" width="12" height="12" rx="3" fill="#326ce5"/>
+  <text x="78" y="451" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Deployment</text>
+  <rect x="155" y="440" width="12" height="12" rx="3" fill="#4ade80"/>
+  <text x="173" y="451" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Pod</text>
+  <rect x="210" y="440" width="12" height="12" rx="3" fill="#fbbf24"/>
+  <text x="228" y="451" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Service</text>
+  <rect x="290" y="440" width="12" height="12" rx="3" fill="#fb923c"/>
+  <text x="308" y="451" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Ingress</text>
+  <rect x="370" y="440" width="12" height="12" rx="3" fill="#22d3ee"/>
+  <text x="388" y="451" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Config</text>
+  <rect x="440" y="440" width="12" height="12" rx="3" fill="#f87171"/>
+  <text x="458" y="451" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Secret</text>
+  <rect x="510" y="440" width="12" height="12" rx="3" fill="#a78bfa"/>
+  <text x="528" y="451" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Storage</text>
+  <rect x="590" y="440" width="12" height="12" rx="3" fill="#e879f9"/>
+  <text x="608" y="451" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">HPA</text>
+</svg>

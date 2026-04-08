@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <rect width="900" height="480" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Next.js Architecture Overview</text>
+
+  <!-- Browser -->
+  <rect x="30" y="80" width="180" height="80" rx="12" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="120" y="115" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Browser</text>
+  <text x="120" y="140" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Client Components</text>
+
+  <!-- Arrow -->
+  <line x1="210" y1="120" x2="280" y2="120" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Next.js Server -->
+  <rect x="280" y="70" width="340" height="340" rx="14" fill="#1e293b" stroke="#fff" stroke-width="2"/>
+  <text x="450" y="100" text-anchor="middle" fill="#fff" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Next.js Server</text>
+
+  <!-- App Router -->
+  <rect x="310" y="115" width="140" height="50" rx="8" fill="#374151"/>
+  <text x="380" y="145" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">App Router</text>
+
+  <!-- Server Components -->
+  <rect x="470" y="115" width="130" height="50" rx="8" fill="#374151"/>
+  <text x="535" y="140" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Server</text>
+  <text x="535" y="155" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Components</text>
+
+  <!-- API Routes -->
+  <rect x="310" y="180" width="140" height="50" rx="8" fill="#374151"/>
+  <text x="380" y="210" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">API Routes</text>
+
+  <!-- Middleware -->
+  <rect x="470" y="180" width="130" height="50" rx="8" fill="#374151"/>
+  <text x="535" y="210" text-anchor="middle" fill="#f472b6" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Middleware</text>
+
+  <!-- SSR / SSG / ISR -->
+  <rect x="310" y="250" width="90" height="45" rx="8" fill="#16a34a"/>
+  <text x="355" y="278" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">SSR</text>
+
+  <rect x="415" y="250" width="90" height="45" rx="8" fill="#2563eb"/>
+  <text x="460" y="278" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">SSG</text>
+
+  <rect x="520" y="250" width="90" height="45" rx="8" fill="#9333ea"/>
+  <text x="565" y="278" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">ISR</text>
+
+  <!-- Server Actions -->
+  <rect x="310" y="310" width="140" height="50" rx="8" fill="#374151"/>
+  <text x="380" y="340" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Server Actions</text>
+
+  <!-- Streaming -->
+  <rect x="470" y="310" width="130" height="50" rx="8" fill="#374151"/>
+  <text x="535" y="340" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Streaming</text>
+
+  <!-- Arrow to Backend -->
+  <line x1="620" y1="240" x2="680" y2="240" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowYellow)"/>
+
+  <!-- Backend Services -->
+  <rect x="680" y="100" width="190" height="280" rx="14" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="775" y="130" text-anchor="middle" fill="#fbbf24" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Backend</text>
+
+  <rect x="700" y="150" width="150" height="40" rx="8" fill="#374151"/>
+  <text x="775" y="176" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">REST / GraphQL API</text>
+
+  <rect x="700" y="205" width="150" height="40" rx="8" fill="#374151"/>
+  <text x="775" y="231" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Database</text>
+
+  <rect x="700" y="260" width="150" height="40" rx="8" fill="#374151"/>
+  <text x="775" y="286" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Auth Provider</text>
+
+  <rect x="700" y="315" width="150" height="40" rx="8" fill="#374151"/>
+  <text x="775" y="341" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">External Services</text>
+
+  <!-- Legend -->
+  <rect x="30" y="430" width="14" height="14" rx="3" fill="#16a34a"/>
+  <text x="50" y="442" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">SSR — Server-Side Rendering</text>
+  <rect x="240" y="430" width="14" height="14" rx="3" fill="#2563eb"/>
+  <text x="260" y="442" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">SSG — Static Site Generation</text>
+  <rect x="470" y="430" width="14" height="14" rx="3" fill="#9333ea"/>
+  <text x="490" y="442" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">ISR — Incremental Static Regeneration</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#60a5fa"/>
+    </marker>
+    <marker id="arrowYellow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+</svg>

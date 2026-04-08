@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380">
+  <rect width="900" height="380" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="40" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Next.js Streaming &amp; Suspense</text>
+
+  <!-- Timeline -->
+  <line x1="60" y1="90" x2="840" y2="90" stroke="#374151" stroke-width="2"/>
+  <text x="60" y="80" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Request</text>
+  <text x="840" y="80" text-anchor="end" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Complete</text>
+
+  <!-- Traditional SSR -->
+  <text x="60" y="130" fill="#ef4444" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Traditional SSR</text>
+  <rect x="180" y="115" width="650" height="30" rx="6" fill="#374151"/>
+  <text x="505" y="135" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">⏳ Fetch ALL data → Render ALL HTML → Send to browser (Blocked!)</text>
+
+  <!-- Streaming SSR -->
+  <text x="60" y="190" fill="#4ade80" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Streaming SSR</text>
+
+  <!-- Shell -->
+  <rect x="180" y="175" width="150" height="30" rx="6" fill="#16a34a"/>
+  <text x="255" y="195" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Shell (layout + nav)</text>
+
+  <!-- Chunk 1 -->
+  <rect x="340" y="175" width="130" height="30" rx="6" fill="#2563eb"/>
+  <text x="405" y="195" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Chunk 1 (stats)</text>
+
+  <!-- Chunk 2 -->
+  <rect x="480" y="175" width="170" height="30" rx="6" fill="#9333ea"/>
+  <text x="565" y="195" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Chunk 2 (table data)</text>
+
+  <!-- Chunk 3 -->
+  <rect x="660" y="175" width="170" height="30" rx="6" fill="#f472b6"/>
+  <text x="745" y="195" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Chunk 3 (charts)</text>
+
+  <!-- Arrows showing progressive delivery -->
+  <text x="250" y="226" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">↓ instant</text>
+  <text x="405" y="226" text-anchor="middle" fill="#60a5fa" font-size="11" font-family="Segoe UI,Arial,sans-serif">↓ 200ms</text>
+  <text x="565" y="226" text-anchor="middle" fill="#a78bfa" font-size="11" font-family="Segoe UI,Arial,sans-serif">↓ 500ms</text>
+  <text x="745" y="226" text-anchor="middle" fill="#f472b6" font-size="11" font-family="Segoe UI,Arial,sans-serif">↓ 1s</text>
+
+  <!-- Code example -->
+  <rect x="60" y="250" width="780" height="100" rx="12" fill="#1e293b"/>
+  <text x="80" y="275" fill="#c084fc" font-size="12" font-weight="600" font-family="Consolas,monospace">&lt;Suspense fallback=&#123;&lt;Loading /&gt;&#125;&gt;</text>
+  <text x="100" y="295" fill="#60a5fa" font-size="12" font-family="Consolas,monospace">&lt;SlowDataComponent /&gt;</text>
+  <text x="440" y="295" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">// Shows Loading while fetching</text>
+  <text x="80" y="315" fill="#c084fc" font-size="12" font-weight="600" font-family="Consolas,monospace">&lt;/Suspense&gt;</text>
+  <text x="440" y="315" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">// Streams in when ready</text>
+  <text x="80" y="340" fill="#fbbf24" font-size="11" font-family="Segoe UI,Arial,sans-serif">Also: loading.tsx auto-wraps page.tsx in a Suspense boundary</text>
+</svg>

@@ -24,32 +24,20 @@ import { designPatternsCourse } from './courses-data/design-patterns';
 import { githubCourse } from './courses-data/github';
 import { githubActionsCourse } from './courses-data/github-actions';
 import { postgresqlCourse } from './courses-data/postgresql';
+import { nextjsCourse } from './courses-data/nextjs';
+import { flutterCourse } from './courses-data/flutter';
+import { kubernetesCourse } from './courses-data/kubernetes';
+import { angularCourse } from './courses-data/angular';
+import { tailwindCourse } from './courses-data/tailwind-css';
 
-export const courses = [
-  sdlcCourse,
-  htmlCourse,
-  cssCourse,
-  jsCourse,
-  oopsCourse,
-  javaCourse,
-  csharpCourse,
-  pythonCourse,
-  reactCourse,
-  phpCourse,
-  sqlCourse,
-  nosqlCourse,
-  dockerCourse,
-  springBootCourse,
-  blazorCourse,
-  dotnetApiCourse,
-  djangoCourse,
-  awsCourse,
-  gcpCourse,
-  azureDevOpsCourse,
-  dataStructureCourse,
-  systemArchitectureCourse,
-  designPatternsCourse,
-  githubCourse,
-  githubActionsCourse,
-  postgresqlCourse
+export const courseGroups = [
+  { label: 'Fundamentals', courses: [sdlcCourse, oopsCourse, dataStructureCourse, designPatternsCourse, systemArchitectureCourse] },
+  { label: 'Web Essentials', courses: [htmlCourse, cssCourse, tailwindCourse, jsCourse] },
+  { label: 'Frontend Frameworks', courses: [reactCourse, angularCourse, nextjsCourse, flutterCourse] },
+  { label: 'Backend Languages', courses: [javaCourse, csharpCourse, pythonCourse, phpCourse] },
+  { label: 'Backend Frameworks', courses: [springBootCourse, dotnetApiCourse, blazorCourse, djangoCourse] },
+  { label: 'Databases', courses: [sqlCourse, postgresqlCourse, nosqlCourse] },
+  { label: 'DevOps & Cloud', courses: [dockerCourse, kubernetesCourse, githubCourse, githubActionsCourse, azureDevOpsCourse, awsCourse, gcpCourse] },
 ];
+
+export const courses = courseGroups.flatMap(g => g.courses);

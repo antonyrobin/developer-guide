@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <rect width="900" height="470" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Flutter Clean Architecture</text>
+  <text x="450" y="68" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Dependencies flow inward — Presentation → Domain ← Data</text>
+
+  <!-- Presentation Layer -->
+  <rect x="100" y="95" width="700" height="90" rx="14" fill="#1e293b" stroke="#9333ea" stroke-width="2"/>
+  <text x="450" y="120" text-anchor="middle" fill="#9333ea" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Presentation Layer</text>
+
+  <rect x="130" y="135" width="130" height="35" rx="7" fill="#374151"/>
+  <text x="195" y="158" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Pages</text>
+  <rect x="280" y="135" width="130" height="35" rx="7" fill="#374151"/>
+  <text x="345" y="158" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Widgets</text>
+  <rect x="430" y="135" width="160" height="35" rx="7" fill="#374151"/>
+  <text x="510" y="158" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Providers (Riverpod)</text>
+  <rect x="610" y="135" width="160" height="35" rx="7" fill="#374151"/>
+  <text x="690" y="158" text-anchor="middle" fill="#c4b5fd" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">State Management</text>
+
+  <!-- Arrow down -->
+  <polygon points="450,200 440,190 460,190" fill="#9333ea"/>
+  <line x1="450" y1="190" x2="450" y2="210" stroke="#9333ea" stroke-width="2"/>
+  <text x="490" y="207" fill="#9333ea" font-size="11" font-family="Segoe UI,Arial,sans-serif">depends on</text>
+
+  <!-- Domain Layer -->
+  <rect x="150" y="220" width="600" height="90" rx="14" fill="#1e293b" stroke="#2563eb" stroke-width="2"/>
+  <text x="450" y="245" text-anchor="middle" fill="#60a5fa" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Domain Layer (Pure Dart — No Dependencies)</text>
+
+  <rect x="180" y="260" width="140" height="35" rx="7" fill="#374151"/>
+  <text x="250" y="283" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Entities</text>
+  <rect x="340" y="260" width="140" height="35" rx="7" fill="#374151"/>
+  <text x="410" y="283" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Use Cases</text>
+  <rect x="500" y="260" width="220" height="35" rx="7" fill="#374151"/>
+  <text x="610" y="283" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Repository Interfaces</text>
+
+  <!-- Arrow up from Data to Domain -->
+  <polygon points="450,325 440,335 460,335" fill="#16a34a"/>
+  <line x1="450" y1="335" x2="450" y2="355" stroke="#16a34a" stroke-width="2"/>
+  <text x="490" y="347" fill="#16a34a" font-size="11" font-family="Segoe UI,Arial,sans-serif">implements</text>
+
+  <!-- Data Layer -->
+  <rect x="100" y="355" width="700" height="90" rx="14" fill="#1e293b" stroke="#16a34a" stroke-width="2"/>
+  <text x="450" y="380" text-anchor="middle" fill="#4ade80" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Data Layer</text>
+
+  <rect x="130" y="395" width="150" height="35" rx="7" fill="#374151"/>
+  <text x="205" y="418" text-anchor="middle" fill="#86efac" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Models (JSON)</text>
+  <rect x="300" y="395" width="160" height="35" rx="7" fill="#374151"/>
+  <text x="380" y="418" text-anchor="middle" fill="#86efac" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Repository Impls</text>
+  <rect x="480" y="395" width="160" height="35" rx="7" fill="#374151"/>
+  <text x="560" y="418" text-anchor="middle" fill="#86efac" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Datasources (API)</text>
+  <rect x="660" y="395" width="120" height="35" rx="7" fill="#374151"/>
+  <text x="720" y="418" text-anchor="middle" fill="#86efac" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Local DB</text>
+</svg>

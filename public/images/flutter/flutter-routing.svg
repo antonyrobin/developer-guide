@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <rect width="900" height="440" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">GoRouter — Navigation &amp; Routing</text>
+  <text x="450" y="68" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Declarative, URL-based routing with auth guards and deep linking</text>
+
+  <defs>
+    <marker id="arrW" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#475569"/></marker>
+  </defs>
+
+  <!-- Auth Guard -->
+  <rect x="30" y="100" width="160" height="55" rx="10" fill="#1e293b" stroke="#f87171" stroke-width="2"/>
+  <text x="110" y="125" text-anchor="middle" fill="#f87171" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Auth Guard</text>
+  <text x="110" y="143" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">redirect if !logged in</text>
+
+  <line x1="190" y1="127" x2="250" y2="127" stroke="#475569" stroke-width="1.5" marker-end="url(#arrW)"/>
+
+  <!-- GoRouter -->
+  <rect x="250" y="90" width="400" height="75" rx="12" fill="#1e293b" stroke="#54C5F8" stroke-width="2"/>
+  <text x="450" y="118" text-anchor="middle" fill="#54C5F8" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">GoRouter</text>
+  <text x="450" y="140" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">initialLocation · redirect · routes · ShellRoute</text>
+  <text x="450" y="155" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">context.go() · context.push() · context.pop()</text>
+
+  <!-- Deep Link -->
+  <rect x="700" y="100" width="160" height="55" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="780" y="125" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Deep Linking</text>
+  <text x="780" y="143" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">URL ↔ Route mapping</text>
+
+  <line x1="650" y1="127" x2="700" y2="127" stroke="#475569" stroke-width="1.5" marker-end="url(#arrW)"/>
+
+  <!-- Lines from GoRouter to routes -->
+  <line x1="330" y1="165" x2="110" y2="215" stroke="#475569" stroke-width="1.5"/>
+  <line x1="400" y1="165" x2="310" y2="215" stroke="#475569" stroke-width="1.5"/>
+  <line x1="500" y1="165" x2="510" y2="215" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Auth Routes -->
+  <rect x="30" y="215" width="160" height="50" rx="8" fill="#7c3aed"/>
+  <text x="110" y="237" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">/auth/login</text>
+  <text x="110" y="255" text-anchor="middle" fill="#ddd6fe" font-size="10" font-family="Segoe UI,Arial,sans-serif">/auth/verify-otp</text>
+
+  <!-- ShellRoute -->
+  <rect x="220" y="215" width="540" height="50" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="490" y="237" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">ShellRoute (Bottom Navigation Bar)</text>
+  <text x="490" y="255" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Preserves shared UI across child routes</text>
+
+  <!-- Child routes from Shell -->
+  <line x1="300" y1="265" x2="110" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="400" y1="265" x2="310" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="490" y1="265" x2="490" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="570" y1="265" x2="650" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="650" y1="265" x2="810" y2="310" stroke="#475569" stroke-width="1.5"/>
+
+  <rect x="40" y="310" width="130" height="42" rx="7" fill="#16a34a"/>
+  <text x="105" y="336" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">/</text>
+  <text x="105" y="348" text-anchor="middle" fill="#bbf7d0" font-size="9" font-family="Segoe UI,Arial,sans-serif">Dashboard</text>
+
+  <rect x="240" y="310" width="130" height="42" rx="7" fill="#2563eb"/>
+  <text x="305" y="336" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">/products</text>
+  <text x="305" y="348" text-anchor="middle" fill="#bfdbfe" font-size="9" font-family="Segoe UI,Arial,sans-serif">Product List</text>
+
+  <rect x="420" y="310" width="140" height="42" rx="7" fill="#b45309"/>
+  <text x="490" y="336" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">/orders</text>
+  <text x="490" y="348" text-anchor="middle" fill="#fef3c7" font-size="9" font-family="Segoe UI,Arial,sans-serif">Order Management</text>
+
+  <rect x="590" y="310" width="130" height="42" rx="7" fill="#be123c"/>
+  <text x="655" y="336" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">/barcode-scan</text>
+  <text x="655" y="348" text-anchor="middle" fill="#fecdd3" font-size="9" font-family="Segoe UI,Arial,sans-serif">Scanner</text>
+
+  <rect x="745" y="310" width="130" height="42" rx="7" fill="#374151"/>
+  <text x="810" y="336" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">/settings</text>
+  <text x="810" y="348" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="Segoe UI,Arial,sans-serif">Settings Page</text>
+
+  <!-- Nested from /products -->
+  <line x1="270" y1="352" x2="250" y2="385" stroke="#475569" stroke-width="1"/>
+  <line x1="330" y1="352" x2="400" y2="385" stroke="#475569" stroke-width="1"/>
+
+  <rect x="180" y="385" width="130" height="35" rx="6" fill="#1e293b"/>
+  <text x="245" y="407" text-anchor="middle" fill="#60a5fa" font-size="11" font-family="Segoe UI,Arial,sans-serif">/products/new</text>
+  <rect x="340" y="385" width="130" height="35" rx="6" fill="#1e293b"/>
+  <text x="405" y="407" text-anchor="middle" fill="#60a5fa" font-size="11" font-family="Segoe UI,Arial,sans-serif">/products/:id</text>
+</svg>

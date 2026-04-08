@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { BookOpen, Search, Menu, X } from 'lucide-react';
-import { courses } from '../data/courses';
+import { courses, courseGroups } from '../data/courses';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,6 +34,15 @@ const Header = () => {
     return () => window.removeEventListener('keydown', handleKey);
   }, []);
 
+  // Close mobile menu on route change / resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setIsMenuOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleSelect = (id) => {
     navigate(`/${id}`);
     setIsSearchOpen(false);
@@ -51,14 +60,21 @@ const Header = () => {
           </NavLink>
 
           <nav className="desktop-nav">
-            {courses.slice(0, 10).map(course => (
-              <NavLink
-                key={course.id}
-                to={`/${course.id}`}
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-              >
-                {course.title}
-              </NavLink>
+            {courseGroups.map(group => (
+              <div key={group.label} className="desktop-nav-group">
+                <span className="desktop-nav-group-label">{group.label}</span>
+                <div className="desktop-nav-dropdown">
+                  {group.courses.map(course => (
+                    <NavLink
+                      key={course.id}
+                      to={`/${course.id}`}
+                      className={({ isActive }) => `dropdown-link ${isActive ? 'active' : ''}`}
+                    >
+                      {course.title}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
             ))}
           </nav>
 
@@ -82,16 +98,23 @@ const Header = () => {
 
         {isMenuOpen && (
           <div className="mobile-menu">
-            <div className="mobile-menu-grid">
-              {courses.map(course => (
-                <NavLink
-                  key={course.id}
-                  to={`/${course.id}`}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="mobile-nav-link"
-                >
-                  {course.title}
-                </NavLink>
+            <div className="mobile-menu-inner">
+              {courseGroups.map(group => (
+                <div key={group.label} className="mobile-menu-group">
+                  <h4 className="mobile-menu-group-label">{group.label}</h4>
+                  <div className="mobile-menu-grid">
+                    {group.courses.map(course => (
+                      <NavLink
+                        key={course.id}
+                        to={`/${course.id}`}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="mobile-nav-link"
+                      >
+                        {course.title}
+                      </NavLink>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>

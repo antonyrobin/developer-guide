@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="38" text-anchor="middle" fill="#fff" font-size="22" font-weight="700" font-family="Segoe UI,Arial,sans-serif">CI Pipeline — PR Validation</text>
+  <text x="450" y="58" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">3 parallel jobs run on every pull request</text>
+
+  <!-- PR Trigger -->
+  <rect x="360" y="75" width="180" height="40" rx="8" fill="#374151" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="450" y="100" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Pull Request Event</text>
+
+  <!-- Lines to 3 jobs -->
+  <line x1="390" y1="115" x2="155" y2="150" stroke="#475569" stroke-width="1.5"/>
+  <line x1="450" y1="115" x2="450" y2="150" stroke="#475569" stroke-width="1.5"/>
+  <line x1="510" y1="115" x2="745" y2="150" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Job 1: .NET Build & Test -->
+  <rect x="30" y="150" width="250" height="210" rx="10" fill="#111827" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="155" y="175" text-anchor="middle" fill="#22d3ee" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">.NET Build &amp; Test</text>
+  <text x="155" y="193" text-anchor="middle" fill="#64748b" font-size="10" font-family="Segoe UI,Arial,sans-serif">ubuntu-latest + service containers</text>
+
+  <!-- Service containers -->
+  <rect x="50" y="205" width="85" height="28" rx="5" fill="#1e293b" stroke="#60a5fa" stroke-width="1"/>
+  <text x="92" y="224" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">PostgreSQL</text>
+  <rect x="145" y="205" width="65" height="28" rx="5" fill="#1e293b" stroke="#f87171" stroke-width="1"/>
+  <text x="177" y="224" text-anchor="middle" fill="#f87171" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Redis</text>
+
+  <!-- Steps -->
+  <rect x="50" y="243" width="210" height="22" rx="4" fill="#374151"/>
+  <text x="155" y="258" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Setup .NET 9.0 + Cache NuGet</text>
+  <rect x="50" y="270" width="210" height="22" rx="4" fill="#374151"/>
+  <text x="155" y="285" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">dotnet restore → build → test</text>
+  <rect x="50" y="297" width="210" height="22" rx="4" fill="#374151"/>
+  <text x="155" y="312" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Unit Tests + Integration Tests</text>
+  <rect x="50" y="324" width="210" height="22" rx="4" fill="#374151"/>
+  <text x="155" y="339" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Upload test results (artifact)</text>
+
+  <!-- Job 2: Next.js Build -->
+  <rect x="320" y="150" width="260" height="210" rx="10" fill="#111827" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="450" y="175" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Next.js Build &amp; Lint</text>
+  <text x="450" y="193" text-anchor="middle" fill="#64748b" font-size="10" font-family="Segoe UI,Arial,sans-serif">ubuntu-latest</text>
+
+  <rect x="340" y="210" width="220" height="22" rx="4" fill="#374151"/>
+  <text x="450" y="225" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Setup Node.js 22 + pnpm 9</text>
+  <rect x="340" y="237" width="220" height="22" rx="4" fill="#374151"/>
+  <text x="450" y="252" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Cache pnpm store</text>
+  <rect x="340" y="264" width="220" height="22" rx="4" fill="#374151"/>
+  <text x="450" y="279" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">pnpm install --frozen-lockfile</text>
+  <rect x="340" y="291" width="220" height="22" rx="4" fill="#374151"/>
+  <text x="450" y="306" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">pnpm lint</text>
+  <rect x="340" y="318" width="220" height="22" rx="4" fill="#374151"/>
+  <text x="450" y="333" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">pnpm build</text>
+
+  <!-- Job 3: Security Scan -->
+  <rect x="620" y="150" width="250" height="210" rx="10" fill="#111827" stroke="#f87171" stroke-width="1.5"/>
+  <text x="745" y="175" text-anchor="middle" fill="#f87171" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Security Scan</text>
+  <text x="745" y="193" text-anchor="middle" fill="#64748b" font-size="10" font-family="Segoe UI,Arial,sans-serif">ubuntu-latest</text>
+
+  <rect x="640" y="210" width="210" height="22" rx="4" fill="#374151"/>
+  <text x="745" y="225" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Checkout code</text>
+  <rect x="640" y="237" width="210" height="22" rx="4" fill="#374151"/>
+  <text x="745" y="252" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Trivy vulnerability scanner</text>
+  <rect x="640" y="264" width="210" height="22" rx="4" fill="#374151"/>
+  <text x="745" y="279" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Severity: HIGH, CRITICAL</text>
+
+  <!-- Result -->
+  <rect x="320" y="375" width="260" height="30" rx="8" fill="#14532d"/>
+  <text x="450" y="395" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">All Checks Passed ✓ → Merge Ready</text>
+
+  <line x1="155" y1="360" x2="355" y2="385" stroke="#475569" stroke-width="1"/>
+  <line x1="450" y1="360" x2="450" y2="375" stroke="#475569" stroke-width="1"/>
+  <line x1="745" y1="360" x2="545" y2="385" stroke="#475569" stroke-width="1"/>
+</svg>

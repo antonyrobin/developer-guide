@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <rect width="900" height="480" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Flutter Architecture Overview</text>
+  <text x="450" y="68" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Single Dart codebase → Native apps on all platforms</text>
+
+  <!-- Dart Codebase -->
+  <rect x="310" y="90" width="280" height="70" rx="12" fill="#1e293b" stroke="#54C5F8" stroke-width="2"/>
+  <text x="450" y="120" text-anchor="middle" fill="#54C5F8" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Dart Codebase</text>
+  <text x="450" y="142" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Widgets · Business Logic · State</text>
+
+  <line x1="450" y1="160" x2="450" y2="195" stroke="#54C5F8" stroke-width="2"/>
+
+  <!-- Flutter Framework -->
+  <rect x="200" y="195" width="500" height="60" rx="12" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="450" y="225" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Flutter Framework (Widgets · Rendering · Animation)</text>
+  <text x="450" y="245" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Material Design 3 · Cupertino · Custom Widgets</text>
+
+  <line x1="450" y1="255" x2="450" y2="285" stroke="#4ade80" stroke-width="2"/>
+
+  <!-- Engine -->
+  <rect x="250" y="285" width="400" height="50" rx="10" fill="#374151" stroke="#a78bfa" stroke-width="2"/>
+  <text x="450" y="316" text-anchor="middle" fill="#a78bfa" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Skia / Impeller Rendering Engine</text>
+
+  <!-- Lines to platforms -->
+  <line x1="300" y1="335" x2="110" y2="385" stroke="#475569" stroke-width="1.5"/>
+  <line x1="390" y1="335" x2="300" y2="385" stroke="#475569" stroke-width="1.5"/>
+  <line x1="450" y1="335" x2="450" y2="385" stroke="#475569" stroke-width="1.5"/>
+  <line x1="510" y1="335" x2="600" y2="385" stroke="#475569" stroke-width="1.5"/>
+  <line x1="600" y1="335" x2="780" y2="385" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Platform boxes -->
+  <rect x="40" y="385" width="130" height="50" rx="8" fill="#16a34a"/>
+  <text x="105" y="407" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Android</text>
+  <text x="105" y="424" text-anchor="middle" fill="#bbf7d0" font-size="10" font-family="Segoe UI,Arial,sans-serif">ARM native</text>
+
+  <rect x="230" y="385" width="130" height="50" rx="8" fill="#1e40af"/>
+  <text x="295" y="407" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">iOS</text>
+  <text x="295" y="424" text-anchor="middle" fill="#bfdbfe" font-size="10" font-family="Segoe UI,Arial,sans-serif">ARM native</text>
+
+  <rect x="385" y="385" width="130" height="50" rx="8" fill="#7c3aed"/>
+  <text x="450" y="407" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Windows</text>
+  <text x="450" y="424" text-anchor="middle" fill="#ddd6fe" font-size="10" font-family="Segoe UI,Arial,sans-serif">x64 native</text>
+
+  <rect x="540" y="385" width="130" height="50" rx="8" fill="#b45309"/>
+  <text x="605" y="407" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">macOS</text>
+  <text x="605" y="424" text-anchor="middle" fill="#fef3c7" font-size="10" font-family="Segoe UI,Arial,sans-serif">ARM / x64</text>
+
+  <rect x="710" y="385" width="130" height="50" rx="8" fill="#be123c"/>
+  <text x="775" y="407" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Web</text>
+  <text x="775" y="424" text-anchor="middle" fill="#fecdd3" font-size="10" font-family="Segoe UI,Arial,sans-serif">JS / WASM</text>
+
+  <!-- Legend -->
+  <rect x="30" y="452" width="12" height="12" rx="3" fill="#54C5F8"/>
+  <text x="48" y="463" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Dart Code</text>
+  <rect x="140" y="452" width="12" height="12" rx="3" fill="#4ade80"/>
+  <text x="158" y="463" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Framework Layer</text>
+  <rect x="280" y="452" width="12" height="12" rx="3" fill="#a78bfa"/>
+  <text x="298" y="463" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Rendering Engine</text>
+  <rect x="430" y="452" width="12" height="12" rx="3" fill="#475569"/>
+  <text x="448" y="463" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">AOT / JIT Compiled to Native Platforms</text>
+</svg>

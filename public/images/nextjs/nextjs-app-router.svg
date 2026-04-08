@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <rect width="900" height="500" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Next.js App Router — File-based Routing</text>
+
+  <!-- Folder Structure -->
+  <rect x="30" y="70" width="380" height="400" rx="14" fill="#1e293b"/>
+  <text x="220" y="100" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">src/app/ (Folder Structure)</text>
+
+  <text x="60" y="135" fill="#fbbf24" font-size="13" font-weight="600" font-family="Consolas,monospace">📁 app/</text>
+  <text x="90" y="160" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">├── layout.tsx</text>
+  <text x="90" y="182" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">├── page.tsx</text>
+  <text x="90" y="204" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">├── loading.tsx</text>
+  <text x="90" y="226" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">├── error.tsx</text>
+  <text x="90" y="248" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">├── not-found.tsx</text>
+  <text x="90" y="275" fill="#fbbf24" font-size="12" font-family="Consolas,monospace">├── 📁 (auth)/</text>
+  <text x="120" y="297" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">│  ├── login/page.tsx</text>
+  <text x="120" y="319" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">│  └── register/page.tsx</text>
+  <text x="90" y="346" fill="#fbbf24" font-size="12" font-family="Consolas,monospace">├── 📁 dashboard/</text>
+  <text x="120" y="368" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">│  ├── page.tsx</text>
+  <text x="120" y="390" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">│  └── [id]/page.tsx</text>
+  <text x="90" y="417" fill="#fbbf24" font-size="12" font-family="Consolas,monospace">└── 📁 api/</text>
+  <text x="120" y="439" fill="#94a3b8" font-size="12" font-family="Consolas,monospace">   └── route.ts</text>
+
+  <!-- Arrow -->
+  <polygon points="420,260 450,245 450,252 480,252 480,268 450,268 450,275" fill="#60a5fa"/>
+
+  <!-- URL Mapping -->
+  <rect x="490" y="70" width="380" height="400" rx="14" fill="#1e293b"/>
+  <text x="680" y="100" text-anchor="middle" fill="#60a5fa" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">URL Routes (Generated)</text>
+
+  <rect x="520" y="125" width="320" height="36" rx="8" fill="#374151"/>
+  <text x="530" y="148" fill="#4ade80" font-size="13" font-weight="600" font-family="Consolas,monospace">/</text>
+  <text x="620" y="148" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">← app/page.tsx</text>
+
+  <rect x="520" y="175" width="320" height="36" rx="8" fill="#374151"/>
+  <text x="530" y="198" fill="#4ade80" font-size="13" font-weight="600" font-family="Consolas,monospace">/login</text>
+  <text x="620" y="198" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">← (auth)/login/page.tsx</text>
+
+  <rect x="520" y="225" width="320" height="36" rx="8" fill="#374151"/>
+  <text x="530" y="248" fill="#4ade80" font-size="13" font-weight="600" font-family="Consolas,monospace">/register</text>
+  <text x="640" y="248" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">← (auth)/register/page.tsx</text>
+
+  <rect x="520" y="275" width="320" height="36" rx="8" fill="#374151"/>
+  <text x="530" y="298" fill="#4ade80" font-size="13" font-weight="600" font-family="Consolas,monospace">/dashboard</text>
+  <text x="660" y="298" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">← dashboard/page.tsx</text>
+
+  <rect x="520" y="325" width="320" height="36" rx="8" fill="#374151"/>
+  <text x="530" y="348" fill="#fbbf24" font-size="13" font-weight="600" font-family="Consolas,monospace">/dashboard/123</text>
+  <text x="680" y="348" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">← [id]/page.tsx</text>
+
+  <rect x="520" y="375" width="320" height="36" rx="8" fill="#374151"/>
+  <text x="530" y="398" fill="#f472b6" font-size="13" font-weight="600" font-family="Consolas,monospace">POST /api</text>
+  <text x="640" y="398" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">← api/route.ts</text>
+
+  <!-- Legend -->
+  <rect x="520" y="425" width="12" height="12" rx="3" fill="#fbbf24"/>
+  <text x="540" y="436" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">[id] = Dynamic segment</text>
+  <rect x="700" y="425" width="12" height="12" rx="3" fill="#f472b6"/>
+  <text x="720" y="436" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">(auth) = Route group</text>
+</svg>
