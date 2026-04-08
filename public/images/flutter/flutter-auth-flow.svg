@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <rect width="900" height="440" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Authentication &amp; JWT Flow</text>
+  <text x="450" y="68" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Secure token storage with auto-refresh on 401</text>
+
+  <defs>
+    <marker id="aR" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#60a5fa"/></marker>
+    <marker id="aG" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#4ade80"/></marker>
+    <marker id="aY" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#fbbf24"/></marker>
+    <marker id="aP" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#f472b6"/></marker>
+  </defs>
+
+  <!-- Step 1: Login -->
+  <rect x="30" y="100" width="160" height="60" rx="10" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="110" y="126" text-anchor="middle" fill="#60a5fa" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">1. Login</text>
+  <text x="110" y="146" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Phone + OTP</text>
+
+  <line x1="190" y1="130" x2="250" y2="130" stroke="#60a5fa" stroke-width="2" marker-end="url(#aR)"/>
+
+  <!-- Step 2: API -->
+  <rect x="260" y="100" width="160" height="60" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="340" y="126" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">2. Backend API</text>
+  <text x="340" y="146" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Returns JWT tokens</text>
+
+  <line x1="420" y1="130" x2="490" y2="130" stroke="#4ade80" stroke-width="2" marker-end="url(#aG)"/>
+
+  <!-- Step 3: Store -->
+  <rect x="500" y="100" width="190" height="60" rx="10" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="595" y="122" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">3. Secure Storage</text>
+  <text x="595" y="142" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Keychain (iOS)</text>
+  <text x="595" y="155" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Keystore (Android)</text>
+
+  <!-- Arrow to interceptor -->
+  <line x1="595" y1="160" x2="595" y2="220" stroke="#a78bfa" stroke-width="2" marker-end="url(#aP)"/>
+
+  <!-- Auth Interceptor -->
+  <rect x="120" y="220" width="660" height="80" rx="12" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+  <text x="450" y="248" text-anchor="middle" fill="#a78bfa" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Dio Auth Interceptor</text>
+
+  <rect x="145" y="262" width="185" height="28" rx="6" fill="#374151"/>
+  <text x="237" y="281" text-anchor="middle" fill="#c4b5fd" font-size="11" font-family="Segoe UI,Arial,sans-serif">Auto-attach Bearer Token</text>
+
+  <rect x="345" y="262" width="150" height="28" rx="6" fill="#374151"/>
+  <text x="420" y="281" text-anchor="middle" fill="#c4b5fd" font-size="11" font-family="Segoe UI,Arial,sans-serif">On 401 → Refresh</text>
+
+  <rect x="510" y="262" width="250" height="28" rx="6" fill="#374151"/>
+  <text x="635" y="281" text-anchor="middle" fill="#c4b5fd" font-size="11" font-family="Segoe UI,Arial,sans-serif">Retry Original Request or Logout</text>
+
+  <!-- Arrow to API requests -->
+  <line x1="450" y1="300" x2="450" y2="340" stroke="#475569" stroke-width="2" marker-end="url(#aR)"/>
+
+  <!-- API Requests -->
+  <rect x="130" y="340" width="180" height="50" rx="8" fill="#16a34a"/>
+  <text x="220" y="362" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">GET /products</text>
+  <text x="220" y="380" text-anchor="middle" fill="#bbf7d0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Auth: Bearer ey...</text>
+
+  <rect x="360" y="340" width="180" height="50" rx="8" fill="#2563eb"/>
+  <text x="450" y="362" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">POST /orders</text>
+  <text x="450" y="380" text-anchor="middle" fill="#bfdbfe" font-size="10" font-family="Segoe UI,Arial,sans-serif">Auth: Bearer ey...</text>
+
+  <rect x="590" y="340" width="180" height="50" rx="8" fill="#b45309"/>
+  <text x="680" y="362" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">PUT /products/:id</text>
+  <text x="680" y="380" text-anchor="middle" fill="#fef3c7" font-size="10" font-family="Segoe UI,Arial,sans-serif">Auth: Bearer ey...</text>
+
+  <!-- GoRouter guard -->
+  <rect x="720" y="100" width="150" height="60" rx="10" fill="#1e293b" stroke="#f87171" stroke-width="2"/>
+  <text x="795" y="126" text-anchor="middle" fill="#f87171" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">GoRouter Guard</text>
+  <text x="795" y="146" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Redirect → /login</text>
+
+  <!-- Legend -->
+  <rect x="30" y="410" width="12" height="12" rx="3" fill="#4ade80"/>
+  <text x="48" y="421" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Encrypted Storage</text>
+  <rect x="180" y="410" width="12" height="12" rx="3" fill="#a78bfa"/>
+  <text x="198" y="421" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Auto Token Injection</text>
+  <rect x="340" y="410" width="12" height="12" rx="3" fill="#f87171"/>
+  <text x="358" y="421" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Route Protection</text>
+</svg>

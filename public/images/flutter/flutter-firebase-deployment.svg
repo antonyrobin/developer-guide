@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <rect width="900" height="500" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Firebase Deployment &amp; Services</text>
+  <text x="450" y="68" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Complete backend infrastructure for Flutter apps</text>
+
+  <defs>
+    <marker id="aF" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#fbbf24"/></marker>
+  </defs>
+
+  <!-- Flutter App -->
+  <rect x="330" y="90" width="240" height="60" rx="12" fill="#1e293b" stroke="#54C5F8" stroke-width="2"/>
+  <text x="450" y="118" text-anchor="middle" fill="#54C5F8" font-size="17" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Flutter App</text>
+  <text x="450" y="138" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">firebase_core · flutterfire configure</text>
+
+  <!-- Lines to Firebase services -->
+  <line x1="350" y1="150" x2="110" y2="210" stroke="#fbbf24" stroke-width="1.5"/>
+  <line x1="400" y1="150" x2="310" y2="210" stroke="#fbbf24" stroke-width="1.5"/>
+  <line x1="450" y1="150" x2="450" y2="210" stroke="#fbbf24" stroke-width="1.5"/>
+  <line x1="500" y1="150" x2="590" y2="210" stroke="#fbbf24" stroke-width="1.5"/>
+  <line x1="550" y1="150" x2="780" y2="210" stroke="#fbbf24" stroke-width="1.5"/>
+
+  <!-- App Distribution -->
+  <rect x="30" y="210" width="160" height="80" rx="10" fill="#1e293b" stroke="#f87171" stroke-width="2"/>
+  <text x="110" y="238" text-anchor="middle" fill="#f87171" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">App Distribution</text>
+  <text x="110" y="256" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Distribute APK/IPA</text>
+  <text x="110" y="270" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">to QA testers</text>
+  <text x="110" y="284" text-anchor="middle" fill="#fca5a5" font-size="9" font-family="Segoe UI,Arial,sans-serif">No app store needed</text>
+
+  <!-- Hosting -->
+  <rect x="220" y="210" width="160" height="80" rx="10" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="300" y="238" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Hosting</text>
+  <text x="300" y="256" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Flutter Web builds</text>
+  <text x="300" y="270" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">CDN + SSL</text>
+  <text x="300" y="284" text-anchor="middle" fill="#86efac" font-size="9" font-family="Segoe UI,Arial,sans-serif">your-app.web.app</text>
+
+  <!-- Crashlytics -->
+  <rect x="400" y="210" width="110" height="80" rx="10" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="455" y="238" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Crashlytics</text>
+  <text x="455" y="256" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Real-time</text>
+  <text x="455" y="270" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">crash reports</text>
+  <text x="455" y="284" text-anchor="middle" fill="#93c5fd" font-size="9" font-family="Segoe UI,Arial,sans-serif">Auto error capture</text>
+
+  <!-- FCM -->
+  <rect x="530" y="210" width="130" height="80" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="595" y="235" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Cloud</text>
+  <text x="595" y="252" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Messaging</text>
+  <text x="595" y="270" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Push notifications</text>
+  <text x="595" y="284" text-anchor="middle" fill="#fde68a" font-size="9" font-family="Segoe UI,Arial,sans-serif">FCM token</text>
+
+  <!-- Analytics -->
+  <rect x="700" y="210" width="160" height="80" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+  <text x="780" y="238" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Analytics</text>
+  <text x="780" y="256" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">User behavior</text>
+  <text x="780" y="270" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Custom events</text>
+  <text x="780" y="284" text-anchor="middle" fill="#c4b5fd" font-size="9" font-family="Segoe UI,Arial,sans-serif">logEvent()</text>
+
+  <!-- CI/CD Section -->
+  <rect x="60" y="330" width="780" height="120" rx="12" fill="#111827" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="450" y="356" text-anchor="middle" fill="#22d3ee" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">CI/CD Pipeline (GitHub Actions)</text>
+
+  <!-- Pipeline steps -->
+  <rect x="90" y="370" width="120" height="40" rx="7" fill="#374151"/>
+  <text x="150" y="395" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">git push</text>
+
+  <line x1="210" y1="390" x2="240" y2="390" stroke="#475569" stroke-width="1.5" marker-end="url(#aF)"/>
+
+  <rect x="245" y="370" width="120" height="40" rx="7" fill="#374151"/>
+  <text x="305" y="395" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">flutter test</text>
+
+  <line x1="365" y1="390" x2="395" y2="390" stroke="#475569" stroke-width="1.5" marker-end="url(#aF)"/>
+
+  <rect x="400" y="370" width="120" height="40" rx="7" fill="#374151"/>
+  <text x="460" y="395" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">flutter build</text>
+
+  <line x1="520" y1="390" x2="550" y2="390" stroke="#475569" stroke-width="1.5" marker-end="url(#aF)"/>
+
+  <rect x="555" y="370" width="140" height="40" rx="7" fill="#16a34a"/>
+  <text x="625" y="395" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Firebase Deploy</text>
+
+  <line x1="695" y1="390" x2="720" y2="390" stroke="#475569" stroke-width="1.5" marker-end="url(#aF)"/>
+
+  <rect x="725" y="370" width="90" height="40" rx="7" fill="#b45309"/>
+  <text x="770" y="395" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">QA Testers</text>
+
+  <!-- Pipeline labels -->
+  <text x="150" y="425" text-anchor="middle" fill="#475569" font-size="9" font-family="Segoe UI,Arial,sans-serif">Trigger</text>
+  <text x="305" y="425" text-anchor="middle" fill="#475569" font-size="9" font-family="Segoe UI,Arial,sans-serif">Quality</text>
+  <text x="460" y="425" text-anchor="middle" fill="#475569" font-size="9" font-family="Segoe UI,Arial,sans-serif">APK/Web</text>
+  <text x="625" y="425" text-anchor="middle" fill="#475569" font-size="9" font-family="Segoe UI,Arial,sans-serif">Distribute</text>
+  <text x="770" y="425" text-anchor="middle" fill="#475569" font-size="9" font-family="Segoe UI,Arial,sans-serif">Receive</text>
+
+  <!-- Legend -->
+  <rect x="60" y="465" width="12" height="12" rx="3" fill="#f87171"/>
+  <text x="78" y="476" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Distribution</text>
+  <rect x="170" y="465" width="12" height="12" rx="3" fill="#4ade80"/>
+  <text x="188" y="476" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Hosting</text>
+  <rect x="250" y="465" width="12" height="12" rx="3" fill="#60a5fa"/>
+  <text x="268" y="476" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Crash Reports</text>
+  <rect x="370" y="465" width="12" height="12" rx="3" fill="#fbbf24"/>
+  <text x="388" y="476" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Push Notifications</text>
+  <rect x="520" y="465" width="12" height="12" rx="3" fill="#a78bfa"/>
+  <text x="538" y="476" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Analytics</text>
+  <rect x="620" y="465" width="12" height="12" rx="3" fill="#22d3ee"/>
+  <text x="638" y="476" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">CI/CD Pipeline</text>
+</svg>
