@@ -37,7 +37,9 @@ const courseKeywords = {
   'azure-devops': 'Azure DevOps, pipelines, boards, repos, CI/CD, Microsoft DevOps, agile project management',
   nextjs: 'Next.js, React framework, SSR, SSG, ISR, App Router, Server Components, API routes, middleware, Vercel',
   flutter: 'Flutter, Dart, cross-platform, mobile development, widget, Riverpod, GoRouter, Firebase, barcode scanning, POS, Material Design',
-  kubernetes: 'Kubernetes, K8s, container orchestration, pods, deployments, services, Helm, kubectl, HPA, auto-scaling, microservices'
+  kubernetes: 'Kubernetes, K8s, container orchestration, pods, deployments, services, Helm, kubectl, HPA, auto-scaling, microservices',
+  angular: 'Angular, TypeScript, components, services, dependency injection, RxJS, signals, NgModule, standalone, Google framework',
+  'tailwind-css': 'Tailwind CSS, utility-first, responsive design, dark mode, flexbox, grid, custom theme, PostCSS'
 };
 
 
@@ -71,7 +73,9 @@ const getLanguage = (courseId) => {
     sdlc: 'text',
     nextjs: 'tsx',
     flutter: 'dart',
-    kubernetes: 'yaml'
+    kubernetes: 'yaml',
+    angular: 'typescript',
+    'tailwind-css': 'html'
   };
   return map[courseId] || 'javascript';
 };

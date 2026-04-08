@@ -27,6 +27,8 @@ import { postgresqlCourse } from './courses-data/postgresql';
 import { nextjsCourse } from './courses-data/nextjs';
 import { flutterCourse } from './courses-data/flutter';
 import { kubernetesCourse } from './courses-data/kubernetes';
+import { angularCourse } from './courses-data/angular';
+import { tailwindCourse } from './courses-data/tailwind-css';
 
 export const courses = [
   sdlcCourse,
@@ -57,5 +59,7 @@ export const courses = [
   postgresqlCourse,
   nextjsCourse,
   flutterCourse,
-  kubernetesCourse
+  kubernetesCourse,
+  angularCourse,
+  tailwindCourse
 ];
