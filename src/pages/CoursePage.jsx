@@ -36,7 +36,8 @@ const courseKeywords = {
   'github-actions': 'GitHub Actions, CI/CD, workflows, YAML, automation, continuous integration, deployment',
   'azure-devops': 'Azure DevOps, pipelines, boards, repos, CI/CD, Microsoft DevOps, agile project management',
   nextjs: 'Next.js, React framework, SSR, SSG, ISR, App Router, Server Components, API routes, middleware, Vercel',
-  flutter: 'Flutter, Dart, cross-platform, mobile development, widget, Riverpod, GoRouter, Firebase, barcode scanning, POS, Material Design'
+  flutter: 'Flutter, Dart, cross-platform, mobile development, widget, Riverpod, GoRouter, Firebase, barcode scanning, POS, Material Design',
+  kubernetes: 'Kubernetes, K8s, container orchestration, pods, deployments, services, Helm, kubectl, HPA, auto-scaling, microservices'
 };
 
 
@@ -69,7 +70,8 @@ const getLanguage = (courseId) => {
     oops: 'javascript',
     sdlc: 'text',
     nextjs: 'tsx',
-    flutter: 'dart'
+    flutter: 'dart',
+    kubernetes: 'yaml'
   };
   return map[courseId] || 'javascript';
 };

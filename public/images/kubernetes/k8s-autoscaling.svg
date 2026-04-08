@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <rect width="900" height="440" rx="16" fill="#0f172a"/>
+  <text x="450" y="38" text-anchor="middle" fill="#fff" font-size="22" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Horizontal Pod Autoscaling (HPA)</text>
+  <text x="450" y="58" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Automatic scaling based on CPU &amp; memory metrics</text>
+
+  <!-- Metrics Server -->
+  <rect x="340" y="80" width="220" height="45" rx="8" fill="#374151" stroke="#e879f9" stroke-width="2"/>
+  <text x="450" y="100" text-anchor="middle" fill="#e879f9" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Metrics Server</text>
+  <text x="450" y="116" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Collects CPU/memory from kubelets</text>
+
+  <line x1="450" y1="125" x2="450" y2="150" stroke="#e879f9" stroke-width="1.5"/>
+  <polygon points="445,148 450,158 455,148" fill="#e879f9"/>
+
+  <!-- HPA -->
+  <rect x="310" y="160" width="280" height="50" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="450" y="183" text-anchor="middle" fill="#fbbf24" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">HPA: catalog-api-hpa</text>
+  <text x="450" y="200" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">CPU target: 70% · Memory target: 80%</text>
+
+  <line x1="450" y1="210" x2="450" y2="240" stroke="#fbbf24" stroke-width="1.5"/>
+  <polygon points="445,238 450,248 455,238" fill="#fbbf24"/>
+
+  <!-- Deployment -->
+  <rect x="310" y="250" width="280" height="40" rx="8" fill="#1e293b" stroke="#326ce5" stroke-width="2"/>
+  <text x="450" y="275" text-anchor="middle" fill="#326ce5" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Deployment: catalog-api</text>
+
+  <!-- Pods - before scaling -->
+  <text x="150" y="318" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Normal Load (2 pods)</text>
+  <rect x="55" y="330" width="80" height="35" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="95" y="352" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Pod 1</text>
+  <rect x="150" y="330" width="80" height="35" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="190" y="352" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Pod 2</text>
+
+  <!-- Arrow between states -->
+  <line x1="260" y1="347" x2="340" y2="347" stroke="#fbbf24" stroke-width="2"/>
+  <polygon points="338,342 348,347 338,352" fill="#fbbf24"/>
+  <text x="300" y="338" text-anchor="middle" fill="#fbbf24" font-size="9" font-weight="600" font-family="Segoe UI,Arial,sans-serif">CPU > 70%</text>
+
+  <!-- Pods - after scaling -->
+  <text x="580" y="318" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">High Load (scaled to 5 pods)</text>
+  <rect x="370" y="330" width="72" height="35" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="406" y="352" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Pod 1</text>
+  <rect x="452" y="330" width="72" height="35" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="488" y="352" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Pod 2</text>
+  <rect x="534" y="330" width="72" height="35" rx="6" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="570" y="352" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Pod 3</text>
+  <rect x="616" y="330" width="72" height="35" rx="6" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="652" y="352" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Pod 4</text>
+  <rect x="698" y="330" width="72" height="35" rx="6" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="734" y="352" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Pod 5</text>
+
+  <!-- Scale behavior labels -->
+  <rect x="55" y="385" width="180" height="35" rx="6" fill="#14532d"/>
+  <text x="145" y="402" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Scale Up: 30s window</text>
+  <text x="145" y="415" text-anchor="middle" fill="#86efac" font-size="9" font-family="Segoe UI,Arial,sans-serif">+2 pods per 60s</text>
+
+  <rect x="260" y="385" width="180" height="35" rx="6" fill="#7c2d12"/>
+  <text x="350" y="402" text-anchor="middle" fill="#fca5a5" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Scale Down: 300s window</text>
+  <text x="350" y="415" text-anchor="middle" fill="#fca5a5" font-size="9" font-family="Segoe UI,Arial,sans-serif">-1 pod per 120s</text>
+
+  <!-- Scaling targets -->
+  <rect x="480" y="385" width="380" height="35" rx="6" fill="#111827" stroke="#475569" stroke-width="1"/>
+  <text x="670" y="402" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Min: 2 pods · Max: 10 pods · CPU target: 70% · Memory target: 80%</text>
+  <text x="670" y="415" text-anchor="middle" fill="#64748b" font-size="9" font-family="Segoe UI,Arial,sans-serif">Requires resource requests to be set on the Deployment</text>
+
+  <!-- Legend -->
+  <rect x="55" y="80" width="10" height="10" rx="2" fill="#4ade80"/>
+  <text x="70" y="90" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Existing Pods</text>
+  <rect x="170" y="80" width="10" height="10" rx="2" fill="#22d3ee"/>
+  <text x="185" y="90" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">New (scaled)</text>
+</svg>

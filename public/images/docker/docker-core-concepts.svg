@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <rect width="900" height="480" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Docker Core Concepts</text>
+
+  <!-- Dockerfile -->
+  <rect x="40" y="80" width="160" height="70" rx="10" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="120" y="110" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Dockerfile</text>
+  <text x="120" y="130" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Build instructions</text>
+
+  <line x1="200" y1="115" x2="250" y2="115" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="248,110 258,115 248,120" fill="#475569"/>
+
+  <!-- Image -->
+  <rect x="260" y="80" width="160" height="70" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+  <text x="340" y="110" text-anchor="middle" fill="#a78bfa" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Image</text>
+  <text x="340" y="130" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Read-only template</text>
+
+  <line x1="420" y1="115" x2="470" y2="115" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="468,110 478,115 468,120" fill="#475569"/>
+
+  <!-- Container -->
+  <rect x="480" y="80" width="170" height="70" rx="10" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="565" y="110" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Container</text>
+  <text x="565" y="130" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Running instance</text>
+
+  <!-- Registry -->
+  <rect x="700" y="80" width="160" height="70" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="780" y="110" text-anchor="middle" fill="#fbbf24" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Registry</text>
+  <text x="780" y="130" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Docker Hub / GHCR</text>
+
+  <line x1="420" y1="92" x2="700" y2="92" stroke="#fbbf24" stroke-width="1" stroke-dasharray="5,4"/>
+  <text x="560" y="86" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="Segoe UI,Arial,sans-serif">push / pull</text>
+
+  <!-- Image Layering section -->
+  <text x="140" y="195" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Image Layering</text>
+
+  <rect x="40" y="210" width="200" height="36" rx="6" fill="#374151" stroke="#f87171" stroke-width="1.5"/>
+  <text x="140" y="233" text-anchor="middle" fill="#f87171" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">COPY app/ . (changes most)</text>
+
+  <rect x="40" y="252" width="200" height="36" rx="6" fill="#374151" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="140" y="275" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">RUN dotnet restore</text>
+
+  <rect x="40" y="294" width="200" height="36" rx="6" fill="#374151" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="140" y="317" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">COPY *.csproj + restore</text>
+
+  <rect x="40" y="336" width="200" height="36" rx="6" fill="#1e40af"/>
+  <text x="140" y="359" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Base: aspnet:9.0-alpine</text>
+
+  <text x="260" y="240" fill="#f87171" font-size="10" font-family="Segoe UI,Arial,sans-serif">← Rebuilt often</text>
+  <text x="260" y="282" fill="#fbbf24" font-size="10" font-family="Segoe UI,Arial,sans-serif">← Cached if .csproj unchanged</text>
+  <text x="260" y="365" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">← Rarely changes</text>
+
+  <!-- Volume, Network, Tag -->
+  <text x="620" y="195" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Other Concepts</text>
+
+  <rect x="500" y="215" width="120" height="55" rx="8" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="560" y="240" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Volume</text>
+  <text x="560" y="258" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Persistent storage</text>
+
+  <rect x="640" y="215" width="120" height="55" rx="8" fill="#1e293b" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="700" y="240" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Network</text>
+  <text x="700" y="258" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Container comms</text>
+
+  <rect x="780" y="215" width="90" height="55" rx="8" fill="#1e293b" stroke="#e879f9" stroke-width="1.5"/>
+  <text x="825" y="240" text-anchor="middle" fill="#e879f9" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Tag</text>
+  <text x="825" y="258" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Version label</text>
+
+  <!-- Multi-stage build comparison -->
+  <text x="620" y="310" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Multi-Stage Build Result</text>
+
+  <rect x="500" y="325" width="110" height="55" rx="8" fill="#7c2d12"/>
+  <text x="555" y="350" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">SDK Image</text>
+  <text x="555" y="368" text-anchor="middle" fill="#fca5a5" font-size="11" font-family="Segoe UI,Arial,sans-serif">~900 MB</text>
+
+  <line x1="615" y1="352" x2="660" y2="352" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="658,347 668,352 658,357" fill="#475569"/>
+
+  <rect x="670" y="325" width="120" height="55" rx="8" fill="#14532d"/>
+  <text x="730" y="350" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">Alpine Runtime</text>
+  <text x="730" y="368" text-anchor="middle" fill="#86efac" font-size="11" font-family="Segoe UI,Arial,sans-serif">~110 MB</text>
+
+  <!-- Legend -->
+  <rect x="40" y="420" width="12" height="12" rx="3" fill="#60a5fa"/>
+  <text x="58" y="431" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Dockerfile</text>
+  <rect x="140" y="420" width="12" height="12" rx="3" fill="#a78bfa"/>
+  <text x="158" y="431" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Image</text>
+  <rect x="210" y="420" width="12" height="12" rx="3" fill="#4ade80"/>
+  <text x="228" y="431" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Container</text>
+  <rect x="310" y="420" width="12" height="12" rx="3" fill="#fbbf24"/>
+  <text x="328" y="431" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Registry</text>
+  <rect x="410" y="420" width="12" height="12" rx="3" fill="#22d3ee"/>
+  <text x="428" y="431" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Volume</text>
+  <rect x="500" y="420" width="12" height="12" rx="3" fill="#fb923c"/>
+  <text x="518" y="431" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Network</text>
+</svg>
