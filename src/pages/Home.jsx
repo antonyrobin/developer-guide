@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { courses } from '../data/courses';
+import { courses, courseGroups } from '../data/courses';
 import { BookOpen, Rocket, Terminal, Database, Cloud, Layout } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 
@@ -10,6 +10,8 @@ const Home = () => {
         description: 'QuickDevGuide — A curated developer quick-reference guide with concise explanations, code examples, and visual diagrams across 28+ technologies including JavaScript, React, Java, Python, SQL, Docker, AWS, and more.',
         keywords: 'developer guide, programming tutorial, quick reference, JavaScript, React, Java, Python, C#, SQL, Docker, AWS, GCP, HTML, CSS, OOP, SDLC, Spring Boot, .NET, Django, design patterns, data structures, system architecture, GitHub Actions, Azure DevOps'
     });
+
+    let globalIdx = 0;
 
     return (
         <div className="home-page">
@@ -40,33 +42,41 @@ const Home = () => {
                     <h2 className="section-title">Explore Courses</h2>
                 </div>
 
-                <div className="courses-grid">
-                    {courses.map((course, idx) => (
-                        <NavLink key={course.id} to={`/${course.id}`} className="course-card-link">
-                            <div
-                                className="course-card animate-card-in"
-                                style={{ animationDelay: `${idx * 0.04}s` }}
-                            >
-                                <div className="course-bg-icon">
-                                    <Rocket className="icon-huge" />
-                                </div>
-                                <div className="course-card-content">
-                                    <div className="course-icon-wrapper">
-                                        {course.title.includes('Data') ? <Database className="icon-large" /> :
-                                            course.title.includes('AWS') || course.title.includes('GCP') ? <Cloud className="icon-large" /> :
-                                                course.title.includes('HTML') || course.title.includes('CSS') ? <Layout className="icon-large" /> :
-                                                    <Terminal className="icon-large" />}
-                                    </div>
-                                    <h3 className="course-title">{course.title}</h3>
-                                    <p className="course-desc">{course.description}</p>
-                                    <div className="course-link-text">
-                                        Learn More &rarr;
-                                    </div>
-                                </div>
-                            </div>
-                        </NavLink>
-                    ))}
-                </div>
+                {courseGroups.map((group) => (
+                    <div key={group.label} className="course-group">
+                        <h3 className="course-group-label">{group.label}</h3>
+                        <div className="courses-grid">
+                            {group.courses.map((course) => {
+                                const idx = globalIdx++;
+                                return (
+                                    <NavLink key={course.id} to={`/${course.id}`} className="course-card-link">
+                                        <div
+                                            className="course-card animate-card-in"
+                                            style={{ animationDelay: `${idx * 0.04}s` }}
+                                        >
+                                            <div className="course-bg-icon">
+                                                <Rocket className="icon-huge" />
+                                            </div>
+                                            <div className="course-card-content">
+                                                <div className="course-icon-wrapper">
+                                                    {course.title.includes('Data') ? <Database className="icon-large" /> :
+                                                        course.title.includes('AWS') || course.title.includes('GCP') ? <Cloud className="icon-large" /> :
+                                                            course.title.includes('HTML') || course.title.includes('CSS') ? <Layout className="icon-large" /> :
+                                                                <Terminal className="icon-large" />}
+                                                </div>
+                                                <h3 className="course-title">{course.title}</h3>
+                                                <p className="course-desc">{course.description}</p>
+                                                <div className="course-link-text">
+                                                    Learn More &rarr;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </NavLink>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ))}
             </section>
         </div>
     );

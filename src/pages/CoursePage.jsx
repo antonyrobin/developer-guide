@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { courses } from '../data/courses';
-import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool } from 'lucide-react';
+import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool, ChevronDown, ChevronUp } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -85,11 +85,13 @@ const CoursePage = () => {
   const course = courses.find((c) => c.id === id);
   const [activeTab, setActiveTab] = useState(0);
   const [prevId, setPrevId] = useState(id);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Reset tab synchronously when the course changes (before render completes)
   if (id !== prevId) {
     setPrevId(id);
     setActiveTab(0);
+    setIsSidebarOpen(false);
   }
 
   useSEO({
@@ -109,22 +111,26 @@ const CoursePage = () => {
   return (
     <div className="course-page-layout">
       {/* Left Sidebar */}
-      <aside className="sidebar">
-        <h3 className="sidebar-title">
-          <Layers className="icon" />
-          <span>{course.title}</span>
-        </h3>
-        <nav className="sidebar-nav">
-          {course.sections.map((sec, idx) => (
-            <button
-              key={idx}
-              onClick={() => { setActiveTab(idx); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`sidebar-nav-btn ${activeTab === idx ? 'active' : ''}`}
-            >
-              {sec.title}
-            </button>
-          ))}
-        </nav>
+      <aside className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+        <button className="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+          <h3 className="sidebar-title">
+            <Layers className="icon" />
+            <span>{course.title}</span>
+          </h3>
+          {isSidebarOpen ? <ChevronUp className="icon sidebar-toggle-icon" /> : <ChevronDown className="icon sidebar-toggle-icon" />}
+        </button>
+        <div className="sidebar-collapsible">
+          <nav className="sidebar-nav">
+            {course.sections.map((sec, idx) => (
+              <button
+                key={idx}
+                onClick={() => { setActiveTab(idx); setIsSidebarOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className={`sidebar-nav-btn ${activeTab === idx ? 'active' : ''}`}
+              >
+                {sec.title}
+              </button>
+            ))}
+          </nav>
 
         {/* Resource Links */}
         {(course.officialDocs || course.tutorialLink || course.exerciseLink) && (
@@ -161,6 +167,7 @@ const CoursePage = () => {
             <Info className="icon text-primary" style={{flexShrink:0}} />
             <p>Quick-reference guide for fast recall. Bookmark this page for future use.</p>
           </div>
+        </div>
         </div>
       </aside>
 
@@ -304,7 +311,8 @@ const CoursePage = () => {
                   className="btn-secondary"
                   onClick={() => { setActiveTab(activeTab - 1); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 >
-                  ← {course.sections[activeTab - 1].title}
+                  <span className="nav-btn-arrow">←</span>
+                  <span className="nav-btn-text">{course.sections[activeTab - 1].title}</span>
                 </button>
               )}
               {activeTab < course.sections.length - 1 && (
@@ -313,7 +321,8 @@ const CoursePage = () => {
                   onClick={() => { setActiveTab(activeTab + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   style={{marginLeft: 'auto'}}
                 >
-                  {course.sections[activeTab + 1].title} →
+                  <span className="nav-btn-text">{course.sections[activeTab + 1].title}</span>
+                  <span className="nav-btn-arrow">→</span>
                 </button>
               )}
             </div>
