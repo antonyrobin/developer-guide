@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Server Components vs Client Components</text>
+
+  <!-- Server Components -->
+  <rect x="30" y="75" width="400" height="310" rx="14" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="230" y="108" text-anchor="middle" fill="#4ade80" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Server Components (Default)</text>
+
+  <rect x="55" y="125" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="230" y="147" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">✅ Run on the server only</text>
+
+  <rect x="55" y="167" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="230" y="189" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">✅ Direct database / API access</text>
+
+  <rect x="55" y="209" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="230" y="231" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">✅ Zero JavaScript sent to browser</text>
+
+  <rect x="55" y="251" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="230" y="273" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">✅ Access secrets &amp; env variables safely</text>
+
+  <rect x="55" y="293" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="230" y="315" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">❌ No useState, useEffect, onClick</text>
+
+  <rect x="55" y="335" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="230" y="357" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">❌ No browser APIs (window, document)</text>
+
+  <!-- Client Components -->
+  <rect x="470" y="75" width="400" height="310" rx="14" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="670" y="108" text-anchor="middle" fill="#60a5fa" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Client Components ('use client')</text>
+
+  <rect x="495" y="125" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="670" y="147" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">✅ Interactive (onClick, onChange)</text>
+
+  <rect x="495" y="167" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="670" y="189" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">✅ useState, useEffect, useRef</text>
+
+  <rect x="495" y="209" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="670" y="231" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">✅ Browser APIs (window, localStorage)</text>
+
+  <rect x="495" y="251" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="670" y="273" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">✅ Event listeners &amp; animations</text>
+
+  <rect x="495" y="293" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="670" y="315" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">❌ Cannot access server-only resources</text>
+
+  <rect x="495" y="335" width="350" height="32" rx="6" fill="#374151"/>
+  <text x="670" y="357" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">❌ Adds to client JavaScript bundle</text>
+
+  <!-- Tip -->
+  <text x="450" y="410" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">💡 Default to Server Components — use 'use client' only when you need interactivity</text>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <rect width="900" height="400" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Next.js Data Fetching Patterns</text>
+
+  <!-- Pattern 1: Server Component -->
+  <rect x="30" y="75" width="270" height="290" rx="14" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="165" y="105" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Server Component</text>
+  <text x="165" y="125" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">async/await in component</text>
+
+  <rect x="50" y="145" width="230" height="80" rx="8" fill="#1a1a2e"/>
+  <text x="60" y="167" fill="#c084fc" font-size="11" font-family="Consolas,monospace">async function</text>
+  <text x="60" y="185" fill="#60a5fa" font-size="11" font-family="Consolas,monospace">  Page() {</text>
+  <text x="60" y="203" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">  const data = await fetch()</text>
+  <text x="60" y="221" fill="#60a5fa" font-size="11" font-family="Consolas,monospace">}</text>
+
+  <rect x="50" y="240" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="165" y="261" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">✅ No client JS — direct DB call</text>
+
+  <rect x="50" y="280" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="165" y="301" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">✅ Auto-cached &amp; deduplicated</text>
+
+  <rect x="50" y="320" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="165" y="341" text-anchor="middle" fill="#fbbf24" font-size="11" font-family="Segoe UI,Arial,sans-serif">Best for: initial page data</text>
+
+  <!-- Pattern 2: Server Actions -->
+  <rect x="315" y="75" width="270" height="290" rx="14" fill="#1e293b" stroke="#fb923c" stroke-width="2"/>
+  <text x="450" y="105" text-anchor="middle" fill="#fb923c" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Server Actions</text>
+  <text x="450" y="125" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">'use server' functions</text>
+
+  <rect x="335" y="145" width="230" height="80" rx="8" fill="#1a1a2e"/>
+  <text x="345" y="167" fill="#fb923c" font-size="11" font-family="Consolas,monospace">'use server'</text>
+  <text x="345" y="185" fill="#c084fc" font-size="11" font-family="Consolas,monospace">async function</text>
+  <text x="345" y="203" fill="#60a5fa" font-size="11" font-family="Consolas,monospace">  createItem(formData) {</text>
+  <text x="345" y="221" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">  await db.insert(...)}</text>
+
+  <rect x="335" y="240" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="450" y="261" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">✅ RPC-like mutations</text>
+
+  <rect x="335" y="280" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="450" y="301" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">✅ Works with forms natively</text>
+
+  <rect x="335" y="320" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="450" y="341" text-anchor="middle" fill="#fbbf24" font-size="11" font-family="Segoe UI,Arial,sans-serif">Best for: create, update, delete</text>
+
+  <!-- Pattern 3: Route Handlers -->
+  <rect x="600" y="75" width="270" height="290" rx="14" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="735" y="105" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Route Handlers</text>
+  <text x="735" y="125" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">app/api/route.ts</text>
+
+  <rect x="620" y="145" width="230" height="80" rx="8" fill="#1a1a2e"/>
+  <text x="630" y="167" fill="#c084fc" font-size="11" font-family="Consolas,monospace">export async function</text>
+  <text x="630" y="185" fill="#60a5fa" font-size="11" font-family="Consolas,monospace">  GET(request) {</text>
+  <text x="630" y="203" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">  return Response.json()</text>
+  <text x="630" y="221" fill="#60a5fa" font-size="11" font-family="Consolas,monospace">}</text>
+
+  <rect x="620" y="240" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="735" y="261" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">✅ RESTful API endpoints</text>
+
+  <rect x="620" y="280" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="735" y="301" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">✅ Webhooks &amp; external APIs</text>
+
+  <rect x="620" y="320" width="230" height="30" rx="6" fill="#374151"/>
+  <text x="735" y="341" text-anchor="middle" fill="#fbbf24" font-size="11" font-family="Segoe UI,Arial,sans-serif">Best for: third-party integrations</text>
+
+  <!-- Bottom -->
+  <text x="450" y="390" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">💡 Use Server Components for reads, Server Actions for writes, Route Handlers for external APIs</text>
+</svg>

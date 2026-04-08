@@ -34,7 +34,8 @@ const courseKeywords = {
   'design-patterns': 'design patterns, singleton, factory, observer, strategy, SOLID, Gang of Four, software design',
   github: 'GitHub, Git, version control, repositories, pull requests, branches, collaboration',
   'github-actions': 'GitHub Actions, CI/CD, workflows, YAML, automation, continuous integration, deployment',
-  'azure-devops': 'Azure DevOps, pipelines, boards, repos, CI/CD, Microsoft DevOps, agile project management'
+  'azure-devops': 'Azure DevOps, pipelines, boards, repos, CI/CD, Microsoft DevOps, agile project management',
+  nextjs: 'Next.js, React framework, SSR, SSG, ISR, App Router, Server Components, API routes, middleware, Vercel'
 };
 
 
@@ -65,7 +66,8 @@ const getLanguage = (courseId) => {
     'sys-arch': 'text',
     'design-patterns': 'javascript',
     oops: 'javascript',
-    sdlc: 'text'
+    sdlc: 'text',
+    nextjs: 'tsx'
   };
   return map[courseId] || 'javascript';
 };

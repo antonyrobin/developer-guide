@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0a0f1a"/>
+  <text x="450" y="40" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Next.js Deployment with Docker</text>
+
+  <!-- Stage 1 -->
+  <rect x="30" y="70" width="260" height="160" rx="12" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+  <text x="160" y="98" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Stage 1: Dependencies</text>
+  <rect x="50" y="112" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="160" y="132" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">FROM node:20-alpine AS deps</text>
+  <rect x="50" y="148" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="160" y="168" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">pnpm install --frozen</text>
+  <rect x="50" y="184" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="160" y="204" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">📦 node_modules cached</text>
+
+  <polygon points="295,150 325,135 325,143 355,143 355,157 325,157 325,165" fill="#60a5fa"/>
+
+  <!-- Stage 2 -->
+  <rect x="320" y="70" width="260" height="160" rx="12" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="450" y="98" text-anchor="middle" fill="#fbbf24" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Stage 2: Build</text>
+  <rect x="340" y="112" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="450" y="132" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">FROM node:20-alpine AS build</text>
+  <rect x="340" y="148" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="450" y="168" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">pnpm build</text>
+  <rect x="340" y="184" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="450" y="204" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">⚡ .next/standalone output</text>
+
+  <polygon points="585,150 615,135 615,143 645,143 645,157 615,157 615,165" fill="#fbbf24"/>
+
+  <!-- Stage 3 -->
+  <rect x="610" y="70" width="260" height="160" rx="12" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="740" y="98" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Stage 3: Production</text>
+  <rect x="630" y="112" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="740" y="132" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">FROM node:20-alpine AS run</text>
+  <rect x="630" y="148" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="740" y="168" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Consolas,monospace">node server.js</text>
+  <rect x="630" y="184" width="220" height="28" rx="6" fill="#374151"/>
+  <text x="740" y="204" text-anchor="middle" fill="#4ade80" font-size="11" font-family="Segoe UI,Arial,sans-serif">🐳 Minimal image ~150MB</text>
+
+  <!-- Benefits -->
+  <rect x="30" y="260" width="840" height="130" rx="14" fill="#1e293b"/>
+  <text x="450" y="290" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Why Multi-Stage Builds?</text>
+
+  <rect x="55" y="310" width="190" height="60" rx="8" fill="#374151"/>
+  <text x="150" y="335" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">🗜️ Small Image</text>
+  <text x="150" y="355" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Only production files</text>
+
+  <rect x="265" y="310" width="190" height="60" rx="8" fill="#374151"/>
+  <text x="360" y="335" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">🔒 Secure</text>
+  <text x="360" y="355" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Non-root user, no dev deps</text>
+
+  <rect x="475" y="310" width="190" height="60" rx="8" fill="#374151"/>
+  <text x="570" y="335" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">⚡ Fast Builds</text>
+  <text x="570" y="355" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Layer caching for deps</text>
+
+  <rect x="685" y="310" width="160" height="60" rx="8" fill="#374151"/>
+  <text x="765" y="335" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">🚀 Standalone</text>
+  <text x="765" y="355" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">output: 'standalone'</text>
+</svg>

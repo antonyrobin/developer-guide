@@ -24,6 +24,7 @@ import { designPatternsCourse } from './courses-data/design-patterns';
 import { githubCourse } from './courses-data/github';
 import { githubActionsCourse } from './courses-data/github-actions';
 import { postgresqlCourse } from './courses-data/postgresql';
+import { nextjsCourse } from './courses-data/nextjs';
 
 export const courses = [
   sdlcCourse,
@@ -51,5 +52,6 @@ export const courses = [
   designPatternsCourse,
   githubCourse,
   githubActionsCourse,
-  postgresqlCourse
+  postgresqlCourse,
+  nextjsCourse
 ];
