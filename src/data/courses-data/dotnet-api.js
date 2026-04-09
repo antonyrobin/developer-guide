@@ -1,21 +1,2013 @@
-export const dotnetApiCourse = { id: 'dotnet-api', title: '.NET Core Web API', description: 'Build high-performance RESTful APIs with C# and .NET 10, including microservices architecture, JWT authentication, Entity Framework Core, and YARP gateway integration.',
-    officialDocs: 'https://learn.microsoft.com/en-us/aspnet/core/web-api/', tutorialLink: 'https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api', exerciseLink: null,
-    sections: [
-      { title: 'What is ASP.NET Core Web API', image: '/images/dotnet-api/dotnet-api-overview.svg', content: `**ASP.NET Core Web API** is a framework for building HTTP-based RESTful services using C#. It is cross-platform, high-performance, and consistently benchmarks among the **fastest web frameworks** globally.\n\n### .NET 10 Features\n\n.NET 10 introduces **Native AOT** for faster startup, improved performance with span-based memory management, and enhanced C# features like records and pattern matching.\n\n### Two API Styles\n\nModern ASP.NET Core uses **Minimal APIs** (less boilerplate) or **Controller-based APIs** (more structured). It provides built-in middleware for authentication, CORS, exception handling, and **Swagger/OpenAPI** documentation.\n\n### Role in Microservices\n\nIn a microservices architecture, .NET 10 Web APIs power backend services like Identity, Catalog, Commerce, and Engagement, communicating via REST APIs and message queues.`, keyPoints: ['One of the fastest web frameworks benchmarked.', 'Cross-platform: runs on Windows, macOS, Linux.', 'Minimal APIs or Controller-based patterns.', 'Built-in Swagger/OpenAPI documentation.', 'Native AOT for fast container startup.', 'Integrated with YARP for API gateway.'] },
-      { title: 'Installation & Setup', image: '/images/dotnet-api/installation.svg', content: `### Prerequisites\n\n- **.NET SDK 10.0**: Framework and CLI tools\n- **Visual Studio 2022** or **VS Code**: IDE\n- **Docker**: For local databases and containers\n- **Git**: Version control\n\n### Install .NET 10 SDK\n\n#### Using Visual Studio Installer\n\n1. Open Visual Studio Installer\n2. Modify your installation\n3. Select ".NET 10.0 Runtime" and ".NET 10.0 SDK"\n4. Click Update\n\n#### Using Command Prompt\n\n\`\`\`powershell\n# Download from https://dotnet.microsoft.com/download/dotnet/10.0\n# Or using winget\nwinget install Microsoft.DotNet.SDK.10\n\n# Verify\ndotnet --version   # 10.0.xxx\ndotnet --list-sdks # List all installed SDKs\n\`\`\`\n\n### Global Tools\n\n\`\`\`powershell\n# Entity Framework Core CLI\ndotnet tool install --global dotnet-ef\n\n# Code formatter\ndotnet tool install --global dotnet-format\n\n# HTTPS development certificate\ndotnet dev-certs https --trust\n\`\`\`\n\n### VS Code Extensions\n\n- ms-dotnettools.csharp\n- ms-dotnettools.csdevkit\n- ms-dotnettools.vscode-dotnet-runtime\n- patcx.vscode-nuget-gallery\n- humao.rest-client`, code: `# Verify installation\ndotnet --version\n\n# Create a new Web API project\ndotnet new webapi -n MyApi\ncd MyApi\ndotnet run\n\n# Open in browser: https://localhost:5001/swagger`, codeLabel: 'Installation Verification', keyPoints: ['Install .NET 10 SDK via Visual Studio or command line.', 'Use winget for easy installation on Windows.', 'Install global tools for EF Core and formatting.', 'Trust HTTPS certificate for development.', 'Use VS Code with C# extensions for best experience.'] },
-      { title: 'Project Creation & Solution Structure', image: '/images/dotnet-api/project-structure.svg', content: `### Create Solution Structure\n\n\`\`\`powershell\n# Create solution\ndotnet new sln -n MyApiSolution\n\n# Create Web API project\ndotnet new webapi -n MyApi\n\n# Add to solution\ndotnet sln add MyApi\n\n# Create test project\ndotnet new xunit -n MyApi.Tests\ndotnet sln add MyApi.Tests\n\`\`\`\n\n### Solution Structure\n\n\`\`\`\nMyApiSolution/\n├── MyApiSolution.sln\n├── src/\n│   └── MyApi/\n│       ├── Program.cs\n│       ├── Controllers/\n│       ├── Models/\n│       ├── Services/\n│       ├── Data/\n│       └── appsettings.json\n└── tests/\n    └── MyApi.Tests/\n\`\`\`\n\n### For Microservices\n\nIn a microservices setup, create separate projects for each service (Identity, Catalog, etc.) and a shared library for common code.`, code: `# Create microservices structure\ndotnet new webapi -n Identity.API -o src/Services/Identity\ndotnet new webapi -n Catalog.API -o src/Services/Catalog\ndotnet new classlib -n Shared -o src/Shared\n\n# Add references\ndotnet add src/Services/Identity/Identity.API reference src/Shared/Shared\ndotnet add src/Services/Catalog/Catalog.API reference src/Shared/Shared\n\n# Add to solution\ndotnet sln add src/Services/Identity/Identity.API\ndotnet sln add src/Services/Catalog/Catalog.API\ndotnet sln add src/Shared/Shared`, codeLabel: 'Project Structure Setup', keyPoints: ['Use dotnet new to create projects and solutions.', 'Organize code in src/ and tests/ folders.', 'Create shared libraries for common functionality.', 'Use class libraries for domain models and services.', 'Add project references for dependencies.'] },
-      { title: 'SOLID Principles in .NET', image: '/images/dotnet-api/solid-principles.svg', content: `**SOLID** principles guide object-oriented design for maintainable, scalable code.\n\n### S - Single Responsibility Principle\n\nEach class should have one reason to change. A controller handles HTTP requests, not business logic.\n\n### O - Open/Closed Principle\n\nClasses should be open for extension but closed for modification. Use interfaces and inheritance.\n\n### L - Liskov Substitution Principle\n\nSubtypes must be substitutable for their base types. Derived classes should not break base class contracts.\n\n### I - Interface Segregation Principle\n\nClients should not be forced to depend on interfaces they don't use. Split large interfaces into smaller ones.\n\n### D - Dependency Inversion Principle\n\nDepend on abstractions, not concretions. Use DI containers to inject dependencies.\n\nIn .NET, these principles are implemented through interfaces, abstract classes, and dependency injection.`, code: `// Single Responsibility: Service handles business logic\npublic interface IProductService\n{\n    Task<Product> GetByIdAsync(int id);\n    Task<IEnumerable<Product>> GetAllAsync();\n}\n\npublic class ProductService : IProductService\n{\n    private readonly IProductRepository _repository;\n    public ProductService(IProductRepository repository) => _repository = repository;\n\n    public async Task<Product> GetByIdAsync(int id) => await _repository.GetByIdAsync(id);\n    public async Task<IEnumerable<Product>> GetAllAsync() => await _repository.GetAllAsync();\n}\n\n// Dependency Inversion: Controller depends on interface\n[ApiController]\n[Route("api/products")]\npublic class ProductsController : ControllerBase\n{\n    private readonly IProductService _service;\n    public ProductsController(IProductService service) => _service = service;\n\n    [HttpGet("{id}")]\n    public async Task<ActionResult<Product>> Get(int id) => Ok(await _service.GetByIdAsync(id));\n}`, codeLabel: 'SOLID Implementation', keyPoints: ['Single Responsibility: Separate concerns into different classes.', 'Open/Closed: Extend via interfaces, not modification.', 'Liskov Substitution: Base and derived classes interchangeable.', 'Interface Segregation: Small, focused interfaces.', 'Dependency Inversion: Depend on abstractions, inject concretions.'] },
-      { title: 'Dependency Injection', image: '/images/dotnet-api/dependency-injection.svg', content: `**Dependency Injection (DI)** is a design pattern where dependencies are injected rather than created inside classes. .NET has a built-in DI container.\n\n### Service Registration\n\nRegister services in \`Program.cs\` with lifetimes: **Transient**, **Scoped**, **Singleton**.\n\n### Constructor Injection\n\nDependencies are injected via constructor parameters.\n\n### Benefits\n\n- Loose coupling between classes\n- Easier testing with mocks\n- Centralized configuration\n- Lifetime management\n\n### Common Patterns\n\n- **Repository Pattern**: Abstract data access\n- **Unit of Work**: Manage transactions\n- **Service Layer**: Business logic encapsulation`, code: `// Program.cs\nbuilder.Services.AddScoped<IProductService, ProductService>();\nbuilder.Services.AddScoped<IProductRepository, ProductRepository>();\nbuilder.Services.AddDbContext<AppDbContext>(options =>\n    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));\n\n// Service with injected dependencies\npublic class ProductService : IProductService\n{\n    private readonly IProductRepository _repository;\n    private readonly ILogger<ProductService> _logger;\n\n    public ProductService(IProductRepository repository, ILogger<ProductService> logger)\n    {\n        _repository = repository;\n        _logger = logger;\n    }\n\n    public async Task<Product> GetByIdAsync(int id)\n    {\n        _logger.LogInformation("Getting product {Id}", id);\n        return await _repository.GetByIdAsync(id);\n    }\n}\n\n// Controller injection\n[ApiController]\n[Route("api/products")]\npublic class ProductsController : ControllerBase\n{\n    private readonly IProductService _service;\n    public ProductsController(IProductService service) => _service = service;\n}`, codeLabel: 'DI Example', keyPoints: ['Register services with appropriate lifetimes.', 'Use constructor injection for dependencies.', 'Inject ILogger for logging.', 'Separate data access with repositories.', 'Use service layer for business logic.'] },
-      { title: 'Controllers & Routing', content: `Controllers organize API endpoints by resource. Each controller class handles one resource type (\`UsersController\`, \`ProductsController\`). Actions are methods mapped to **HTTP verbs**.\n\n### Attribute Routing\n\n\`[Route("api/[controller]")]\` uses convention-based routing. \`[HttpGet("{id}")]\` maps to specific HTTP methods with URL parameters. \`[FromBody]\`, \`[FromRoute]\`, \`[FromQuery]\` specify parameter binding sources.\n\n### API Versioning\n\nVersion your APIs from the start using \`[ApiVersion]\` attributes to avoid breaking changes.`, code: `[ApiController]\n[Route("api/v{version:apiVersion}/[controller]")]\n[ApiVersion("1.0")]\npublic class ProductsController : ControllerBase\n{\n    private readonly IProductService _service;\n    public ProductsController(IProductService service) => _service = service;\n\n    [HttpGet]\n    public async Task<ActionResult<List<Product>>> GetAll()\n        => Ok(await _service.GetAllAsync());\n\n    [HttpGet("{id}")]\n    public async Task<ActionResult<Product>> GetById(int id)\n    {\n        var product = await _service.GetByIdAsync(id);\n        return product is null ? NotFound() : Ok(product);\n    }\n\n    [HttpPost]\n    public async Task<ActionResult<Product>> Create([FromBody] CreateProductDto dto)\n    {\n        var product = await _service.CreateAsync(dto);\n        return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);\n    }\n\n    [HttpPut("{id}")]\n    public async Task<IActionResult> Update(int id, [FromBody] UpdateProductDto dto)\n    {\n        await _service.UpdateAsync(id, dto);\n        return NoContent();\n    }\n\n    [HttpDelete("{id}")]\n    public async Task<IActionResult> Delete(int id)\n    {\n        await _service.DeleteAsync(id);\n        return NoContent();\n    }\n}`, codeLabel: 'API Controller with Versioning', keyPoints: ['[ApiController] enables model validation and binding.', 'Route templates map URLs to controller actions.', 'Return ActionResult for proper HTTP status codes.', 'Constructor injection for service dependencies.', 'Use API versioning for future-proofing.'] },
-      { title: 'Middleware Pipeline', image: '/images/dotnet-api/middleware-pipeline.svg', content: `**Middleware** processes HTTP requests/responses in a pipeline. **Order matters** — each middleware sees the request before passing it to the next.\n\n### Common Middleware\n\n- \`UseHttpsRedirection\`: Redirect HTTP to HTTPS\n- \`UseCors\`: Handle CORS requests\n- \`UseAuthentication\`: Authenticate users\n- \`UseAuthorization\`: Authorize access\n- \`UseExceptionHandler\`: Handle exceptions\n- \`UseSwagger\`: Serve Swagger UI\n\n### Custom Middleware\n\nCreate custom middleware for cross-cutting concerns like logging, correlation IDs, or rate limiting.\n\n### Request Flow\n\nRequest → Middleware1 → Middleware2 → ... → Controller → MiddlewareN → Response`, code: `// Program.cs\nvar app = builder.Build();\n\napp.UseHttpsRedirection();\napp.UseCors("AllowAll");\napp.UseAuthentication();\napp.UseAuthorization();\napp.UseExceptionHandler("/error");\n\nif (app.Environment.IsDevelopment())\n{\n    app.UseSwagger();\n    app.UseSwaggerUI();\n}\n\napp.MapControllers();\napp.Run();\n\n// Custom Middleware\npublic class RequestLoggingMiddleware\n{\n    private readonly RequestDelegate _next;\n    private readonly ILogger _logger;\n\n    public RequestLoggingMiddleware(RequestDelegate next, ILogger<RequestLoggingMiddleware> logger)\n    {\n        _next = next;\n        _logger = logger;\n    }\n\n    public async Task InvokeAsync(HttpContext context)\n    {\n        _logger.LogInformation("Request: {Method} {Path}", context.Request.Method, context.Request.Path);\n        await _next(context);\n        _logger.LogInformation("Response: {StatusCode}", context.Response.StatusCode);\n    }\n}\n\n// Register custom middleware\napp.UseMiddleware<RequestLoggingMiddleware>();`, codeLabel: 'Middleware Pipeline', keyPoints: ['Middleware order is critical for proper functioning.', 'Use built-in middleware for common tasks.', 'Create custom middleware for specific requirements.', 'Middleware can short-circuit the pipeline.', 'Exception handler should be early in the pipeline.'] },
-      { title: 'JWT Authentication & Authorization', image: '/images/dotnet-api/jwt-auth.svg', content: `**JWT (JSON Web Token)** authentication is standard for APIs. Tokens are signed, self-contained, and can include claims like user ID, roles, and tenant information.\n\n### JWT Flow\n\n1. Client sends credentials to login endpoint\n2. Server validates credentials and issues JWT\n3. Client includes JWT in Authorization header\n4. Server validates JWT on each request\n\n### RS256 vs HS256\n\nUse **RS256** (asymmetric) for production with separate public/private keys. **HS256** (symmetric) is simpler but requires sharing the secret.\n\n### Claims & Roles\n\nJWT contains claims like \`sub\` (user ID), \`roles\`, \`tid\` (tenant ID). Use \`[Authorize(Roles = "Admin")]\` for role-based access.\n\n### Refresh Tokens\n\nUse refresh tokens to issue new JWTs without re-authentication. Store refresh tokens securely (database/Redis).`, code: `// Program.cs\nbuilder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\n    .AddJwtBearer(options =>\n    {\n        options.TokenValidationParameters = new TokenValidationParameters\n        {\n            ValidateIssuer = true,\n            ValidateAudience = true,\n            ValidateLifetime = true,\n            ValidateIssuerSigningKey = true,\n            ValidIssuer = builder.Configuration["Jwt:Issuer"],\n            ValidAudience = builder.Configuration["Jwt:Audience"],\n            IssuerSigningKey = new RsaSecurityKey(RSA.Create()) // Load from config\n        };\n    });\n\nbuilder.Services.AddAuthorization(options =>\n{\n    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));\n    options.AddPolicy("TenantAccess", policy => policy.RequireClaim("tid"));\n});\n\n// Login endpoint\n[HttpPost("login")]\npublic async Task<ActionResult> Login(LoginRequest request)\n{\n    var user = await _userService.AuthenticateAsync(request);\n    if (user == null) return Unauthorized();\n\n    var claims = new[]\n    {\n        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),\n        new Claim(ClaimTypes.Role, user.Role),\n        new Claim("tid", user.TenantId.ToString())\n    };\n\n    var token = new JwtSecurityToken(\n        issuer: _config["Jwt:Issuer"],\n        audience: _config["Jwt:Audience"],\n        claims: claims,\n        expires: DateTime.UtcNow.AddHours(1),\n        signingCredentials: new SigningCredentials(_key, SecurityAlgorithms.RsaSha256)\n    );\n\n    return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });\n}\n\n// Protected endpoint\n[Authorize(Policy = "TenantAccess")]\n[HttpGet("profile")]\npublic ActionResult<UserProfile> GetProfile()\n{\n    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;\n    var tenantId = User.FindFirst("tid")?.Value;\n    return Ok(new UserProfile { UserId = userId, TenantId = tenantId });\n}`, codeLabel: 'JWT Implementation', keyPoints: ['Use RS256 for production with asymmetric keys.', 'Validate issuer, audience, lifetime, and signature.', 'Include user ID, roles, and tenant claims.', 'Use policies for complex authorization rules.', 'Implement refresh tokens for long-lived sessions.'] },
-      { title: 'Entity Framework Core', image: '/images/dotnet-api/ef-core.svg', content: `**Entity Framework Core (EF Core)** is an ORM for .NET that enables .NET developers to work with databases using .NET objects. It supports LINQ queries, change tracking, and migrations.\n\n### DbContext\n\nThe \`DbContext\` class represents a session with the database. Configure it in \`Program.cs\` and inject where needed.\n\n### Entities\n\nDefine entity classes with properties mapping to database columns. Use data annotations or fluent API for configuration.\n\n### Migrations\n\nUse migrations to create and update database schema. Run \`dotnet ef migrations add\` and \`dotnet ef database update\`.\n\n### Querying\n\nUse LINQ for type-safe queries. EF Core translates LINQ to SQL.\n\n### Performance\n\nAvoid N+1 queries with \`.Include()\` and \`.ThenInclude()\`. Use \`.AsNoTracking()\` for read-only queries.`, code: `// DbContext\npublic class AppDbContext : DbContext\n{\n    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }\n\n    public DbSet<Product> Products { get; set; }\n    public DbSet<Category> Categories { get; set; }\n\n    protected override void OnModelCreating(ModelBuilder modelBuilder)\n    {\n        modelBuilder.Entity<Product>(entity =>\n        {\n            entity.HasKey(e => e.Id);\n            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);\n            entity.HasOne(e => e.Category).WithMany(e => e.Products);\n        });\n    }\n}\n\n// Entity\npublic class Product\n{\n    public int Id { get; set; }\n    public string Name { get; set; } = string.Empty;\n    public decimal Price { get; set; }\n    public int CategoryId { get; set; }\n    public Category? Category { get; set; }\n}\n\n// Repository\npublic class ProductRepository : IProductRepository\n{\n    private readonly AppDbContext _context;\n\n    public ProductRepository(AppDbContext context) => _context = context;\n\n    public async Task<Product?> GetByIdAsync(int id) =>\n        await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id);\n\n    public async Task<IEnumerable<Product>> GetAllAsync() =>\n        await _context.Products.Include(p => p.Category).ToListAsync();\n}\n\n// Migration\n# dotnet ef migrations add InitialCreate\n# dotnet ef database update`, codeLabel: 'EF Core Setup', keyPoints: ['DbContext manages database connections and entities.', 'Use fluent API for complex entity configurations.', 'Include related entities to avoid N+1 queries.', 'Use migrations for schema versioning.', 'Repository pattern abstracts data access.'] },
-      { title: 'Multi-Tenancy with RLS', image: '/images/dotnet-api/multi-tenancy.svg', content: `**Multi-tenancy** allows multiple tenants to share the same application instance while keeping data isolated. **Row-Level Security (RLS)** in PostgreSQL enforces data isolation at the database level.\n\n### RLS Implementation\n\n1. Add \`tenant_id\` column to all tables\n2. Create security policies that filter data by current tenant\n3. Set session context with current tenant ID\n\n### Tenant Context\n\nExtract tenant ID from JWT claims and set in database session.\n\n### Benefits\n\n- Data isolation without application code changes\n- Scalable for many tenants\n- Secure by default\n\n### Challenges\n\n- Schema changes affect all tenants\n- Backup/restore per tenant\n- Tenant-specific customizations`, code: `// Tenant Context Service\npublic interface ITenantContext\n{\n    Guid TenantId { get; }\n}\n\npublic class TenantContext : ITenantContext\n{\n    public Guid TenantId { get; }\n\n    public TenantContext(IHttpContextAccessor httpContextAccessor)\n    {\n        var tenantClaim = httpContextAccessor.HttpContext?.User.FindFirst("tid");\n        TenantId = Guid.Parse(tenantClaim?.Value ?? Guid.Empty.ToString());\n    }\n}\n\n// DbContext with Tenant Interceptor\npublic class AppDbContext : DbContext\n{\n    private readonly ITenantContext _tenantContext;\n\n    public AppDbContext(DbContextOptions<AppDbContext> options, ITenantContext tenantContext) : base(options)\n    {\n        _tenantContext = tenantContext;\n    }\n\n    protected override void OnModelCreating(ModelBuilder modelBuilder)\n    {\n        // Apply tenant filter to all entities\n        foreach (var entityType in modelBuilder.Model.GetEntityTypes())\n        {\n            if (typeof(ITenantEntity).IsAssignableFrom(entityType.ClrType))\n            {\n                modelBuilder.Entity(entityType.ClrType)\n                    .HasQueryFilter(CreateTenantFilter(entityType.ClrType));\n            }\n        }\n    }\n\n    private LambdaExpression CreateTenantFilter(Type entityType)\n    {\n        var parameter = Expression.Parameter(entityType, "e");\n        var property = Expression.Property(parameter, "TenantId");\n        var tenantId = Expression.Constant(_tenantContext.TenantId);\n        var body = Expression.Equal(property, tenantId);\n        return Expression.Lambda(body, parameter);\n    }\n}\n\n// PostgreSQL RLS Policy\n-- Enable RLS on table\nALTER TABLE products ENABLE ROW LEVEL SECURITY;\n\n-- Create policy\nCREATE POLICY tenant_isolation ON products\n    USING (tenant_id = current_setting('app.tenant_id')::uuid);\n\n-- Set session context\nSELECT set_config('app.tenant_id', '550e8400-e29b-41d4-a716-446655440000', false);`, codeLabel: 'Multi-Tenancy Setup', keyPoints: ['Use RLS for database-level data isolation.', 'Extract tenant ID from JWT claims.', 'Apply query filters in EF Core.', 'Set PostgreSQL session variables.', 'All entities implement ITenantEntity interface.'] },
-      { title: 'Validation & Error Handling', content: `### Model Validation\n\nASP.NET Core uses **Data Annotations** for input validation. \`[ApiController]\` automatically returns \`400 Bad Request\` with validation errors. Use \`[Required]\`, \`[StringLength]\`, \`[Range]\`, \`[EmailAddress]\`, and custom validators.\n\n### FluentValidation\n\nFor complex validation, use **FluentValidation** library with custom validators.\n\n### Global Error Handling\n\nUse **exception middleware** to catch unhandled errors and return consistent JSON error responses. This prevents leaking stack traces in production.\n\n### Problem Details\n\n**RFC 7807 Problem Details** is the standard format for API error responses. ASP.NET Core supports it natively.`, code: `// Validation DTO with FluentValidation\npublic class CreateProductDto\n{\n    public string Name { get; set; } = string.Empty;\n    public decimal Price { get; set; }\n    public string Category { get; set; } = string.Empty;\n}\n\npublic class CreateProductDtoValidator : AbstractValidator<CreateProductDto>\n{\n    public CreateProductDtoValidator()\n    {\n        RuleFor(x => x.Name).NotEmpty().MaximumLength(200);\n        RuleFor(x => x.Price).GreaterThan(0).LessThanOrEqualTo(99999.99m);\n        RuleFor(x => x.Category).NotEmpty();\n    }\n}\n\n// Register validators\nbuilder.Services.AddValidatorsFromAssemblyContaining<Program>();\n\n// Global Exception Handler\napp.UseExceptionHandler(error => error.Run(async context =>\n{\n    var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();\n    var exception = exceptionHandlerPathFeature?.Error;\n\n    context.Response.StatusCode = 500;\n    context.Response.ContentType = "application/problem+json";\n\n    var problem = new ProblemDetails\n    {\n        Type = "https://tools.ietf.org/html/rfc7807",\n        Title = "Internal Server Error",\n        Status = 500,\n        Detail = app.Environment.IsDevelopment() ? exception?.Message : "An unexpected error occurred.",\n        Instance = context.Request.Path\n    };\n\n    await context.Response.WriteAsJsonAsync(problem);\n}));\n\n// Custom Exception\npublic class NotFoundException : Exception\n{\n    public NotFoundException(string message) : base(message) { }\n}\n\n// Usage in controller\n[HttpGet("{id}")]\npublic async Task<ActionResult<ProductDto>> GetById(int id)\n{\n    var product = await _service.GetByIdAsync(id);\n    if (product == null) throw new NotFoundException($"Product {id} not found");\n    return Ok(product.ToDto());\n}`, codeLabel: 'Validation & Error Handling', keyPoints: ['Data Annotations for simple validation.', 'FluentValidation for complex business rules.', '[ApiController] returns 400 for invalid models.', 'Global exception handler prevents stack trace leaks.', 'Problem Details (RFC 7807) for consistent errors.'] },
-      { title: 'Build & Deploy', content: `\`dotnet publish -c Release\` creates optimized output. For containerized deployment, use **multi-stage Docker builds** with Microsoft's official .NET images.\n\n### Native AOT\n\n.NET 10 supports **Native AOT** compilation for faster startup and lower memory usage in containers.\n\n### Deployment Options\n\n**Azure App Service** for managed hosting with auto-scaling. **Docker + Kubernetes** for container orchestration. **AWS ECS/Fargate** for serverless containers. All support health checks, logging, and monitoring.\n\n### CI/CD\n\nUse GitHub Actions or Azure DevOps for automated builds and deployments.`, code: `# Build and run\ndotnet publish -c Release -o ./publish\ncd publish && dotnet MyApi.dll\n\n# Docker with Native AOT\nFROM mcr.microsoft.com/dotnet/sdk:10.0 AS build\nWORKDIR /src\nCOPY *.csproj .\nRUN dotnet restore\nCOPY . .\nRUN dotnet publish -c Release -o /app --self-contained --runtime linux-x64\n\nFROM mcr.microsoft.com/dotnet/runtime-deps:10.0\nWORKDIR /app\nCOPY --from=build /app .\nEXPOSE 8080\nENTRYPOINT ["./MyApi"]\n\n# Health check endpoint\napp.MapHealthChecks("/health");\n\n# Kubernetes Deployment\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: my-api\nspec:\n  replicas: 3\n  template:\n    spec:\n      containers:\n      - name: api\n        image: myregistry/myapi:latest\n        ports:\n        - containerPort: 8080\n        livenessProbe:\n          httpGet:\n            path: /health\n            port: 8080\n        readinessProbe:\n          httpGet:\n            path: /health\n            port: 8080`, codeLabel: 'Build & Deploy', keyPoints: ['dotnet publish -c Release for production builds.', 'Multi-stage Docker builds for minimal images.', 'Native AOT for fast container startup.', 'Azure App Service for managed .NET hosting.', 'Health check endpoints for K8s probes.'] },
-      { title: 'YARP API Gateway Integration', image: '/images/dotnet-api/yarp-gateway.svg', content: `**YARP (Yet Another Reverse Proxy)** is a high-performance API gateway built on .NET. It routes requests to multiple backend services, handles authentication, rate limiting, and load balancing.\n\n### Why YARP?\n\n- Same ecosystem as your APIs (.NET/C#)\n- High performance (Kestrel-based)\n- Configuration-driven routing\n- Built-in JWT validation and claims injection\n- Load balancing and health checks\n\n### Architecture\n\nClients → YARP Gateway → .NET Web APIs\n\n### Configuration\n\nRoutes and clusters are defined in \`appsettings.json\`. Routes map URL patterns to clusters of backend services.`, code: `// Gateway Program.cs\nbuilder.Services.AddReverseProxy()\n    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));\n\nbuilder.Services.AddAuthentication("Bearer")\n    .AddJwtBearer(options =>\n    {\n        // JWT validation configuration\n        options.TokenValidationParameters = new TokenValidationParameters\n        {\n            ValidIssuer = "my-gateway",\n            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret-key"))\n        };\n    });\n\nbuilder.Services.AddAuthorization();\n\nvar app = builder.Build();\n\napp.UseAuthentication();\napp.UseAuthorization();\napp.MapReverseProxy(); // Routes requests to backend services\napp.Run();\n\n// appsettings.json\n{\n  "ReverseProxy": {\n    "Routes": {\n      "api-route": {\n        "ClusterId": "api-cluster",\n        "Match": {\n          "Path": "/api/{**catch-all}"\n        },\n        "Transforms": [\n          { "PathRemovePrefix": "/api" }\n        ]\n      }\n    },\n    "Clusters": {\n      "api-cluster": {\n        "Destinations": {\n          "identity": {\n            "Address": "http://identity-service:8080/"\n          },\n          "catalog": {\n            "Address": "http://catalog-service:8080/"\n          }\n        }\n      }\n    }\n  }\n}`, codeLabel: 'YARP Gateway Setup', keyPoints: ['YARP runs as a .NET application, no extra infrastructure.', 'Configuration-driven routing to backend services.', 'JWT validation at gateway level.', 'Load balancing across service instances.', 'Health checks for downstream services.'] },
-      { title: 'Performance & Optimization', image: '/images/dotnet-api/performance.svg', content: `### Native AOT\n\n**Ahead-of-Time compilation** produces native binaries that start faster and use less memory than JIT-compiled apps.\n\n### Span<T> and Memory<T>\n\nUse \`Span<T>\` for high-performance memory operations without allocations.\n\n### Async/Await Best Practices\n\n- Use \`async\` all the way down\n- Avoid \`async void\` except for event handlers\n- Use \`ValueTask<T>\` for hot paths\n- Configure \`await\` with \`ConfigureAwait(false)\` in libraries\n\n### Caching\n\nUse **Redis** or **in-memory cache** for frequently accessed data. Implement cache-aside pattern.\n\n### Database Optimization\n\n- Use indexes on frequently queried columns\n- Avoid N+1 queries with eager loading\n- Use raw SQL for complex queries\n- Implement pagination\n\n### Profiling\n\nUse **dotnet-trace** and **dotnet-counters** for performance monitoring.`, code: `// Span<T> for high-performance string operations\npublic static bool IsValidEmail(ReadOnlySpan<char> email)\n{\n    var atIndex = email.IndexOf('@');\n    if (atIndex == -1) return false;\n\n    var dotIndex = email.LastIndexOf('.');\n    return dotIndex > atIndex;\n}\n\n// Async best practices\npublic async Task<UserDto> GetUserAsync(int id)\n{\n    var user = await _context.Users\n        .AsNoTracking()\n        .FirstOrDefaultAsync(u => u.Id == id);\n\n    return user?.ToDto();\n}\n\n// Caching\npublic async Task<ProductDto> GetProductAsync(int id)\n{\n    var cacheKey = $"product:{id}";\n    var cached = await _cache.GetStringAsync(cacheKey);\n    if (cached != null)\n    {\n        return JsonSerializer.Deserialize<ProductDto>(cached);\n    }\n\n    var product = await _repository.GetByIdAsync(id);\n    if (product != null)\n    {\n        await _cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(product.ToDto()),\n            new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10) });\n    }\n\n    return product?.ToDto();\n}\n\n// Native AOT configuration\n<PropertyGroup>\n  <PublishAot>true</PublishAot>\n  <InvariantGlobalization>true</InvariantGlobalization>\n</PropertyGroup>`, codeLabel: 'Performance Optimizations', keyPoints: ['Use Native AOT for faster startup and lower memory.', 'Span<T> for allocation-free operations.', 'Async/await with proper patterns.', 'Implement caching for performance.', 'Profile with dotnet tools.'] },
-      { title: 'Testing', image: '/images/dotnet-api/testing.svg', content: `### Unit Testing\n\nTest individual components in isolation using **xUnit**, **NUnit**, or **MSTest**. Mock dependencies with **Moq**.\n\n### Integration Testing\n\nTest API endpoints with **TestServer** or **WebApplicationFactory**. Test database interactions with in-memory databases.\n\n### Test Structure\n\n- **Arrange**: Set up test data and mocks\n- **Act**: Execute the code under test\n- **Assert**: Verify the expected behavior\n\n### Test Coverage\n\nAim for 80%+ code coverage. Use **coverlet** for coverage reports.\n\n### CI/CD Integration\n\nRun tests in CI pipelines. Fail builds on test failures or low coverage.`, code: `// Unit Test\npublic class ProductServiceTests\n{\n    [Fact]\n    public async Task GetByIdAsync_ReturnsProduct_WhenExists()\n    {\n        // Arrange\n        var mockRepo = new Mock<IProductRepository>();\n        mockRepo.Setup(r => r.GetByIdAsync(1))\n            .ReturnsAsync(new Product { Id = 1, Name = "Test Product" });\n\n        var service = new ProductService(mockRepo.Object);\n\n        // Act\n        var result = await service.GetByIdAsync(1);\n\n        // Assert\n        Assert.NotNull(result);\n        Assert.Equal("Test Product", result.Name);\n    }\n}\n\n// Integration Test\npublic class ProductsControllerTests : IClassFixture<WebApplicationFactory<Program>>\n{\n    private readonly HttpClient _client;\n\n    public ProductsControllerTests(WebApplicationFactory<Program> factory)\n    {\n        _client = factory.CreateClient();\n    }\n\n    [Fact]\n    public async Task Get_ReturnsOk_WhenProductExists()\n    {\n        // Act\n        var response = await _client.GetAsync("/api/products/1");\n\n        // Assert\n        response.EnsureSuccessStatusCode();\n        var product = await response.Content.ReadFromJsonAsync<ProductDto>();\n        Assert.NotNull(product);\n    }\n}\n\n// Test Configuration\npublic class TestStartup\n{\n    public void ConfigureServices(IServiceCollection services)\n    {\n        services.AddDbContext<AppDbContext>(options =>\n            options.UseInMemoryDatabase("TestDb"));\n        // Register test services\n    }\n}`, codeLabel: 'Testing Examples', keyPoints: ['Unit tests isolate components with mocks.', 'Integration tests verify end-to-end functionality.', 'Use WebApplicationFactory for API testing.', 'In-memory databases for fast integration tests.', 'CI/CD should run tests automatically.'] },
-      { title: 'Best Practices & Code Standards', content: `**Never expose database entities directly** in API responses — always use **DTOs** (Data Transfer Objects) to control the shape of your API. This prevents leaking internal structure, enables versioning, and decouples your API contract from your database schema.\n\n### Pagination & Collections\n\nAlways **paginate** collection endpoints. Returning unbounded collections is a performance and security risk — a table with millions of rows would crash the client and overload the server. Accept \`page\` and \`pageSize\` parameters and return total count with results.\n\n### Consistent Responses\n\nReturn proper **HTTP status codes**: \`200 OK\` for reads, \`201 Created\` for creates (with \`Location\` header), \`204 No Content\` for deletes, \`400\` for validation errors, \`404\` for missing resources. Use **Problem Details** (RFC 7807) for consistent error responses. Version your API (\`/api/v1/\`) from the start.\n\n### Security\n\n- Use HTTPS in production\n- Validate all inputs\n- Implement rate limiting\n- Log security events\n- Keep dependencies updated\n\n### Monitoring\n\n- Implement health checks\n- Add structured logging\n- Use correlation IDs\n- Monitor performance metrics\n- Set up alerts for errors`, code: `// DO: Use DTOs to control API shape\n[HttpGet("{id}")]\npublic async Task<ActionResult<UserDto>> GetUser(int id)\n{\n    var user = await _service.FindByIdAsync(id);\n    return user is null ? NotFound() : Ok(user.ToDto());\n}\n\n// DON'T: Expose database entities directly\n[HttpGet("{id}")]\npublic async Task<User> GetUser(int id)\n    => await _context.Users.FindAsync(id);\n\n// DO: Always paginate collection endpoints\n[HttpGet]\npublic async Task<ActionResult<PagedResult<UserDto>>> GetUsers(\n    [FromQuery] int page = 1,\n    [FromQuery] int pageSize = 20)\n{\n    var result = await _service.GetPagedAsync(page, pageSize);\n    return Ok(result);\n}\n\n// DON'T: Return unbounded collections\n[HttpGet]\npublic async Task<List<User>> GetAll()\n    => await _context.Users.ToListAsync();\n\n// DO: Proper HTTP status codes\n[HttpPost]\npublic async Task<ActionResult<UserDto>> Create(CreateUserDto dto)\n{\n    var user = await _service.CreateAsync(dto);\n    return CreatedAtAction(\n        nameof(GetUser), new { id = user.Id }, user.ToDto());\n}\n\n// Health Checks\nbuilder.Services.AddHealthChecks()\n    .AddDbContextCheck<AppDbContext>()\n    .AddRedis(builder.Configuration.GetConnectionString("Redis")!);\n\napp.MapHealthChecks("/health");\n\n// Structured Logging\n_logger.LogInformation("User {UserId} accessed resource {ResourceId}", userId, resourceId);`, codeLabel: 'Best Practices', keyPoints: ['Never expose database entities — use DTOs for all API responses.', 'Always paginate collection endpoints to prevent unbounded queries.', 'Return proper HTTP status codes (201 Created, 204 No Content, etc.).', 'Version your API from the start to avoid breaking existing clients.', 'Implement health checks and structured logging.', 'Use HTTPS, validate inputs, and keep dependencies updated.'] }
-    ]
-  };
+export const dotnetApiCourse = {
+  id: 'dotnet-api',
+  title: '.NET Core Web API',
+  description: 'Build high-performance RESTful APIs with C# and .NET 10, featuring Entity Framework Core and ADO.NET data access, JWT authentication, rate limiting, security headers, and 100% test coverage.',
+  officialDocs: 'https://learn.microsoft.com/en-us/aspnet/core/web-api/',
+  tutorialLink: 'https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api',
+  exerciseLink: null,
+  sections: [
+    {
+      title: 'What is ASP.NET Core Web API',
+      image: '/images/dotnet-api/dotnet-api-overview.svg',
+      content: `**ASP.NET Core Web API** is a framework for building HTTP-based RESTful services using C#. It is cross-platform, high-performance, and consistently benchmarks among the **fastest web frameworks** globally.
+
+### .NET 10 Features
+
+.NET 10 introduces **Native AOT** for faster startup, improved performance with span-based memory management, and enhanced C# features like records, primary constructors, and pattern matching.
+
+### Two API Styles
+
+Modern ASP.NET Core uses **Controller-based APIs** (structured, attribute-routed) or **Minimal APIs** (less boilerplate). It provides built-in middleware for authentication, CORS, exception handling, and **OpenAPI** documentation.
+
+### Repository–Service–Controller Pattern
+
+\`\`\`text
+HTTP Request
+  → Controller (validates & delegates)
+    → Service (business logic, DTO ↔ Entity mapping)
+      → Repository (data access — EF Core or ADO.NET)
+        → Database (PostgreSQL)
+\`\`\`
+
+### Two Data Access Strategies
+
+This project demonstrates both **Entity Framework Core** (ORM) and **raw ADO.NET / Npgsql** (manual SQL) for data access, allowing you to compare approaches and choose based on your requirements.`,
+      keyPoints: [
+        'One of the fastest web frameworks benchmarked.',
+        'Cross-platform: runs on Windows, macOS, Linux.',
+        'Controller-based APIs with attribute routing.',
+        'Repository–Service–Controller pattern for clean architecture.',
+        'Built-in OpenAPI/Swagger documentation.',
+        'Supports both EF Core and ADO.NET data access.'
+      ]
+    },
+
+    {
+      title: 'Prerequisites & Installation',
+      image: '/images/dotnet-api/installation.svg',
+      content: `### Prerequisites
+
+| Tool | Version | Purpose |
+|---|---|---|
+| **.NET 10 SDK** | 10.0+ | Build & run the API |
+| **PostgreSQL** | 14+ | Database (or use Supabase cloud) |
+| **Docker Desktop** | Latest | Container deployment & integration tests |
+| **Visual Studio 2022** or **VS Code** | Latest | IDE |
+| **dotnet-reportgenerator** | 5.x | Code coverage HTML reports |
+
+### Install .NET 10 SDK
+
+\`\`\`powershell
+# Using winget
+winget install Microsoft.DotNet.SDK.10
+
+# Verify
+dotnet --version   # 10.0.xxx
+dotnet --list-sdks # List all installed SDKs
+\`\`\`
+
+### Global Tools
+
+\`\`\`powershell
+# Entity Framework Core CLI
+dotnet tool install --global dotnet-ef
+
+# Code coverage report generator
+dotnet tool install -g dotnet-reportgenerator-globaltool
+
+# HTTPS development certificate
+dotnet dev-certs https --trust
+\`\`\`
+
+### VS Code Extensions
+
+- ms-dotnettools.csharp — C# language support
+- ms-dotnettools.csdevkit — C# Dev Kit
+- patcx.vscode-nuget-gallery — NuGet package browser
+- humao.rest-client — HTTP request testing`,
+      keyPoints: [
+        'Install .NET 10 SDK via winget or Visual Studio.',
+        'PostgreSQL 14+ for the database (or Supabase cloud).',
+        'Docker Desktop for containerized deployment and integration tests.',
+        'Install dotnet-ef and reportgenerator global tools.',
+        'Trust HTTPS certificate for development.'
+      ]
+    },
+
+    {
+      title: 'Project Creation & Structure',
+      image: '/images/dotnet-api/project-structure.svg',
+      content: `### Create the Project
+
+\`\`\`powershell
+dotnet new webapi -n dot-net-core-rest-api -controllers
+cd dot-net-core-rest-api
+\`\`\`
+
+### Install NuGet Packages
+
+\`\`\`powershell
+# Main Project
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+dotnet add package System.ComponentModel.Annotations
+dotnet add package Microsoft.AspNetCore.OpenApi
+
+# Test Project
+cd Tests
+dotnet add package Moq
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+dotnet add package Microsoft.AspNetCore.Mvc.Testing
+dotnet add package Testcontainers.PostgreSql
+dotnet add package System.IdentityModel.Tokens.Jwt
+dotnet add package coverlet.msbuild
+dotnet add package coverlet.collector
+\`\`\`
+
+### Project Structure
+
+\`\`\`text
+dot-net-core-rest-api/
+├── Controllers/
+│   ├── CategoriesController.cs          # EF Core endpoints (JWT-protected)
+│   └── SubCategoriesController.cs       # ADO.NET endpoints (JWT-protected)
+├── Data/
+│   ├── AppDbContext.cs                   # EF Core DbContext
+│   └── Configurations/
+│       └── CategoryConfiguration.cs     # Fluent API table mapping
+├── Dtos/
+│   ├── CategoryDtos.cs                  # Category request/response records
+│   └── SubCategoryDtos.cs              # SubCategory request/response records
+├── Entities/
+│   ├── Category.cs                      # Category domain model
+│   └── SubCategory.cs                   # SubCategory domain model
+├── Migrations/
+│   ├── 000_create_categories.sql        # Categories table DDL
+│   └── 001_create_sub_categories.sql    # SubCategories table DDL
+├── Repositories/
+│   ├── ICategoryRepository.cs           # Category repository interface
+│   ├── CategoryRepository.cs            # EF Core implementation
+│   ├── ISubCategoryRepository.cs        # SubCategory repository interface
+│   └── SubCategoryRepository.cs         # ADO.NET / Npgsql implementation
+├── Services/
+│   ├── ICategoryService.cs              # Category service interface
+│   ├── CategoryService.cs               # Business logic + DTO mapping
+│   ├── ISubCategoryService.cs           # SubCategory service interface
+│   └── SubCategoryService.cs            # Business logic + DTO mapping
+├── Tests/
+│   ├── CategoriesControllerTests.cs     # Controller unit tests
+│   ├── CategoryServiceTests.cs          # Service unit tests
+│   ├── CategoryRepositoryTests.cs       # Repository unit tests (InMemory)
+│   ├── SubCategoryRepositoryTests.cs    # Repository integration tests
+│   ├── CategoriesIntegrationTests.cs    # Full-stack integration tests
+│   ├── IntegrationTestFactory.cs        # WebApplicationFactory + Testcontainers
+│   └── dot-net-core-rest-api.Tests.csproj
+├── Program.cs                           # Entry point, DI, middleware, security
+├── appsettings.json                     # Configuration (JWT, CORS, DB)
+├── Dockerfile                           # Multi-stage Docker build
+└── dot-net-core-rest-api.csproj
+\`\`\``,
+      keyPoints: [
+        'Use dotnet new webapi -controllers for controller-based API.',
+        'Separate layers: Controllers, Services, Repositories, Entities, DTOs.',
+        'Two repository implementations: EF Core (Category) and ADO.NET (SubCategory).',
+        'Tests folder mirrors the main project structure.',
+        'SQL migrations in Migrations/ folder for manual DDL.'
+      ]
+    },
+
+    {
+      title: 'Entities & DTOs',
+      content: `**Entities** represent database tables. **DTOs** (Data Transfer Objects) use C# \`record\` types for immutability and control what data is exposed at the API boundary.
+
+### Entities
+
+\`\`\`csharp
+// Entities/Category.cs
+namespace dot_net_core_rest_api.Entities;
+
+public class Category
+{
+    public int Id { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+}
+
+// Entities/SubCategory.cs
+public class SubCategory
+{
+    public int Id { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public string Code { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public int CategoryId { get; set; }
+}
+\`\`\`
+
+### DTOs with Validation
+
+DTOs use validation attributes to enforce constraints at the API boundary **before reaching the service layer**. This prevents over-posting and data injection.
+
+\`\`\`csharp
+// Dtos/CategoryDtos.cs
+using System.ComponentModel.DataAnnotations;
+
+namespace dot_net_core_rest_api.Dtos;
+
+public record CategoryDto(
+    int Id, DateTime CreatedAt, string Code, string Name
+);
+
+public record CreateCategoryRequest(
+    [Required, StringLength(50, MinimumLength = 1)] string Code,
+    [Required, StringLength(200, MinimumLength = 1)] string Name
+);
+
+public record UpdateCategoryRequest(
+    [StringLength(50)] string? Code,
+    [StringLength(200)] string? Name
+);
+\`\`\`
+
+\`\`\`csharp
+// Dtos/SubCategoryDtos.cs
+public record SubCategoryDto(
+    int Id, DateTime CreatedAt, string Code,
+    string Name, int CategoryId
+);
+
+public record CreateSubCategoryRequest(
+    [Required, StringLength(50, MinimumLength = 1)] string Code,
+    [Required, StringLength(200, MinimumLength = 1)] string Name,
+    [Range(1, int.MaxValue)] int CategoryId
+);
+
+public record UpdateSubCategoryRequest(
+    [StringLength(50)] string? Code,
+    [StringLength(200)] string? Name,
+    [Range(1, int.MaxValue)] int? CategoryId
+);
+\`\`\`
+
+### Why DTOs Matter
+
+| Concern | Without DTOs | With DTOs |
+|---|---|---|
+| **Over-posting** | Client sends extra fields that update unintended columns | Only declared fields are accepted |
+| **Data exposure** | Internal IDs, timestamps, foreign keys leak to client | API shape is controlled explicitly |
+| **Validation** | Validation mixed into entity or controller logic | Attributes on DTO enforce constraints at boundary |
+| **Versioning** | Entity changes break all clients | DTOs decouple API contract from database schema |`,
+      keyPoints: [
+        'Entities map to database tables — internal objects.',
+        'DTOs use C# record types for immutability and value equality.',
+        'Validation attributes enforce constraints at the API boundary.',
+        'DTOs prevent over-posting and control API response shape.',
+        'UpdateRequest uses nullable fields for partial updates.'
+      ]
+    },
+
+    {
+      title: 'Database Configuration',
+      content: `### Connection String
+
+Configure the PostgreSQL connection in \`appsettings.json\`:
+
+\`\`\`json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=mydb;Username=postgres;Password=SET_VIA_ENV_VAR"
+  }
+}
+\`\`\`
+
+> **Security:** Never commit passwords. Use environment variables or \`dotnet user-secrets\`.
+
+### DbContext
+
+\`\`\`csharp
+// Data/AppDbContext.cs
+using dot_net_core_rest_api.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace dot_net_core_rest_api.Data;
+
+public class AppDbContext(DbContextOptions<AppDbContext> options)
+    : DbContext(options)
+{
+    public DbSet<Category> Categories => Set<Category>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            typeof(AppDbContext).Assembly
+        );
+    }
+}
+\`\`\`
+
+### Fluent API Configuration
+
+\`\`\`csharp
+// Data/Configurations/CategoryConfiguration.cs
+public class CategoryConfiguration
+    : IEntityTypeConfiguration<Category>
+{
+    public void Configure(EntityTypeBuilder<Category> builder)
+    {
+        builder.ToTable("categories");
+
+        builder.HasKey(c => c.Id);
+        builder.Property(c => c.Id)
+            .HasColumnName("id")
+            .ValueGeneratedOnAdd();
+        builder.Property(c => c.CreatedAt)
+            .HasColumnName("created_at")
+            .HasColumnType("timestamptz")
+            .HasDefaultValueSql("now()");
+        builder.Property(c => c.Code)
+            .HasColumnName("code")
+            .HasColumnType("varchar")
+            .IsRequired();
+        builder.Property(c => c.Name)
+            .HasColumnName("name")
+            .HasColumnType("varchar")
+            .IsRequired();
+
+        builder.HasIndex(c => c.Code).IsUnique();
+        builder.HasIndex(c => c.Name).IsUnique();
+    }
+}
+\`\`\`
+
+### SQL Migrations
+
+\`\`\`sql
+-- Migrations/000_create_categories.sql
+CREATE TABLE IF NOT EXISTS categories (
+    id          SERIAL PRIMARY KEY,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+    code        VARCHAR     NOT NULL UNIQUE,
+    name        VARCHAR     NOT NULL UNIQUE
+);
+
+-- Migrations/001_create_sub_categories.sql
+CREATE TABLE IF NOT EXISTS sub_categories (
+    id          SERIAL PRIMARY KEY,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+    code        VARCHAR     NOT NULL UNIQUE,
+    name        VARCHAR     NOT NULL UNIQUE,
+    category_id INT         NOT NULL REFERENCES categories(id)
+                            ON DELETE CASCADE
+);
+\`\`\``,
+      keyPoints: [
+        'DbContext manages database connections and entity tracking.',
+        'Fluent API maps C# PascalCase to PostgreSQL snake_case columns.',
+        'ValueGeneratedOnAdd() lets PostgreSQL generate id and timestamps.',
+        'Unique indexes enforce code and name uniqueness.',
+        'SQL migrations provide manual DDL for table creation.'
+      ]
+    },
+
+    {
+      title: 'Data Access — Entity Framework Core',
+      image: '/images/dotnet-api/ef-core.svg',
+      content: `The Category repository uses **Entity Framework Core** with \`AppDbContext\`. EF Core tracks changes, generates SQL automatically, and manages connection lifetimes.
+
+### Request Flow
+
+\`\`\`text
+HTTP Request
+  → Controller (validates & delegates)
+    → Service (business logic, DTO ↔ Entity mapping)
+      → Repository (EF Core DbContext)
+        → DbContext.SaveChangesAsync()
+          → PostgreSQL
+\`\`\`
+
+### Repository Interface
+
+\`\`\`csharp
+public interface ICategoryRepository
+{
+    Task<List<Category>> GetAllAsync(CancellationToken ct);
+    Task<Category?> GetByIdAsync(int id, CancellationToken ct);
+    Task<Category> CreateAsync(Category category, CancellationToken ct);
+    Task UpdateAsync(Category category, CancellationToken ct);
+    Task<bool> DeleteAsync(int id, CancellationToken ct);
+}
+\`\`\`
+
+### Repository Implementation
+
+\`\`\`csharp
+public class CategoryRepository(AppDbContext db)
+    : ICategoryRepository
+{
+    public async Task<List<Category>> GetAllAsync(CancellationToken ct)
+        => await db.Categories
+            .AsNoTracking()
+            .OrderBy(c => c.Name)
+            .ToListAsync(ct);
+
+    public async Task<Category?> GetByIdAsync(
+        int id, CancellationToken ct)
+        => await db.Categories
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == id, ct);
+
+    public async Task<Category> CreateAsync(
+        Category category, CancellationToken ct)
+    {
+        db.Categories.Add(category);
+        await db.SaveChangesAsync(ct);
+        return category;
+    }
+
+    public async Task UpdateAsync(
+        Category category, CancellationToken ct)
+    {
+        db.Categories.Update(category);
+        await db.SaveChangesAsync(ct);
+    }
+
+    public async Task<bool> DeleteAsync(
+        int id, CancellationToken ct)
+    {
+        var category = await db.Categories.FindAsync([id], ct);
+        if (category is null) return false;
+        db.Categories.Remove(category);
+        await db.SaveChangesAsync(ct);
+        return true;
+    }
+}
+\`\`\`
+
+### Key EF Core Features
+
+| Feature | Purpose |
+|---|---|
+| \`AsNoTracking()\` | Disables change tracking for read-only queries (better performance) |
+| \`SaveChangesAsync()\` | Wraps all pending changes in a database transaction automatically |
+| \`ValueGeneratedOnAdd()\` | Lets PostgreSQL generate \`id\` and \`created_at\` values |
+| Fluent API | Maps C# PascalCase properties to PostgreSQL snake_case columns |
+| LINQ queries | Type-safe queries translated to SQL at runtime |`,
+      keyPoints: [
+        'EF Core tracks changes and generates SQL automatically.',
+        'AsNoTracking() improves performance for read-only queries.',
+        'SaveChangesAsync() wraps changes in a transaction automatically.',
+        'Repository pattern abstracts data access behind interfaces.',
+        'Primary constructor injection (C# 12) reduces boilerplate.'
+      ]
+    },
+
+    {
+      title: 'Data Access — ADO.NET / Npgsql',
+      content: `The SubCategory repository uses **raw ADO.NET** via \`NpgsqlDataSource\` and \`NpgsqlCommand\` with **parameterized queries** to prevent SQL injection. This provides full control over the SQL being executed.
+
+### Request Flow
+
+\`\`\`text
+HTTP Request
+  → Controller (validates & delegates)
+    → Service (business logic, DTO ↔ Entity mapping)
+      → Repository (NpgsqlDataSource → NpgsqlCommand)
+        → cmd.Parameters.AddWithValue("@param", value)  ← parameterized
+        → cmd.ExecuteReaderAsync() / cmd.ExecuteNonQueryAsync()
+          → PostgreSQL
+\`\`\`
+
+### How Parameterized Queries Work
+
+\`\`\`csharp
+// DANGEROUS — SQL injection vulnerability
+var sql = $"SELECT * FROM sub_categories WHERE id = {id}";
+
+// SAFE — Parameterized query
+const string sql = "SELECT * FROM sub_categories WHERE id = @id";
+cmd.Parameters.AddWithValue("id", id);
+\`\`\`
+
+The database engine receives the SQL structure and parameter values independently, making it **impossible to inject malicious SQL**.
+
+### Transaction / Commit / Rollback Pattern
+
+For operations that need **atomicity** (multiple statements that must all succeed or all fail), use explicit transactions:
+
+\`\`\`csharp
+await using var conn = await dataSource.OpenConnectionAsync(ct);
+await using var transaction =
+    await conn.BeginTransactionAsync(ct);
+
+try
+{
+    await using var cmd1 = new NpgsqlCommand(
+        "INSERT INTO orders (customer_id, total) "
+        + "VALUES (@customerId, @total) RETURNING id",
+        conn, transaction);
+    cmd1.Parameters.AddWithValue("customerId", customerId);
+    cmd1.Parameters.AddWithValue("total", orderTotal);
+    var orderId = (int)(await cmd1.ExecuteScalarAsync(ct))!;
+
+    // Insert each order item
+    foreach (var item in orderItems)
+    {
+        await using var cmd2 = new NpgsqlCommand(
+            "INSERT INTO order_items "
+            + "(order_id, product_id, quantity, price) "
+            + "VALUES (@orderId, @productId, @qty, @price)",
+            conn, transaction);
+        cmd2.Parameters.AddWithValue("orderId", orderId);
+        cmd2.Parameters.AddWithValue("productId", item.ProductId);
+        cmd2.Parameters.AddWithValue("qty", item.Quantity);
+        cmd2.Parameters.AddWithValue("price", item.Price);
+        await cmd2.ExecuteNonQueryAsync(ct);
+    }
+
+    await transaction.CommitAsync(ct);   // ✅ All succeed
+}
+catch
+{
+    await transaction.RollbackAsync(ct); // ❌ All rolled back
+    throw;
+}
+\`\`\`
+
+### Repository Implementation
+
+\`\`\`csharp
+public class SubCategoryRepository(NpgsqlDataSource dataSource)
+    : ISubCategoryRepository
+{
+    public async Task<SubCategory?> GetByIdAsync(
+        int id, CancellationToken ct)
+    {
+        const string sql = """
+            SELECT id, created_at, code, name, category_id
+            FROM sub_categories WHERE id = @id
+            """;
+
+        await using var conn =
+            await dataSource.OpenConnectionAsync(ct);
+        await using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("id", id);
+        await using var reader =
+            await cmd.ExecuteReaderAsync(ct);
+
+        return await reader.ReadAsync(ct)
+            ? MapRow(reader)
+            : null;
+    }
+
+    public async Task<SubCategory> CreateAsync(
+        SubCategory sub, CancellationToken ct)
+    {
+        const string sql = """
+            INSERT INTO sub_categories
+                (code, name, category_id, created_at)
+            VALUES (@code, @name, @categoryId, @createdAt)
+            RETURNING id, created_at
+            """;
+
+        await using var conn =
+            await dataSource.OpenConnectionAsync(ct);
+        await using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("code", sub.Code);
+        cmd.Parameters.AddWithValue("name", sub.Name);
+        cmd.Parameters.AddWithValue("categoryId", sub.CategoryId);
+        cmd.Parameters.AddWithValue("createdAt", sub.CreatedAt);
+        await using var reader =
+            await cmd.ExecuteReaderAsync(ct);
+
+        if (await reader.ReadAsync(ct))
+        {
+            sub.Id = reader.GetInt32(0);
+            sub.CreatedAt = reader.GetDateTime(1);
+        }
+        return sub;
+    }
+
+    private static SubCategory MapRow(NpgsqlDataReader reader)
+        => new()
+    {
+        Id         = reader.GetInt32(0),
+        CreatedAt  = reader.GetDateTime(1),
+        Code       = reader.GetString(2),
+        Name       = reader.GetString(3),
+        CategoryId = reader.GetInt32(4)
+    };
+}
+\`\`\`
+
+### Key ADO.NET Features
+
+| Feature | Purpose |
+|---|---|
+| \`NpgsqlDataSource\` | Connection pool managed by Npgsql (registered as Singleton) |
+| \`Parameters.AddWithValue()\` | Parameterized queries preventing SQL injection |
+| \`RETURNING\` clause | Retrieves server-generated values in the same round-trip |
+| Manual \`NpgsqlDataReader\` | Full control over how rows become objects |
+| \`BeginTransactionAsync()\` | Explicit transactions for atomicity |`,
+      keyPoints: [
+        'ADO.NET provides full SQL control with NpgsqlDataSource.',
+        'Always use parameterized queries — never concatenate user input into SQL.',
+        'Use BeginTransaction / Commit / Rollback for multi-statement atomicity.',
+        'RETURNING clause retrieves server-generated values in one round-trip.',
+        'NpgsqlDataSource is registered as Singleton for connection pooling.'
+      ]
+    },
+
+    {
+      title: 'EF Core vs ADO.NET Comparison',
+      content: `Both data access strategies are used in this project. Choose based on your specific requirements.
+
+### Feature Comparison
+
+| Aspect | Entity Framework Core | ADO.NET / Npgsql |
+|---|---|---|
+| **Abstraction Level** | High — LINQ queries, change tracking | Low — raw SQL strings |
+| **SQL Control** | Generated automatically | Written manually |
+| **SQL Injection Protection** | Built-in (parameterized by default) | Manual — must use \`Parameters.AddWithValue()\` |
+| **Transaction Management** | Automatic via \`SaveChangesAsync()\` | Manual — \`BeginTransaction\` / \`Commit\` / \`Rollback\` |
+| **Performance** | Slight overhead (tracking, LINQ translation) | Minimal overhead (direct SQL execution) |
+| **Connection Management** | Managed by DbContext (Scoped lifetime) | Manual via \`NpgsqlDataSource\` (Singleton) |
+| **Mapping** | Automatic (Fluent API / conventions) | Manual (\`NpgsqlDataReader\` → entity) |
+| **Migration Support** | Built-in EF migrations | Manual SQL scripts |
+| **Learning Curve** | Lower (C# LINQ) | Higher (must know SQL) |
+| **Best For** | Standard CRUD, rapid development | Complex queries, performance-critical paths |
+| **Used By (this project)** | \`CategoryRepository\` | \`SubCategoryRepository\` |
+
+### When to Use Which
+
+- **EF Core** — Default choice for most CRUD operations. Saves development time, prevents common mistakes, and the performance overhead is negligible for typical workloads.
+- **ADO.NET** — Use when you need full SQL control: complex joins, CTEs, bulk operations, calling stored procedures, or when microsecond-level performance matters.
+
+### Transaction Comparison
+
+\`\`\`csharp
+// EF Core — Automatic transaction
+db.Categories.Add(category1);
+db.Categories.Add(category2);
+await db.SaveChangesAsync(ct); // Both wrapped in one transaction
+
+// ADO.NET — Manual transaction
+await using var transaction =
+    await conn.BeginTransactionAsync(ct);
+try
+{
+    // Multiple INSERT/UPDATE commands...
+    await transaction.CommitAsync(ct);
+}
+catch
+{
+    await transaction.RollbackAsync(ct);
+    throw;
+}
+\`\`\``,
+      keyPoints: [
+        'EF Core — high-level ORM with automatic SQL and change tracking.',
+        'ADO.NET — low-level with full SQL control and manual mapping.',
+        'EF Core: automatic transactions via SaveChangesAsync().',
+        'ADO.NET: manual BeginTransaction / Commit / Rollback.',
+        'Use EF Core for standard CRUD; ADO.NET for complex queries and bulk operations.'
+      ]
+    },
+
+    {
+      title: 'Services & Controllers',
+      content: `The **Service layer** contains business logic, maps between Entities and DTOs, and depends only on repository interfaces. **Controllers** handle HTTP requests, apply authorization, and delegate to services.
+
+### Service Implementation
+
+\`\`\`csharp
+public class CategoryService(
+    ICategoryRepository repository,
+    ILogger<CategoryService> logger) : ICategoryService
+{
+    public async Task<List<CategoryDto>> GetAllAsync(
+        CancellationToken ct)
+    {
+        var categories = await repository.GetAllAsync(ct);
+        return categories.Select(ToDto).ToList();
+    }
+
+    public async Task<CategoryDto?> GetByIdAsync(
+        int id, CancellationToken ct)
+    {
+        var category = await repository.GetByIdAsync(id, ct);
+        return category is null ? null : ToDto(category);
+    }
+
+    public async Task<CategoryDto> CreateAsync(
+        CreateCategoryRequest request, CancellationToken ct)
+    {
+        var category = new Category
+        {
+            Code = request.Code,
+            Name = request.Name,
+            CreatedAt = DateTime.UtcNow
+        };
+        await repository.CreateAsync(category, ct);
+        logger.LogInformation(
+            "Category created: {Id} {Code}",
+            category.Id, category.Code);
+        return ToDto(category);
+    }
+
+    private static CategoryDto ToDto(Category c)
+        => new(c.Id, c.CreatedAt, c.Code, c.Name);
+}
+\`\`\`
+
+### Controller Implementation
+
+\`\`\`csharp
+[ApiController]
+[Route("api/[controller]")]
+[Authorize]
+public class CategoriesController(
+    ICategoryService categoryService) : ControllerBase
+{
+    [HttpGet]
+    [AllowAnonymous]
+    [ProducesResponseType<List<CategoryDto>>(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll(CancellationToken ct)
+    {
+        var categories =
+            await categoryService.GetAllAsync(ct);
+        return Ok(categories);
+    }
+
+    [HttpGet("{id}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetById(
+        int id, CancellationToken ct)
+    {
+        var category =
+            await categoryService.GetByIdAsync(id, ct);
+        return category is null ? NotFound() : Ok(category);
+    }
+
+    [HttpPost]
+    [ProducesResponseType<CategoryDto>(StatusCodes.Status201Created)]
+    [ProducesResponseType<ValidationProblemDetails>(
+        StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Create(
+        CreateCategoryRequest request, CancellationToken ct)
+    {
+        var category =
+            await categoryService.CreateAsync(request, ct);
+        return CreatedAtAction(
+            nameof(GetById),
+            new { id = category.Id },
+            category);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(
+        int id, UpdateCategoryRequest request,
+        CancellationToken ct)
+    {
+        var updated =
+            await categoryService.UpdateAsync(id, request, ct);
+        return updated is null ? NotFound() : Ok(updated);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(
+        int id, CancellationToken ct)
+    {
+        var deleted =
+            await categoryService.DeleteAsync(id, ct);
+        return deleted ? NoContent() : NotFound();
+    }
+}
+\`\`\`
+
+### Authorization Rules
+
+| Annotation | Scope | Effect |
+|---|---|---|
+| \`[Authorize]\` on class | All endpoints | Require valid JWT by default |
+| \`[AllowAnonymous]\` | GET endpoints | Read operations are public |
+| No annotation | POST/PUT/DELETE | Require authentication |
+
+### API Endpoints
+
+| Method | URL | Auth | Description |
+|---|---|---|---|
+| \`GET\` | \`/api/categories\` | Public | Get all categories |
+| \`GET\` | \`/api/categories/{id}\` | Public | Get by ID |
+| \`POST\` | \`/api/categories\` | JWT | Create category |
+| \`PUT\` | \`/api/categories/{id}\` | JWT | Update category |
+| \`DELETE\` | \`/api/categories/{id}\` | JWT | Delete category |
+| \`GET\` | \`/api/subcategories\` | Public | Get all subcategories |
+| \`GET\` | \`/api/subcategories/by-category/{categoryId}\` | Public | Get by category |
+| \`POST\` | \`/api/subcategories\` | JWT | Create subcategory |`,
+      keyPoints: [
+        'Services contain business logic and map Entity ↔ DTO.',
+        'Controllers handle HTTP, apply auth, delegate to services.',
+        '[Authorize] on class protects all endpoints; [AllowAnonymous] exempts reads.',
+        'Primary constructor injection (C# 12) reduces boilerplate.',
+        'ProducesResponseType documents expected status codes for OpenAPI.'
+      ]
+    },
+
+    {
+      title: 'Security — Authentication & Authorization',
+      image: '/images/dotnet-api/jwt-auth.svg',
+      content: `A comprehensive security implementation covering JWT authentication, authorization policies, CORS, rate limiting, security headers, and input validation.
+
+### JWT Bearer Authentication
+
+\`\`\`csharp
+builder.Services.AddAuthentication(
+    JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters =
+            new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer =
+                builder.Configuration["Jwt:Issuer"],
+            ValidAudience =
+                builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    builder.Configuration["Jwt:Key"]!))
+        };
+    });
+\`\`\`
+
+### Authorization Policies
+
+\`\`\`csharp
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly",
+        policy => policy.RequireRole("Admin"));
+    options.AddPolicy("ReadAccess",
+        policy => policy.RequireAuthenticatedUser());
+});
+\`\`\`
+
+### CORS — Allow Only Trusted Origins
+
+\`\`\`csharp
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowTrustedOrigins", policy =>
+    {
+        var origins = builder.Configuration
+            .GetSection("Cors:AllowedOrigins")
+            .Get<string[]>()
+            ?? ["http://localhost:3000"];
+        policy
+            .WithOrigins(origins)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+\`\`\`
+
+### Rate Limiting
+
+Fixed-window rate limiting per IP address: 100 requests per minute.
+
+\`\`\`csharp
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode =
+        StatusCodes.Status429TooManyRequests;
+    options.AddPolicy("fixed", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection
+                .RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 100,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+});
+\`\`\`
+
+### Security Headers Middleware
+
+\`\`\`csharp
+app.Use(async (context, next) =>
+{
+    var headers = context.Response.Headers;
+    headers["X-Content-Type-Options"] = "nosniff";
+    headers["X-Frame-Options"] = "DENY";
+    headers["Referrer-Policy"] =
+        "strict-origin-when-cross-origin";
+    headers["X-XSS-Protection"] = "1; mode=block";
+    await next();
+});
+\`\`\`
+
+| Header | Purpose |
+|---|---|
+| \`X-Content-Type-Options: nosniff\` | Prevents MIME-type sniffing |
+| \`X-Frame-Options: DENY\` | Prevents clickjacking via iframes |
+| \`Referrer-Policy\` | Limits referrer information leakage |
+| \`X-XSS-Protection\` | Legacy XSS filter (defense-in-depth) |
+
+### Security Checklist
+
+| Measure | Implementation |
+|---|---|
+| **HTTPS Enforcement** | \`app.UseHttpsRedirection()\` redirects HTTP → HTTPS |
+| **HSTS** | \`app.UseHsts()\` in production — browsers only use HTTPS |
+| **JWT Validation** | Validate issuer, audience, lifetime, and signing key |
+| **Role/Policy Authorization** | \`[Authorize(Policy = "AdminOnly")]\` on endpoints |
+| **Input Validation** | \`[Required]\`, \`[StringLength]\`, \`[Range]\` on all DTOs |
+| **DTO Pattern** | Prevents over-posting; controls exposed data |
+| **CORS** | Only trusted origins allowed |
+| **Rate Limiting** | 100 req/min per IP to block brute-force |
+| **Error Suppression** | \`app.UseExceptionHandler()\` hides stack traces in production |
+| **No Sensitive Logging** | Never log tokens, passwords, or PII |
+| **Security Headers** | HSTS, X-Content-Type-Options, X-Frame-Options |
+| **Parameterized Queries** | All ADO.NET uses \`Parameters.AddWithValue()\` |
+| **Remove Unused Endpoints** | Default WeatherForecast controller removed |
+| **Cookie Security** | \`HttpOnly\`, \`Secure\`, \`SameSite=Strict\` on all cookies |
+| **NuGet Updates** | Regularly update packages to fix vulnerabilities |`,
+      keyPoints: [
+        'Validate JWT issuer, audience, lifetime, and signing key.',
+        'Use role-based and policy-based authorization — not hardcoded values.',
+        'CORS allows only trusted origins — never use AllowAnyOrigin in production.',
+        'Rate limiting (100 req/min per IP) blocks brute-force attacks.',
+        'Security headers (HSTS, X-Frame-Options, nosniff) on every response.',
+        'Never log tokens, passwords, or sensitive user data.'
+      ]
+    },
+
+    {
+      title: 'Program.cs — DI & Middleware Pipeline',
+      image: '/images/dotnet-api/middleware-pipeline.svg',
+      content: `\`Program.cs\` is the entry point that configures dependency injection, middleware pipeline, and security. **Middleware order matters** — each component sees the request before passing it to the next.
+
+### Full Program.cs
+
+\`\`\`csharp
+using System.Threading.RateLimiting;
+using dot_net_core_rest_api.Data;
+using dot_net_core_rest_api.Repositories;
+using dot_net_core_rest_api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Npgsql;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// ── Database ──
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException(
+        "Database connection string not configured.");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(connectionString));
+builder.Services.AddSingleton(
+    NpgsqlDataSource.Create(connectionString));
+
+// ── DI — Repository → Service ──
+builder.Services
+    .AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services
+    .AddScoped<ICategoryService, CategoryService>();
+builder.Services
+    .AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+builder.Services
+    .AddScoped<ISubCategoryService, SubCategoryService>();
+
+// ── JWT Authentication ──
+builder.Services.AddAuthentication(
+    JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => { /* see Security section */ });
+
+// ── Authorization + CORS + Rate Limiting ──
+builder.Services.AddAuthorization();
+builder.Services.AddCors(/* ... */);
+builder.Services.AddRateLimiter(/* ... */);
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+
+var app = builder.Build();
+
+// ── Middleware Pipeline (order matters!) ──
+app.UseHttpsRedirection();           // HTTPS enforcement
+app.UseCors("AllowTrustedOrigins");  // CORS
+app.UseRateLimiter();                // Rate limiting
+app.UseAuthentication();             // Must come before Authorization
+app.UseAuthorization();
+
+// Security headers
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["X-Content-Type-Options"]
+        = "nosniff";
+    context.Response.Headers["X-Frame-Options"]
+        = "DENY";
+    await next();
+});
+
+app.MapControllers()
+    .RequireRateLimiting("fixed");
+
+app.Run();
+\`\`\`
+
+### Middleware Order
+
+| Order | Middleware | Purpose |
+|---|---|---|
+| 1 | \`UseHttpsRedirection\` | Redirect HTTP → HTTPS |
+| 2 | \`UseCors\` | Handle CORS preflight requests |
+| 3 | \`UseRateLimiter\` | Block excessive requests |
+| 4 | \`UseAuthentication\` | Validate JWT tokens |
+| 5 | \`UseAuthorization\` | Enforce [Authorize] attributes |
+| 6 | Security headers | X-Content-Type-Options, X-Frame-Options |
+| 7 | \`MapControllers\` | Route to controller actions |
+
+### Service Lifetimes
+
+| Lifetime | Used For | Example |
+|---|---|---|
+| **Transient** | Lightweight, stateless | Validators |
+| **Scoped** | Per-request | Repositories, Services, DbContext |
+| **Singleton** | Shared across all requests | NpgsqlDataSource, configuration |`,
+      keyPoints: [
+        'Middleware order matters — Authentication must come before Authorization.',
+        'DbContext is Scoped; NpgsqlDataSource is Singleton.',
+        'All services registered via DI with appropriate lifetimes.',
+        'HTTPS redirection, CORS, and rate limiting are early in pipeline.',
+        'Security headers applied via custom middleware.'
+      ]
+    },
+
+    {
+      title: 'Environment Variables & Secrets',
+      content: `All secrets must be provided via environment variables — **never committed to source control**.
+
+### Required Variables
+
+| Variable | Purpose | Example |
+|---|---|---|
+| \`ConnectionStrings__DefaultConnection\` | PostgreSQL connection string | \`Host=...;Password=...\` |
+| \`Jwt__Key\` | JWT signing key (min 32 characters) | \`my-super-secret-key-at-least-32-chars\` |
+| \`Jwt__Issuer\` | Token issuer claim | \`dot-net-core-rest-api\` |
+| \`Jwt__Audience\` | Token audience claim | \`dot-net-core-rest-api-clients\` |
+| \`Cors__AllowedOrigins__0\` | First allowed CORS origin | \`https://myapp.com\` |
+
+> **Note:** ASP.NET Core maps \`__\` (double underscore) in environment variables to \`:\` in configuration keys.
+
+### Local Development — User Secrets
+
+\`\`\`powershell
+# Initialize user secrets for the project
+dotnet user-secrets init
+
+# Set secrets (stored encrypted, not in source control)
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" \\
+    "Host=localhost;Port=5432;Database=mydb;Username=postgres;Password=secret"
+
+dotnet user-secrets set "Jwt:Key" \\
+    "my-local-dev-jwt-key-thats-at-least-32-characters-long"
+\`\`\`
+
+### Docker Environment Variables
+
+\`\`\`powershell
+docker run -d -p 8080:8080 \\
+  -e "ConnectionStrings__DefaultConnection=Host=..." \\
+  -e "Jwt__Key=production-jwt-key-at-least-32-chars" \\
+  -e "Jwt__Issuer=dot-net-core-rest-api" \\
+  -e "Jwt__Audience=dot-net-core-rest-api-clients" \\
+  dot-net-core-rest-api
+\`\`\`
+
+### IIS — web.config Environment Variables
+
+\`\`\`xml
+<aspNetCore processPath="dotnet"
+            arguments=".\\dot-net-core-rest-api.dll">
+  <environmentVariables>
+    <environmentVariable
+        name="ConnectionStrings__DefaultConnection"
+        value="Host=..." />
+    <environmentVariable
+        name="Jwt__Key"
+        value="..." />
+  </environmentVariables>
+</aspNetCore>
+\`\`\`
+
+### Configuration Precedence (highest wins)
+
+1. Environment variables
+2. User secrets (Development only)
+3. appsettings.{Environment}.json
+4. appsettings.json`,
+      keyPoints: [
+        'Never commit passwords or secrets to source control.',
+        'Use dotnet user-secrets for local development.',
+        'ASP.NET Core maps __ in env vars to : in config keys.',
+        'Docker: pass secrets via -e flags or Docker Compose environment.',
+        'IIS: set environment variables in web.config or IIS Manager.'
+      ]
+    },
+
+    {
+      title: 'Unit Testing',
+      image: '/images/dotnet-api/testing.svg',
+      content: `Unit tests verify individual components in isolation using **xUnit** + **Moq**. Each layer (Controller, Service, Repository) is tested independently by mocking its dependencies.
+
+### Test Structure
+
+| Test File | Layer | Technique | Tests |
+|---|---|---|---|
+| \`CategoriesControllerTests.cs\` | Controller | Mocks \`ICategoryService\` | 8 |
+| \`CategoryServiceTests.cs\` | Service | Mocks \`ICategoryRepository\` + \`ILogger\` | 9 |
+| \`CategoryRepositoryTests.cs\` | Repository | EF Core InMemory database | 7 |
+| \`SubCategoriesControllerTests.cs\` | Controller | Mocks \`ISubCategoryService\` | 10 |
+| \`SubCategoryServiceTests.cs\` | Service | Mocks \`ISubCategoryRepository\` + \`ILogger\` | 12 |
+| \`SubCategoryRepositoryTests.cs\` | Repository | Testcontainers (real PostgreSQL) | 10 |
+| \`DtoTests.cs\` | DTOs | Record equality, deconstruct, ToString | 12 |
+
+### Testing Strategy per Layer
+
+| Layer | Technique | Purpose |
+|---|---|---|
+| **Controller** | Mock the service interface | Assert HTTP status codes (Ok, NotFound, CreatedAtAction, NoContent) |
+| **Service** | Mock the repository interface | Assert DTO mapping, partial update logic, null handling |
+| **Repository (EF)** | \`UseInMemoryDatabase\` | Fast, isolated tests without real database |
+| **Repository (ADO.NET)** | **Testcontainers** | Spin up real PostgreSQL Docker container for accurate testing |
+
+### Controller Unit Test Example
+
+\`\`\`csharp
+public class CategoriesControllerTests
+{
+    private readonly Mock<ICategoryService> _mockService = new();
+    private readonly CategoriesController _controller;
+
+    public CategoriesControllerTests()
+    {
+        _controller = new CategoriesController(
+            _mockService.Object);
+    }
+
+    [Fact]
+    public async Task GetAll_ReturnsOk_WithCategories()
+    {
+        // Arrange
+        var categories = new List<CategoryDto>
+        {
+            new(1, DateTime.UtcNow, "ELEC", "Electronics"),
+            new(2, DateTime.UtcNow, "FOOD", "Food")
+        };
+        _mockService.Setup(s => s.GetAllAsync(
+            It.IsAny<CancellationToken>()))
+            .ReturnsAsync(categories);
+
+        // Act
+        var result = await _controller.GetAll(default);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        var returned =
+            Assert.IsType<List<CategoryDto>>(okResult.Value);
+        Assert.Equal(2, returned.Count);
+    }
+
+    [Fact]
+    public async Task GetById_NonExisting_ReturnsNotFound()
+    {
+        _mockService.Setup(s => s.GetByIdAsync(
+            999, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((CategoryDto?)null);
+
+        var result = await _controller.GetById(999, default);
+
+        Assert.IsType<NotFoundResult>(result);
+    }
+
+    [Fact]
+    public async Task Create_ValidRequest_ReturnsCreated()
+    {
+        var request = new CreateCategoryRequest("ELEC", "Electronics");
+        var dto = new CategoryDto(1, DateTime.UtcNow, "ELEC", "Electronics");
+        _mockService.Setup(s => s.CreateAsync(
+            request, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(dto);
+
+        var result = await _controller.Create(request, default);
+
+        var created =
+            Assert.IsType<CreatedAtActionResult>(result);
+        Assert.Equal(201, created.StatusCode);
+    }
+}
+\`\`\`
+
+### Service Unit Test Example
+
+\`\`\`csharp
+public class CategoryServiceTests
+{
+    private readonly Mock<ICategoryRepository> _mockRepo = new();
+    private readonly Mock<ILogger<CategoryService>> _mockLogger = new();
+    private readonly CategoryService _service;
+
+    public CategoryServiceTests()
+    {
+        _service = new CategoryService(
+            _mockRepo.Object, _mockLogger.Object);
+    }
+
+    [Fact]
+    public async Task CreateAsync_MapsRequestToEntity()
+    {
+        var request = new CreateCategoryRequest("ELEC", "Electronics");
+        _mockRepo.Setup(r => r.CreateAsync(
+            It.IsAny<Category>(),
+            It.IsAny<CancellationToken>()))
+            .ReturnsAsync((Category c, CancellationToken _) =>
+            {
+                c.Id = 1;
+                return c;
+            });
+
+        var result =
+            await _service.CreateAsync(request, default);
+
+        Assert.Equal("ELEC", result.Code);
+        Assert.Equal("Electronics", result.Name);
+        _mockRepo.Verify(r => r.CreateAsync(
+            It.IsAny<Category>(),
+            It.IsAny<CancellationToken>()),
+            Times.Once);
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ReturnsNull_WhenNotFound()
+    {
+        _mockRepo.Setup(r => r.GetByIdAsync(
+            999, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((Category?)null);
+
+        var result = await _service.GetByIdAsync(999, default);
+
+        Assert.Null(result);
+    }
+}
+\`\`\`
+
+### Repository Unit Test Example (EF Core InMemory)
+
+\`\`\`csharp
+public class CategoryRepositoryTests
+{
+    private AppDbContext CreateContext()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(
+                databaseName: Guid.NewGuid().ToString())
+            .Options;
+        return new AppDbContext(options);
+    }
+
+    [Fact]
+    public async Task CreateAsync_AddsCategory()
+    {
+        await using var context = CreateContext();
+        var repo = new CategoryRepository(context);
+        var category = new Category
+        {
+            Code = "ELEC",
+            Name = "Electronics",
+            CreatedAt = DateTime.UtcNow
+        };
+
+        var result =
+            await repo.CreateAsync(category, default);
+
+        Assert.True(result.Id > 0);
+        Assert.Equal("ELEC", result.Code);
+        Assert.Single(
+            await context.Categories.ToListAsync());
+    }
+}
+\`\`\``,
+      keyPoints: [
+        'Unit tests isolate each layer by mocking its dependencies.',
+        'Controller tests: mock service, assert HTTP status codes.',
+        'Service tests: mock repository, verify DTO mapping and business logic.',
+        'Repository tests: EF Core InMemory for fast isolated tests.',
+        'ADO.NET repository: Testcontainers with real PostgreSQL.',
+        'Follow Arrange–Act–Assert pattern in every test.'
+      ]
+    },
+
+    {
+      title: 'Integration Testing',
+      content: `Integration tests use \`WebApplicationFactory\` with **Testcontainers** to start the full ASP.NET Core application with a real PostgreSQL database in Docker.
+
+### IntegrationTestFactory
+
+\`\`\`csharp
+public class IntegrationTestFactory
+    : WebApplicationFactory<Program>, IAsyncLifetime
+{
+    private readonly PostgreSqlContainer _container =
+        new PostgreSqlBuilder("postgres:16-alpine").Build();
+
+    public async Task InitializeAsync()
+    {
+        await _container.StartAsync();
+        // Create tables, generate JWT token for auth
+    }
+
+    protected override void ConfigureWebHost(
+        IWebHostBuilder builder)
+    {
+        builder.UseSetting(
+            "ConnectionStrings:DefaultConnection",
+            _container.GetConnectionString());
+        builder.UseSetting("Jwt:Key", TestJwtKey);
+        // Replace DbContext and NpgsqlDataSource registrations
+    }
+
+    public async Task DisposeAsync()
+        => await _container.DisposeAsync();
+}
+\`\`\`
+
+### Full-Stack Integration Test
+
+\`\`\`csharp
+public class CategoriesIntegrationTests
+    : IClassFixture<IntegrationTestFactory>
+{
+    private readonly HttpClient _client;
+
+    public CategoriesIntegrationTests(
+        IntegrationTestFactory factory)
+    {
+        _client = factory.CreateClient();
+        _client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(
+                "Bearer", factory.GenerateTestToken());
+    }
+
+    [Fact]
+    public async Task CreateAndGet_Category_RoundTrip()
+    {
+        // Create
+        var request = new CreateCategoryRequest(
+            "INTEG", "Integration Test");
+        var createResponse = await _client.PostAsJsonAsync(
+            "/api/categories", request);
+        Assert.Equal(HttpStatusCode.Created,
+            createResponse.StatusCode);
+
+        var created = await createResponse
+            .Content.ReadFromJsonAsync<CategoryDto>();
+
+        // Get by ID
+        var getResponse = await _client.GetAsync(
+            $"/api/categories/{created!.Id}");
+        Assert.Equal(HttpStatusCode.OK,
+            getResponse.StatusCode);
+
+        var fetched = await getResponse
+            .Content.ReadFromJsonAsync<CategoryDto>();
+        Assert.Equal("INTEG", fetched!.Code);
+    }
+
+    [Fact]
+    public async Task Delete_NonExisting_Returns404()
+    {
+        var response = await _client.DeleteAsync(
+            "/api/categories/99999");
+        Assert.Equal(HttpStatusCode.NotFound,
+            response.StatusCode);
+    }
+}
+\`\`\`
+
+### Running Tests with Filters
+
+\`\`\`powershell
+cd Tests
+
+# Run all tests
+dotnet test
+
+# Run only unit tests (exclude integration)
+dotnet test --filter \\
+    "FullyQualifiedName!~Integration&FullyQualifiedName!~SubCategoryRepository"
+
+# Run a specific test class
+dotnet test --filter "CategoryServiceTests"
+
+# Run a specific test method
+dotnet test --filter "GetById_NonExistingId_ReturnsNotFound"
+
+# Run only integration tests (requires Docker)
+dotnet test --filter "Integration"
+
+# Run with verbose output
+dotnet test --verbosity detailed
+\`\`\``,
+      keyPoints: [
+        'WebApplicationFactory starts the full ASP.NET Core app for testing.',
+        'Testcontainers spins up real PostgreSQL in Docker — accurate testing.',
+        'JWT token is generated in the test factory for authenticated endpoints.',
+        'Use --filter to run specific test classes, methods, or categories.',
+        'Integration tests verify end-to-end flow: HTTP → Controller → Service → DB.'
+      ]
+    },
+
+    {
+      title: 'Code Coverage Report',
+      content: `Generate code coverage reports to measure test completeness and enforce quality in CI.
+
+### Generate Coverage Report
+
+\`\`\`powershell
+cd Tests
+
+# 1. Run tests with coverage collection
+dotnet test /p:CollectCoverage=true \\
+  /p:CoverletOutputFormat=cobertura \\
+  /p:CoverletOutput=./coverage/ \\
+  /p:Include="[dot-net-core-rest-api]*"
+
+# 2. Install report generator (one-time)
+dotnet tool install -g dotnet-reportgenerator-globaltool
+
+# 3. Generate HTML report
+reportgenerator \\
+  -reports:./coverage/coverage.cobertura.xml \\
+  -targetdir:./coverage/report \\
+  -reporttypes:Html
+
+# 4. Open the report
+start ./coverage/report/index.html    # Windows
+open ./coverage/report/index.html     # macOS
+\`\`\`
+
+### Coverage Exclusions
+
+Configure in the test \`.csproj\` to exclude non-testable code:
+
+\`\`\`xml
+<PropertyGroup>
+  <ExcludeByAttribute>
+    GeneratedCodeAttribute,CompilerGeneratedAttribute
+  </ExcludeByAttribute>
+  <ExcludeByFile>**/Program.cs</ExcludeByFile>
+</PropertyGroup>
+\`\`\`
+
+- \`Program.cs\` — entry point / configuration, not unit-testable
+- Generated code — auto-generated by EF Core, Swagger, etc.
+
+### CI Coverage Enforcement
+
+\`\`\`yaml
+# GitHub Actions — fail if coverage drops
+- name: Run tests with coverage
+  run: |
+    dotnet test /p:CollectCoverage=true \\
+      /p:CoverletOutputFormat=cobertura \\
+      /p:CoverletOutput=./coverage/ \\
+      /p:Threshold=80
+\`\`\`
+
+The \`/p:Threshold=80\` flag fails the build if line coverage drops below 80%.`,
+      keyPoints: [
+        'Use coverlet for code coverage with cobertura output format.',
+        'reportgenerator creates browsable HTML coverage reports.',
+        'Exclude Program.cs and generated code from coverage metrics.',
+        '/p:Threshold enforces minimum coverage percentage in CI.',
+        'Aim for 100% coverage on Services, Repositories, and Controllers.'
+      ]
+    },
+
+    {
+      title: 'API Verification — Swagger & Postman',
+      content: `### OpenAPI (Swagger)
+
+The API exposes an OpenAPI document at \`/openapi/v1.json\` in development mode.
+
+\`\`\`powershell
+# Start the API
+dotnet run
+
+# Fetch the OpenAPI spec
+curl http://localhost:5101/openapi/v1.json -o openapi.json
+\`\`\`
+
+To browse the API interactively with Swagger UI:
+
+\`\`\`powershell
+dotnet add package Swashbuckle.AspNetCore
+\`\`\`
+
+\`\`\`csharp
+// Program.cs
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// After app.Build():
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+\`\`\`
+
+Browse to \`http://localhost:5101/swagger\` to test endpoints interactively.
+
+### Postman Verification
+
+1. **Import**: File → Import → URL → \`http://localhost:5101/openapi/v1.json\`
+2. Postman auto-generates a collection with all endpoints
+3. Set up environment variable \`{{baseUrl}}\` = \`http://localhost:5101\`
+4. For protected endpoints, add \`Authorization: Bearer {{token}}\` in collection headers
+
+### VS Code REST Client
+
+Create an \`.http\` file in the project root:
+
+\`\`\`http
+### Get all categories (public)
+GET http://localhost:5101/api/categories
+
+### Create category (requires JWT)
+POST http://localhost:5101/api/categories
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "code": "ELEC",
+  "name": "Electronics"
+}
+
+### Get by ID
+GET http://localhost:5101/api/categories/1
+
+### Delete category (requires JWT)
+DELETE http://localhost:5101/api/categories/1
+Authorization: Bearer {{token}}
+\`\`\`
+
+### curl Verification
+
+\`\`\`powershell
+# Public — no auth needed
+curl http://localhost:5101/api/categories
+curl http://localhost:5101/api/subcategories/by-category/1
+
+# Protected — requires JWT
+curl -X POST http://localhost:5101/api/categories \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \\
+  -d '{"code": "ELEC", "name": "Electronics"}'
+\`\`\``,
+      keyPoints: [
+        'OpenAPI spec auto-generated at /openapi/v1.json.',
+        'Swagger UI provides interactive API testing in browser.',
+        'Import OpenAPI spec into Postman for collection generation.',
+        'VS Code REST Client (.http files) for quick endpoint testing.',
+        'Use curl for command-line API verification.'
+      ]
+    },
+
+    {
+      title: 'API Specification for Frontend Team',
+      content: `Share a machine-readable API specification with the frontend team to generate typed clients and ensure contract alignment.
+
+### Generate OpenAPI JSON
+
+\`\`\`powershell
+# Start the API and export the spec
+dotnet run &
+curl http://localhost:5101/openapi/v1.json -o docs/openapi.json
+\`\`\`
+
+### Generate TypeScript Client SDK
+
+\`\`\`powershell
+# Using openapi-generator-cli (npm)
+npx @openapitools/openapi-generator-cli generate \\
+  -i http://localhost:5101/openapi/v1.json \\
+  -g typescript-axios \\
+  -o ./frontend-sdk
+
+# Using NSwag (.NET tool)
+dotnet tool install -g NSwag.ConsoleCore
+nswag openapi2tsclient \\
+  /input:http://localhost:5101/openapi/v1.json \\
+  /output:api-client.ts
+\`\`\`
+
+### What to Share with Frontend Team
+
+| Artifact | Description |
+|---|---|
+| **\`openapi.json\`** | Machine-readable API spec (JSON) |
+| **\`api-client.ts\`** | Generated TypeScript SDK with typed request/response models |
+| **Postman Collection** | Exported from Postman (File → Export → Collection v2.1) |
+
+### Generated Client Usage (TypeScript)
+
+\`\`\`typescript
+// Auto-generated from OpenAPI spec
+import { CategoriesApi, Configuration } from './frontend-sdk';
+
+const api = new CategoriesApi(new Configuration({
+  basePath: 'http://localhost:5101',
+  accessToken: 'YOUR_JWT_TOKEN',
+}));
+
+// Fully typed — IDE autocomplete works
+const categories = await api.getAll();
+const created = await api.create({
+  code: 'ELEC',
+  name: 'Electronics',
+});
+\`\`\`
+
+This ensures the frontend team has **typed API contracts** that stay in sync with the backend.`,
+      keyPoints: [
+        'Export OpenAPI spec as openapi.json for machine-readable contract.',
+        'Use openapi-generator or NSwag to generate TypeScript client SDK.',
+        'Generated client provides typed request/response models.',
+        'Share openapi.json + generated SDK + Postman collection with frontend team.',
+        'Auto-generated SDK ensures frontend stays in sync with API changes.'
+      ]
+    },
+
+    {
+      title: 'Deployment — IIS',
+      content: `Deploy to **Internet Information Services (IIS)** on Windows Server with the ASP.NET Core Hosting Bundle.
+
+### Prerequisites
+
+- Windows Server with IIS installed
+- [.NET 10 Hosting Bundle](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) installed
+- IIS ASP.NET Core Module (ANCM) enabled
+
+### Steps
+
+\`\`\`powershell
+# 1. Publish the application
+dotnet publish -c Release -o ./publish
+\`\`\`
+
+2. **Create IIS Site:**
+   - Open IIS Manager → Add Website
+   - Physical Path: point to the \`publish\` folder
+   - Binding: set port (e.g., 80 or 443 with SSL certificate)
+
+3. **Configure Application Pool:**
+   - Set .NET CLR Version to **No Managed Code** (ASP.NET Core runs out-of-process)
+   - Set Start Mode to **AlwaysRunning** for production
+
+4. **Set Environment Variables** in IIS Manager → Site → Configuration Editor
+
+5. **Verify:**
+
+\`\`\`powershell
+curl https://your-server/api/categories
+\`\`\`
+
+### web.config (auto-generated by dotnet publish)
+
+\`\`\`xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <system.webServer>
+    <handlers>
+      <add name="aspNetCore"
+           path="*" verb="*"
+           modules="AspNetCoreModuleV2" />
+    </handlers>
+    <aspNetCore processPath="dotnet"
+                arguments=".\\dot-net-core-rest-api.dll"
+                stdoutLogEnabled="false"
+                hostingModel="InProcess">
+      <environmentVariables>
+        <environmentVariable
+            name="ASPNETCORE_ENVIRONMENT"
+            value="Production" />
+      </environmentVariables>
+    </aspNetCore>
+  </system.webServer>
+</configuration>
+\`\`\`
+
+### IIS Checklist
+
+| Step | Action |
+|---|---|
+| Install Hosting Bundle | .NET 10 Hosting Bundle includes ANCM |
+| Application Pool | .NET CLR = No Managed Code |
+| SSL Certificate | Bind HTTPS on port 443 |
+| Environment Variables | Set connection string, JWT key via IIS Manager |
+| Logging | Enable stdout logging for troubleshooting |`,
+      keyPoints: [
+        'Install .NET 10 Hosting Bundle on the Windows Server.',
+        'Application Pool: set .NET CLR Version to No Managed Code.',
+        'dotnet publish -c Release creates deployment-ready output.',
+        'Set environment variables in IIS Manager or web.config.',
+        'Use HTTPS binding with SSL certificate for production.'
+      ]
+    },
+
+    {
+      title: 'Deployment — Docker',
+      content: `Use **multi-stage Docker builds** for minimal, secure production images.
+
+### Dockerfile
+
+\`\`\`dockerfile
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["dot-net-core-rest-api.csproj", "."]
+RUN dotnet restore "./dot-net-core-rest-api.csproj"
+COPY . .
+RUN dotnet build "./dot-net-core-rest-api.csproj" \\
+    -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./dot-net-core-rest-api.csproj" \\
+    -c $BUILD_CONFIGURATION -o /app/publish \\
+    /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "dot-net-core-rest-api.dll"]
+\`\`\`
+
+### Build & Run
+
+\`\`\`powershell
+# Build the image
+docker build -t dot-net-core-rest-api .
+
+# Run with environment variables
+docker run -d -p 8080:8080 \\
+  -e "ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5432;Database=mydb;Username=postgres;Password=secret" \\
+  -e "Jwt__Key=production-jwt-signing-key-at-least-32-chars" \\
+  -e "Jwt__Issuer=dot-net-core-rest-api" \\
+  -e "Jwt__Audience=dot-net-core-rest-api-clients" \\
+  --name api \\
+  dot-net-core-rest-api
+
+# Verify
+curl http://localhost:8080/api/categories
+\`\`\`
+
+### Docker Compose (with PostgreSQL)
+
+\`\`\`yaml
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      ConnectionStrings__DefaultConnection: >-
+        Host=db;Port=5432;Database=appdb;
+        Username=postgres;Password=postgres
+      Jwt__Key: "production-jwt-key-at-least-32-chars"
+      Jwt__Issuer: "dot-net-core-rest-api"
+      Jwt__Audience: "dot-net-core-rest-api-clients"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+\`\`\`
+
+\`\`\`powershell
+docker compose up -d
+\`\`\`
+
+### Multi-Stage Build Benefits
+
+| Stage | Image | Size | Purpose |
+|---|---|---|---|
+| build | \`sdk:10.0\` | ~800MB | Compile and restore packages |
+| publish | \`sdk:10.0\` | ~800MB | Create optimized publish output |
+| final | \`aspnet:10.0\` | ~200MB | Runtime-only production image |`,
+      keyPoints: [
+        'Multi-stage Docker builds keep production images small (~200MB).',
+        'Pass secrets via environment variables, not build args.',
+        'Docker Compose orchestrates API + PostgreSQL together.',
+        'Use host.docker.internal to connect to host databases.',
+        'USER $APP_UID runs the container as non-root for security.'
+      ]
+    },
+
+    {
+      title: 'Design Patterns Used',
+      content: `### Patterns in This Project
+
+| Pattern | Where | Purpose |
+|---|---|---|
+| **Repository Pattern** | \`ICategoryRepository\` / \`CategoryRepository\`, \`ISubCategoryRepository\` / \`SubCategoryRepository\` | Abstracts data access; allows swapping EF Core ↔ ADO.NET without changing upper layers |
+| **Service Layer Pattern** | \`ICategoryService\` / \`CategoryService\`, \`ISubCategoryService\` / \`SubCategoryService\` | Contains business logic; maps between Entities and DTOs |
+| **Dependency Injection** | Constructor injection in all layers via \`Program.cs\` registrations | Loose coupling; testability via mocking interfaces |
+| **DTO Pattern** | \`CategoryDto\`, \`CreateCategoryRequest\`, \`UpdateCategoryRequest\` | Separates API contract from internal entities; prevents over-posting |
+| **Interface Segregation** | All layers depend on interfaces (\`ICategoryService\`, \`ICategoryRepository\`) | Enables unit testing with mocks; decouples implementation details |
+| **Fluent API Configuration** | \`CategoryConfiguration\` (\`IEntityTypeConfiguration<T>\`) | Maps C# PascalCase to PostgreSQL snake_case; defines constraints |
+| **Factory Pattern** | \`IntegrationTestFactory\` (\`WebApplicationFactory<Program>\`) | Spins up the full app + database for integration testing |
+| **Primary Constructor** | All services, repositories, and controllers | Reduces boilerplate; cleaner constructor injection (C# 12+) |
+
+### Repository Pattern Deep Dive
+
+\`\`\`csharp
+// Interface (abstraction)
+public interface ICategoryRepository
+{
+    Task<List<Category>> GetAllAsync(CancellationToken ct);
+    Task<Category?> GetByIdAsync(int id, CancellationToken ct);
+    Task<Category> CreateAsync(Category cat, CancellationToken ct);
+    Task UpdateAsync(Category category, CancellationToken ct);
+    Task<bool> DeleteAsync(int id, CancellationToken ct);
+}
+
+// EF Core implementation
+public class CategoryRepository(AppDbContext db)
+    : ICategoryRepository { /* uses LINQ + DbContext */ }
+
+// ADO.NET implementation (same interface)
+public class SubCategoryRepository(NpgsqlDataSource ds)
+    : ISubCategoryRepository { /* uses raw SQL + NpgsqlCommand */ }
+
+// Swap implementations without changing upper layers:
+builder.Services.AddScoped<ICategoryRepository,
+    CategoryRepository>();     // EF Core
+builder.Services.AddScoped<ISubCategoryRepository,
+    SubCategoryRepository>();  // ADO.NET
+\`\`\`
+
+### Service Layer Pattern
+
+\`\`\`csharp
+// Service depends on repository INTERFACE, not implementation
+public class CategoryService(
+    ICategoryRepository repository,
+    ILogger<CategoryService> logger) : ICategoryService
+{
+    // Maps Entity → DTO (never expose entities to controllers)
+    private static CategoryDto ToDto(Category c)
+        => new(c.Id, c.CreatedAt, c.Code, c.Name);
+
+    // Maps DTO → Entity (business logic + mapping)
+    public async Task<CategoryDto> CreateAsync(
+        CreateCategoryRequest request, CancellationToken ct)
+    {
+        var entity = new Category
+        {
+            Code = request.Code,
+            Name = request.Name,
+            CreatedAt = DateTime.UtcNow
+        };
+        await repository.CreateAsync(entity, ct);
+        return ToDto(entity);
+    }
+}
+\`\`\`
+
+### SOLID Principles Applied
+
+| Principle | Application |
+|---|---|
+| **Single Responsibility** | Controller handles HTTP; Service handles logic; Repository handles data |
+| **Open/Closed** | New repositories implement existing interfaces without modifying consumers |
+| **Liskov Substitution** | \`FakeProductRepository\` can replace \`CategoryRepository\` in tests |
+| **Interface Segregation** | \`ICategoryRepository\` and \`ISubCategoryRepository\` are separate, focused |
+| **Dependency Inversion** | Controllers depend on \`ICategoryService\`, not \`CategoryService\` |`,
+      keyPoints: [
+        'Repository Pattern abstracts data access behind interfaces.',
+        'Service Layer contains business logic and DTO mapping.',
+        'DI enables loose coupling — swap implementations without changing consumers.',
+        'DTO Pattern separates API contract from internal entities.',
+        'Factory Pattern (WebApplicationFactory) enables full-stack integration testing.',
+        'SOLID principles applied across all layers.'
+      ]
+    },
+
+    {
+      title: 'Best Practices — Do\'s & Don\'ts',
+      content: `### ✅ Do's
+
+| # | Practice | Reason |
+|---|---|---|
+| 1 | **Use DTOs for all API responses** | Prevents exposing internal entities and over-posting |
+| 2 | **Use \`[Required]\`, \`[StringLength]\`, \`[Range]\` on DTOs** | Input validation at API boundary |
+| 3 | **Use parameterized queries in ADO.NET** | Prevents SQL injection |
+| 4 | **Use \`AsNoTracking()\` for read-only queries** | Better EF Core performance |
+| 5 | **Use primary constructors (C# 12)** | Cleaner DI, less boilerplate |
+| 6 | **Store secrets in environment variables** | Never commit to source control |
+| 7 | **Use HTTPS + HSTS in production** | Encrypt all traffic |
+| 8 | **Add security headers to every response** | X-Content-Type-Options, X-Frame-Options |
+| 9 | **Rate limit per IP address** | Block brute-force and abuse |
+| 10 | **Log structured data, not sensitive data** | Never log tokens, passwords, or PII |
+| 11 | **Use \`CancellationToken\` on all async methods** | Enables request cancellation |
+| 12 | **Test every layer independently** | Controller, Service, Repository each have their own tests |
+
+### ❌ Don'ts
+
+| # | Anti-pattern | Correct Approach |
+|---|---|---|
+| 1 | **Don't expose database entities in API** | Use DTOs for all responses |
+| 2 | **Don't concatenate user input into SQL** | Use \`Parameters.AddWithValue()\` |
+| 3 | **Don't commit passwords to source control** | Use \`dotnet user-secrets\` or env vars |
+| 4 | **Don't return unbounded collections** | Always paginate with \`page\` and \`pageSize\` |
+| 5 | **Don't use \`AllowAnyOrigin()\` in production** | Whitelist specific trusted origins |
+| 6 | **Don't log tokens or passwords** | Log request IDs, user IDs, status codes |
+| 7 | **Don't show stack traces in production** | Use \`app.UseExceptionHandler()\` |
+| 8 | **Don't use \`.Result\` or \`.Wait()\` on tasks** | Causes deadlocks — use \`async/await\` |
+| 9 | **Don't skip input validation** | All DTOs need validation attributes |
+| 10 | **Don't leave default endpoints** | Remove WeatherForecast and unused controllers |
+
+### Run & Build Commands
+
+\`\`\`powershell
+# Development
+dotnet run                             # Run in development
+dotnet watch run                       # Run with hot reload
+
+# Testing
+dotnet test                            # Run all tests
+dotnet test --filter "CategoryServiceTests"  # Specific class
+dotnet test --filter "Integration"     # Integration only
+
+# Coverage
+dotnet test /p:CollectCoverage=true \\
+  /p:CoverletOutputFormat=cobertura
+reportgenerator -reports:coverage.xml \\
+  -targetdir:report -reporttypes:Html
+
+# Build & Publish
+dotnet publish -c Release -o ./publish
+docker build -t my-api .
+docker compose up -d
+\`\`\`
+
+### Troubleshooting
+
+| Issue | Cause | Fix |
+|---|---|---|
+| **Connection refused** | Database not running | Start PostgreSQL or Docker container |
+| **401 Unauthorized** | Missing/expired JWT | Generate a new token with valid claims |
+| **400 Bad Request** | Validation failed | Check DTO validation attributes |
+| **Database migration error** | Table doesn't exist | Run SQL migration scripts |
+| **Docker build fails** | Missing .csproj in COPY | Ensure Dockerfile path matches project structure |`,
+      keyPoints: [
+        'Never expose database entities — use DTOs for all API responses.',
+        'Always use parameterized queries — never concatenate user input into SQL.',
+        'Store all secrets in environment variables, never in source control.',
+        'Rate limit, validate inputs, and add security headers to every response.',
+        'Test every layer independently with proper mocking.',
+        'Use async/await throughout — never .Result or .Wait().'
+      ]
+    }
+  ]
+};
