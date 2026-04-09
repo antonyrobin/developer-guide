@@ -1077,96 +1077,95 @@ final productDatasourceProvider = Provider((ref) {
     },
 
     {
-      title: 'State Management (Riverpod)',
+      title: 'State Management (BLoC / Cubit)',
       image: '/images/flutter/flutter-state-management.svg',
-      content: `**Riverpod** is the recommended state management solution for Flutter — it's compile-safe, testable, and has built-in async support.
+      content: `**BLoC (Business Logic Component)** and **Cubit** from the \`flutter_bloc\` package provide predictable, testable, unidirectional state management for Flutter apps.
 
-### Why Riverpod
+### Why BLoC / Cubit
 
-| Feature | Provider | Riverpod | Bloc |
-|---|---|---|---|
-| Compile-safe | ❌ Runtime errors | ✅ Compile-time | ❌ Runtime |
-| Testing | Hard | **Easy** | Easy |
-| Code generation | No | **Optional** | No |
-| Async support | Manual | **Built-in** | Manual |
-| Learning curve | Low | Medium | High |
+| Feature | BLoC / Cubit | Why It Wins |
+|---|---|---|
+| **Compile Safety** | Sealed classes + Equatable | All states must be handled; compiler enforces it |
+| **100% Coverage** | \`bloc_test\` | \`blocTest<>()\` pattern covers happy path, error, edge cases |
+| **Side Effects** | \`BlocListener\` (separate) | Navigation, snackbars never mixed into \`build()\` |
+| **Event Tracing** | \`BlocObserver\` logs all transitions | Full audit trail in production |
+| **Concurrency** | \`bloc_concurrency\` transformers | \`droppable()\`, \`restartable()\`, \`sequential()\` built-in |
+| **Persistence** | \`hydrated_bloc\` | State survives app restarts automatically |
+| **Undo/Redo** | \`replay_bloc\` | POS cart undo/redo out of the box |
+| **DevTools** | BLoC DevTools extension | Visual event/state timeline in VS Code |
 
-### App Setup
+### BLoC vs Cubit — Decision Matrix
 
-\`\`\`dart
-// lib/main.dart
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'app.dart';
+| Scenario | Use | Reason |
+|---|---|---|
+| Auth flows (login, OTP, refresh) | **BLoC** | Multiple discrete events with state transitions |
+| Product CRUD + pagination | **BLoC** | Complex multi-event logic; \`droppable()\` transformer |
+| POS cart (add/remove/discount) | **BLoC + replay_bloc** | Undo/redo; full event audit trail |
+| Form validation state | **Cubit** | Incremental updates; no complex event branching |
+| Barcode scan workflow | **Cubit** | Simple idle→searching→found/notFound cycle |
+| Theme / settings toggle | **Cubit** | Simple state, no events needed |
+| Connectivity status | **Cubit** | Single-dimension state stream |
+| Filter/sort UI state | **Cubit** | Lightweight; no side effects |
 
-void main() {
-  runApp(
-    const ProviderScope(child: MyApp()), // Wrap with ProviderScope
-  );
-}
-\`\`\`
-
-### FutureProvider — Async Data Fetching
-
-\`\`\`dart
-// lib/features/products/presentation/providers/product_provider.dart
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../domain/entities/product.dart';
-import '../../domain/usecases/get_products.dart';
-
-part 'product_provider.g.dart';
-
-@riverpod
-Future<List<Product>> productList(
-  Ref ref,
-  {int page = 1, String? search},
-) async {
-  final getProducts = ref.watch(getProductsUseCaseProvider);
-  final result = await getProducts(page: page, search: search);
-  return result.fold(
-    (failure) => throw Exception(failure.message),
-    (products) => products,
-  );
-}
-\`\`\`
-
-### Consuming in a Widget
+### Global BLoC Observer
 
 \`\`\`dart
-class ProductListPage extends ConsumerWidget {
-  const ProductListPage({super.key});
+// lib/core/bloc/app_bloc_observer.dart
+class AppBlocObserver extends BlocObserver {
+  final _logger = Logger();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final productsAsync = ref.watch(productListProvider());
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+    _logger.d('[EVENT] \${bloc.runtimeType}: $event');
+  }
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Products')),
-      body: productsAsync.when(
-        data: (products) => ListView.builder(
-          itemCount: products.length,
-          itemBuilder: (context, index) => ProductCard(
-            product: products[index],
-            onTap: () => context.push(
-              '/products/\${products[index].id}',
-            ),
-          ),
-        ),
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        error: (error, stack) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Error: $error'),
-              ElevatedButton(
-                onPressed: () => ref.invalidate(productListProvider()),
-                child: const Text('Retry'),
-              ),
-            ],
-          ),
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    _logger.d('[TRANSITION] \${bloc.runtimeType}: '
+        '\${transition.currentState} → \${transition.nextState}');
+  }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    _logger.e('[ERROR] \${bloc.runtimeType}',
+        error: error, stackTrace: stackTrace);
+    super.onError(bloc, error, stackTrace);
+  }
+}
+
+// Register in main.dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  Bloc.observer = AppBlocObserver();
+  runApp(const App());
+}
+\`\`\`
+
+### App-Level MultiBlocProvider
+
+\`\`\`dart
+// lib/app.dart
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<ThemeCubit>()),
+        BlocProvider(create: (_) => getIt<ConnectivityCubit>()),
+        BlocProvider(create: (_) => getIt<AuthBloc>()..add(AuthStarted())),
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, themeState) => MaterialApp.router(
+          title: 'Billing App',
+          theme: themeState.lightTheme,
+          darkTheme: themeState.darkTheme,
+          themeMode: themeState.mode,
+          routerConfig: appRouter,
         ),
       ),
     );
@@ -1174,26 +1173,100 @@ class ProductListPage extends ConsumerWidget {
 }
 \`\`\`
 
-### StateNotifierProvider — Mutable State
+### BLoC Events & States (Sealed Classes)
 
 \`\`\`dart
-// Cart state with NotifierProvider
-@riverpod
-class CartNotifier extends _\\$CartNotifier {
+// product_event.dart
+sealed class ProductEvent extends Equatable {
+  const ProductEvent();
+  @override List<Object?> get props => [];
+}
+final class ProductFetchRequested extends ProductEvent {
+  const ProductFetchRequested({this.page = 1, this.search});
+  final int page;
+  final String? search;
+  @override List<Object?> get props => [page, search];
+}
+final class ProductCreateRequested extends ProductEvent {
+  const ProductCreateRequested(this.input);
+  final Map<String, dynamic> input;
+}
+
+// product_state.dart
+sealed class ProductState extends Equatable {
+  const ProductState();
+  @override List<Object?> get props => [];
+}
+final class ProductInitial  extends ProductState {}
+final class ProductLoading  extends ProductState {}
+final class ProductLoaded   extends ProductState {
+  const ProductLoaded({required this.products});
+  final List<Product> products;
+  @override List<Object?> get props => [products];
+}
+final class ProductError    extends ProductState {
+  const ProductError(this.message);
+  final String message;
+  @override List<Object?> get props => [message];
+}
+\`\`\`
+
+### BLoC Implementation
+
+\`\`\`dart
+@injectable
+class ProductBloc extends Bloc<ProductEvent, ProductState> {
+  ProductBloc(this._getProducts, this._createProduct)
+      : super(ProductInitial()) {
+    on<ProductFetchRequested>(_onFetch, transformer: droppable());
+    on<ProductCreateRequested>(_onCreate);
+  }
+
+  final GetProducts   _getProducts;
+  final CreateProduct  _createProduct;
+
+  Future<void> _onFetch(
+    ProductFetchRequested event, Emitter<ProductState> emit,
+  ) async {
+    emit(ProductLoading());
+    final result = await _getProducts(
+      page: event.page, search: event.search,
+    );
+    result.fold(
+      (failure) => emit(ProductError(failure.message)),
+      (products) => emit(ProductLoaded(products: products)),
+    );
+  }
+}
+\`\`\`
+
+### Consuming BLoC in a Page
+
+\`\`\`dart
+class ProductListPage extends StatelessWidget {
+  const ProductListPage({super.key});
+
   @override
-  List<CartItem> build() => []; // Initial state
-
-  void addItem(Product product) {
-    state = [...state, CartItem(product: product, quantity: 1)];
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<ProductBloc>()
+        ..add(const ProductFetchRequested()),
+      child: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) => switch (state) {
+          ProductLoading()  => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          ProductLoaded()   => _ProductGrid(
+            products: state.products,
+          ),
+          ProductError()    => _ErrorView(
+            message: state.message,
+          ),
+          _                 => const SizedBox.shrink(),
+        },
+      ),
+    );
   }
-
-  void removeItem(String productId) {
-    state = state.where((item) => item.product.id != productId).toList();
-  }
-
-  double get total => state.fold(
-    0, (sum, item) => sum + item.product.price * item.quantity,
-  );
 }
 \`\`\`
 
@@ -1201,18 +1274,18 @@ class CartNotifier extends _\\$CartNotifier {
 
 | Scenario | Tool |
 |---|---|
-| Server data (API calls) | Riverpod \`FutureProvider\` / \`AsyncNotifierProvider\` |
-| Simple local UI state | Riverpod \`StateProvider\` |
-| Complex local state (cart) | Riverpod \`NotifierProvider\` |
-| Auth state | Riverpod \`AsyncNotifierProvider\` + \`flutter_secure_storage\` |
-| Forms | \`reactive_forms\` |
-| Navigation | \`go_router\` |`,
+| Auth flows (login, OTP, refresh) | BLoC with discrete events |
+| Product CRUD + pagination | BLoC with \`droppable()\` transformer |
+| POS cart with undo/redo | BLoC + \`replay_bloc\` |
+| Form validation | Cubit — incremental updates |
+| Theme / settings toggle | Cubit (singleton) |
+| Navigation | \`go_router\` with BLoC auth guard |`,
       keyPoints: [
-        'Riverpod is compile-safe — catches provider errors at compile time.',
-        'Wrap the app in ProviderScope to enable Riverpod.',
-        'FutureProvider handles async data fetching with built-in loading/error states.',
-        '.when() provides data/loading/error callbacks for clean UI handling.',
-        'ref.invalidate() refreshes provider data — perfect for retry/pull-to-refresh.'
+        'BLoC uses sealed classes + Equatable — compiler enforces exhaustive state handling.',
+        'Use BlocListener for side effects (navigation, snackbars) — never in BlocBuilder.',
+        'bloc_concurrency transformers (droppable, restartable) prevent duplicate fetches.',
+        'Register BLoCs as @injectable (new per route); Cubits as @singleton (app-wide).',
+        'BlocObserver provides full event/state audit trail for debugging and production logging.'
       ]
     },
 
@@ -1583,105 +1656,194 @@ final productRepositoryProvider = Provider<ProductRepository>((ref) {
         'Open/Closed — Extend via generics and abstract classes, don\'t modify base classes.',
         'Liskov Substitution — Any subclass can replace its parent without breaking code.',
         'Interface Segregation — Small, focused interfaces (Readable, Writable, Deletable).',
-        'Dependency Inversion — Depend on abstractions; wire implementations via Riverpod.'
+        'Dependency Inversion — Depend on abstractions; wire implementations via get_it + injectable.'
       ]
     },
 
     {
       title: 'Testing',
-      content: `Flutter supports three types of tests: **unit tests**, **widget tests**, and **integration tests**.
+      content: `Flutter supports three types of tests: **unit tests**, **widget tests**, and **integration tests**. With BLoC, use \`bloc_test\` + \`mocktail\` for 100% coverage of every state transition.
 
-### Unit Test (Use Case)
+### 100% Coverage Target
+
+- Every BLoC event handler must have: **happy path**, **error path**, and **edge case** tests
+- Every Cubit method must be tested for all state transitions
+- Tools: \`bloc_test\` (BLoC/Cubit) + \`mocktail\` (mocks) + \`coverage\` (reporting)
+- CI gate: build fails if line coverage drops below 100% for core + features layers
+
+### BLoC Unit Test (bloc_test)
 
 \`\`\`dart
-// test/features/products/domain/usecases/get_products_test.dart
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:dartz/dartz.dart';
+// test/features/products/bloc/product_bloc_test.dart
+import 'package:bloc_test/bloc_test.dart';
+import 'package:mocktail/mocktail.dart';
 
-@GenerateMocks([ProductRepository])
+class MockGetProducts   extends Mock implements GetProducts {}
+class MockCreateProduct extends Mock implements CreateProduct {}
+
 void main() {
-  late GetProducts useCase;
-  late MockProductRepository mockRepository;
+  late ProductBloc bloc;
+  late MockGetProducts   mockGetProducts;
+  late MockCreateProduct mockCreateProduct;
 
   setUp(() {
-    mockRepository = MockProductRepository();
-    useCase = GetProducts(mockRepository);
+    mockGetProducts   = MockGetProducts();
+    mockCreateProduct = MockCreateProduct();
+    bloc = ProductBloc(mockGetProducts, mockCreateProduct);
   });
 
-  test('should return list of products from repository', () async {
+  tearDown(() => bloc.close());
+
+  group('ProductFetchRequested', () {
     final products = [
       const Product(
-        id: '1', name: 'Rice', sku: 'RIC-001',
-        price: 50.0, gstRate: 5, categoryId: 'cat1',
+        id: '1', name: 'Rice', sku: 'R001',
+        price: 50, gstRate: 5, categoryId: 'c1',
       ),
     ];
 
-    when(mockRepository.getProducts(page: 1, pageSize: 20))
-        .thenAnswer((_) async => Right(products));
+    // Happy path
+    blocTest<ProductBloc, ProductState>(
+      'emits [Loading, Loaded] on success',
+      build: () {
+        when(() => mockGetProducts(page: 1, search: null))
+            .thenAnswer((_) async => Right(products));
+        return bloc;
+      },
+      act: (b) => b.add(const ProductFetchRequested()),
+      expect: () => [
+        ProductLoading(),
+        ProductLoaded(products: products),
+      ],
+      verify: (_) => verify(
+        () => mockGetProducts(page: 1, search: null),
+      ).called(1),
+    );
 
-    final result = await useCase(page: 1, pageSize: 20);
+    // Error path
+    blocTest<ProductBloc, ProductState>(
+      'emits [Loading, Error] on failure',
+      build: () {
+        when(() => mockGetProducts(page: 1, search: null))
+            .thenAnswer((_) async =>
+                const Left(ServerFailure('Server error')));
+        return bloc;
+      },
+      act: (b) => b.add(const ProductFetchRequested()),
+      expect: () => [
+        ProductLoading(),
+        const ProductError('Server error'),
+      ],
+    );
 
-    expect(result, Right(products));
-    verify(mockRepository.getProducts(page: 1, pageSize: 20));
-  });
-
-  test('should return failure on server error', () async {
-    when(mockRepository.getProducts(page: 1, pageSize: 20))
-        .thenAnswer((_) async =>
-            Left(ServerFailure('Server error')));
-
-    final result = await useCase(page: 1, pageSize: 20);
-
-    expect(result, isA<Left>());
+    // Search path
+    blocTest<ProductBloc, ProductState>(
+      'passes search query to use case',
+      build: () {
+        when(() => mockGetProducts(page: 1, search: 'rice'))
+            .thenAnswer((_) async => Right(products));
+        return bloc;
+      },
+      act: (b) => b.add(
+        const ProductFetchRequested(search: 'rice'),
+      ),
+      expect: () => [
+        ProductLoading(),
+        ProductLoaded(products: products),
+      ],
+    );
   });
 }
 \`\`\`
 
-### Widget Test
+### Cubit Unit Test
 
 \`\`\`dart
-// test/features/products/presentation/widgets/product_card_test.dart
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-
+// test/features/products/cubit/product_filter_cubit_test.dart
 void main() {
-  testWidgets('ProductCard displays product name and price',
-      (tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: ProductCard(
-            name: 'Basmati Rice',
-            price: 150.0,
-            onTap: () {},
-          ),
-        ),
-      ),
-    );
+  late ProductFilterCubit cubit;
 
-    expect(find.text('Basmati Rice'), findsOneWidget);
-    expect(find.text('\\$150.00'), findsOneWidget);
+  setUp(() => cubit = ProductFilterCubit());
+  tearDown(() => cubit.close());
+
+  test('initial state is default ProductFilterState', () {
+    expect(cubit.state, const ProductFilterState());
   });
 
-  testWidgets('ProductCard responds to tap', (tester) async {
-    bool tapped = false;
+  blocTest<ProductFilterCubit, ProductFilterState>(
+    'setSearch emits state with updated search',
+    build: () => cubit,
+    act:   (c) => c.setSearch('basmati'),
+    expect: () => [const ProductFilterState(search: 'basmati')],
+  );
 
-    await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: ProductCard(
-            name: 'Rice',
-            price: 50.0,
-            onTap: () => tapped = true,
-          ),
-        ),
-      ),
+  blocTest<ProductFilterCubit, ProductFilterState>(
+    'toggleInStock flips the flag both ways',
+    build: () => cubit,
+    act:   (c) => c..toggleInStock()..toggleInStock(),
+    expect: () => [
+      const ProductFilterState(inStockOnly: true),
+      const ProductFilterState(inStockOnly: false),
+    ],
+  );
+
+  blocTest<ProductFilterCubit, ProductFilterState>(
+    'reset returns to initial state',
+    build: () => cubit,
+    seed:  () => const ProductFilterState(
+      search: 'rice', inStockOnly: true,
+    ),
+    act:   (c) => c.reset(),
+    expect: () => [const ProductFilterState()],
+  );
+}
+\`\`\`
+
+### Widget Test with MockBloc
+
+\`\`\`dart
+// test/features/products/pages/product_list_page_test.dart
+class MockProductBloc extends MockBloc<ProductEvent, ProductState>
+    implements ProductBloc {}
+
+void main() {
+  late MockProductBloc mockBloc;
+
+  setUp(() => mockBloc = MockProductBloc());
+  tearDown(() => mockBloc.close());
+
+  Widget buildSubject() => MaterialApp(
+    home: BlocProvider<ProductBloc>.value(
+      value: mockBloc,
+      child: const ProductListPage(),
+    ),
+  );
+
+  testWidgets('shows CircularProgressIndicator when Loading',
+      (tester) async {
+    when(() => mockBloc.state).thenReturn(ProductLoading());
+    await tester.pumpWidget(buildSubject());
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
+
+  testWidgets('shows ProductCards when Loaded', (tester) async {
+    when(() => mockBloc.state).thenReturn(
+      ProductLoaded(products: fakeProducts),
     );
+    await tester.pumpWidget(buildSubject());
+    await tester.pumpAndSettle();
+    expect(
+      find.byType(ProductCard),
+      findsNWidgets(fakeProducts.length),
+    );
+  });
 
-    await tester.tap(find.byType(ProductCard));
-    expect(tapped, isTrue);
+  testWidgets('shows error message when Error', (tester) async {
+    when(() => mockBloc.state).thenReturn(
+      const ProductError('Server error'),
+    );
+    await tester.pumpWidget(buildSubject());
+    expect(find.text('Server error'), findsOneWidget);
   });
 }
 \`\`\`
@@ -1690,33 +1852,34 @@ void main() {
 
 \`\`\`dart
 // integration_test/app_test.dart
-import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:my_app/main.dart' as app;
+import 'package:billing_mobile/main.dart' as app;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('login and view products flow', (tester) async {
+  testWidgets('login → OTP → dashboard → products flow',
+      (tester) async {
     app.main();
     await tester.pumpAndSettle();
 
-    // Enter phone number
     await tester.enterText(
       find.byType(TextField).first, '9876543210',
     );
     await tester.tap(find.text('Send OTP'));
     await tester.pumpAndSettle();
 
-    // Enter OTP
     await tester.enterText(
       find.byType(TextField).first, '123456',
     );
     await tester.tap(find.text('Verify'));
     await tester.pumpAndSettle();
 
-    // Should be on dashboard
     expect(find.text('Dashboard'), findsOneWidget);
+
+    await tester.tap(find.text('Products'));
+    await tester.pumpAndSettle();
+    expect(find.byType(ProductCard), findsWidgets);
   });
 }
 \`\`\`
@@ -1734,14 +1897,299 @@ flutter test --coverage
 flutter test integration_test/
 
 # Run a specific test file
-flutter test test/features/products/domain/usecases/get_products_test.dart
+flutter test test/features/products/bloc/product_bloc_test.dart
 \`\`\``,
       keyPoints: [
-        'Unit tests validate business logic — use mockito for dependency mocking.',
-        'Widget tests render UI components and verify display and interactions.',
+        'Use bloc_test with blocTest<>() — covers happy path, error path, and edge cases.',
+        'Use mocktail for mocking — no code generation needed unlike mockito.',
+        'Widget tests use MockBloc to inject fake states into BlocProvider.',
         'Integration tests run the full app on a device or emulator.',
-        'Use flutter test --coverage to generate code coverage reports.',
-        'Always test the Either<Failure, Success> paths in repository tests.'
+        'Every BLoC event handler and Cubit method must have tests for all state transitions.'
+      ]
+    },
+
+    {
+      title: 'Unit Testing — Create, Run & Report',
+      content: `A complete guide to creating unit tests in Flutter, running them, and generating coverage reports.
+
+### 1. Setup — Add Test Dependencies
+
+\`\`\`yaml
+# pubspec.yaml
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  bloc_test: ^9.1.0          # BLoC/Cubit testing utilities
+  mocktail: ^1.0.0            # Mock library (no code generation)
+  integration_test:
+    sdk: flutter
+\`\`\`
+
+\`\`\`powershell
+# Install dependencies
+flutter pub get
+\`\`\`
+
+### 2. Create a Unit Test
+
+Unit tests validate a single class or function in isolation. Place tests in \`test/\` mirroring the \`lib/\` folder structure.
+
+\`\`\`text
+test/
+├── features/
+│   └── products/
+│       ├── bloc/
+│       │   └── product_bloc_test.dart
+│       ├── cubit/
+│       │   └── product_filter_cubit_test.dart
+│       └── domain/
+│           └── usecases/
+│               └── get_products_test.dart
+└── core/
+    └── network/
+        └── api_client_test.dart
+\`\`\`
+
+#### Use Case Unit Test
+
+\`\`\`dart
+// test/features/products/domain/usecases/get_products_test.dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:dartz/dartz.dart';
+
+class MockProductRepository extends Mock
+    implements ProductRepository {}
+
+void main() {
+  late GetProducts useCase;
+  late MockProductRepository mockRepository;
+
+  setUp(() {
+    mockRepository = MockProductRepository();
+    useCase = GetProducts(mockRepository);
+  });
+
+  test('should return list of products on success', () async {
+    final products = [
+      const Product(
+        id: '1', name: 'Rice', sku: 'RIC-001',
+        price: 50.0, gstRate: 5, categoryId: 'cat1',
+      ),
+    ];
+
+    when(() => mockRepository.getProducts(page: 1, pageSize: 20))
+        .thenAnswer((_) async => Right(products));
+
+    final result = await useCase(page: 1, pageSize: 20);
+
+    expect(result, Right(products));
+    verify(() => mockRepository.getProducts(
+      page: 1, pageSize: 20,
+    )).called(1);
+  });
+
+  test('should return failure on server error', () async {
+    when(() => mockRepository.getProducts(page: 1, pageSize: 20))
+        .thenAnswer((_) async =>
+            const Left(ServerFailure('Server error')));
+
+    final result = await useCase(page: 1, pageSize: 20);
+
+    expect(result, isA<Left>());
+  });
+}
+\`\`\`
+
+#### BLoC Unit Test
+
+\`\`\`dart
+// test/features/products/bloc/product_bloc_test.dart
+import 'package:bloc_test/bloc_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+class MockGetProducts extends Mock implements GetProducts {}
+
+void main() {
+  late ProductBloc bloc;
+  late MockGetProducts mockGetProducts;
+
+  setUp(() {
+    mockGetProducts = MockGetProducts();
+    bloc = ProductBloc(mockGetProducts);
+  });
+
+  tearDown(() => bloc.close());
+
+  // Happy path
+  blocTest<ProductBloc, ProductState>(
+    'emits [Loading, Loaded] when fetch succeeds',
+    build: () {
+      when(() => mockGetProducts(page: 1, search: null))
+          .thenAnswer((_) async => Right(fakeProducts));
+      return bloc;
+    },
+    act: (b) => b.add(const ProductFetchRequested()),
+    expect: () => [
+      ProductLoading(),
+      ProductLoaded(products: fakeProducts),
+    ],
+  );
+
+  // Error path
+  blocTest<ProductBloc, ProductState>(
+    'emits [Loading, Error] when fetch fails',
+    build: () {
+      when(() => mockGetProducts(page: 1, search: null))
+          .thenAnswer((_) async =>
+              const Left(ServerFailure('Network error')));
+      return bloc;
+    },
+    act: (b) => b.add(const ProductFetchRequested()),
+    expect: () => [
+      ProductLoading(),
+      const ProductError('Network error'),
+    ],
+  );
+}
+\`\`\`
+
+#### Cubit Unit Test
+
+\`\`\`dart
+// test/features/products/cubit/product_filter_cubit_test.dart
+import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  late ProductFilterCubit cubit;
+
+  setUp(() => cubit = ProductFilterCubit());
+  tearDown(() => cubit.close());
+
+  test('initial state is default', () {
+    expect(cubit.state, const ProductFilterState());
+  });
+
+  blocTest<ProductFilterCubit, ProductFilterState>(
+    'setSearch updates search term',
+    build: () => cubit,
+    act: (c) => c.setSearch('basmati'),
+    expect: () => [
+      const ProductFilterState(search: 'basmati'),
+    ],
+  );
+
+  blocTest<ProductFilterCubit, ProductFilterState>(
+    'reset returns to initial state',
+    build: () => cubit,
+    seed: () => const ProductFilterState(
+      search: 'rice', inStockOnly: true,
+    ),
+    act: (c) => c.reset(),
+    expect: () => [const ProductFilterState()],
+  );
+}
+\`\`\`
+
+### 3. Run Tests
+
+\`\`\`powershell
+# Run ALL unit & widget tests
+flutter test
+
+# Run a specific test file
+flutter test test/features/products/bloc/product_bloc_test.dart
+
+# Run tests in a specific directory
+flutter test test/features/products/
+
+# Run with verbose output
+flutter test --reporter expanded
+
+# Run tests matching a name pattern
+flutter test --name "emits.*Loading"
+\`\`\`
+
+### 4. Generate Coverage Report
+
+\`\`\`powershell
+# Step 1: Run tests with coverage collection
+flutter test --coverage
+# → Generates coverage/lcov.info
+
+# Step 2: Generate HTML report (requires lcov)
+# On macOS/Linux:
+genhtml coverage/lcov.info -o coverage/html
+open coverage/html/index.html
+
+# On Windows (install lcov via Chocolatey):
+choco install lcov
+perl C:\\ProgramData\\chocolatey\\lib\\lcov\\tools\\bin\\genhtml coverage/lcov.info -o coverage/html
+start coverage/html/index.html
+
+# Step 3: Check coverage summary
+lcov --summary coverage/lcov.info
+\`\`\`
+
+### 5. Enforce Coverage in CI
+
+\`\`\`yaml
+# .github/workflows/test.yml
+name: Test & Coverage
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+      - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
+      - run: flutter analyze
+      - run: flutter test --coverage
+
+      - name: Check coverage threshold
+        run: |
+          sudo apt-get install -y lcov
+          COVERAGE=$( \\
+            lcov --summary coverage/lcov.info 2>&1 \\
+            | grep 'lines' \\
+            | grep -oP '[0-9.]+%' \\
+          )
+          echo "Coverage: $COVERAGE"
+          # Fail if coverage below threshold
+          lcov --summary coverage/lcov.info
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+\`\`\`
+
+### Test Naming & Organization Best Practices
+
+| Convention | Example |
+|---|---|
+| **Mirror \`lib/\` structure** | \`test/features/products/bloc/product_bloc_test.dart\` |
+| **Descriptive test names** | \`'emits [Loading, Loaded] when fetch succeeds'\` |
+| **Group related tests** | \`group('ProductFetchRequested', () { ... })\` |
+| **setUp / tearDown** | Create mocks in setUp; close BLoCs in tearDown |
+| **One assertion per test** | Each \`blocTest\` verifies one specific behavior |
+| **Test all code paths** | Happy path + error path + edge cases per event |`,
+      keyPoints: [
+        'Place tests in test/ mirroring the lib/ folder structure.',
+        'Use bloc_test with blocTest<>() for BLoC/Cubit — test every state transition.',
+        'Use mocktail for mocking (no code generation needed).',
+        'Run flutter test --coverage to generate lcov.info coverage data.',
+        'Use genhtml to create an HTML coverage report; enforce thresholds in CI.'
       ]
     },
 
@@ -2185,31 +2633,39 @@ const apiBaseUrl = String.fromEnvironment(
 
 | # | Practice | Reason |
 |---|---|---|
-| 1 | **Use \`const\` constructors everywhere** | Reduces widget rebuilds; better performance |
-| 2 | **Use \`freezed\` for models and entities** | Immutable, copyWith, equality, JSON serialization |
-| 3 | **Follow feature-first folder structure** | Scales well; easier to find related code |
-| 4 | **Use \`flutter_secure_storage\` for tokens** | Platform-specific encryption (Keychain/Keystore) |
-| 5 | **Handle all async states** | Always show loading, error, and data states |
-| 6 | **Run \`flutter analyze\` before commits** | Catch lint issues early |
-| 7 | **Use platform checks for POS features** | \`Platform.isWindows\` to show desktop-only UI |
-| 8 | **Use named routes with GoRouter** | Type-safe navigation; deep linking support |
-| 9 | **Cache images with \`cached_network_image\`** | Avoid re-downloading product images |
-| 10 | **Use \`intl\` for formatting** | Currency, dates, numbers localized properly |
+| 1 | **Use sealed classes for Events & States** | Exhaustive switch; compiler catches missing cases |
+| 2 | **Extend Equatable on ALL States** | BLoC uses equality to skip duplicate rebuilds |
+| 3 | **Use \`BlocListener\` for side effects ONLY** | Navigation, snackbars must NOT be in \`BlocBuilder\` |
+| 4 | **Use \`BlocBuilder\` for UI ONLY** | Pure \`build()\`; no API calls, no navigation |
+| 5 | **Use \`bloc_concurrency\` transformers** | \`droppable()\` prevents duplicate fetches; \`restartable()\` cancels stale searches |
+| 6 | **Register BLoCs as \`@injectable\`** | New instance per route; prevents state leaks between screens |
+| 7 | **Register app-wide Cubits as \`@singleton\`** | ThemeCubit, ConnectivityCubit persist for app lifetime |
+| 8 | **Use \`const\` constructors everywhere** | Reduces widget rebuilds; better performance |
+| 9 | **Use \`freezed\` for models and entities** | Immutable, copyWith, equality, JSON serialization |
+| 10 | **Run \`flutter analyze\` before commits** | Catch lint issues early; \`very_good_analysis\` enforces strict rules |
+| 11 | **Use platform checks for POS features** | \`Platform.isWindows\` to show desktop-only UI |
+| 12 | **Cache images with \`cached_network_image\`** | Avoid re-downloading product images |
+| 13 | **Use \`intl\` for formatting** | Currency, dates, numbers localized properly |
+| 14 | **Write one test per state transition** | Guarantees 100% coverage of all code paths |
+| 15 | **Use \`HydratedBloc\` for persistent state** | Auth, theme survive app restarts automatically |
 
 ### ❌ Don'ts
 
 | # | Anti-pattern | Correct Approach |
 |---|---|---|
-| 1 | **Don't store tokens in SharedPreferences** | Use \`flutter_secure_storage\` (encrypted) |
-| 2 | **Don't put business logic in widgets** | Use use cases and repositories |
-| 3 | **Don't use \`setState\` for complex state** | Use Riverpod providers |
-| 4 | **Don't skip null safety** | Embrace Dart's sound null safety |
-| 5 | **Don't hardcode strings** | Use \`intl\` for i18n; constants for API URLs |
-| 6 | **Don't ignore \`dispose()\`** | Dispose controllers, streams, animations |
-| 7 | **Don't nest more than 3 widgets deep inline** | Extract to separate widgets |
-| 8 | **Don't use \`print()\` for logging** | Use \`logger\` package |
-| 9 | **Don't block the UI thread** | Use \`compute()\` for heavy processing |
-| 10 | **Don't skip code generation** | Run \`build_runner\` after model changes |
+| 1 | **Don't store tokens in SharedPreferences** | Use \`flutter_secure_storage\` (encrypted Keychain/Keystore) |
+| 2 | **Don't put business logic in BLoC directly** | BLoC calls use cases; use cases contain business logic |
+| 3 | **Don't call \`context.read\` inside BlocBuilder build()** | Pass events via \`context.read\` in callbacks outside \`build()\` |
+| 4 | **Don't forget Equatable props list** | Missing fields cause missed state comparisons and stale UI |
+| 5 | **Don't share one BLoC instance across unrelated pages** | Each page gets its own BLoC via \`BlocProvider\` |
+| 6 | **Don't skip null safety** | Embrace Dart's sound null safety everywhere |
+| 7 | **Don't hardcode strings** | Use \`intl\` for i18n; constants for API URLs |
+| 8 | **Don't ignore \`dispose()\`** | Dispose controllers, streams, and animations |
+| 9 | **Don't nest more than 3 widgets deep inline** | Extract to separate named widget classes |
+| 10 | **Don't use \`print()\` for logging** | Use \`logger\` package or \`AppBlocObserver\` |
+| 11 | **Don't block the UI thread** | Use \`compute()\` for heavy processing |
+| 12 | **Don't skip code generation** | Run \`build_runner\` after every model / injectable change |
+| 13 | **Don't use \`setState()\` alongside BLoC** | Pick one pattern per widget; mixing causes confusion |
 
 ### Useful Commands Cheat Sheet
 
@@ -2219,30 +2675,34 @@ flutter create <name>             # Create new project
 flutter pub get                    # Install dependencies
 flutter pub upgrade                # Upgrade dependencies
 
-# Code Generation
-dart run build_runner build        # One-time generation
-dart run build_runner watch        # Watch mode generation
+# Code Generation (DI + JSON + Retrofit)
+dart run build_runner build --delete-conflicting-outputs   # One-time
+dart run build_runner watch --delete-conflicting-outputs   # Watch mode
 
 # Development
 flutter run                        # Run on connected device
 flutter run -d chrome              # Run on Chrome (web)
 flutter run -d windows             # Run on Windows
+flutter run -d all                 # Run on all connected devices
 # Press R for Hot Reload, Shift+R for Hot Restart
 
-# Quality
+# Quality & Testing
 flutter analyze                    # Run static analysis
-flutter test                       # Run unit tests
+flutter test                       # Run unit & widget tests
 flutter test --coverage            # Generate coverage report
+flutter test integration_test/     # Run integration tests
 
 # Build
 flutter build apk --release        # Android APK
-flutter build appbundle --release  # Android App Bundle
+flutter build appbundle --release  # Android App Bundle (Play Store)
 flutter build ios --release         # iOS (macOS only)
 flutter build windows --release     # Windows desktop
 
 # Utilities
 flutter doctor -v                  # Check environment
 flutter devices                    # List connected devices
+flutter emulators                  # List available emulators
+flutter emulators --launch <name>  # Launch emulator
 flutter clean                      # Clean build cache
 flutter pub cache repair           # Repair package cache
 \`\`\`
@@ -2259,11 +2719,11 @@ flutter pub cache repair           # Repair package cache
 | **Camera permission denied** | Missing permissions | Add to AndroidManifest.xml and Info.plist |
 | **Windows build fails** | Visual Studio missing | Install VS 2022 with "Desktop C++" workload |`,
       keyPoints: [
-        'Use const constructors and const widgets to reduce unnecessary rebuilds.',
-        'Always handle loading, error, and data states in async operations.',
+        'Use sealed classes for BLoC events/states — exhaustive switch enforced by compiler.',
+        'BlocListener for side effects; BlocBuilder for UI only — never mix them.',
         'Never store tokens in SharedPreferences — use flutter_secure_storage.',
         'Run flutter analyze before every commit to catch lint issues early.',
-        'Use compute() to offload heavy processing (JSON parsing, image processing) to isolates.'
+        'Use compute() to offload heavy processing to isolates; never block the UI thread.'
       ]
     }
   ]
