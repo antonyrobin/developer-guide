@@ -78,6 +78,76 @@ ionic cordova run android
       image: '/artifacts/ionic_workflow_1775988886812.png'
     },
     {
+      id: 'ionic-running',
+      title: 'Running in Browser & Emulators',
+      content: `### 1. Browser Testing
+The fastest way to develop is using the browser.
+\`\`\`bash
+ionic serve
+\`\`\`
+Use the **Responsive Design Mode** in Chrome DevTools (Ctrl+Shift+M) to simulate different device sizes.
+
+### 2. Emulator / Simulator Testing
+To see how it performs on actual mobile OS:
+
+**Android Emulator:**
+1. Open **Android Studio** -> Device Manager -> Create Virtual Device.
+2. Run command:
+\`\`\`bash
+ionic cordova emulate android
+\`\`\`
+
+**iOS Simulator (Mac only):**
+1. Install **Xcode**.
+2. Run command:
+\`\`\`bash
+ionic cordova emulate ios
+\`\`\`
+
+> **Note:** For Capacitor, use \`npx cap open android\` or \`npx cap open ios\` to launch the native IDEs and run from there.`
+    },
+    {
+      id: 'ionic-building',
+      title: 'Generating App Bundles (Production)',
+      content: `### 1. Android Build (.apk / .aab)
+To generate a production-ready file for Google Play:
+\`\`\`bash
+# Build the web assets
+ionic cordova build android --prod --release
+\`\`\`
+This creates an unsigned APK in \`platforms/android/app/build/outputs/apk/release/\`. You must sign it using **jarsigner** and optimize with **zipalign** before uploading.
+
+### 2. iOS Build (ipa)
+1. Build the project:
+\`\`\`bash
+ionic cordova build ios --prod --release
+\`\`\`
+2. Open the \`.xcworkspace\` file in **Xcode**.
+3. Select **Product -> Archive**.
+4. Follow the Archive organizer to distribute the app.`
+    },
+    {
+      id: 'ionic-deployment',
+      title: 'Deployment: Firebase & TestFlight',
+      content: `### 1. Firebase Hosting (Web/PWA)
+Ideal for testing the web version or a Progressive Web App (PWA).
+1. Initialize Firebase: \`firebase init\`
+2. Choose **Hosting**.
+3. Build your app: \`ionic build --prod\`
+4. Deploy: \`firebase deploy\`
+
+### 2. Apple TestFlight (Beta Testing)
+TestFlight is the standard way to distribute iOS betas to up to 10,000 testers.
+1. Create an **App Record** in App Store Connect.
+2. In Xcode, after creating an **Archive**, click **Distribute App**.
+3. Select **App Store Connect** -> **Upload**.
+4. Once processed, go to App Store Connect -> TestFlight tab to invite internal or external testers.
+
+### 3. Google Play Internal Testing
+Similar to TestFlight, upload your **.aab** file to the **Internal Testing** track in Google Play Console.`,
+      image: '/artifacts/ionic_deployment_flow_1775990703061.png'
+    },
+    {
       id: 'ionic-best-practices',
       title: 'Pros, Cons & Best Practices',
       content: `### Advantages & Disadvantages
