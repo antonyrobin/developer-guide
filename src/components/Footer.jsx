@@ -17,33 +17,35 @@ const Footer = () => {
         </div>
 
         <div className="footer-links-group">
-          <h4 className="footer-heading">Courses</h4>
+          <h4 className="footer-heading">Frontend &amp; Backend</h4>
           <ul className="footer-links">
-            <li><NavLink to="/html">HTML &amp; CSS</NavLink></li>
-            <li><NavLink to="/javascript">JavaScript</NavLink></li>
             <li><NavLink to="/react">ReactJS</NavLink></li>
-            <li><NavLink to="/java">Java &amp; C#</NavLink></li>
-            <li><NavLink to="/python">Python</NavLink></li>
+            <li><NavLink to="/nextjs">Next.js</NavLink></li>
+            <li><NavLink to="/javascript">JavaScript</NavLink></li>
+            <li><NavLink to="/dotnet-api">.NET Web API</NavLink></li>
+            <li><NavLink to="/springboot">Spring Boot</NavLink></li>
           </ul>
         </div>
 
         <div className="footer-links-group">
-          <h4 className="footer-heading">Cloud &amp; DevOps</h4>
+          <h4 className="footer-heading">Infrastructure &amp; Testing</h4>
           <ul className="footer-links">
             <li><NavLink to="/docker">Docker</NavLink></li>
-            <li><NavLink to="/github-actions">GitHub Actions</NavLink></li>
-            <li><NavLink to="/aws">AWS Cloud</NavLink></li>
-            <li><NavLink to="/azure-devops">Azure DevOps</NavLink></li>
+            <li><NavLink to="/kubernetes">Kubernetes</NavLink></li>
+            <li><NavLink to="/terraform">Terraform</NavLink></li>
+            <li><NavLink to="/playwright">Playwright</NavLink></li>
+            <li><NavLink to="/k6">Grafana k6</NavLink></li>
           </ul>
         </div>
 
         <div className="footer-links-group">
-          <h4 className="footer-heading">Architecture</h4>
+          <h4 className="footer-heading">Data &amp; Security</h4>
           <ul className="footer-links">
-            <li><NavLink to="/sys-arch">System Architecture</NavLink></li>
-            <li><NavLink to="/design-patterns">Design Patterns</NavLink></li>
-            <li><NavLink to="/data-structure">Data Structures</NavLink></li>
-            <li><NavLink to="/sdlc">SDLC Guide</NavLink></li>
+            <li><NavLink to="/postgresql">PostgreSQL</NavLink></li>
+            <li><NavLink to="/redis">Redis</NavLink></li>
+            <li><NavLink to="/rabbitmq">RabbitMQ</NavLink></li>
+            <li><NavLink to="/cloudflare">Cloudflare</NavLink></li>
+            <li><NavLink to="/github-actions">GitHub Actions</NavLink></li>
           </ul>
         </div>
       </div>

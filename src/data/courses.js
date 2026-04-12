@@ -44,9 +44,20 @@ export const courseGroups = [
   { label: 'Backend Frameworks', courses: [springBootCourse, dotnetApiCourse, blazorCourse, djangoCourse] },
   { label: 'Databases', courses: [sqlCourse, postgresqlCourse, nosqlCourse, redisCourse] },
   { label: 'Testing', courses: [playwrightCourse, k6Course] },
-  { label: 'Messaging & Caching', courses: [rabbitmqCourse] },
   { label: 'DevOps & Cloud', courses: [dockerCourse, kubernetesCourse, terraformCourse, githubCourse, githubActionsCourse, azureDevOpsCourse, awsCourse, gcpCourse] },
-  { label: 'Security & Performance', courses: [cloudflareCourse] },
+  {
+    label: 'Others',
+    children: [
+      { label: 'Messaging & Caching', courses: [rabbitmqCourse] },
+      { label: 'Security & Performance', courses: [cloudflareCourse] },
+    ],
+  },
 ];
 
-export const courses = courseGroups.flatMap(g => g.courses);
+export const courses = courseGroups.flatMap(g =>
+  g.courses
+    ? g.courses
+    : g.children
+      ? g.children.flatMap(c => c.courses)
+      : []
+);

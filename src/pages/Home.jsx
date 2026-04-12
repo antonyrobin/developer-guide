@@ -42,41 +42,47 @@ const Home = () => {
                     <h2 className="section-title">Explore Courses</h2>
                 </div>
 
-                {courseGroups.map((group) => (
-                    <div key={group.label} className="course-group">
-                        <h3 className="course-group-label">{group.label}</h3>
-                        <div className="courses-grid">
-                            {group.courses.map((course) => {
-                                const idx = globalIdx++;
-                                return (
-                                    <NavLink key={course.id} to={`/${course.id}`} className="course-card-link">
-                                        <div
-                                            className="course-card animate-card-in"
-                                            style={{ animationDelay: `${idx * 0.04}s` }}
-                                        >
-                                            <div className="course-bg-icon">
-                                                <Rocket className="icon-huge" />
-                                            </div>
-                                            <div className="course-card-content">
-                                                <div className="course-icon-wrapper">
-                                                    {course.title.includes('Data') ? <Database className="icon-large" /> :
-                                                        course.title.includes('AWS') || course.title.includes('GCP') ? <Cloud className="icon-large" /> :
-                                                            course.title.includes('HTML') || course.title.includes('CSS') ? <Layout className="icon-large" /> :
-                                                                <Terminal className="icon-large" />}
+                {courseGroups.map((group) => {
+                    const allCourses = group.courses 
+                        ? group.courses 
+                        : group.children.flatMap(child => child.courses);
+                    
+                    return (
+                        <div key={group.label} className="course-group">
+                            <h3 className="course-group-label">{group.label}</h3>
+                            <div className="courses-grid">
+                                {allCourses.map((course) => {
+                                    const idx = globalIdx++;
+                                    return (
+                                        <NavLink key={course.id} to={`/${course.id}`} className="course-card-link">
+                                            <div
+                                                className="course-card animate-card-in"
+                                                style={{ animationDelay: `${idx * 0.04}s` }}
+                                            >
+                                                <div className="course-bg-icon">
+                                                    <Rocket className="icon-huge" />
                                                 </div>
-                                                <h3 className="course-title">{course.title}</h3>
-                                                <p className="course-desc">{course.description}</p>
-                                                <div className="course-link-text">
-                                                    Learn More &rarr;
+                                                <div className="course-card-content">
+                                                    <div className="course-icon-wrapper">
+                                                        {course.title.includes('Data') ? <Database className="icon-large" /> :
+                                                            course.title.includes('AWS') || course.title.includes('GCP') ? <Cloud className="icon-large" /> :
+                                                                course.title.includes('HTML') || course.title.includes('CSS') ? <Layout className="icon-large" /> :
+                                                                    <Terminal className="icon-large" />}
+                                                    </div>
+                                                    <h3 className="course-title">{course.title}</h3>
+                                                    <p className="course-desc">{course.description}</p>
+                                                    <div className="course-link-text">
+                                                        Learn More &rarr;
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </NavLink>
-                                );
-                            })}
+                                        </NavLink>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </section>
         </div>
     );
