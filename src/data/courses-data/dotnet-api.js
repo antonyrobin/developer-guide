@@ -815,6 +815,78 @@ public class CategoriesController(
     },
 
     {
+            title: 'Caching Layer: Redis & In-Memory',
+            image: '/images/dotnet-api/caching.svg',
+            content: `**Caching** drastically improves response times and reduces database load by storing frequently accessed, rarely changing data in memory. .NET supports both In-Memory and Distributed caching.
+
+### In-Memory Cache (IMemoryCache)
+
+Best suited for **single-instance applications** where cache consistency across multiple servers is not required.
+
+\`\`\`csharp
+// 1. Register in Program.cs
+builder.Services.AddMemoryCache();
+
+// 2. Inject and use in a service
+public async Task<string> GetConfigDataAsync()
+{
+    if (!_cache.TryGetValue("ConfigKey", out string value))
+    {
+        value = await _db.GetConfigAsync(); // Expensive DB call
+        
+        var options = new MemoryCacheEntryOptions()
+            .SetSlidingExpiration(TimeSpan.FromMinutes(5))     // Expires if inactive
+            .SetAbsoluteExpiration(TimeSpan.FromHours(1));     // Hard expiration limit
+            
+        _cache.Set("ConfigKey", value, options);
+    }
+    return value;
+}
+\`\`\`
+
+### Distributed Cache with Redis (IDistributedCache)
+
+Mandatory for **multi-instance deployments** (load-balanced environments) to ensure all nodes access the same synchronized cache state.
+
+\`\`\`csharp
+// 1. Register in Program.cs
+builder.Services.AddStackExchangeRedisCache(options => {
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
+
+// 2. Inject and use in a service
+public async Task<string> GetUserSession(string userId)
+{
+    var cachedData = await _cache.GetStringAsync($"session:{userId}");
+    if (cachedData != null) return cachedData;
+
+    var sessionData = await _db.GetSessionFastAsync(userId);
+    await _cache.SetStringAsync($"session:{userId}", sessionData, new DistributedCacheEntryOptions
+    {
+        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30)
+    });
+    
+    return sessionData;
+}
+\`\`\`
+
+### Caching Strategies Comparison
+
+| Strategy | Speed | Sharing | Persistence | Cost/Complexity |
+|---|---|---|---|---|
+| **IMemoryCache** | Extremely Fast (Gen0 heap) | Local to 1 server | Lost on restart | None / Low |
+| **Redis** | Network bound (< 1ms) | Shared across servers | Configurable | Needs Redis Server |
+`,
+            keyPoints: [
+                'Use IMemoryCache for monolithic, single-server applications.',
+                'Use Redis (IDistributedCache) for clustered or microservices environments.',
+                'Always set cache expirations (Sliding or Absolute) to prevent memory leaks.',
+                'Cache aggressively for frequent reads, but implement eviction on data writes.',
+                'Never store raw PII in cache without encryption.'
+            ]
+        },
+
+    {
       title: 'Security — Authentication & Authorization',
       image: '/images/dotnet-api/jwt-auth.svg',
       content: `A comprehensive security implementation covering JWT authentication, authorization policies, CORS, rate limiting, security headers, and input validation.
@@ -949,6 +1021,111 @@ app.Use(async (context, next) =>
     },
 
     {
+            title: 'JWT Creation & Management',
+            image: '/images/dotnet-api/jwt-creation.svg',
+            content: `**JWTs (JSON Web Tokens)** provide stateless, secure authentication for modern web applications. In development and production, you must efficiently generate, manage, and validate these tokens.
+
+### Anatomy of a JWT
+
+A JWT consists of three parts, separated by dots:
+- **Header**: Specifies the token type (\`JWT\`) and signing algorithm (\`HS256\`).
+- **Payload**: Contains the claims (e.g., user ID, roles, expiration).
+- **Signature**: Ensures the token cannot be tampered with.
+
+### Generating a JWT (C#)
+
+\`\`\`csharp
+public string GenerateToken(User user)
+{
+    var secretKey = builder.Configuration["Jwt:Key"]!;
+    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+    var claims = new[] 
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+        new Claim(ClaimTypes.Role, user.Role),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+    };
+
+    var token = new JwtSecurityToken(
+        issuer: builder.Configuration["Jwt:Issuer"],
+        audience: builder.Configuration["Jwt:Audience"],
+        claims: claims,
+        expires: DateTime.UtcNow.AddHours(1),
+        signingCredentials: creds
+    );
+
+    return new JwtSecurityTokenHandler().WriteToken(token);
+}
+\`\`\`
+
+### Validating a JWT
+
+Token validation occurs automatically in ASP.NET Core when configured in \`Program.cs\`.
+
+\`\`\`csharp
+// Program.cs
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,         // Checks expiration
+            ValidateIssuerSigningKey = true, // Checks signature
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+        };
+    });
+\`\`\`
+
+### Generating a Refresh Token
+
+Because JWTs should have short lifetimes, **Refresh Tokens** are used to maintain user sessions without re-authenticating. A refresh token is typically a cryptographically secure random string stored in the database.
+
+\`\`\`csharp
+public string GenerateRefreshToken()
+{
+    var randomNumber = new byte[64];
+    using var rng = RandomNumberGenerator.Create();
+    rng.GetBytes(randomNumber);
+    return Convert.ToBase64String(randomNumber);
+}
+
+// Storing the refresh token during login
+user.RefreshToken = GenerateRefreshToken();
+user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+await _db.SaveChangesAsync();
+\`\`\`
+
+
+### Tools for JWT Generation
+
+| Tool | Purpose | Link |
+|---|---|---|
+| **jwt.io** | Web interface for manual creation and decoding | [jwt.io](https://jwt.io/) |
+| **dotnet user-jwts** | CLI for managing local dev tokens | [Manage JWTs in dev](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/jwt-authn?view=aspnetcore-8.0#manage-jwts-in-development-with-dotnet-user-jwts) |
+
+### Best Practices
+
+- **Strong Keys**: Use a cryptographically strong, random signing key (minimum 32 characters for HMAC SHA256).
+- **Short Lifetimes**: Set short expirations (e.g., 15-60 minutes) and use Refresh Tokens for long-lived sessions.
+- **Never Store Secrets**: Never hardcode or commit your signing key. Use environment variables.
+- **Minimize Payload**: Do not place sensitive or PII data inside the token payload, as it is base64 encoded and publicly readable.
+`,
+            keyPoints: [
+                'JWTs are used for secure, stateless API authentication.',
+                'Generate JWTs using C# JwtSecurityToken, the .NET CLI, or jwt.io.',
+                'Always use strong, minimum 32-character keys for HMAC SHA256.',
+                'Keep tokens short-lived and implement refresh token strategies.',
+                'Do not store sensitive personal information inside a JWT.'
+            ]
+        },
+
+    {
       title: 'Program.cs — DI & Middleware Pipeline',
       image: '/images/dotnet-api/middleware-pipeline.svg',
       content: `\`Program.cs\` is the entry point that configures dependency injection, middleware pipeline, and security. **Middleware order matters** — each component sees the request before passing it to the next.
@@ -1053,6 +1230,83 @@ app.Run();
         'Security headers applied via custom middleware.'
       ]
     },
+
+    {
+            title: 'Logging & Monitoring with Serilog',
+            image: '/images/dotnet-api/logging.svg',
+            content: `**Serilog** is a powerful structured logging library for .NET. It converts unstructured text logs into highly queryable event data, essential for observability and distributed tracing.
+
+### Configuration & Setup
+
+First, install the required NuGet packages:
+\`\`\`powershell
+dotnet add package Serilog.AspNetCore
+dotnet add package Serilog.Sinks.Console
+dotnet add package Serilog.Sinks.File
+\`\`\`
+
+Then, configure the host in \`Program.cs\` to use Serilog fully configured by \`appsettings.json\`:
+
+\`\`\`csharp
+// Program.cs
+builder.Host.UseSerilog((context, config) =>
+    config.ReadFrom.Configuration(context.Configuration));
+\`\`\`
+
+### Structured Configuration (appsettings.json)
+
+\`\`\`json
+{
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft.AspNetCore": "Warning",
+        "System": "Warning"
+      }
+    },
+    "WriteTo": [
+      { "Name": "Console" },
+      { 
+        "Name": "File", 
+        "Args": { 
+          "path": "Logs/log-.txt", 
+          "rollingInterval": "Day",
+          "formatter": "Serilog.Formatting.Compact.CompactJsonFormatter, Serilog.Formatting.Compact"
+        } 
+      }
+    ],
+    "Enrich": ["FromLogContext", "WithMachineName", "WithThreadId"]
+  }
+}
+\`\`\`
+
+### Log Enrichment & Execution
+
+Enriching logs adds contextual data (like UserID, RequestPath, or Correlation ID) to every log event.
+
+\`\`\`csharp
+// Example Controller/Service Usage
+_logger.LogInformation("Processing order {OrderId} for user {UserId}", order.Id, user.Id);
+\`\`\`
+*Instead of just outputting text, this creates a structured event with \`OrderId\` and \`UserId\` properties that can be easily queried in Seq, Elasticsearch, or Datadog.*
+
+### Common Log Sinks
+
+| Sink | Use Case |
+|---|---|
+| **Console** | Fast, colorful feedback during local development. |
+| **File (Rolling)** | Persistent local logs grouped by day/size for auditing. |
+| **Seq / Elastic** | Centralized log aggregators for advanced querying and dashboards. |
+`,
+            keyPoints: [
+                'Serilog provides structured, queryable logs rather than raw text.',
+                'Centralize configuration in appsettings.json for easy environment overriding.',
+                'Use log enrichers to automatically append request/user diagnostics.',
+                'Filter out noisy standard Microsoft logs by setting them to Warning.',
+                'Export to powerful sinks like Seq or Elasticsearch for system observability.'
+            ]
+        },
 
     {
       title: 'Environment Variables & Secrets',
@@ -1506,6 +1760,77 @@ The \`/p:Threshold=80\` flag fails the build if line coverage drops below 80%.`,
     },
 
     {
+            title: 'Load Testing Your API',
+            image: '/images/dotnet-api/load-testing.svg',
+            content: `**Load testing** is critical for validating that your API can sustain real-world traffic volumes without crashing or degrading response times. [k6](https://k6.io/) by Grafana is a modern, developer-centric tool for scriptable performance tests.
+
+### Scenarios to Test
+
+- **Spike Testing**: Evaluating behavior during a sudden, massive surge in traffic.
+- **Soak Testing**: Ensuring stability and hunting for memory leaks over a long timeframe.
+- **Stress Testing**: Finding the absolute breaking point and maximum RPS capability.
+
+### k6 Example Script (script.js)
+
+Load tests are written in JavaScript, making them easy to maintain and extend:
+
+\`\`\`javascript
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+// Define the test characteristics
+export const options = {
+    stages: [
+        { duration: '30s', target: 50 },  // Ramp up to 50 virtual users
+        { duration: '1m', target: 50 },   // Sustain 50 users
+        { duration: '30s', target: 0 },   // Scale down
+    ],
+};
+
+// Execution logic per Virtual User
+export default function () {
+    const res = http.get('http://localhost:8080/api/categories');
+    
+    // Validate assertions
+    check(res, { 
+        'status is 200': (r) => r.status === 200,
+        'transaction is under 200ms': (r) => r.timings.duration < 200
+    });
+    
+    sleep(1); // Wait 1 second before firing the next request
+}
+\`\`\`
+
+### Execution and CI Integration
+
+\`\`\`powershell
+# Run the script locally
+k6 run script.js
+
+# Output results to a JSON file for CI processing
+k6 run --out json=results.json script.js
+\`\`\`
+
+You should integrate k6 into GitHub Actions or Azure Pipelines and define **Pass/Fail Thresholds** (e.g. failing the build if the 95th percentile latency exceeds 500ms or error rate > 1%).
+
+### Testing Best Practices
+
+| Practice | Explanation |
+|---|---|
+| **Test Realistic Flows** | Include token generation logic to test protected endpoints. |
+| **Observe Backend Metrics** | Monitor CPU/Memory & Database connections during tests. |
+| **Never Load-Test Prod** | Perform heavy destructive tests entirely in Staging/UAT isolated environments. |
+`,
+            keyPoints: [
+                'Use k6 for fast, developer-friendly and scriptable load testing.',
+                'Utilize stages to simulate ramps up/down and sustained traffic loads.',
+                'Implement assertions to track failure rates and specific request latency bounds.',
+                'Integrate directly into CI/CD to prevent regressions on deployment.',
+                'Monitor database and infrastructure metrics heavily while the test executes.'
+            ]
+        },
+
+    {
       title: 'API Verification — Swagger & Postman',
       content: `### OpenAPI (Swagger)
 
@@ -1659,6 +1984,83 @@ This ensures the frontend team has **typed API contracts** that stay in sync wit
         'Auto-generated SDK ensures frontend stays in sync with API changes.'
       ]
     },
+
+    {
+            title: 'API Gateway with YARP',
+            image: '/images/dotnet-api/yarp-gateway.svg',
+            content: `**YARP (Yet Another Reverse Proxy)** is a highly customizable, high-performance API Gateway built entirely in .NET by Microsoft. It acts as the single point of entry, routing requests to various backend microservices.
+
+### Key Capabilities
+
+- **Configuration-Driven Routing**: Define routes, clusters, and destinations in \`appsettings.json\`.
+- **Cross-Cutting Concerns**: Offloads JWT validation, rate limiting, and CORS from backend microservices.
+- **Load Balancing**: Supports various algorithms (RoundRobin, LeastRequests, Random).
+- **Active Health Checks**: Automatically stops routing traffic to degraded nodes.
+
+### Essential YARP Setup
+
+First, install the Nuget package: \`dotnet add package Yarp.ReverseProxy\`.
+
+\`\`\`csharp
+// Program.cs
+builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
+// Add centralized Gateway Middleware
+builder.Services.AddAuthentication("Bearer").AddJwtBearer(/* logic */);
+builder.Services.AddRateLimiter(/* logic */);
+builder.Services.AddCors(/* logic */);
+
+var app = builder.Build();
+
+app.UseCors("Default");
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseRateLimiter();
+app.UseSerilogRequestLogging();
+
+app.MapReverseProxy(); // Starts YARP routing execution
+app.Run();
+\`\`\`
+
+### Configuration Structure (appsettings.json)
+
+\`\`\`json
+{
+  "ReverseProxy": {
+    "Routes": {
+      "catalog-route": {
+        "ClusterId": "catalog-cluster",
+        "Match": { "Path": "/api/catalog/{**catch-all}" }
+      }
+    },
+    "Clusters": {
+      "catalog-cluster": {
+        "Destinations": {
+          "node1": { "Address": "http://catalog-service:8080/" },
+          "node2": { "Address": "http://catalog-service:8081/" }
+        }
+      }
+    }
+  }
+}
+\`\`\`
+
+### Relevant Resources
+
+| Resource | Link |
+|---|---|
+| **YARP Official Documentation** | [Getting Started](https://microsoft.github.io/reverse-proxy/articles/getting-started.html) |
+| **YARP GitHub Repository** | [github.com/microsoft/reverse-proxy](https://github.com/microsoft/reverse-proxy) |
+`,
+            keyPoints: [
+                'YARP is a highly performant reverse proxy running entirely natively within .NET.',
+                'Offload cross-cutting concerns (Auth, CORS, Rate Limiting) to the Gateway.',
+                'Use appsettings.json to rapidly iterate over routes and downstream clusters.',
+                'Supports advanced load balancing algorithms and robust active health checks.',
+                'Reduces code duplication across a heavy microservices ecosystem.'
+            ]
+        },
 
     {
       title: 'Deployment — IIS',
