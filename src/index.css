@@ -477,6 +477,65 @@ button {
   border-bottom-color: var(--primary);
 }
 
+/* ── Nested dropdown ("Others" with children) ── */
+.nav-chevron {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-left: 0.2rem;
+  transition: transform 0.2s ease;
+  vertical-align: middle;
+}
+
+.desktop-nav-group--nested .desktop-nav-group-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.desktop-nav-group--nested:hover .nav-chevron {
+  transform: rotate(180deg);
+}
+
+.desktop-nav-dropdown--mega {
+  min-width: 240px;
+  padding: 0.5rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.desktop-nav-group--nested:hover .desktop-nav-dropdown--mega {
+  display: flex;
+}
+
+.desktop-nav-submenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.desktop-nav-submenu + .desktop-nav-submenu {
+  border-top: 1px solid var(--border);
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+}
+
+.desktop-nav-submenu-label {
+  display: block;
+  padding: 0.4rem 0.75rem 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.desktop-nav-submenu-items {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (min-width: 1024px) {
   .desktop-nav { display: flex; }
 }
@@ -536,6 +595,81 @@ button {
   font-size: 0.75rem;
   font-weight: 800;
   color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-left: 0.25rem;
+  background: none;
+  border: none;
+  cursor: default;
+  text-align: left;
+}
+
+/* Expandable mobile group label (for "Others") */
+.mobile-menu-group-label--expandable {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0.75rem;
+  background: var(--accent);
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--primary);
+  transition: var(--transition);
+}
+
+.mobile-menu-group-label--expandable:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.mobile-menu-group-label--expandable:hover .mobile-chevron {
+  color: white;
+}
+
+.mobile-chevron {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.25s ease;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.mobile-chevron--open {
+  transform: rotate(90deg);
+}
+
+/* Collapsible nested container */
+.mobile-nested-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.mobile-nested-container--open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.mobile-nested-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+}
+
+.mobile-nested-group + .mobile-nested-group {
+  border-top: 1px solid var(--border);
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+}
+
+.mobile-nested-label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding-left: 0.25rem;

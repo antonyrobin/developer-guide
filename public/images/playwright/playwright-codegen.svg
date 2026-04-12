@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Playwright Codegen Workflow</text>
+  <rect x="50" y="170" width="180" height="80" rx="12" fill="#2dd4bf"/>
+  <text x="140" y="205" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">npx playwright</text>
+  <text x="140" y="225" text-anchor="middle" fill="#0f172a" font-size="12" font-family="Segoe UI,Arial,sans-serif">codegen URL</text>
+  <polygon points="230,210 280,205 280,215" fill="#60a5fa"/>
+  <rect x="280" y="150" width="200" height="120" rx="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="2"/>
+  <text x="380" y="190" text-anchor="middle" fill="#2dd4bf" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Browser Opens</text>
+  <text x="380" y="215" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Click, type, navigate</text>
+  <text x="380" y="235" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Actions are recorded</text>
+  <text x="380" y="255" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">as test code live</text>
+  <polygon points="480,210 530,205 530,215" fill="#60a5fa"/>
+  <rect x="530" y="170" width="180" height="80" rx="12" fill="#7c3aed"/>
+  <text x="620" y="205" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Code Generated</text>
+  <text x="620" y="225" text-anchor="middle" fill="#ddd" font-size="12" font-family="Segoe UI,Arial,sans-serif">test.spec.ts</text>
+  <polygon points="710,210 760,205 760,215" fill="#60a5fa"/>
+  <rect x="760" y="170" width="100" height="80" rx="12" fill="#047857"/>
+  <text x="810" y="205" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Run</text>
+  <text x="810" y="225" text-anchor="middle" fill="#a7f3d0" font-size="12" font-family="Segoe UI,Arial,sans-serif">npx test</text>
+  <rect x="200" y="310" width="500" height="55" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="450" y="340" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Zero manual coding — record and replay browser actions</text>
+</svg>

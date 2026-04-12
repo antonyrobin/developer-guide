@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Grafana k6 — Load Testing</text>
+  <rect x="50" y="150" width="180" height="120" rx="14" fill="#7c3aed"/>
+  <text x="140" y="195" text-anchor="middle" fill="#fff" font-size="20" font-weight="700" font-family="Segoe UI,Arial,sans-serif">k6 Engine</text>
+  <text x="140" y="220" text-anchor="middle" fill="#ddd" font-size="12" font-family="Segoe UI,Arial,sans-serif">Virtual Users</text>
+  <text x="140" y="240" text-anchor="middle" fill="#ddd" font-size="12" font-family="Segoe UI,Arial,sans-serif">JS Test Scripts</text>
+  <line x1="230" y1="210" x2="350" y2="120" stroke="#4ade80" stroke-width="3"/>
+  <line x1="230" y1="210" x2="350" y2="210" stroke="#4ade80" stroke-width="3"/>
+  <line x1="230" y1="210" x2="350" y2="300" stroke="#4ade80" stroke-width="3"/>
+  <rect x="350" y="80" width="200" height="80" rx="10" fill="#1e40af"/>
+  <text x="450" y="115" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">REST API</text>
+  <text x="450" y="140" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">GET / POST / PUT / DELETE</text>
+  <rect x="350" y="170" width="200" height="80" rx="10" fill="#047857"/>
+  <text x="450" y="205" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Web Application</text>
+  <text x="450" y="230" text-anchor="middle" fill="#a7f3d0" font-size="11" font-family="Segoe UI,Arial,sans-serif">Browser Protocol</text>
+  <rect x="350" y="260" width="200" height="80" rx="10" fill="#b45309"/>
+  <text x="450" y="295" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">gRPC / WebSocket</text>
+  <text x="450" y="320" text-anchor="middle" fill="#fde68a" font-size="11" font-family="Segoe UI,Arial,sans-serif">Streaming Protocols</text>
+  <rect x="640" y="130" width="220" height="160" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="750" y="165" text-anchor="middle" fill="#fbbf24" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Metrics Output</text>
+  <text x="750" y="195" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Latency (p95, p99)</text>
+  <text x="750" y="215" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Requests Per Second</text>
+  <text x="750" y="235" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Error Rate (%)</text>
+  <text x="750" y="255" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">VU Concurrency</text>
+  <text x="750" y="275" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Data Transferred</text>
+  <line x1="550" y1="210" x2="640" y2="210" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,4"/>
+</svg>

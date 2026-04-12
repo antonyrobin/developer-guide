@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Terraform — Infrastructure as Code</text>
+  <rect x="350" y="80" width="200" height="80" rx="12" fill="#7c3aed"/>
+  <text x="450" y="115" text-anchor="middle" fill="#fff" font-size="20" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Terraform</text>
+  <text x="450" y="140" text-anchor="middle" fill="#ddd" font-size="12" font-family="Segoe UI,Arial,sans-serif">HCL Configuration Files</text>
+  <line x1="350" y1="160" x2="150" y2="220" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="450" y1="160" x2="450" y2="220" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="550" y1="160" x2="750" y2="220" stroke="#60a5fa" stroke-width="2"/>
+  <rect x="50" y="220" width="200" height="70" rx="10" fill="#1e40af"/>
+  <text x="150" y="255" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Azure</text>
+  <text x="150" y="275" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">VMs, Storage, AKS</text>
+  <rect x="350" y="220" width="200" height="70" rx="10" fill="#b45309"/>
+  <text x="450" y="255" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">AWS</text>
+  <text x="450" y="275" text-anchor="middle" fill="#fde68a" font-size="11" font-family="Segoe UI,Arial,sans-serif">EC2, S3, Lambda</text>
+  <rect x="650" y="220" width="200" height="70" rx="10" fill="#166534"/>
+  <text x="750" y="255" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">GCP</text>
+  <text x="750" y="275" text-anchor="middle" fill="#bbf7d0" font-size="11" font-family="Segoe UI,Arial,sans-serif">GCE, GCS, GKE</text>
+  <rect x="200" y="330" width="200" height="55" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="300" y="360" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">GitHub Provider</text>
+  <text x="300" y="375" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Repos, Teams, Actions</text>
+  <rect x="500" y="330" width="200" height="55" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="360" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Cloudflare Provider</text>
+  <text x="600" y="375" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">DNS, CDN, Workers</text>
+</svg>

@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { BookOpen, Search, Menu, X } from 'lucide-react';
+import { BookOpen, Search, Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 import { courses, courseGroups } from '../data/courses';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [expandedMobileGroup, setExpandedMobileGroup] = useState(null);
   const searchInputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -50,6 +51,109 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const toggleMobileGroup = (label) => {
+    setExpandedMobileGroup(prev => prev === label ? null : label);
+  };
+
+  // Render a regular nav group (flat courses)
+  const renderDesktopGroup = (group) => (
+    <div key={group.label} className="desktop-nav-group">
+      <span className="desktop-nav-group-label">{group.label}</span>
+      <div className="desktop-nav-dropdown">
+        {group.courses.map(course => (
+          <NavLink
+            key={course.id}
+            to={`/${course.id}`}
+            className={({ isActive }) => `dropdown-link ${isActive ? 'active' : ''}`}
+          >
+            {course.title}
+          </NavLink>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Render the "Others" nav group with nested children sub-menus
+  const renderDesktopNestedGroup = (group) => (
+    <div key={group.label} className="desktop-nav-group desktop-nav-group--nested">
+      <span className="desktop-nav-group-label">
+        {group.label}
+        <ChevronDown className="nav-chevron" />
+      </span>
+      <div className="desktop-nav-dropdown desktop-nav-dropdown--mega">
+        {group.children.map(child => (
+          <div key={child.label} className="desktop-nav-submenu">
+            <span className="desktop-nav-submenu-label">{child.label}</span>
+            <div className="desktop-nav-submenu-items">
+              {child.courses.map(course => (
+                <NavLink
+                  key={course.id}
+                  to={`/${course.id}`}
+                  className={({ isActive }) => `dropdown-link ${isActive ? 'active' : ''}`}
+                >
+                  {course.title}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Render a mobile menu group (flat)
+  const renderMobileGroup = (group) => (
+    <div key={group.label} className="mobile-menu-group">
+      <h4 className="mobile-menu-group-label">{group.label}</h4>
+      <div className="mobile-menu-grid">
+        {group.courses.map(course => (
+          <NavLink
+            key={course.id}
+            to={`/${course.id}`}
+            onClick={() => setIsMenuOpen(false)}
+            className="mobile-nav-link"
+          >
+            {course.title}
+          </NavLink>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Render the "Others" mobile group with expandable children
+  const renderMobileNestedGroup = (group) => (
+    <div key={group.label} className="mobile-menu-group">
+      <button
+        className="mobile-menu-group-label mobile-menu-group-label--expandable"
+        onClick={() => toggleMobileGroup(group.label)}
+      >
+        {group.label}
+        <ChevronRight
+          className={`mobile-chevron ${expandedMobileGroup === group.label ? 'mobile-chevron--open' : ''}`}
+        />
+      </button>
+      <div className={`mobile-nested-container ${expandedMobileGroup === group.label ? 'mobile-nested-container--open' : ''}`}>
+        {group.children.map(child => (
+          <div key={child.label} className="mobile-nested-group">
+            <h5 className="mobile-nested-label">{child.label}</h5>
+            <div className="mobile-menu-grid">
+              {child.courses.map(course => (
+                <NavLink
+                  key={course.id}
+                  to={`/${course.id}`}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="mobile-nav-link"
+                >
+                  {course.title}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <>
       <header className="header glass">
@@ -60,22 +164,11 @@ const Header = () => {
           </NavLink>
 
           <nav className="desktop-nav">
-            {courseGroups.map(group => (
-              <div key={group.label} className="desktop-nav-group">
-                <span className="desktop-nav-group-label">{group.label}</span>
-                <div className="desktop-nav-dropdown">
-                  {group.courses.map(course => (
-                    <NavLink
-                      key={course.id}
-                      to={`/${course.id}`}
-                      className={({ isActive }) => `dropdown-link ${isActive ? 'active' : ''}`}
-                    >
-                      {course.title}
-                    </NavLink>
-                  ))}
-                </div>
-              </div>
-            ))}
+            {courseGroups.map(group =>
+              group.children
+                ? renderDesktopNestedGroup(group)
+                : renderDesktopGroup(group)
+            )}
           </nav>
 
           <div className="header-actions">
@@ -99,23 +192,11 @@ const Header = () => {
         {isMenuOpen && (
           <div className="mobile-menu">
             <div className="mobile-menu-inner">
-              {courseGroups.map(group => (
-                <div key={group.label} className="mobile-menu-group">
-                  <h4 className="mobile-menu-group-label">{group.label}</h4>
-                  <div className="mobile-menu-grid">
-                    {group.courses.map(course => (
-                      <NavLink
-                        key={course.id}
-                        to={`/${course.id}`}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="mobile-nav-link"
-                      >
-                        {course.title}
-                      </NavLink>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              {courseGroups.map(group =>
+                group.children
+                  ? renderMobileNestedGroup(group)
+                  : renderMobileGroup(group)
+              )}
             </div>
           </div>
         )}

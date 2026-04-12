@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Redis Data Types</text>
+  <rect x="50" y="80" width="250" height="130" rx="10" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+  <text x="175" y="110" text-anchor="middle" fill="#ef4444" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Strings</text>
+  <text x="175" y="140" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">SET key value</text>
+  <text x="175" y="160" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">GET key → value</text>
+  <text x="175" y="190" text-anchor="middle" fill="#64748b" font-size="10" font-family="Segoe UI,Arial,sans-serif">Use: Caching, counters, flags</text>
+  <rect x="325" y="80" width="250" height="130" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="450" y="110" text-anchor="middle" fill="#38bdf8" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Hashes</text>
+  <text x="450" y="140" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">HSET user:1 name John</text>
+  <text x="450" y="160" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">HGETALL user:1</text>
+  <text x="450" y="190" text-anchor="middle" fill="#64748b" font-size="10" font-family="Segoe UI,Arial,sans-serif">Use: Objects, sessions, profiles</text>
+  <rect x="600" y="80" width="250" height="130" rx="10" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+  <text x="725" y="110" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Lists</text>
+  <text x="725" y="140" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">LPUSH queue task1</text>
+  <text x="725" y="160" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">RPOP queue → task1</text>
+  <text x="725" y="190" text-anchor="middle" fill="#64748b" font-size="10" font-family="Segoe UI,Arial,sans-serif">Use: Queues, activity feeds</text>
+  <rect x="100" y="250" width="250" height="130" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <text x="225" y="280" text-anchor="middle" fill="#f59e0b" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Sets</text>
+  <text x="225" y="310" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">SADD tags tag1 tag2</text>
+  <text x="225" y="330" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">SMEMBERS tags</text>
+  <text x="225" y="360" text-anchor="middle" fill="#64748b" font-size="10" font-family="Segoe UI,Arial,sans-serif">Use: Unique values, tags</text>
+  <rect x="400" y="250" width="250" height="130" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+  <text x="525" y="280" text-anchor="middle" fill="#a78bfa" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Sorted Sets</text>
+  <text x="525" y="310" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">ZADD leaderboard 100 user1</text>
+  <text x="525" y="330" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">ZRANGE leaderboard 0 9</text>
+  <text x="525" y="360" text-anchor="middle" fill="#64748b" font-size="10" font-family="Segoe UI,Arial,sans-serif">Use: Rankings, scores</text>
+</svg>

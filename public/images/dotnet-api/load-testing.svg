@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Load Testing with k6</text>
+
+  <!-- k6 Generator -->
+  <rect x="50" y="160" width="180" height="100" rx="14" fill="#7c3aed"/>
+  <text x="140" y="195" text-anchor="middle" fill="#fff" font-size="20" font-weight="700" font-family="Segoe UI,Arial,sans-serif">k6 scripts</text>
+  <text x="140" y="220" text-anchor="middle" fill="#ddd" font-size="12" font-family="Segoe UI,Arial,sans-serif">Virtual Users (VUs)</text>
+  <text x="140" y="240" text-anchor="middle" fill="#ddd" font-size="12" font-family="Segoe UI,Arial,sans-serif">HTTP req/sec</text>
+
+  <!-- Requests Arrow -->
+  <polygon points="230,210 280,205 280,215" fill="#60a5fa"/>
+  <text x="255" y="195" text-anchor="middle" fill="#60a5fa" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Traffic</text>
+
+  <!-- API Gateway -->
+  <rect x="290" y="140" width="160" height="140" rx="14" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
+  <text x="370" y="200" text-anchor="middle" fill="#fff" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">API Gateway</text>
+  <text x="370" y="220" text-anchor="middle" fill="#bfdbfe" font-size="12" font-family="Segoe UI,Arial,sans-serif">Rate Limiter</text>
+
+  <!-- Arrows to Replicas -->
+  <line x1="450" y1="210" x2="550" y2="120" stroke="#4ade80" stroke-width="3"/>
+  <line x1="450" y1="210" x2="550" y2="210" stroke="#4ade80" stroke-width="3"/>
+  <line x1="450" y1="210" x2="550" y2="300" stroke="#4ade80" stroke-width="3"/>
+
+  <!-- API Replicas -->
+  <rect x="550" y="90" width="180" height="60" rx="10" fill="#166534"/>
+  <text x="640" y="125" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">API Replica 1</text>
+  
+  <rect x="550" y="180" width="180" height="60" rx="10" fill="#166534"/>
+  <text x="640" y="215" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">API Replica 2</text>
+
+  <rect x="550" y="270" width="180" height="60" rx="10" fill="#166534"/>
+  <text x="640" y="305" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">API Replica 3</text>
+
+  <!-- Metrics box -->
+  <rect x="300" y="320" width="300" height="70" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="450" y="350" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Performance Metrics</text>
+  <text x="450" y="370" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Latency (p95) · Error Rate · Throughput (RPS)</text>
+</svg>

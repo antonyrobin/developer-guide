@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Playwright — End-to-End Testing</text>
+  <rect x="300" y="80" width="300" height="70" rx="12" fill="#2dd4bf" fill-opacity="0.15" stroke="#2dd4bf" stroke-width="2"/>
+  <text x="450" y="115" text-anchor="middle" fill="#2dd4bf" font-size="20" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Playwright Engine</text>
+  <text x="450" y="138" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">Codegen · Test Runner · Assertions</text>
+  <line x1="350" y1="150" x2="150" y2="220" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="450" y1="150" x2="450" y2="220" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="550" y1="150" x2="750" y2="220" stroke="#60a5fa" stroke-width="2"/>
+  <rect x="50" y="220" width="200" height="80" rx="10" fill="#1e40af"/>
+  <text x="150" y="255" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Chromium</text>
+  <text x="150" y="280" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">Chrome / Edge</text>
+  <rect x="350" y="220" width="200" height="80" rx="10" fill="#b45309"/>
+  <text x="450" y="255" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Firefox</text>
+  <text x="450" y="280" text-anchor="middle" fill="#fde68a" font-size="11" font-family="Segoe UI,Arial,sans-serif">Gecko Engine</text>
+  <rect x="650" y="220" width="200" height="80" rx="10" fill="#7c3aed"/>
+  <text x="750" y="255" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">WebKit</text>
+  <text x="750" y="280" text-anchor="middle" fill="#ddd" font-size="11" font-family="Segoe UI,Arial,sans-serif">Safari</text>
+  <rect x="150" y="340" width="260" height="50" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="280" y="370" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Languages: JS · TS · Python · C# · Java</text>
+  <rect x="490" y="340" width="260" height="50" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="620" y="370" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">CI: GitHub Actions · Azure · Jenkins</text>
+</svg>
