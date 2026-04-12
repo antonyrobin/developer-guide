@@ -44,10 +44,10 @@ export const courseGroups = [
   { label: 'Backend Frameworks', courses: [springBootCourse, dotnetApiCourse, blazorCourse, djangoCourse] },
   { label: 'Databases', courses: [sqlCourse, postgresqlCourse, nosqlCourse, redisCourse] },
   { label: 'Testing', courses: [playwrightCourse, k6Course] },
-  { label: 'DevOps & Cloud', courses: [dockerCourse, kubernetesCourse, terraformCourse, githubCourse, githubActionsCourse, azureDevOpsCourse, awsCourse, gcpCourse] },
   {
     label: 'Others',
     children: [
+      { label: 'DevOps & Cloud', courses: [dockerCourse, kubernetesCourse, terraformCourse, githubCourse, githubActionsCourse, azureDevOpsCourse, awsCourse, gcpCourse] },
       { label: 'Messaging & Caching', courses: [rabbitmqCourse] },
       { label: 'Security & Performance', courses: [cloudflareCourse] },
     ],

@@ -189,18 +189,19 @@ const Header = () => {
           </div>
         </div>
 
-        {isMenuOpen && (
-          <div className="mobile-menu">
-            <div className="mobile-menu-inner">
-              {courseGroups.map(group =>
-                group.children
-                  ? renderMobileNestedGroup(group)
-                  : renderMobileGroup(group)
-              )}
-            </div>
-          </div>
-        )}
       </header>
+
+      {isMenuOpen && (
+        <div className="mobile-menu">
+          <div className="mobile-menu-inner">
+            {courseGroups.map(group =>
+              group.children
+                ? renderMobileNestedGroup(group)
+                : renderMobileGroup(group)
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Search Modal */}
       {isSearchOpen && (
