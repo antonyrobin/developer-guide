@@ -35,15 +35,19 @@ import { cloudflareCourse } from './courses-data/cloudflare';
 import { playwrightCourse } from './courses-data/playwright';
 import { rabbitmqCourse } from './courses-data/rabbitmq';
 import { redisCourse } from './courses-data/redis';
+import { seleniumCourse } from './courses-data/selenium';
+import { jmeterCourse } from './courses-data/jmeter';
+import { mochaCourse } from './courses-data/mocha';
+import { ionicCourse } from './courses-data/ionic';
 
 export const courseGroups = [
   { label: 'Fundamentals', courses: [sdlcCourse, oopsCourse, dataStructureCourse, designPatternsCourse, systemArchitectureCourse] },
   { label: 'Web Essentials', courses: [htmlCourse, cssCourse, tailwindCourse, jsCourse] },
-  { label: 'Frontend Frameworks', courses: [reactCourse, angularCourse, nextjsCourse, flutterCourse] },
+  { label: 'Frontend Frameworks', courses: [reactCourse, angularCourse, nextjsCourse, ionicCourse, flutterCourse] },
   { label: 'Backend Languages', courses: [javaCourse, csharpCourse, pythonCourse, phpCourse] },
   { label: 'Backend Frameworks', courses: [springBootCourse, dotnetApiCourse, blazorCourse, djangoCourse] },
   { label: 'Databases', courses: [sqlCourse, postgresqlCourse, nosqlCourse, redisCourse] },
-  { label: 'Testing', courses: [playwrightCourse, k6Course] },
+  { label: 'Testing', courses: [playwrightCourse, seleniumCourse, k6Course, jmeterCourse, mochaCourse] },
   {
     label: 'Others',
     children: [
