@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">k6 Testing Workflow</text>
+  <rect x="50" y="100" width="160" height="70" rx="10" fill="#7c3aed"/>
+  <text x="130" y="135" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Write Script</text>
+  <text x="130" y="155" text-anchor="middle" fill="#ddd" font-size="10" font-family="Segoe UI,Arial,sans-serif">script.js (ES6)</text>
+  <polygon points="210,135 250,130 250,140" fill="#60a5fa"/>
+  <rect x="260" y="100" width="160" height="70" rx="10" fill="#1e40af"/>
+  <text x="340" y="135" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Run Locally</text>
+  <text x="340" y="155" text-anchor="middle" fill="#bfdbfe" font-size="10" font-family="Segoe UI,Arial,sans-serif">k6 run script.js</text>
+  <polygon points="420,135 460,130 460,140" fill="#60a5fa"/>
+  <rect x="470" y="100" width="160" height="70" rx="10" fill="#047857"/>
+  <text x="550" y="135" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Analyze Results</text>
+  <text x="550" y="155" text-anchor="middle" fill="#a7f3d0" font-size="10" font-family="Segoe UI,Arial,sans-serif">Console / Grafana</text>
+  <polygon points="630,135 670,130 670,140" fill="#60a5fa"/>
+  <rect x="680" y="100" width="170" height="70" rx="10" fill="#b45309"/>
+  <text x="765" y="135" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">CI/CD Gate</text>
+  <text x="765" y="155" text-anchor="middle" fill="#fde68a" font-size="10" font-family="Segoe UI,Arial,sans-serif">Pass/Fail Thresholds</text>
+  <rect x="100" y="230" width="300" height="140" rx="10" fill="#1e293b" stroke="#334155"/>
+  <text x="250" y="260" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Test Types</text>
+  <text x="250" y="290" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Smoke: 1 VU, quick check</text>
+  <text x="250" y="310" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Load: Normal traffic pattern</text>
+  <text x="250" y="330" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Stress: Beyond normal capacity</text>
+  <text x="250" y="350" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Soak: Extended duration test</text>
+  <rect x="500" y="230" width="300" height="140" rx="10" fill="#1e293b" stroke="#334155"/>
+  <text x="650" y="260" text-anchor="middle" fill="#f59e0b" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Output Integrations</text>
+  <text x="650" y="290" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Grafana Cloud k6</text>
+  <text x="650" y="310" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">InfluxDB + Grafana</text>
+  <text x="650" y="330" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">JSON / CSV Export</text>
+  <text x="650" y="350" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Datadog / New Relic</text>
+</svg>

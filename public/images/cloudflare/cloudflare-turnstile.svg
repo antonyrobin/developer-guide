@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Cloudflare Turnstile — Bot Protection</text>
+  <rect x="50" y="160" width="180" height="100" rx="12" fill="#3b82f6"/>
+  <text x="140" y="200" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">User Submits</text>
+  <text x="140" y="222" text-anchor="middle" fill="#bfdbfe" font-size="12" font-family="Segoe UI,Arial,sans-serif">Contact Form</text>
+  <line x1="230" y1="210" x2="320" y2="210" stroke="#f59e0b" stroke-width="3"/>
+  <rect x="320" y="130" width="260" height="160" rx="14" fill="#1e293b" stroke="#f97316" stroke-width="2"/>
+  <text x="450" y="170" text-anchor="middle" fill="#f97316" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Turnstile Widget</text>
+  <text x="450" y="200" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Invisible challenge runs</text>
+  <text x="450" y="220" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">No CAPTCHA puzzle needed</text>
+  <text x="450" y="250" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">✓ Token Generated</text>
+  <text x="450" y="270" text-anchor="middle" fill="#ef4444" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">✗ Bot Blocked</text>
+  <line x1="580" y1="210" x2="670" y2="210" stroke="#4ade80" stroke-width="3"/>
+  <rect x="670" y="160" width="180" height="100" rx="12" fill="#047857"/>
+  <text x="760" y="200" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Server Validates</text>
+  <text x="760" y="222" text-anchor="middle" fill="#a7f3d0" font-size="12" font-family="Segoe UI,Arial,sans-serif">Token via API</text>
+  <rect x="200" y="340" width="500" height="45" rx="8" fill="#1e293b"/>
+  <text x="450" y="367" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">Privacy-first · No CAPTCHA puzzles · Free tier available</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <rect width="900" height="420" rx="16" fill="#0f172a"/>
+  <text x="450" y="44" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Cloudflare — Security &amp; Performance</text>
+  <rect x="50" y="160" width="160" height="100" rx="12" fill="#3b82f6"/>
+  <text x="130" y="200" text-anchor="middle" fill="#fff" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Users</text>
+  <text x="130" y="225" text-anchor="middle" fill="#bfdbfe" font-size="11" font-family="Segoe UI,Arial,sans-serif">Web / Mobile / API</text>
+  <line x1="210" y1="210" x2="310" y2="210" stroke="#60a5fa" stroke-width="3"/>
+  <rect x="310" y="100" width="280" height="220" rx="14" fill="#f97316" fill-opacity="0.15" stroke="#f97316" stroke-width="2"/>
+  <text x="450" y="130" text-anchor="middle" fill="#f97316" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Cloudflare Edge</text>
+  <rect x="330" y="145" width="240" height="35" rx="6" fill="#1e293b"/>
+  <text x="450" y="168" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">WAF &amp; Bot Protection</text>
+  <rect x="330" y="190" width="240" height="35" rx="6" fill="#1e293b"/>
+  <text x="450" y="213" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">CDN &amp; Caching</text>
+  <rect x="330" y="235" width="240" height="35" rx="6" fill="#1e293b"/>
+  <text x="450" y="258" text-anchor="middle" fill="#f59e0b" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">DDoS Mitigation</text>
+  <rect x="330" y="280" width="240" height="30" rx="6" fill="#1e293b"/>
+  <text x="450" y="300" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">SSL/TLS Encryption</text>
+  <line x1="590" y1="210" x2="690" y2="210" stroke="#60a5fa" stroke-width="3"/>
+  <rect x="690" y="160" width="160" height="100" rx="12" fill="#047857"/>
+  <text x="770" y="200" text-anchor="middle" fill="#fff" font-size="18" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Origin</text>
+  <text x="770" y="225" text-anchor="middle" fill="#a7f3d0" font-size="11" font-family="Segoe UI,Arial,sans-serif">Your Web Server</text>
+  <rect x="200" y="360" width="500" height="40" rx="8" fill="#1e293b"/>
+  <text x="450" y="385" text-anchor="middle" fill="#94a3b8" font-size="13" font-family="Segoe UI,Arial,sans-serif">330+ Edge Locations · &lt;50ms Global Latency · Free SSL</text>
+</svg>
