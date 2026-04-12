@@ -372,20 +372,22 @@ button {
 .header-container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem; /* Slightly reduced padding */
   height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.35rem; /* Slightly reduced */
   font-weight: 900;
   color: var(--primary);
+  flex-shrink: 0;
 }
 
 .logo-accent {
@@ -395,12 +397,19 @@ button {
 .desktop-nav {
   display: none;
   align-items: center;
-  gap: 0;
+  gap: 0.5rem;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-secondary);
-  overflow: visible;
   white-space: nowrap;
+  flex: 1;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .desktop-nav { 
+    display: flex !important; 
+  }
 }
 
 /* Desktop nav group (dropdown) */
@@ -427,7 +436,6 @@ button {
 }
 
 .desktop-nav-dropdown {
-  display: none;
   position: absolute;
   top: calc(100% - 0.25rem);
   left: 50%;
@@ -438,12 +446,20 @@ button {
   padding: 0.5rem;
   min-width: 180px;
   box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
-  z-index: 60;
+  z-index: 100;
+  display: flex;
   flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.2s ease;
 }
 
 .desktop-nav-group:hover .desktop-nav-dropdown {
-  display: flex;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  top: 100%;
 }
 
 .dropdown-link {
@@ -497,15 +513,13 @@ button {
 }
 
 .desktop-nav-dropdown--mega {
-  min-width: 240px;
-  padding: 0.5rem;
-  display: none;
+  min-width: 280px;
+  padding: 0.75rem;
+  display: flex; /* Always flex because visibility is handled by parent */
   flex-direction: column;
   gap: 0.25rem;
-}
-
-.desktop-nav-group--nested:hover .desktop-nav-dropdown--mega {
-  display: flex;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .desktop-nav-submenu {
@@ -536,14 +550,12 @@ button {
   flex-direction: column;
 }
 
-@media (min-width: 1024px) {
-  .desktop-nav { display: flex; }
-}
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem; /* Reduced gap */
+  flex-shrink: 0;
 }
 
 .icon-btn {
@@ -592,7 +604,7 @@ button {
 }
 
 .mobile-menu-group-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem; /* Reduced font size */
   font-weight: 800;
   color: var(--primary);
   text-transform: uppercase;
@@ -602,6 +614,7 @@ button {
   border: none;
   cursor: default;
   text-align: left;
+  margin-bottom: 0.25rem;
 }
 
 /* Expandable mobile group label (for "Others") */
@@ -690,14 +703,14 @@ button {
 .mobile-nav-link {
   display: block;
   text-align: center;
-  padding: 0.75rem 0.625rem;
+  padding: 0.5rem 0.25rem; /* Reduced padding */
   background-color: var(--bg-sub);
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
+  border-radius: 0.4rem;
+  font-size: 0.75rem; /* Reduced font size */
   font-weight: 700;
   color: var(--text-primary);
   transition: var(--transition);
-  min-height: 2.75rem;
+  min-height: 2.25rem; /* Adjusted height */
   display: flex;
   align-items: center;
   justify-content: center;
