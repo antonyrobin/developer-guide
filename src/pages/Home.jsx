@@ -11,8 +11,6 @@ const Home = () => {
         keywords: 'developer guide, programming tutorial, quick reference, JavaScript, React, Java, Python, C#, SQL, Docker, AWS, GCP, HTML, CSS, OOP, SDLC, Spring Boot, .NET, Django, design patterns, data structures, system architecture, GitHub Actions, Azure DevOps'
     });
 
-    let globalIdx = 0;
-
     return (
         <div className="home-page">
             <header className="hero-section">
@@ -51,13 +49,13 @@ const Home = () => {
                         <div key={group.label} className="course-group">
                             <h3 className="course-group-label">{group.label}</h3>
                             <div className="courses-grid">
-                                {allCourses.map((course) => {
-                                    const idx = globalIdx++;
+                                {allCourses.map((course, localIdx) => {
+                                    const delay = Math.min(localIdx * 0.05, 0.5); // Cap delay at 0.5s for fast loading
                                     return (
                                         <NavLink key={course.id} to={`/${course.id}`} className="course-card-link">
                                             <div
                                                 className="course-card animate-card-in"
-                                                style={{ animationDelay: `${idx * 0.04}s` }}
+                                                style={{ animationDelay: `${delay}s` }}
                                             >
                                                 <div className="course-bg-icon">
                                                     <Rocket className="icon-huge" />
