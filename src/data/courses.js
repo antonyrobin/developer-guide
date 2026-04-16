@@ -39,21 +39,33 @@ import { seleniumCourse } from './courses-data/selenium';
 import { jmeterCourse } from './courses-data/jmeter';
 import { mochaCourse } from './courses-data/mocha';
 import { ionicCourse } from './courses-data/ionic';
+import { flaskCourse } from './courses-data/flask';
+import { fastapiCourse } from './courses-data/fastapi';
+import { javaReportsCourse } from './courses-data/java-reports';
+import { ssrsCourse } from './courses-data/ssrs';
+import { etlCourse } from './courses-data/etl';
+import { mongodbCourse } from './courses-data/mongodb';
+import { elasticsearchCourse } from './courses-data/elasticsearch';
+import { graphqlGrpcCourse } from './courses-data/graphql-grpc';
+import { owaspCourse } from './courses-data/owasp';
+import { playFrameworkCourse } from './courses-data/play-framework';
+import { dotnetFrameworkCourse } from './courses-data/dotnet-framework';
+import { kafkaCourse } from './courses-data/kafka';
 
 export const courseGroups = [
   { label: 'Fundamentals', courses: [sdlcCourse, oopsCourse, dataStructureCourse, designPatternsCourse, systemArchitectureCourse] },
   { label: 'Web Essentials', courses: [htmlCourse, cssCourse, tailwindCourse, jsCourse] },
   { label: 'Frontend Frameworks', courses: [reactCourse, angularCourse, nextjsCourse, ionicCourse, flutterCourse] },
-  { label: 'Backend Languages', courses: [javaCourse, csharpCourse, pythonCourse, phpCourse] },
-  { label: 'Backend Frameworks', courses: [springBootCourse, dotnetApiCourse, blazorCourse, djangoCourse] },
-  { label: 'Databases', courses: [sqlCourse, postgresqlCourse, nosqlCourse, redisCourse] },
+  { label: 'Backend Languages', courses: [javaCourse, csharpCourse, pythonCourse, phpCourse, javaReportsCourse] },
+  { label: 'Backend Frameworks', courses: [springBootCourse, dotnetApiCourse, blazorCourse, djangoCourse, flaskCourse, fastapiCourse, playFrameworkCourse, dotnetFrameworkCourse, graphqlGrpcCourse] },
+  { label: 'Databases', courses: [sqlCourse, postgresqlCourse, nosqlCourse, redisCourse, mongodbCourse, elasticsearchCourse, ssrsCourse, etlCourse] },
   { label: 'Testing', courses: [playwrightCourse, seleniumCourse, k6Course, jmeterCourse, mochaCourse] },
   {
     label: 'Others',
     children: [
       { label: 'DevOps & Cloud', courses: [dockerCourse, kubernetesCourse, terraformCourse, githubCourse, githubActionsCourse, azureDevOpsCourse, awsCourse, gcpCourse] },
-      { label: 'Messaging & Caching', courses: [rabbitmqCourse] },
-      { label: 'Security & Performance', courses: [cloudflareCourse] },
+      { label: 'Messaging & Caching', courses: [rabbitmqCourse, kafkaCourse] },
+      { label: 'Security & Performance', courses: [cloudflareCourse, owaspCourse] },
     ],
   },
 ];
