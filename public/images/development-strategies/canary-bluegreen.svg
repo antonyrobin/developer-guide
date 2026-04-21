@@ -1,0 +1,93 @@
+<svg viewBox="0 0 900 550" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title -->
+  <text x="450" y="35" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Deployment: Canary vs Blue-Green</text>
+  
+  <!-- BLUE-GREEN SECTION -->
+  <g>
+    <text x="225" y="85" font-size="16" font-weight="bold" text-anchor="middle" fill="#1976D2">Blue-Green</text>
+    <text x="225" y="105" font-size="11" fill="#666" text-anchor="middle">(Instant Switch)</text>
+    
+    <!-- BEFORE STATE -->
+    <text x="225" y="135" font-size="12" font-weight="bold" fill="#333">Before:</text>
+    
+    <!-- Blue environment (current) -->
+    <rect x="80" y="160" width="120" height="80" fill="#1976D2" stroke="#1565C0" stroke-width="2" rx="4"/>
+    <text x="140" y="180" font-size="11" text-anchor="middle" fill="#FFF" font-weight="bold">Blue (v1)</text>
+    <text x="140" y="200" font-size="10" text-anchor="middle" fill="#FFF">Current</text>
+    <text x="140" y="215" font-size="10" text-anchor="middle" fill="#FFF">Production</text>
+    
+    <text x="225" y="180" font-size="10" text-anchor="middle" fill="#666" font-weight="bold">100%</text>
+    <text x="225" y="195" font-size="10" text-anchor="middle" fill="#666">Traffic</text>
+    
+    <!-- Green environment (hidden) -->
+    <rect x="270" y="160" width="120" height="80" fill="#C8E6C9" stroke="#81C784" stroke-width="2" rx="4" opacity="0.3" stroke-dasharray="5,5"/>
+    <text x="330" y="180" font-size="11" text-anchor="middle" fill="#999" font-weight="bold">Green (v2)</text>
+    <text x="330" y="200" font-size="10" text-anchor="middle" fill="#999">Prepared</text>
+    <text x="330" y="215" font-size="10" text-anchor="middle" fill="#999">(not live)</text>
+    
+    <!-- AFTER STATE -->
+    <text x="225" y="275" font-size="12" font-weight="bold" fill="#333">After:</text>
+    
+    <!-- Blue environment (now inactive) -->
+    <rect x="80" y="300" width="120" height="80" fill="#C8E6C9" stroke="#81C784" stroke-width="2" rx="4" opacity="0.3" stroke-dasharray="5,5"/>
+    <text x="140" y="320" font-size="11" text-anchor="middle" fill="#999" font-weight="bold">Blue (v1)</text>
+    <text x="140" y="340" font-size="10" text-anchor="middle" fill="#999">Backup</text>
+    <text x="140" y="355" font-size="10" text-anchor="middle" fill="#999">(ready)</text>
+    
+    <text x="225" y="320" font-size="10" text-anchor="middle" fill="#4CAF50" font-weight="bold">100%</text>
+    <text x="225" y="335" font-size="10" text-anchor="middle" fill="#4CAF50">Traffic</text>
+    
+    <!-- Green environment (now active) -->
+    <rect x="270" y="300" width="120" height="80" fill="#4CAF50" stroke="#2E7D32" stroke-width="2" rx="4"/>
+    <text x="330" y="320" font-size="11" text-anchor="middle" fill="#FFF" font-weight="bold">Green (v2)</text>
+    <text x="330" y="340" font-size="10" text-anchor="middle" fill="#FFF">Active</text>
+    <text x="330" y="355" font-size="10" text-anchor="middle" fill="#FFF">Production</text>
+    
+    <!-- Characteristics -->
+    <text x="225" y="415" font-size="12" font-weight="bold" fill="#1976D2">Characteristics:</text>
+    <text x="80" y="435" font-size="10" fill="#333">✓ Instant switch (zero downtime)</text>
+    <text x="80" y="450" font-size="10" fill="#333">✓ Easy rollback (switch back instantly)</text>
+    <text x="80" y="465" font-size="10" fill="#333">✗ Double infrastructure cost</text>
+    <text x="80" y="480" font-size="10" fill="#333">✗ Data sync complexity</text>
+  </g>
+  
+  <!-- CANARY SECTION -->
+  <g>
+    <text x="675" y="85" font-size="16" font-weight="bold" text-anchor="middle" fill="#FF6F00">Canary</text>
+    <text x="675" y="105" font-size="11" fill="#666" text-anchor="middle">(Gradual Rollout)</text>
+    
+    <!-- PHASE 1 -->
+    <text x="675" y="135" font-size="12" font-weight="bold" fill="#333">5%:</text>
+    <rect x="580" y="160" width="80" height="30" fill="#D32F2F" stroke="#B71C1C" stroke-width="2" rx="3"/>
+    <text x="620" y="180" font-size="9" text-anchor="middle" fill="#FFF" font-weight="bold">95% v1</text>
+    <rect x="680" y="160" width="80" height="30" fill="#FF6F00" stroke="#E65100" stroke-width="2" rx="3"/>
+    <text x="720" y="180" font-size="9" text-anchor="middle" fill="#FFF" font-weight="bold">5% v2</text>
+    
+    <!-- PHASE 2 -->
+    <text x="675" y="220" font-size="12" font-weight="bold" fill="#333">50%:</text>
+    <rect x="580" y="245" width="40" height="30" fill="#D32F2F" stroke="#B71C1C" stroke-width="2" rx="3"/>
+    <text x="600" y="265" font-size="9" text-anchor="middle" fill="#FFF" font-weight="bold">50% v1</text>
+    <rect x="640" y="245" width="40" height="30" fill="#FF6F00" stroke="#E65100" stroke-width="2" rx="3"/>
+    <text x="660" y="265" font-size="9" text-anchor="middle" fill="#FFF" font-weight="bold">50% v2</text>
+    <rect x="700" y="245" width="60" height="30" fill="#90CAF9" stroke="#1976D2" stroke-width="1" rx="3" opacity="0.2"/>
+    
+    <!-- PHASE 3 -->
+    <text x="675" y="305" font-size="12" font-weight="bold" fill="#333">100%:</text>
+    <rect x="580" y="330" width="160" height="30" fill="#4CAF50" stroke="#2E7D32" stroke-width="2" rx="3"/>
+    <text x="660" y="350" font-size="9" text-anchor="middle" fill="#FFF" font-weight="bold">100% v2</text>
+    
+    <!-- Characteristics -->
+    <text x="675" y="415" font-size="12" font-weight="bold" fill="#FF6F00">Characteristics:</text>
+    <text x="530" y="435" font-size="10" fill="#333">✓ Lower risk (5% affected)</text>
+    <text x="530" y="450" font-size="10" fill="#333">✓ Real user validation</text>
+    <text x="530" y="465" font-size="10" fill="#333">✓ Cost efficient</text>
+    <text x="530" y="480" font-size="10" fill="#333">✗ Slower rollout</text>
+  </g>
+  
+  <!-- COMPARISON TABLE -->
+  <rect x="50" y="510" width="800" height="25" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1" rx="3"/>
+  <text x="150" y="528" font-size="11" font-weight="bold" fill="#333">Blue-Green:</text>
+  <text x="320" y="528" font-size="11" fill="#666">Faster but more expensive | Best for monoliths</text>
+  <text x="650" y="528" font-size="11" font-weight="bold" fill="#333">Canary:</text>
+  <text x="760" y="528" font-size="11" fill="#666">Safer but slower | Best for microservices</text>
+</svg>
