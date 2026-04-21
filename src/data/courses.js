@@ -1,4 +1,5 @@
 import { sdlcCourse } from './courses-data/sdlc';
+import { developmentStrategiesCourse } from './courses-data/development-strategies';
 import { htmlCourse } from './courses-data/html';
 import { cssCourse } from './courses-data/css';
 import { jsCourse } from './courses-data/javascript';
@@ -53,7 +54,7 @@ import { dotnetFrameworkCourse } from './courses-data/dotnet-framework';
 import { kafkaCourse } from './courses-data/kafka';
 
 export const courseGroups = [
-  { label: 'Fundamentals', courses: [sdlcCourse, oopsCourse, dataStructureCourse, designPatternsCourse, systemArchitectureCourse] },
+  { label: 'Fundamentals', courses: [sdlcCourse, developmentStrategiesCourse, oopsCourse, dataStructureCourse, designPatternsCourse, systemArchitectureCourse] },
   { label: 'Web Essentials', courses: [htmlCourse, cssCourse, tailwindCourse, jsCourse] },
   { label: 'Frontend Frameworks', courses: [reactCourse, angularCourse, nextjsCourse, ionicCourse, flutterCourse] },
   { label: 'Backend Languages', courses: [javaCourse, csharpCourse, pythonCourse, phpCourse, javaReportsCourse] },
