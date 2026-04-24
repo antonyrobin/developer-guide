@@ -1,10 +1,9 @@
 <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
-  <!-- Title -->
+  <title>Integration: All Strategies Working Together</title>
+  
   <text x="500" y="35" font-size="26" font-weight="bold" text-anchor="middle" fill="#333">Integration: All Strategies Working Together</text>
   
-  <!-- MAIN FLOW DIAGRAM -->
   <g>
-    <!-- Step 1: Development -->
     <rect x="40" y="90" width="150" height="130" fill="#E3F2FD" stroke="#1976D2" stroke-width="2" rx="8"/>
     <text x="115" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#1565C0">Development</text>
     <text x="115" y="138" font-size="9" fill="#333">(Brownfield)</text>
@@ -13,11 +12,9 @@
     <text x="55" y="186" font-size="8" fill="#333">• TDD</text>
     <text x="55" y="199" font-size="8" fill="#333">• Code review</text>
     
-    <!-- Arrow 1 -->
     <line x1="190" y1="155" x2="225" y2="155" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
     <text x="207" y="150" font-size="8" fill="#666">Commit</text>
     
-    <!-- Step 2: Testing -->
     <rect x="225" y="90" width="150" height="130" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2" rx="8"/>
     <text x="300" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#6A1B9A">Testing</text>
     <text x="300" y="138" font-size="9" fill="#333">(Shift Left)</text>
@@ -26,11 +23,9 @@
     <text x="240" y="186" font-size="8" fill="#333">• Build verified</text>
     <text x="240" y="199" font-size="8" fill="#333">• Integration tests</text>
     
-    <!-- Arrow 2 -->
     <line x1="375" y1="155" x2="410" y2="155" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
     <text x="392" y="150" font-size="8" fill="#666">Build OK</text>
     
-    <!-- Step 3: Deploy Canary -->
     <rect x="410" y="90" width="150" height="130" fill="#E0F2F1" stroke="#00796B" stroke-width="2" rx="8"/>
     <text x="485" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#00695C">Deploy</text>
     <text x="485" y="138" font-size="9" fill="#333">(Canary)</text>
@@ -39,11 +34,9 @@
     <text x="425" y="186" font-size="8" fill="#333">• Feature flags</text>
     <text x="425" y="199" font-size="8" fill="#333">• Gradual rollout</text>
     
-    <!-- Arrow 3 -->
     <line x1="560" y1="155" x2="595" y2="155" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
     <text x="577" y="150" font-size="8" fill="#666">50%-100%</text>
     
-    <!-- Step 4: Production Monitoring -->
     <rect x="595" y="90" width="150" height="130" fill="#FCE4EC" stroke="#C2185B" stroke-width="2" rx="8"/>
     <text x="670" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#AD1457">Monitor</text>
     <text x="670" y="138" font-size="9" fill="#333">(Shift Right)</text>
@@ -52,11 +45,9 @@
     <text x="610" y="186" font-size="8" fill="#333">• Alerts active</text>
     <text x="610" y="199" font-size="8" fill="#333">• 24h validation</text>
     
-    <!-- Arrow 4 (success) -->
     <line x1="745" y1="155" x2="780" y2="155" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowhead-green)"/>
     <text x="762" y="150" font-size="8" fill="#4CAF50" font-weight="bold">OK</text>
     
-    <!-- Step 5: Complete -->
     <rect x="780" y="90" width="150" height="130" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
     <text x="855" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="#1B5E20">Complete</text>
     <text x="855" y="160" font-size="9" text-anchor="middle" fill="#333">✓ Full rollout</text>
@@ -64,17 +55,13 @@
     <text x="855" y="190" font-size="9" text-anchor="middle" fill="#333">old code</text>
   </g>
   
-  <!-- ROLLBACK PATH -->
   <g>
-    <!-- Issue detected during canary -->
     <line x1="485" y1="220" x2="485" y2="260" stroke="#D32F2F" stroke-width="2" stroke-dasharray="5,5"/>
     <text x="515" y="275" font-size="10" fill="#D32F2F" font-weight="bold">Issues Detected</text>
     
-    <!-- Rollback arrow (fast recovery) -->
     <path d="M 455 300 Q 350 320 275 300" stroke="#D32F2F" stroke-width="3" fill="none" marker-end="url(#arrowhead-red)"/>
     <text x="380" y="315" font-size="9" fill="#D32F2F" font-weight="bold">ROLLBACK</text>
     
-    <!-- Recovery box -->
     <rect x="180" y="270" width="170" height="100" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2" rx="6"/>
     <text x="265" y="295" font-size="11" font-weight="bold" text-anchor="middle" fill="#B71C1C">Quick Recovery</text>
     <text x="265" y="315" font-size="9" text-anchor="middle" fill="#333">• Disable feature flag</text>
@@ -82,12 +69,10 @@
     <text x="265" y="345" font-size="9" text-anchor="middle" fill="#333">• Root cause analysis</text>
   </g>
   
-  <!-- TOOLS AND BEST PRACTICES -->
   <rect x="40" y="390" width="920" height="280" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1" rx="6"/>
   
-  <text x="50" y="415" font-size="13" font-weight="bold" fill="#333">Essential Infrastructure & Best Practices:</text>
+  <text x="50" y="415" font-size="13" font-weight="bold" fill="#333">Essential Infrastructure &amp; Best Practices:</text>
   
-  <!-- Section 1: Development -->
   <rect x="50" y="435" width="280" height="220" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
   <text x="190" y="460" font-size="11" font-weight="bold" text-anchor="middle" fill="#1565C0">Development Setup</text>
   <text x="60" y="485" font-size="9" fill="#333">• Version Control (Git)</text>
@@ -99,7 +84,6 @@
   <text x="60" y="587" font-size="9" fill="#333">• Documentation culture</text>
   <text x="60" y="604" font-size="9" fill="#333">• Refactoring discipline</text>
   
-  <!-- Section 2: CI/CD Pipeline -->
   <rect x="360" y="435" width="280" height="220" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
   <text x="500" y="460" font-size="11" font-weight="bold" text-anchor="middle" fill="#6A1B9A">CI/CD Pipeline</text>
   <text x="370" y="485" font-size="9" fill="#333">• GitHub Actions Workflows</text>
@@ -111,9 +95,8 @@
   <text x="370" y="587" font-size="9" fill="#333">• Rollback automation</text>
   <text x="370" y="604" font-size="9" fill="#333">• Deployment logs</text>
   
-  <!-- Section 3: Monitoring & Observability -->
   <rect x="670" y="435" width="280" height="220" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
-  <text x="810" y="460" font-size="11" font-weight="bold" text-anchor="middle" fill="#AD1457">Monitoring & Observability</text>
+  <text x="810" y="460" font-size="11" font-weight="bold" text-anchor="middle" fill="#AD1457">Monitoring &amp; Observability</text>
   <text x="680" y="485" font-size="9" fill="#333">• Feature Flags (LaunchDarkly)</text>
   <text x="680" y="502" font-size="9" fill="#333">• Kubernetes orchestration</text>
   <text x="680" y="519" font-size="9" fill="#333">• Prometheus metrics</text>
@@ -123,96 +106,9 @@
   <text x="680" y="587" font-size="9" fill="#333">• Real User Monitoring</text>
   <text x="680" y="604" font-size="9" fill="#333">• Health checks</text>
   
-  <!-- Complete example -->
   <rect x="50" y="680" width="920" height="25" fill="#FFF9C4" stroke="#F57F17" stroke-width="1" rx="3"/>
   <text x="510" y="699" font-size="10" text-anchor="middle" fill="#333" font-weight="bold">Complete Workflow: Brownfield Dev + Strangler Fig → TDD/Code Review → GitHub Actions CI/CD → Canary Deploy 5%→50%→100% → Prometheus+Grafana Monitoring → Rollout Complete</text>
   
-  <!-- Arrow markers -->
-  <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
-    </marker>
-    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#4CAF50"/>
-    </marker>
-    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#D32F2F"/>
-    </marker>
-  </defs>
-</svg>
-    
-    <!-- Step 3: Deployment (Canary) -->
-    <rect x="410" y="100" width="140" height="120" fill="#E0F2F1" stroke="#00796B" stroke-width="2" rx="8"/>
-    <text x="480" y="125" font-size="13" font-weight="bold" text-anchor="middle" fill="#00695C">Deploy</text>
-    <text x="480" y="145" font-size="10" fill="#333">(Canary)</text>
-    <text x="425" y="165" font-size="9" fill="#333">• 5% traffic</text>
-    <text x="425" y="180" font-size="9" fill="#333">• Monitor metrics</text>
-    <text x="425" y="195" font-size="9" fill="#333">• Feature flags</text>
-    <text x="425" y="210" font-size="9" fill="#333">• 50% → 100%</text>
-    
-    <!-- Arrow 3 -->
-    <line x1="550" y1="160" x2="590" y2="160" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    
-    <!-- Step 4: Production (Shift Right) -->
-    <rect x="590" y="100" width="140" height="120" fill="#FCE4EC" stroke="#C2185B" stroke-width="2" rx="8"/>
-    <text x="660" y="125" font-size="13" font-weight="bold" text-anchor="middle" fill="#AD1457">Production</text>
-    <text x="660" y="145" font-size="10" fill="#333">(Shift Right)</text>
-    <text x="605" y="165" font-size="9" fill="#333">• Real users</text>
-    <text x="605" y="180" font-size="9" fill="#333">• Monitoring</text>
-    <text x="605" y="195" font-size="9" fill="#333">• RUM metrics</text>
-    <text x="605" y="210" font-size="9" fill="#333">• 24h validation</text>
-    
-    <!-- Arrow 4 (success) -->
-    <line x1="730" y1="160" x2="770" y2="160" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowhead-green)"/>
-    <text x="750" y="150" font-size="9" fill="#4CAF50" font-weight="bold">OK</text>
-    
-    <!-- Step 5: Complete -->
-    <rect x="770" y="100" width="110" height="120" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
-    <text x="825" y="135" font-size="13" font-weight="bold" text-anchor="middle" fill="#1B5E20">Complete</text>
-    <text x="825" y="160" font-size="10" fill="#333">✓ Decommission</text>
-    <text x="825" y="175" font-size="10" fill="#333">old code</text>
-    <text x="825" y="190" font-size="10" fill="#333">✓ Document</text>
-    <text x="825" y="205" font-size="10" fill="#333">lessons</text>
-  </g>
-  
-  <!-- ROLLBACK PATH -->
-  <g>
-    <!-- Issues detected -->
-    <line x1="660" y1="230" x2="660" y2="270" stroke="#D32F2F" stroke-width="2" stroke-dasharray="5,5"/>
-    <text x="690" y="280" font-size="11" fill="#D32F2F" font-weight="bold">Issues</text>
-    <text x="690" y="295" font-size="11" fill="#D32F2F" font-weight="bold">Detected</text>
-    
-    <!-- Rollback arrow -->
-    <path d="M 640 310 Q 480 340 380 310" stroke="#D32F2F" stroke-width="3" fill="none" marker-end="url(#arrowhead-red)"/>
-    <text x="500" y="360" font-size="11" fill="#D32F2F" font-weight="bold">ROLLBACK</text>
-    <text x="500" y="378" font-size="10" fill="#D32F2F">(Disable feature flag)</text>
-    
-    <!-- Quick recovery -->
-    <rect x="240" y="310" width="140" height="80" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2" rx="8"/>
-    <text x="310" y="335" font-size="12" font-weight="bold" text-anchor="middle" fill="#B71C1C">Quick Recovery</text>
-    <text x="310" y="355" font-size="9" text-anchor="middle" fill="#333">Instant rollback</text>
-    <text x="310" y="368" font-size="9" text-anchor="middle" fill="#333">Root cause analysis</text>
-  </g>
-  
-  <!-- TOOLS & PRACTICES -->
-  <rect x="50" y="420" width="830" height="160" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1" rx="4"/>
-  
-  <text x="60" y="445" font-size="13" font-weight="bold" fill="#333">Essential Infrastructure & Practices:</text>
-  
-  <text x="60" y="470" font-size="11" font-weight="bold" fill="#1565C0">Testing & Development:</text>
-  <text x="80" y="487" font-size="10" fill="#333">• Unit/Integration/E2E tests • Code review • TDD • Static analysis (linters)</text>
-  
-  <text x="60" y="510" font-size="11" font-weight="bold" fill="#1565C0">CI/CD Pipeline:</text>
-  <text x="80" y="527" font-size="10" fill="#333">• GitHub Actions / GitLab CI • Automated testing • Docker containers • Build artifacts</text>
-  
-  <text x="60" y="550" font-size="11" font-weight="bold" fill="#1565C0">Deployment & Monitoring:</text>
-  <text x="80" y="567" font-size="10" fill="#333">• Feature flags (LaunchDarkly) • Kubernetes orchestration • Prometheus metrics • Grafana dashboards • PagerDuty alerts</text>
-  
-  <!-- Decision box -->
-  <rect x="50" y="575" width="830" height="20" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1" rx="3"/>
-  <text x="450" y="589" font-size="11" text-anchor="middle" fill="#1B5E20" font-weight="bold">Example: Feature from Idea to Production: Dev (Strangler Fig) → Test (Shift Left) → Deploy (Canary 5%→50%→100%) → Monitor (Shift Right) → Complete</text>
-  
-  <!-- Arrow markers -->
   <defs>
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
       <polygon points="0 0, 10 3, 0 6" fill="#333"/>
