@@ -2246,6 +2246,20 @@ docker compose up -d
     },
 
     {
+      title: 'Cooperative Cancellation with CancellationToken',
+      content: `**CancellationToken** is .NET's cooperative cancellation model. It doesn't kill your code; it asks nicely, and your code decides when and how to stop.\n\n### Why It Exists\n- **Users navigate away**: No need to finish a heavy report if the user closed the page.\n- **Timeouts**: Automatically stop long-running operations after a threshold.\n- **System Shutdown**: Gracefully stop background tasks when the app is closing.\n\n### Core Concepts\n- **CancellationTokenSource (CTS)**: The controller that owns the signal (\`cts.Cancel()\`).\n- **CancellationToken**: The lightweight struct passed to operations to read the signal.\n\n### How to Observe the Token\n1. **Pass it down**: Most .NET APIs (HttpClient, EF Core, Streams) accept a token. This is the best approach.\n2. **Check the flag**: \`if (token.IsCancellationRequested)\` - useful for cleaning up before exiting.\n3. **Throw on request**: \`token.ThrowIfCancellationRequested()\` - immediately stops execution by throwing \`OperationCanceledException\`.`,
+      code: `// Minimal API with Automatic Token Injection\napp.MapGet("/heavy-task", async (CancellationToken ct) => {\n    // Pass the token to all async calls\n    var result = await _service.DoWorkAsync(ct);\n    return Results.Ok(result);\n});\n\n// Loop Observation Pattern\npublic async Task ProcessData(CancellationToken ct) {\n    foreach (var item in data) {\n        // Check before expensive work\n        ct.ThrowIfCancellationRequested();\n        \n        await SaveItem(item, ct);\n    }\n}\n\n// Timeout Pattern\nusing var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));\ntry {\n    await client.GetAsync(url, cts.Token);\n} catch (OperationCanceledException) {\n    // Handle timeout\n}`,
+      codeLabel: 'Cancellation Patterns',
+      keyPoints: [
+        'CancellationToken is cooperative — code must explicitly check it.',
+        'ASP.NET Core automatically injects a token that fires when a client disconnects.',
+        'Pass the token all the way down your call chain to ensure full cancellation.',
+        'Never swallow OperationCanceledException unless you are genuinely handling it.',
+        'Always dispose CancellationTokenSource if you create it manually.'
+      ]
+    },
+
+    {
       title: 'Design Patterns Used',
       content: `### Patterns in This Project
 
