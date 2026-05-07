@@ -52,6 +52,9 @@ import { owaspCourse } from './courses-data/owasp';
 import { playFrameworkCourse } from './courses-data/play-framework';
 import { dotnetFrameworkCourse } from './courses-data/dotnet-framework';
 import { kafkaCourse } from './courses-data/kafka';
+import { openTelemetryCourse } from './courses-data/opentelemetry';
+import { linuxCourse } from './courses-data/linux';
+
 
 export const courseGroups = [
   { label: 'Fundamentals', courses: [sdlcCourse, developmentStrategiesCourse, oopsCourse, dataStructureCourse, designPatternsCourse, systemArchitectureCourse] },
@@ -64,7 +67,7 @@ export const courseGroups = [
   {
     label: 'Others',
     children: [
-      { label: 'DevOps & Cloud', courses: [dockerCourse, kubernetesCourse, terraformCourse, githubCourse, githubActionsCourse, azureDevOpsCourse, awsCourse, gcpCourse] },
+      { label: 'DevOps & Cloud', courses: [linuxCourse, dockerCourse, kubernetesCourse, terraformCourse, githubCourse, githubActionsCourse, azureDevOpsCourse, awsCourse, gcpCourse, openTelemetryCourse] },
       { label: 'Messaging & Caching', courses: [rabbitmqCourse, kafkaCourse] },
       { label: 'Security & Performance', courses: [cloudflareCourse, owaspCourse] },
     ],
