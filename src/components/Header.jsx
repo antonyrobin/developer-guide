@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { BookOpen, Search, Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
+import { BookOpen, Search, Menu, X, ChevronDown, ChevronRight, Code2 } from 'lucide-react';
 import { courses, courseGroups } from '../data/courses';
 
 const Header = () => {
@@ -169,6 +169,10 @@ const Header = () => {
                 ? renderDesktopNestedGroup(group)
                 : renderDesktopGroup(group)
             )}
+            <NavLink to="/playground" className={({ isActive }) => `playground-nav-link ${isActive ? 'active' : ''}`}>
+              <Code2 className="icon-small" />
+              <span>Playground</span>
+            </NavLink>
           </nav>
 
           <div className="header-actions">
@@ -194,6 +198,14 @@ const Header = () => {
       {isMenuOpen && (
         <div className="mobile-menu">
           <div className="mobile-menu-inner">
+            <NavLink
+              to="/playground"
+              onClick={() => setIsMenuOpen(false)}
+              className={({ isActive }) => `mobile-playground-link ${isActive ? 'mobile-playground-link--active' : ''}`}
+            >
+              <Code2 className="icon" />
+              <span>Code Playground</span>
+            </NavLink>
             {courseGroups.map(group =>
               group.children
                 ? renderMobileNestedGroup(group)

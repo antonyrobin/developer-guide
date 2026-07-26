@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { courses, courseGroups } from '../data/courses';
-import { BookOpen, Rocket, Terminal, Database, Cloud, Layout } from 'lucide-react';
+import { BookOpen, Rocket, Terminal, Database, Cloud, Layout, Code2, Play } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 
 const Home = () => {
@@ -33,6 +33,23 @@ const Home = () => {
                     </a>
                 </div>
             </header>
+
+            {/* Playground CTA */}
+            <section className="playground-cta">
+                <div className="playground-cta-content">
+                    <div className="playground-cta-icon-wrap">
+                        <Code2 className="icon-large" />
+                    </div>
+                    <div className="playground-cta-text">
+                        <h2>Code Playground</h2>
+                        <p>Write, edit & run code in <strong>11 languages</strong> directly in your browser — HTML, JavaScript, Python, React, SQL and more.</p>
+                    </div>
+                    <NavLink to="/playground" className="playground-cta-btn">
+                        <Play className="icon-small" />
+                        <span>Try It Now</span>
+                    </NavLink>
+                </div>
+            </section>
 
             <section className="courses-section">
                 <div className="courses-header">

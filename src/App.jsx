@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import CoursePage from './pages/CoursePage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import Playground from './pages/Playground';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/playground" element={<Playground />} />
               <Route path="/:id" element={<CoursePage />} />
             </Routes>
           </main>
