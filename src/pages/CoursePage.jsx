@@ -15,13 +15,16 @@ const courseKeywords = {
   css: 'CSS, CSS3, flexbox, grid, responsive design, animations, media queries, web styling',
   javascript: 'JavaScript, ES6, DOM, async await, promises, closures, prototypes, web development',
   oops: 'OOP, object oriented programming, classes, inheritance, polymorphism, encapsulation, abstraction, SOLID principles',
-  java: 'Java, JVM, Spring, collections framework, exception handling, multithreading, enterprise programming',
+  java: 'Java, JVM, Spring, collections framework, lambda expressions, stream API, collectors, functional interface, multithreading, virtual threads, LTS versions, enterprise programming',
   csharp: 'C#, .NET, LINQ, async programming, entity framework, object oriented, Microsoft development',
   python: 'Python, Django, Flask, data science, machine learning, automation, scripting, pip',
   react: 'React, JSX, hooks, useState, useEffect, components, virtual DOM, frontend framework',
   php: 'PHP, Laravel, Composer, server-side scripting, web development, MySQL, Eloquent ORM',
   sql: 'SQL, database, PostgreSQL, MySQL, joins, indexes, normalization, stored procedures, queries',
   nosql: 'NoSQL, MongoDB, Redis, document database, key-value store, schema design, aggregation',
+  redis: 'Redis, in-memory cache, key lifecycle, eviction policies, allkeys-lru, sliding window rate limiter, pub sub, clustering',
+  rabbitmq: 'RabbitMQ, message broker, AMQP, MassTransit, quorum queues, lazy queues, DLQ, email broadcast, PII encryption',
+  terraform: 'Terraform, Infrastructure as Code, HCL, OpenTofu, multi-environment, workspaces, Terragrunt, cloud architecture',
   docker: 'Docker, containers, Dockerfile, Docker Compose, DevOps, microservices, deployment',
   'spring-boot': 'Spring Boot, Java framework, REST API, Spring MVC, JPA, microservices, enterprise Java',
   blazor: 'Blazor, C# web, WebAssembly, .NET frontend, Razor components, SignalR',
@@ -42,8 +45,6 @@ const courseKeywords = {
   'tailwind-css': 'Tailwind CSS, utility-first, responsive design, dark mode, flexbox, grid, custom theme, PostCSS'
 };
 
-
-
 const getLanguage = (courseId) => {
   const map = {
     javascript: 'javascript',
@@ -56,6 +57,9 @@ const getLanguage = (courseId) => {
     php: 'php',
     sql: 'sql',
     nosql: 'javascript',
+    redis: 'bash',
+    rabbitmq: 'javascript',
+    terraform: 'hcl',
     docker: 'bash',
     'spring-boot': 'java',
     blazor: 'csharp',
@@ -188,18 +192,18 @@ const CoursePage = () => {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  h1: ({node, ...props}) => <h1 className="course-heading mt-6 mb-4" style={{ marginTop: '1.5rem', marginBottom: '1rem' }} {...props} />,
-                  h2: ({node, ...props}) => <h2 className="content-subheading-lg mt-6" style={{ marginTop: '1.5rem' }} {...props} />,
-                  h3: ({node, ...props}) => <h3 className="content-subheading mt-4" style={{ marginTop: '1rem' }} {...props} />,
-                  h4: ({node, ...props}) => <h4 className="font-bold mt-4" style={{ marginTop: '1rem' }} {...props} />,
-                  p: ({node, ...props}) => <p className="course-paragraph my-2" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
-                  ul: ({node, ...props}) => <ul className="course-paragraph my-2" style={{ listStyleType: 'disc', paddingLeft: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
-                  ol: ({node, ...props}) => <ol className="course-paragraph my-2" style={{ listStyleType: 'decimal', paddingLeft: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
-                  li: ({node, ...props}) => <li className="mb-1" style={{ marginBottom: '0.25rem' }} {...props} />,
-                  a: ({node, ...props}) => <a className="content-link" target="_blank" rel="noopener noreferrer" {...props} />,
-                  strong: ({node, ...props}) => <strong style={{ color: 'var(--text-primary)', fontWeight: 700 }} {...props} />,
-                  em: ({node, ...props}) => <em style={{ fontStyle: 'italic', color: 'var(--text-primary)' }} {...props} />,
-                  code({node, inline, className, children, ...props}) {
+                  h1: ({node: _node, ...props}) => <h1 className="course-heading mt-6 mb-4" style={{ marginTop: '1.5rem', marginBottom: '1rem' }} {...props} />,
+                  h2: ({node: _node, ...props}) => <h2 className="content-subheading-lg mt-6" style={{ marginTop: '1.5rem' }} {...props} />,
+                  h3: ({node: _node, ...props}) => <h3 className="content-subheading mt-4" style={{ marginTop: '1rem' }} {...props} />,
+                  h4: ({node: _node, ...props}) => <h4 className="font-bold mt-4" style={{ marginTop: '1rem' }} {...props} />,
+                  p: ({node: _node, ...props}) => <p className="course-paragraph my-2" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
+                  ul: ({node: _node, ...props}) => <ul className="course-paragraph my-2" style={{ listStyleType: 'disc', paddingLeft: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
+                  ol: ({node: _node, ...props}) => <ol className="course-paragraph my-2" style={{ listStyleType: 'decimal', paddingLeft: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
+                  li: ({node: _node, ...props}) => <li className="mb-1" style={{ marginBottom: '0.25rem' }} {...props} />,
+                  a: ({node: _node, ...props}) => <a className="content-link" target="_blank" rel="noopener noreferrer" {...props} />,
+                  strong: ({node: _node, ...props}) => <strong style={{ color: 'var(--text-primary)', fontWeight: 700 }} {...props} />,
+                  em: ({node: _node, ...props}) => <em style={{ fontStyle: 'italic', color: 'var(--text-primary)' }} {...props} />,
+                  code({node: _node, inline, className, children, ...props}) {
                     const match = /language-(\w+)/.exec(className || '')
                     return !inline && match ? (
                       <div className="code-section" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
@@ -227,7 +231,7 @@ const CoursePage = () => {
                       </code>
                     )
                   },
-                  img: ({node, ...props}) => (
+                  img: ({node: _node, ...props}) => (
                     <div className="course-image-container my-4" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
                       <img className="course-image" {...props} />
                     </div>

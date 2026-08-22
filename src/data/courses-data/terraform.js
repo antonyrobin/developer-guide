@@ -24,6 +24,48 @@ export const terraformCourse = {
 | **State** | State file | Stateless | Stack state |
 | **Language** | HCL | YAML | JSON/YAML |`, keyPoints: ['Terraform is the industry standard for Infrastructure as Code.', 'Supports 3000+ providers including all major cloud platforms.', 'Declarative HCL syntax — describe the desired state, not steps.', 'Plan, apply, and destroy lifecycle for safe infrastructure changes.', 'State file tracks real-world resources to detect drift.'] },
 
+      { title: 'Types & Offerings of Terraform', content: `The Terraform ecosystem spans multiple editions, open-source community forks, and enterprise-grade managed platforms. Understanding these flavors helps you select the right architecture for your organization.
+
+### 1. The Terraform Landscape & Flavors
+
+| Edition | Provider / Host | License | Execution Model | Best For |
+|---|---|---|---|---|
+| **Terraform Community CLI** | HashiCorp | BSL 1.1 | Local / CI/CD pipeline runner | Individual developers & small teams running GitHub Actions / GitLab CI |
+| **OpenTofu** | Linux Foundation | MPL 2.0 (Open Source) | Local / CI/CD pipeline runner | Teams requiring a 100% open-source fork with community governance |
+| **HCP Terraform (Cloud)** | HashiCorp Managed SaaS | Commercial SaaS | Managed Cloud Remote Execution | Modern teams wanting remote state, VCS triggers, RBAC, and policy checks |
+| **Terraform Enterprise** | Self-Hosted / On-Premises | Commercial License | Private VPC / Kubernetes / VM Cluster | Regulated enterprises (Banking, Healthcare, Gov) needing strict data sovereignty |
+
+---
+
+### 2. Feature Matrix Comparison
+
+| Feature | Terraform CLI / OpenTofu | HCP Terraform (Cloud) | Terraform Enterprise |
+|---|---|---|---|
+| **State Storage** | Remote backend (S3/Blob/GCS) | Built-in encrypted managed backend | Self-hosted encrypted backend |
+| **State Locking** | Via DynamoDB / Blob lease | Native automatic locking | Native automatic locking |
+| **VCS Integration** | Requires custom CI/CD scripts | Native GitHub/GitLab webhook triggers | Native GitHub/GitLab/Bitbucket triggers |
+| **Private Module Registry**| Self-hosted / Git submodules | Native private catalog with versioning | Air-gapped private module registry |
+| **Policy as Code** | Open Policy Agent (OPA) | Sentinel & OPA built-in | Sentinel & OPA built-in |
+| **Cost Estimation** | Infracost CLI plugin | Native automatic monthly cost previews | Native automatic monthly cost previews |
+| **Drift Detection** | Scheduled CI pipeline | Automated daily background scans | Automated continuous drift scans |
+| **Team RBAC & SSO** | Cloud IAM / Git branch perms | Okta/SAML, granular team permissions | SAML, LDAP, OIDC, audit logging |`, code: `# Using OpenTofu as a drop-in replacement:
+# tofu replaces terraform CLI seamlessly with HCL compatibility
+tofu init
+tofu plan -out=tfplan
+tofu apply tfplan
+
+# HCP Terraform (Cloud) Backend Integration
+# backend.tf
+terraform {
+  cloud {
+    organization = "my-company"
+
+    workspaces {
+      name = "production-us-east"
+    }
+  }
+}`, codeLabel: 'OpenTofu & HCP Terraform Cloud Configuration', keyPoints: ['Terraform CLI operates on HashiCorp BSL; OpenTofu is the Linux Foundation MPL fork.', 'HCP Terraform is a managed SaaS platform with remote execution, RBAC, and cost estimation.', 'Terraform Enterprise is self-hosted for air-gapped or compliance-heavy environments.', 'Policy as Code (Sentinel / OPA) enforces security guardrails before infrastructure applies.', 'Drift detection continuously identifies unmanaged changes made in cloud consoles.'] },
+
       { title: 'Installation & Setup', content: `### Download & Install
 
 | Platform | Method |
@@ -114,6 +156,117 @@ terraform {
   }
 }
 \`\`\``, keyPoints: ['Always run plan before apply to preview changes.', 'init downloads providers and configures the backend.', 'State file tracks real-world resources — never edit it manually.', 'Use remote backends for team collaboration.', 'terraform fmt enforces consistent formatting across the team.'] },
+
+      { title: 'Multi-Environment Management Strategies', image: '/images/terraform/terraform-environments.svg', content: `Managing multiple environments (**Development**, **Staging**, and **Production**) requires careful architectural design to balance code reuse against blast-radius isolation.
+
+---
+
+### Strategy 1: Directory-Based Isolation (Industry Best Practice)
+
+In this pattern, each environment lives in its own directory with dedicated backend configurations, credentials, and variable files, consuming common reusable modules from a \`modules/\` folder:
+
+\`\`\`text
+infrastructure/
+├── modules/
+│   ├── networking/ (main.tf, variables.tf, outputs.tf)
+│   ├── compute/
+│   └── database/
+└── environments/
+    ├── dev/
+    │   ├── backend.tf       # Remote state key: dev.terraform.tfstate
+    │   ├── main.tf          # Calls ../../modules with dev variables
+    │   └── terraform.tfvars # instance_type = "t3.micro"
+    ├── staging/
+    │   ├── backend.tf       # Remote state key: staging.terraform.tfstate
+    │   └── main.tf
+    └── prod/
+        ├── backend.tf       # Remote state key: prod.terraform.tfstate
+        └── main.tf          # Multi-AZ, deletion protection = true
+\`\`\`
+
+**Why this is recommended**:
+- **Isolated Blast Radius**: A syntax or logic mistake in \`dev\` cannot touch or corrupt \`prod.terraform.tfstate\`.
+- **Different Cloud Accounts / Subscriptions**: \`prod\` can be deployed to an entirely isolated AWS Account or Azure Subscription with distinct IAM roles.
+- **Independent Provider Versions**: You can test upgrading a provider in \`dev\` without breaking \`prod\`.
+
+---
+
+### Strategy 2: Terraform Workspaces
+
+Workspaces store multiple state instances within the same directory:
+\`\`\`powershell
+terraform workspace new dev
+terraform workspace new prod
+terraform workspace select dev
+\`\`\`
+Inside configuration, reference \`terraform.workspace\`:
+\`\`\`hcl
+instance_type = terraform.workspace == "prod" ? "t3.large" : "t3.micro"
+\`\`\`
+*Trade-off*: All environments share the same backend bucket and credentials. Best suited for ephemeral preview environments rather than critical production workloads.
+
+---
+
+### Strategy 3: Terragrunt Orchestration (100% DRY)
+
+Terragrunt acts as a thin wrapper over Terraform to keep configurations completely DRY and orchestrate multi-module dependency deployments:
+
+\`\`\`hcl
+# environments/prod/app/terragrunt.hcl
+include "root" {
+  path = find_in_parent_folders()
+}
+
+terraform {
+  source = "../../../modules//app-service"
+}
+
+inputs = {
+  env           = "prod"
+  instance_type = "Standard_D4s_v5"
+  replicas      = 5
+}
+\`\`\``, code: `// Environment-Aware Module Invocation (environments/prod/main.tf)
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.80"
+    }
+  }
+
+  backend "azurerm" {
+    resource_group_name  = "rg-tfstate-prod"
+    storage_account_name = "sttfstateprod001"
+    container_name       = "prod-state"
+    key                  = "core.prod.tfstate"
+  }
+}
+
+provider "azurerm" {
+  features {}
+  subscription_id = var.prod_subscription_id
+}
+
+# Consume common networking module
+module "networking" {
+  source              = "../../modules/networking"
+  environment         = "prod"
+  vnet_address_space  = ["10.20.0.0/16"]
+  subnet_prefixes     = ["10.20.1.0/24", "10.20.2.0/24"]
+  enable_ddos_protect = true
+}
+
+# Consume compute module with high-availability parameters
+module "compute" {
+  source          = "../../modules/compute"
+  environment     = "prod"
+  subnet_id       = module.networking.app_subnet_id
+  instance_count  = 4
+  vm_size         = "Standard_D4s_v5"
+  enable_autoscale= true
+}`, codeLabel: 'Directory-Isolated Production Environment Architecture', keyPoints: ['Directory isolation is the enterprise gold standard for blast-radius containment.', 'Keep code DRY by writing reusable modules and calling them from environment directories.', 'Separate dev, staging, and prod into distinct AWS accounts or Azure subscriptions.', 'Workspaces are lightweight but share credentials and backend buckets.', 'Terragrunt orchestrates complex multi-tier dependencies while eliminating boilerplate.'] },
 
       { title: 'Variables & Outputs', content: `### Variable Types
 
@@ -270,6 +423,7 @@ resource "azurerm_kubernetes_cluster" "main" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   dns_prefix          = var.project_name
+  sku_tier            = "Standard"
 
   default_node_pool {
     name       = "default"

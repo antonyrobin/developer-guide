@@ -120,6 +120,163 @@ protected-mode yes
 | **allkeys-random** | Evict random keys |
 | **noeviction** | Return error when memory is full |`, keyPoints: ['Docker is the easiest setup — Redis is not natively available on Windows.', 'Use allkeys-lru eviction policy for caching use cases.', 'appendonly yes enables AOF persistence for durability.', 'Always set maxmemory to prevent Redis from consuming all RAM.', 'redis-cli PING verifies connectivity instantly.'] },
 
+      { title: 'Key Lifecycle & Storage Limit Eviction', image: '/images/redis/redis-lifecycle-eviction.svg', content: `Understanding how keys are born, accessed, expired, and evicted when memory fills up is crucial for building resilient caching and database layers.
+
+### 1. The Redis Key Lifecycle
+
+Every key in Redis traverses a defined lifecycle:
+
+1. **Allocation & Creation**: Keys are initialized via write commands (\`SET\`, \`HSET\`, \`LPUSH\`, \`ZADD\`). Optional TTL can be attached immediately (\`SET key value EX 60\`).
+2. **Access & Update**: Read operations (\`GET\`, \`HGET\`) reset LRU/LFU access metadata without changing TTL. Commands like \`INCR\` or \`APPEND\` mutate value in-place.
+3. **TTL Countdown**: Redis tracks time-to-live with millisecond precision (\`PTTL\` / \`TTL\`). \`PERSIST\` removes expiration, making the key permanent.
+4. **Expiration Execution**:
+   - **Passive (Lazy) Expiration**: When a client attempts to read a key whose TTL has expired, Redis detects it, deletes the key immediately, and returns \`nil\`.
+   - **Active Expiration**: Redis runs a background cycle 10 times per second (10 Hz). It samples 20 random keys with TTL; if more than 25% are expired, it repeats the process to ensure expired keys don't accumulate in memory.
+5. **Memory Reclamation**: The underlying allocator (\`jemalloc\`) reclaims memory back to the OS or Redis memory pool.
+
+---
+
+### 2. What Happens When \`maxmemory\` Limit is Reached?
+
+When Redis memory usage reaches the configured \`maxmemory\` limit:
+
+- **Read commands** (\`GET\`, \`MGET\`, \`ZRANGE\`, \`INFO\`) **continue to function normally**.
+- **Write commands** (\`SET\`, \`LPUSH\`, \`INCR\`, \`HSET\`) trigger the configured **\`maxmemory-policy\`**.
+
+If the eviction policy cannot free enough space (or if \`noeviction\` is active), Redis **rejects all write commands** with the following error:
+\`\`\`text
+(error) OOM command not allowed when used memory > 'maxmemory'.
+\`\`\`
+
+---
+
+### 3. Complete Eviction Policy Comparison
+
+| Eviction Policy | Target Keys | Eviction Algorithm | Best Use Case |
+|---|---|---|---|
+| **\`noeviction\`** *(Default)* | None | No eviction; throws \`OOM\` error on writes | When Redis is used as a primary persistent database |
+| **\`allkeys-lru\`** | All keys | Least Recently Used (time since last access) | General API & database response caching |
+| **\`volatile-lru\`** | Keys with TTL | Least Recently Used among expiring keys | Mixed usage: cache keys with TTL + permanent metadata |
+| **\`allkeys-lfu\`** | All keys | Least Frequently Used (access frequency count) | When access patterns follow power-law / popularity |
+| **\`volatile-lfu\`** | Keys with TTL | Least Frequently Used among expiring keys | Mixed data with frequency-based cache eviction |
+| **\`allkeys-random\`** | All keys | Randomly selects keys to delete | Uniform random cache access workloads |
+| **\`volatile-random\`** | Keys with TTL | Randomly selects keys with TTL set | Random eviction of temporary keys |
+| **\`volatile-ttl\`** | Keys with TTL | Shortest remaining time-to-live first | Time-sensitive cache pipelines |
+
+### 4. How Redis Approximates LRU & LFU
+
+Redis does not maintain a full doubly-linked list of every key (which would cost huge memory overhead). Instead, it uses an **approximated sampling algorithm**:
+- When eviction triggers, Redis samples **\`maxmemory-samples\`** keys (default: \`5\`).
+- It evicts the best candidate among the sample.
+- Increasing \`maxmemory-samples 10\` yields nearly true LRU at a slight CPU cost.`, code: `# Inspect current memory usage
+redis-cli INFO memory
+
+# Output highlights:
+# used_memory: 536870912          # 512 MB in bytes
+# used_memory_human: 512.00M
+# maxmemory: 536870912
+# maxmemory_policy: allkeys-lru
+# evicted_keys: 14205             # Total keys evicted since startup
+
+# Dynamically update memory limits at runtime without restart:
+127.0.0.1:6379> CONFIG SET maxmemory 1gb
+OK
+127.0.0.1:6379> CONFIG SET maxmemory-policy allkeys-lru
+OK
+127.0.0.1:6379> CONFIG SET maxmemory-samples 7
+OK
+
+# Check remaining TTL of a key
+127.0.0.1:6379> TTL session:usr_9812
+(integer) 342   # Seconds remaining (-1 = no TTL, -2 = key does not exist)
+
+# Force eviction sampling diagnostics
+127.0.0.1:6379> MEMORY USAGE product:catalog:901
+(integer) 4128  # Memory in bytes consumed by key and internal overhead`, codeLabel: 'Redis Memory & Eviction Commands', keyPoints: ['Redis uses dual expiration: lazy on-read + active 10Hz background sampling.', 'Under maxmemory, writes trigger eviction; reads are never blocked.', 'noeviction throws OOM error — allkeys-lru is standard for caching.', 'allkeys-lfu tracks access frequency; volatile-ttl evicts shortest TTL.', 'maxmemory-samples controls accuracy vs CPU balance for LRU/LFU approximation.'] },
+
+      { title: 'Configuration & Production Tuning (`redis.conf`)', content: `Below is a comprehensive production configuration reference organized by functional category.
+
+### 1. Memory & Eviction Settings
+
+| Setting | Default | Recommended Production Value | Description |
+|---|---|---|---|
+| **\`maxmemory\`** | \`0\` (Unlimited) | \`75%\` of available server RAM | Memory threshold before eviction triggers |
+| **\`maxmemory-policy\`** | \`noeviction\` | \`allkeys-lru\` or \`allkeys-lfu\` | Eviction behavior on full memory |
+| **\`maxmemory-samples\`** | \`5\` | \`7\` - \`10\` | Sampling size for LRU/LFU estimation |
+| **\`active-defrag-enabled\`** | \`no\` | \`yes\` | Online memory defragmentation |
+
+### 2. Persistence Configuration (RDB & AOF)
+
+| Setting | Default | Recommended | Description |
+|---|---|---|---|
+| **\`save\`** | \`3600 1 300 100\` | \`save 900 1 300 10\` | RDB snapshot intervals (\`seconds changes\`) |
+| **\`appendonly\`** | \`no\` | \`yes\` | Enables Append-Only File logging |
+| **\`appendfsync\`** | \`everysec\` | \`everysec\` | \`always\` (slowest, zero data loss), \`everysec\` (balanced), \`no\` (OS managed) |
+| **\`auto-aof-rewrite-percentage\`**| \`100\` | \`100\` | Rewrites AOF when file doubles in size |
+
+### 3. Security, Network & Connection Limits
+
+| Setting | Default | Recommended | Description |
+|---|---|---|---|
+| **\`bind\`** | \`127.0.0.1\` | \`127.0.0.1\` or Private VPC IP | Restrict listening network interfaces |
+| **\`protected-mode\`** | \`yes\` | \`yes\` | Blocks external connections if no password |
+| **\`requirepass\`** | none | \`StrongPassword64Chars\` | Client authentication password |
+| **\`maxclients\`** | \`10000\` | \`10000\` - \`50000\` | Maximum concurrent TCP client sockets |
+| **\`tcp-keepalive\`** | \`300\` | \`60\` | Detects dead socket connections |
+| **\`timeout\`** | \`0\` | \`300\` | Closes idle client connections after seconds |
+
+### 4. Dangerous Command Renaming
+
+In production environments, rename or disable commands that block the single-threaded event loop or risk data wipeout:
+
+\`\`\`text
+# Disable FLUSHALL, FLUSHDB, KEYS, CONFIG
+rename-command FLUSHDB ""
+rename-command FLUSHALL ""
+rename-command KEYS ""
+rename-command CONFIG "SYS_CONFIG_SECURE_99182"
+\`\`\``, code: `# ==========================================
+# Production redis.conf Template
+# ==========================================
+
+# Network & Ports
+port 6379
+bind 127.0.0.1 10.0.1.50
+protected-mode yes
+tcp-backlog 511
+timeout 300
+tcp-keepalive 60
+
+# Security
+requirepass S3cur3P@ssw0rd!LongAndComplex2026
+rename-command FLUSHALL ""
+rename-command FLUSHDB ""
+rename-command KEYS ""
+
+# Memory Management
+maxmemory 4gb
+maxmemory-policy allkeys-lru
+maxmemory-samples 7
+activedefrag yes
+
+# Persistence: RDB + AOF
+dir /var/lib/redis
+dbfilename dump.rdb
+save 900 1
+save 300 10
+save 60 10000
+
+appendonly yes
+appendfilename "appendonly.aof"
+appendfsync everysec
+no-appendfsync-on-rewrite yes
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+
+# Slowlog & Diagnostics
+slowlog-log-slower-than 10000 # Log queries taking > 10ms
+slowlog-max-len 1024`, codeLabel: 'Production redis.conf Template', keyPoints: ['Always configure maxmemory (e.g. 75% of machine RAM) to avoid OS OOM killer.', 'Use appendonly yes with appendfsync everysec for durable persistence.', 'Disable or rename destructive commands (FLUSHALL, FLUSHDB, KEYS) in production.', 'Enable active-defrag-enabled to prevent memory fragmentation in long-running instances.', 'Set slowlog-log-slower-than 10000 (10ms) to detect blocking commands.'] },
+
       { title: 'Language Integration', content: `### .NET (StackExchange.Redis)
 
 \`\`\`csharp
@@ -254,6 +411,115 @@ public class ProductService {
 }
 \`\`\``, keyPoints: ['.NET uses StackExchange.Redis or IDistributedCache abstraction.', 'Node.js uses ioredis — supports pipelining and clustering.', 'Python uses redis-py with simple get/set and pub/sub APIs.', 'Java uses Spring Data Redis with @Cacheable annotation.', 'All languages follow: connect → get/set → expire/TTL → invalidate.'] },
 
+      { title: 'Advanced Patterns & Real-Time Implementations', content: `Here are battle-tested production implementations of key Redis architectural patterns with atomic safety.
+
+### 1. Sliding Window Rate Limiter (Atomic Lua Script)
+
+Fixed counters suffer from "boundary burst" flaws (e.g. 100 requests at 00:59 and 100 at 01:01). A **Sliding Window Log** using Redis Sorted Sets ensures exact window rate limiting:
+
+\`\`\`lua
+-- sliding_window_rate_limiter.lua
+-- KEYS[1]: rate limit key (e.g. "rate:user_123")
+-- ARGV[1]: current timestamp in milliseconds
+-- ARGV[2]: window size in milliseconds (e.g. 60000 for 1 min)
+-- ARGV[3]: max allowed requests (e.g. 100)
+
+local key = KEYS[1]
+local now = tonumber(ARGV[1])
+local window = tonumber(ARGV[2])
+local limit = tonumber(ARGV[3])
+local clear_before = now - window
+
+-- 1. Remove entries older than sliding window
+redis.call('ZREMRANGEBYSCORE', key, '-inf', clear_before)
+
+-- 2. Count requests in current window
+local current_requests = redis.call('ZCARD', key)
+
+if current_requests < limit then
+    -- 3. Add current request
+    redis.call('ZADD', key, now, now)
+    -- 4. Set TTL on set
+    redis.call('PEXPIRE', key, window)
+    return 1 -- Allowed
+else
+    return 0 -- Rejected (Rate limit exceeded)
+end
+\`\`\`
+
+### 2. Distributed Locking (Redlock Safe Token Release)
+
+Distributed locking with \`SET resource_name my_random_value NX PX 30000\` prevents multiple workers from processing the same order. To release safely without removing another worker's expired lock, use a Lua script:
+
+\`\`\`lua
+-- safe_unlock.lua
+-- KEYS[1]: Lock key
+-- ARGV[1]: Unique Lock Value / Owner Token
+if redis.call("GET", KEYS[1]) == ARGV[1] then
+    return redis.call("DEL", KEYS[1])
+else
+    return 0
+end
+\`\`\`
+
+### 3. Real-Time Leaderboard with Sorted Sets
+
+Leaderboards require high-speed score updates and ranking lookups. Sorted Sets (\`ZSET\`) store pairs of \`(member, score)\` sorted in \`O(log N)\`:
+
+\`\`\`powershell
+# Add/update player scores
+ZADD game:leaderboard 14500 "user:player_one"
+ZADD game:leaderboard 29800 "user:player_two"
+ZADD game:leaderboard 18200 "user:player_three"
+
+# Increment player score atomically
+ZINCRBY game:leaderboard 500 "user:player_one"
+
+# Fetch Top 10 Leaderboard (Highest to lowest) with scores
+ZREVRANGE game:leaderboard 0 9 WITHSCORES
+
+# Fetch specific player rank (1-based ranking)
+ZREVRANK game:leaderboard "user:player_one"
+\`\`\``, code: `// Java Redisson / Spring Boot Atomic Sliding Window Rate Limiter
+@Component
+public class SlidingWindowRateLimiter {
+    private final StringRedisTemplate redisTemplate;
+    private final RedisScript<Long> rateLimitScript;
+
+    public SlidingWindowRateLimiter(StringRedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+        String lua = """
+            local key = KEYS[1]
+            local now = tonumber(ARGV[1])
+            local window = tonumber(ARGV[2])
+            local limit = tonumber(ARGV[3])
+            redis.call('ZREMRANGEBYSCORE', key, '-inf', now - window)
+            local count = redis.call('ZCARD', key)
+            if count < limit then
+                redis.call('ZADD', key, now, now)
+                redis.call('PEXPIRE', key, window)
+                return 1
+            else
+                return 0
+            end
+            """;
+        this.rateLimitScript = RedisScript.of(lua, Long.class);
+    }
+
+    public boolean allowRequest(String userId, int maxRequests, long windowMs) {
+        String key = "ratelimit:" + userId;
+        long now = System.currentTimeMillis();
+        Long result = redisTemplate.execute(
+            rateLimitScript,
+            List.of(key),
+            String.valueOf(now),
+            String.valueOf(windowMs),
+            String.valueOf(maxRequests)
+        );
+        return result != null && result == 1L;
+    }
+}`, codeLabel: 'Real-Time Lua Sliding Window Rate Limiter', keyPoints: ['Lua scripts execute atomically on Redis, preventing race conditions.', 'Sliding Window Log prevents boundary request spikes.', 'Distributed locks must release via owner token verification in Lua.', 'Sorted Sets (ZSET) provide O(log N) leaderboard ranking and range queries.', 'Pipelining batches multiple Redis commands to eliminate network round-trip overhead.'] },
+
       { title: 'Cloud Hosting', content: `### Cloud Options
 
 | Provider | Service | Free Tier | Features |
@@ -316,90 +582,6 @@ Primary/Replica (High Availability)
 │  Sentinel    │  Automatic failover monitoring
 └─────────────┘
 \`\`\``, keyPoints: ['Redis Cloud offers a free 30MB tier for development.', 'AWS ElastiCache provides managed Redis with VPC integration.', 'Upstash offers serverless Redis with a REST API — great for edge.', 'Use Helm charts for Kubernetes deployment with replicas.', 'Production requires Primary/Replica setup with Sentinel for HA.'] },
-
-      { title: 'Advanced Patterns', content: `### Cache-Aside Pattern (Most Common)
-
-\`\`\`text
-1. App checks Redis cache
-2. Cache HIT → return cached data
-3. Cache MISS → query database → store in Redis → return data
-4. On data UPDATE → invalidate Redis key
-\`\`\`
-
-### Distributed Locking
-
-\`\`\`javascript
-// Prevent race conditions with Redis locks
-async function acquireLock(key, ttlSeconds = 10) {
-    const result = await redis.set(
-        \`lock:\${key}\`, 'locked', 'EX', ttlSeconds, 'NX'
-    );
-    return result === 'OK';
-}
-
-async function releaseLock(key) {
-    await redis.del(\`lock:\${key}\`);
-}
-
-// Usage
-if (await acquireLock('process-payment:123')) {
-    try {
-        await processPayment(123);
-    } finally {
-        await releaseLock('process-payment:123');
-    }
-}
-\`\`\`
-
-### Pub/Sub for Real-Time Events
-
-\`\`\`javascript
-// Publisher
-await redis.publish('order-events', JSON.stringify({
-    type: 'order.created',
-    orderId: 123,
-    amount: 99.99,
-}));
-
-// Subscriber
-const sub = redis.duplicate();
-await sub.subscribe('order-events');
-sub.on('message', (channel, message) => {
-    const event = JSON.parse(message);
-    console.log('Event:', event.type, event.orderId);
-});
-\`\`\`
-
-### Session Storage
-
-\`\`\`javascript
-// Express.js session with Redis
-import session from 'express-session';
-import RedisStore from 'connect-redis';
-
-app.use(session({
-    store: new RedisStore({ client: redis }),
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true, maxAge: 86400000 }, // 24 hours
-}));
-\`\`\`
-
-### Leaderboard with Sorted Sets
-
-\`\`\`powershell
-# Redis CLI
-ZADD leaderboard 1500 "player:1"
-ZADD leaderboard 2300 "player:2"
-ZADD leaderboard 900  "player:3"
-
-# Top 10 players (highest first)
-ZREVRANGE leaderboard 0 9 WITHSCORES
-
-# Player rank (0-indexed)
-ZREVRANK leaderboard "player:2"
-\`\`\``, keyPoints: ['Cache-Aside is the most common caching pattern.', 'Distributed locks prevent race conditions in multi-instance apps.', 'Pub/Sub enables real-time event broadcasting between services.', 'Redis sessions are shared across all app instances automatically.', 'Sorted Sets power real-time leaderboards with O(log N) operations.'] },
 
       { title: 'Best Practices', content: `### ✅ Do's
 
