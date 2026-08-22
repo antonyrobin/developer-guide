@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440">
+  <rect width="920" height="440" rx="16" fill="#0f172a"/>
+  <text x="460" y="38" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Terraform Multi-Environment Management Strategies</text>
+
+  <!-- Strategy 1: Directory Isolation (Recommended) -->
+  <g transform="translate(35, 75)">
+    <rect width="265" height="330" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <rect x="15" y="15" width="235" height="32" rx="6" fill="#065f46"/>
+    <text x="132" y="36" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Directory Isolation (Best Practice)</text>
+
+    <!-- Visual Tree -->
+    <rect x="15" y="55" width="235" height="155" rx="6" fill="#0f172a"/>
+    <text x="25" y="78" fill="#38bdf8" font-size="11" font-family="monospace">environments/</text>
+    <text x="35" y="98" fill="#a78bfa" font-size="11" font-family="monospace">├── dev/ (main.tf, tfstate)</text>
+    <text x="35" y="118" fill="#f59e0b" font-size="11" font-family="monospace">├── stage/ (main.tf, tfstate)</text>
+    <text x="35" y="138" fill="#ef4444" font-size="11" font-family="monospace">└── prod/ (main.tf, tfstate)</text>
+    <text x="25" y="162" fill="#38bdf8" font-size="11" font-family="monospace">modules/</text>
+    <text x="35" y="182" fill="#34d399" font-size="11" font-family="monospace">└── networking, compute, db</text>
+
+    <text x="25" y="230" fill="#6ee7b7" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">✅ Isolated blast radius</text>
+    <text x="25" y="250" fill="#6ee7b7" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">✅ Independent cloud credentials</text>
+    <text x="25" y="270" fill="#6ee7b7" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">✅ Separate remote state backends</text>
+    <text x="25" y="290" fill="#cbd5e1" font-size="11" font-family="Segoe UI,Arial,sans-serif">⭐️ Enterprise Production Standard</text>
+  </g>
+
+  <!-- Strategy 2: Workspaces -->
+  <g transform="translate(325, 75)">
+    <rect width="265" height="330" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="15" y="15" width="235" height="32" rx="6" fill="#1d4ed8"/>
+    <text x="132" y="36" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Terraform Workspaces</text>
+
+    <!-- Visual Box -->
+    <rect x="15" y="55" width="235" height="155" rx="6" fill="#0f172a"/>
+    <text x="25" y="78" fill="#38bdf8" font-size="11" font-family="monospace">Single Codebase (main.tf)</text>
+    <text x="25" y="102" fill="#94a3b8" font-size="10" font-family="monospace">terraform workspace select dev</text>
+    <text x="25" y="122" fill="#94a3b8" font-size="10" font-family="monospace">terraform workspace select prod</text>
+    <line x1="25" y1="135" x2="225" y2="135" stroke="#334155"/>
+    <text x="25" y="155" fill="#fcd34d" font-size="11" font-family="monospace">terraform.workspace == "prod"</text>
+    <text x="25" y="175" fill="#fcd34d" font-size="11" font-family="monospace">  ? "Standard_D4s" : "B2s"</text>
+
+    <text x="25" y="230" fill="#93c5fd" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">✅ Single directory codebase</text>
+    <text x="25" y="250" fill="#fca5a5" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">⚠️ Shared state backend storage</text>
+    <text x="25" y="270" fill="#fca5a5" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">⚠️ High risk of human error</text>
+    <text x="25" y="290" fill="#cbd5e1" font-size="11" font-family="Segoe UI,Arial,sans-serif">⭐️ Best for Ephemeral / Review Apps</text>
+  </g>
+
+  <!-- Strategy 3: Terragrunt / Tooling -->
+  <g transform="translate(615, 75)">
+    <rect width="265" height="330" rx="12" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+    <rect x="15" y="15" width="235" height="32" rx="6" fill="#6d28d9"/>
+    <text x="132" y="36" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Terragrunt / Orchestrator</text>
+
+    <!-- Visual Box -->
+    <rect x="15" y="55" width="235" height="155" rx="6" fill="#0f172a"/>
+    <text x="25" y="78" fill="#c084fc" font-size="11" font-family="monospace">terragrunt.hcl</text>
+    <text x="25" y="98" fill="#cbd5e1" font-size="10" font-family="monospace">include "root" { ... }</text>
+    <text x="25" y="118" fill="#cbd5e1" font-size="10" font-family="monospace">inputs = { env = "prod" }</text>
+    <line x1="25" y1="135" x2="225" y2="135" stroke="#334155"/>
+    <text x="25" y="155" fill="#34d399" font-size="11" font-family="monospace">Auto-generates backend.tf</text>
+    <text x="25" y="175" fill="#34d399" font-size="11" font-family="monospace">Orchestrates multiple stacks</text>
+
+    <text x="25" y="230" fill="#c084fc" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">✅ 100% DRY Configuration</text>
+    <text x="25" y="250" fill="#c084fc" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">✅ Automated state backend setup</text>
+    <text x="25" y="270" fill="#c084fc" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">✅ Multi-module dependency graph</text>
+    <text x="25" y="290" fill="#cbd5e1" font-size="11" font-family="Segoe UI,Arial,sans-serif">⭐️ Best for Large Multi-Stack Clouds</text>
+  </g>
+</svg>

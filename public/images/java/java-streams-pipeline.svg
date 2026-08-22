@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440">
+  <rect width="920" height="440" rx="16" fill="#0f172a"/>
+  <text x="460" y="42" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Java Stream API Pipeline Architecture</text>
+  
+  <!-- Source Stage -->
+  <rect x="40" y="90" width="160" height="280" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="50" y="100" width="140" height="32" rx="6" fill="#3b82f6"/>
+  <text x="120" y="122" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">1. Stream Source</text>
+  
+  <rect x="55" y="150" width="130" height="36" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="120" y="173" text-anchor="middle" fill="#93c5fd" font-size="12" font-family="Segoe UI,Arial,sans-serif">Collection.stream()</text>
+  
+  <rect x="55" y="200" width="130" height="36" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="120" y="223" text-anchor="middle" fill="#93c5fd" font-size="12" font-family="Segoe UI,Arial,sans-serif">Arrays.stream(arr)</text>
+  
+  <rect x="55" y="250" width="130" height="36" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="120" y="273" text-anchor="middle" fill="#93c5fd" font-size="12" font-family="Segoe UI,Arial,sans-serif">Stream.of(v1, v2)</text>
+  
+  <rect x="55" y="300" width="130" height="36" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="120" y="323" text-anchor="middle" fill="#93c5fd" font-size="12" font-family="Segoe UI,Arial,sans-serif">Files.lines(path)</text>
+
+  <!-- Arrow 1 -->
+  <path d="M 205 230 L 255 230" stroke="#60a5fa" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow)"/>
+  <polygon points="255,230 245,225 245,235" fill="#60a5fa"/>
+
+  <!-- Intermediate Operations -->
+  <rect x="260" y="90" width="370" height="280" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="270" y="100" width="350" height="32" rx="6" fill="#d97706"/>
+  <text x="445" y="122" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">2. Intermediate Operations (Lazy Execution)</text>
+  
+  <g transform="translate(280, 150)">
+    <rect width="155" height="42" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="77" y="22" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.filter(Predicate&lt;T&gt;)</text>
+    <text x="77" y="36" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Keeps matching items</text>
+  </g>
+
+  <g transform="translate(450, 150)">
+    <rect width="155" height="42" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="77" y="22" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.map(Function&lt;T,R&gt;)</text>
+    <text x="77" y="36" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Transforms elements</text>
+  </g>
+
+  <g transform="translate(280, 205)">
+    <rect width="155" height="42" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="77" y="22" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.flatMap(Function)</text>
+    <text x="77" y="36" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Flattens nested streams</text>
+  </g>
+
+  <g transform="translate(450, 205)">
+    <rect width="155" height="42" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="77" y="22" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.distinct() / .sorted()</text>
+    <text x="77" y="36" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Stateful ordering/filter</text>
+  </g>
+
+  <g transform="translate(280, 260)">
+    <rect width="155" height="42" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="77" y="22" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.limit(n) / .skip(n)</text>
+    <text x="77" y="36" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Truncation &amp; pagination</text>
+  </g>
+
+  <g transform="translate(450, 260)">
+    <rect width="155" height="42" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="77" y="22" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.peek(Consumer&lt;T&gt;)</text>
+    <text x="77" y="36" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Debugging inspection</text>
+  </g>
+
+  <rect x="280" y="315" width="325" height="38" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="442" y="338" text-anchor="middle" fill="#cbd5e1" font-size="11" font-family="Segoe UI,Arial,sans-serif">Pipelines do not run until a Terminal Operation is invoked!</text>
+
+  <!-- Arrow 2 -->
+  <path d="M 635 230 L 685 230" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)"/>
+  <polygon points="685,230 675,225 675,235" fill="#10b981"/>
+
+  <!-- Terminal Stage -->
+  <rect x="690" y="90" width="190" height="280" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+  <rect x="700" y="100" width="170" height="32" rx="6" fill="#059669"/>
+  <text x="785" y="122" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">3. Terminal Operation</text>
+
+  <rect x="705" y="150" width="160" height="36" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="785" y="173" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.collect(Collectors...)</text>
+
+  <rect x="705" y="200" width="160" height="36" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="785" y="223" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.toList() / .toSet()</text>
+
+  <rect x="705" y="250" width="160" height="36" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="785" y="273" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.reduce(...) / .count()</text>
+
+  <rect x="705" y="300" width="160" height="36" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="785" y="323" text-anchor="middle" fill="#6ee7b7" font-size="12" font-weight="600" font-family="Segoe UI,Arial,sans-serif">.findFirst() / .anyMatch()</text>
+
+  <!-- Footer Info -->
+  <rect x="40" y="390" width="840" height="32" rx="6" fill="#1e293b"/>
+  <text x="460" y="411" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Segoe UI,Arial,sans-serif">Functional • Immutable • Non-Interfering • Stateless / Stateful Stages • Lazy Evaluation</text>
+</svg>

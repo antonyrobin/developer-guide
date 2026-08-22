@@ -145,6 +145,242 @@ Producer → exchange: "logs" (routing_key: "app.orders.error")
 | **expiration** | Message TTL in milliseconds |
 | **priority** | 0-9 priority level |`, keyPoints: ['Direct exchanges route by exact routing key match — use for task queues.', 'Fanout exchanges broadcast to all bound queues — use for notifications.', 'Topic exchanges support wildcards (* = one word, # = zero or more).', 'Set delivery_mode=2 for persistent messages that survive restarts.', 'Use correlation_id for request-response (RPC) patterns.'] },
 
+      { title: 'Lifecycle, Configurations & High-Traffic Tuning', content: `Understanding message and connection lifecycles, configuration parameters, and tuning techniques is essential for running RabbitMQ under high load.
+
+### 1. Message & Connection Lifecycle
+
+- **Message States**:
+  1. **Published**: Sent by producer to an Exchange.
+  2. **Routed**: Evaluated against bindings and placed into target Queues (state: \`Ready\`).
+  3. **Delivered / Unacknowledged**: Delivered to active consumer over AMQP channel (state: \`Unacked\`).
+  4. **Processed & Acknowledged**: Consumer calls \`basic.ack\` → message is deleted from queue.
+  5. **Rejected / Dead-Lettered**: Consumer calls \`basic.nack(requeue=false)\` or message TTL expires → routed to Dead Letter Exchange (DLX).
+- **Connection & Channel Lifecycle**: TCP connection is established once; multiple lightweight AMQP channels are multiplexed over it. Channels should be long-lived and reused.
+
+---
+
+### 2. RabbitMQ Configuration Reference (\`rabbitmq.conf\`)
+
+| Setting | Default | Recommended Production Value | Purpose |
+|---|---|---|---|
+| **\`vm_memory_high_watermark.relative\`** | \`0.4\` | \`0.6\` - \`0.7\` | Blocks publishers when RAM reaches threshold |
+| **\`vm_memory_high_watermark_paging_ratio\`**| \`0.5\` | \`0.5\` | Ratio at which queue contents page to disk |
+| **\`disk_free_limit.absolute\`** | \`50MB\` | \`5GB\` - \`10GB\` | Blocks publishers if disk space falls below limit |
+| **\`heartbeat\`** | \`60\` | \`30\` - \`60\` | Heartbeat interval in seconds to detect stale TCP |
+| **\`channel_max\`** | \`2047\` | \`2047\` | Maximum concurrent channels per connection |
+| **\`consumer_timeout\`** | \`1800000\` (30m) | \`900000\` (15m) | Max time consumer can hold unacked message |
+
+---
+
+### 3. Handling High-Traffic Queues & Preventing Bottlenecks
+
+1. **Consumer Prefetch Tuning (\`basic.qos\`)**:
+   - By default, RabbitMQ pushes messages greedily to connected consumers, which can overwhelm consumer memory.
+   - Set \`basic.qos(prefetch_count = 50)\` to maintain a controlled pipeline of unacknowledged messages.
+2. **Quorum Queues (Raft Consensus)**:
+   - Modern replacement for legacy mirrored classic queues.
+   - Uses the Raft consensus algorithm across 3 or 5 cluster nodes for data safety, high availability, and poison message handling.
+3. **Lazy Queues (\`x-queue-mode: lazy\`)**:
+   - Moves messages to disk as early as possible and loads them into RAM only when requested by consumers.
+   - Essential for absorbing spikes of millions of messages without inflating RAM usage.
+4. **Publisher Confirms**:
+   - Enables asynchronous acknowledgment from the broker to the producer, guaranteeing that messages reached disk or replicated queues before proceeding.`, code: `# rabbitmq.conf — High-Performance Production Setup
+listeners.tcp.default = 5672
+management.tcp.port = 15672
+
+# Memory & Resource Limits
+vm_memory_high_watermark.relative = 0.65
+vm_memory_high_watermark_paging_ratio = 0.5
+disk_free_limit.absolute = 10GB
+
+# TCP Connection & Channel Tuning
+heartbeat = 30
+channel_max = 2047
+tcp_listen_options.backlog = 4096
+tcp_listen_options.nodelay = true
+
+# Cluster & Quorum Queue Settings
+cluster_formation.peer_discovery_backend = classic_config
+cluster_partition_handling = autoheal
+
+# Consumer Timeout (15 minutes)
+consumer_timeout = 900000`, codeLabel: 'High-Traffic rabbitmq.conf Template', keyPoints: ['Message moves: Ready → Unacked → Acked / Nacked / Dead-Lettered.', 'Always configure prefetch (e.g. 50-100) on consumers to prevent memory overload.', 'Use Quorum Queues for high-availability distributed data consistency.', 'Enable Lazy Queues (x-queue-mode: lazy) to absorb massive message backlogs onto disk.', 'Publisher confirms guarantee data persistence before producer commits.'] },
+
+      { title: 'Sensitive Data & PII Message Transfer Patterns', content: `Sending sensitive information (such as **email addresses**, **passwords**, **credit card numbers**, or **health records**) through message brokers requires stringent security controls.
+
+### 1. The Risk of Plaintext Payloads in Message Queues
+
+- Queues persist messages to disk and store them in unencrypted broker logs.
+- RabbitMQ Management UI allows authorized users with view access to read payload bodies.
+- Multiple consumers or analytics monitors might consume unmasked payload fields.
+
+---
+
+### 2. Pattern A: Payload Envelope Encryption (AES-256 GCM)
+
+Encrypt sensitive payload data with symmetric encryption before publishing to RabbitMQ, and decrypt inside the authorized consumer:
+
+\`\`\`text
+Producer ──▶ [ AES-256 Encrypt (PII) ] ──▶ RabbitMQ Message ──▶ [ Consumer ] ──▶ [ Decrypt ]
+\`\`\`
+
+### 3. Pattern B: Claim-Check Pattern (Recommended for Large / Sensitive Data)
+
+Instead of passing the sensitive payload through the message broker:
+1. Producer stores the full encrypted recipient list or sensitive data in an encrypted object store / Key Vault / Redis.
+2. Producer publishes a lightweight notification message containing only a **Claim-Check ID** / Reference Token.
+3. Consumer retrieves the data directly from the secure vault using the ID and deletes it upon completion.
+
+### 4. Transport & Access Security
+
+- **AMQPS (Port 5671)**: Always mandate TLS 1.3 encryption between clients and the broker.
+- **Virtual Host Isolation**: Separate sensitive workflows into isolated vhosts (e.g., \`/pci-compliance\`) with restricted credentials.`, code: `// Java: AES-256 GCM Envelope Encryption Utility for RabbitMQ Payloads
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.GCMParameterSpec;
+import java.security.SecureRandom;
+import java.util.Base64;
+
+public class PayloadEncryptor {
+    private static final int GCM_IV_LENGTH = 12;
+    private static final int GCM_TAG_LENGTH = 128;
+
+    public static String encrypt(String plaintext, SecretKey key) throws Exception {
+        byte[] iv = new byte[GCM_IV_LENGTH];
+        new SecureRandom().nextBytes(iv);
+
+        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        GCMParameterSpec spec = new GCMParameterSpec(GCM_TAG_LENGTH, iv);
+        cipher.init(Cipher.ENCRYPT_MODE, key, spec);
+
+        byte[] cipherText = cipher.doFinal(plaintext.getBytes());
+        byte[] combined = new byte[iv.length + cipherText.length];
+        System.arraycopy(iv, 0, combined, 0, iv.length);
+        System.arraycopy(cipherText, 0, combined, iv.length, cipherText.length);
+
+        return Base64.getEncoder().encodeToString(combined);
+    }
+
+    public static String decrypt(String encryptedBase64, SecretKey key) throws Exception {
+        byte[] combined = Base64.getDecoder().decode(encryptedBase64);
+        GCMParameterSpec spec = new GCMParameterSpec(GCM_TAG_LENGTH, combined, 0, GCM_IV_LENGTH);
+
+        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        cipher.init(Cipher.DECRYPT_MODE, key, spec);
+
+        byte[] plaintext = cipher.doFinal(combined, GCM_IV_LENGTH, combined.length - GCM_IV_LENGTH);
+        return new String(plaintext);
+    }
+}`, codeLabel: 'AES-256 GCM Message Payload Encryption', keyPoints: ['Never send raw passwords or unencrypted credit cards in message payloads.', 'Use AES-256-GCM Envelope Encryption for encrypting sensitive PII fields.', 'Apply the Claim-Check Pattern to store sensitive large data in secure storage.', 'Mandate AMQPS (port 5671) with TLS 1.3 in all production environments.', 'Isolate compliance-sensitive queues into restricted virtual hosts.'] },
+
+      { title: 'Real-World Scenario: Multi-Recipient Email Broadcast Engine', image: '/images/rabbitmq/rabbitmq-email-workflow.svg', content: `### Scenario: Mass Email Notification System
+
+**Requirement**: An administrator triggers a marketing announcement to **10,000 users simultaneously**. The system must handle high throughput, maintain order where required, throttle email dispatch to adhere to SMTP provider limits, prevent duplicates, and recover gracefully from failures.
+
+---
+
+### Step-by-Step Architecture Flow
+
+1. **Trigger & Batching**:
+   - Admin triggers the request via API Gateway (\`POST /campaigns/broadcast\`).
+   - The Broadcast Service splits 10,000 recipients into chunks of **50 recipients** (200 lightweight messages).
+   - Each message is assigned a unique \`broadcast_id\` and \`chunk_id\` with idempotency tracking.
+
+2. **Publishing**:
+   - Messages are published to \`email.broadcast.exchange\` (Topic Exchange) with routing key \`email.dispatch.batch\`.
+   - Message headers include \`delivery_mode: 2\` (durable) and correlation tracking headers.
+
+3. **Queue & Processing**:
+   - \`email.dispatch.queue\` (Quorum Queue) receives the batches.
+   - A scaled pool of **Email Workers** consume messages with \`prefetch_count = 10\`.
+   - Workers decrypt sensitive email addresses, call SendGrid/SES/SMTP APIs, and call \`basic.ack\` upon successful sending.
+
+4. **Handling Failures & Dead Lettering (DLQ)**:
+   - If an SMTP provider returns a \`503 Service Unavailable\` or rate-limit error:
+     - Worker sets \`x-retry-count = current + 1\`.
+     - If \`retry_count < 3\`, message is published to \`email.retry.5s.queue\` with a 5-second TTL. When TTL expires, RabbitMQ automatically dead-letters it back to the primary queue for reprocessing.
+     - If \`retry_count >= 3\`, message is sent to \`email.dlq\` (Dead Letter Queue) for manual inspection and alerting.
+
+5. **Idempotency & Deduplication (Redis)**:
+   - Before dispatching an email, the worker checks Redis: \`SET email_job:broadcast_12:user_89 "SENT" EX 86400 NX\`.
+   - If key exists, the message is acknowledged and skipped, preventing duplicate emails.`, code: `// ============================================================================
+// Complete Java Spring AMQP Email Broadcast Worker with DLQ & Retry
+// ============================================================================
+
+@Configuration
+public class EmailRabbitConfig {
+    public static final String MAIN_EXCHANGE = "email.broadcast.exchange";
+    public static final String RETRY_EXCHANGE = "email.retry.exchange";
+    public static final String DLX_EXCHANGE = "email.dlx.exchange";
+
+    public static final String MAIN_QUEUE = "email.dispatch.queue";
+    public static final String RETRY_QUEUE = "email.retry.5s.queue";
+    public static final String DLQ_QUEUE = "email.dlq";
+
+    // 1. Main Work Queue with DLX configuration
+    @Bean
+    public Queue mainQueue() {
+        return QueueBuilder.durable(MAIN_QUEUE)
+            .withArgument("x-dead-letter-exchange", DLX_EXCHANGE)
+            .withArgument("x-dead-letter-routing-key", "email.poison")
+            .build();
+    }
+
+    // 2. Retry Queue with 5000ms TTL that dead-letters back to Main Exchange
+    @Bean
+    public Queue retryQueue() {
+        return QueueBuilder.durable(RETRY_QUEUE)
+            .withArgument("x-message-ttl", 5000)
+            .withArgument("x-dead-letter-exchange", MAIN_EXCHANGE)
+            .withArgument("x-dead-letter-routing-key", "email.dispatch.batch")
+            .build();
+    }
+
+    // 3. Dead Letter Queue
+    @Bean
+    public Queue dlq() {
+        return QueueBuilder.durable(DLQ_QUEUE).build();
+    }
+}
+
+// Consumer Service
+@Component
+public class EmailBroadcastConsumer {
+    @Autowired private StringRedisTemplate redis;
+    @Autowired private RabbitTemplate rabbitTemplate;
+
+    @RabbitListener(queues = EmailRabbitConfig.MAIN_QUEUE, concurrency = "5-10")
+    public void processEmailBatch(EmailBatchMessage message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
+        String deduplicationKey = "email:dedup:" + message.getBatchId();
+
+        // Check Idempotency via Redis
+        Boolean isNew = redis.opsForValue().setIfAbsent(deduplicationKey, "PROCESSING", Duration.ofHours(24));
+        if (Boolean.FALSE.equals(isNew)) {
+            channel.basicAck(tag, false); // Skip duplicate
+            return;
+        }
+
+        try {
+            // Dispatch emails to SMTP Provider (SendGrid / SES)
+            sendEmails(message.getRecipients(), message.getSubject(), message.getBody());
+
+            // Mark successful in Redis & Acknowledge
+            redis.opsForValue().set(deduplicationKey, "DONE", Duration.ofHours(24));
+            channel.basicAck(tag, false);
+        } catch (TransientSmtpException ex) {
+            // Handle retry with exponential backoff
+            if (message.getRetryCount() < 3) {
+                message.setRetryCount(message.getRetryCount() + 1);
+                rabbitTemplate.convertAndSend(EmailRabbitConfig.RETRY_EXCHANGE, "email.retry", message);
+                channel.basicAck(tag, false); // Remove from main queue; retry queue will hold it
+            } else {
+                // Reject to DLQ
+                channel.basicNack(tag, false, false);
+            }
+        }
+    }
+}`, codeLabel: 'Multi-Recipient Email Worker Implementation', keyPoints: ['Split mass broadcasts into manageable batch chunks (e.g. 50 recipients).', 'Use Quorum Queues with Dead Letter Exchanges for fault isolation.', 'Implement TTL-based retry queues for exponential backoff retry cycles.', 'Use Redis SETNX deduplication keys to guarantee exactly-once email dispatch.', 'Tune consumer concurrency and prefetch count to adhere to downstream SMTP rate limits.'] },
+
       { title: 'Language Integration', content: `### .NET with MassTransit
 
 **MassTransit** is the most popular RabbitMQ abstraction for .NET. It handles serialization, retry, consumer registration, and saga orchestration.

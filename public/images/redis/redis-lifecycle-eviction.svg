@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440">
+  <rect width="920" height="440" rx="16" fill="#0f172a"/>
+  <text x="460" y="38" text-anchor="middle" fill="#fff" font-size="24" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Redis Key Lifecycle &amp; Maxmemory Eviction Flow</text>
+
+  <!-- Key Lifecycle Horizontal Pipeline -->
+  <rect x="30" y="65" width="860" height="110" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+  <text x="50" y="90" fill="#60a5fa" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">1. Redis Key Lifecycle</text>
+
+  <!-- Step 1: SET -->
+  <g transform="translate(50, 105)">
+    <rect width="135" height="55" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+    <text x="67" y="24" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Created</text>
+    <text x="67" y="42" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">SET key val [EX 60]</text>
+  </g>
+  <polygon points="195,132 185,127 185,137" fill="#60a5fa"/>
+
+  <!-- Step 2: Access & Refresh -->
+  <g transform="translate(205, 105)">
+    <rect width="145" height="55" rx="8" fill="#0f172a" stroke="#4ade80" stroke-width="1"/>
+    <text x="72" y="24" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Active Access</text>
+    <text x="72" y="42" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">GET / INCR / EXPIRE</text>
+  </g>
+  <polygon points="360,132 350,127 350,137" fill="#60a5fa"/>
+
+  <!-- Step 3: TTL Countdown -->
+  <g transform="translate(370, 105)">
+    <rect width="145" height="55" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="72" y="24" text-anchor="middle" fill="#f59e0b" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">TTL Expiration</text>
+    <text x="72" y="42" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">TTL = 0s Reached</text>
+  </g>
+  <polygon points="525,132 515,127 515,137" fill="#60a5fa"/>
+
+  <!-- Step 4: Active/Passive Cleanup -->
+  <g transform="translate(535, 105)">
+    <rect width="165" height="55" rx="8" fill="#0f172a" stroke="#a78bfa" stroke-width="1"/>
+    <text x="82" y="24" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Passive / Active Purge</text>
+    <text x="82" y="42" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Lazy read or 10Hz scan</text>
+  </g>
+  <polygon points="710,132 700,127 700,137" fill="#60a5fa"/>
+
+  <!-- Step 5: Freed -->
+  <g transform="translate(720, 105)">
+    <rect width="150" height="55" rx="8" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+    <text x="75" y="24" text-anchor="middle" fill="#f87171" font-size="12" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Memory Reclaimed</text>
+    <text x="75" y="42" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">jemalloc frees RAM</text>
+  </g>
+
+  <!-- Bottom Section: Maxmemory Eviction Decision Tree -->
+  <rect x="30" y="190" width="860" height="235" rx="12" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+  <text x="50" y="215" fill="#f87171" font-size="14" font-weight="700" font-family="Segoe UI,Arial,sans-serif">2. What Happens When Storage Limit (`maxmemory`) is Reached?</text>
+
+  <!-- Left: Trigger Condition -->
+  <g transform="translate(50, 230)">
+    <rect width="210" height="180" rx="8" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+    <text x="105" y="30" text-anchor="middle" fill="#ef4444" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Memory Limit Reached</text>
+    <text x="105" y="55" text-anchor="middle" fill="#cbd5e1" font-size="11" font-family="Segoe UI,Arial,sans-serif">used_memory &gt;= maxmemory</text>
+    <line x1="20" y1="70" x2="190" y2="70" stroke="#334155"/>
+    <text x="15" y="95" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">🔹 New write command arrives</text>
+    <text x="15" y="118" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">🔹 Read queries continue</text>
+    <text x="15" y="141" fill="#94a3b8" font-size="11" font-family="Segoe UI,Arial,sans-serif">🔹 Redis executes policy</text>
+    <text x="15" y="164" fill="#fbbf24" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">🔹 Sampling: maxmemory-samples</text>
+  </g>
+
+  <!-- Middle: Eviction Policies Box -->
+  <g transform="translate(280, 230)">
+    <rect width="320" height="180" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+    <text x="160" y="25" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Configured `maxmemory-policy`</text>
+    
+    <rect x="15" y="40" width="290" height="28" rx="4" fill="#1e293b"/>
+    <text x="25" y="58" fill="#4ade80" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">allkeys-lru / allkeys-lfu</text>
+    <text x="290" y="58" text-anchor="end" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Evict least used across all</text>
+
+    <rect x="15" y="74" width="290" height="28" rx="4" fill="#1e293b"/>
+    <text x="25" y="92" fill="#38bdf8" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">volatile-lru / volatile-lfu</text>
+    <text x="290" y="92" text-anchor="end" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Evict only keys with TTL</text>
+
+    <rect x="15" y="108" width="290" height="28" rx="4" fill="#1e293b"/>
+    <text x="25" y="126" fill="#a78bfa" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">volatile-ttl</text>
+    <text x="290" y="126" text-anchor="end" fill="#94a3b8" font-size="10" font-family="Segoe UI,Arial,sans-serif">Evict shortest remaining TTL</text>
+
+    <rect x="15" y="142" width="290" height="28" rx="4" fill="#1e293b"/>
+    <text x="25" y="160" fill="#f87171" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">noeviction (Default)</text>
+    <text x="290" y="160" text-anchor="end" fill="#fca5a5" font-size="10" font-family="Segoe UI,Arial,sans-serif">Returns OOM error on writes</text>
+  </g>
+
+  <!-- Right: Outcome & Action Box -->
+  <g transform="translate(620, 230)">
+    <rect width="250" height="180" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+    <text x="125" y="28" text-anchor="middle" fill="#34d399" font-size="13" font-weight="700" font-family="Segoe UI,Arial,sans-serif">Operational Results</text>
+    <line x1="20" y1="42" x2="230" y2="42" stroke="#334155"/>
+    <text x="15" y="66" fill="#86efac" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">✅ If Eviction Policy Configured:</text>
+    <text x="15" y="85" fill="#cbd5e1" font-size="10" font-family="Segoe UI,Arial,sans-serif">Redis frees space seamlessly,</text>
+    <text x="15" y="100" fill="#cbd5e1" font-size="10" font-family="Segoe UI,Arial,sans-serif">writes succeed without downtime.</text>
+
+    <text x="15" y="126" fill="#fca5a5" font-size="11" font-weight="600" font-family="Segoe UI,Arial,sans-serif">⚠️ If noeviction active:</text>
+    <text x="15" y="145" fill="#fca5a5" font-size="10" font-family="Segoe UI,Arial,sans-serif">Throws (error) OOM command</text>
+    <text x="15" y="160" fill="#fca5a5" font-size="10" font-family="Segoe UI,Arial,sans-serif">not allowed when used memory &gt;</text>
+  </g>
+</svg>
