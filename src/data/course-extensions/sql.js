@@ -152,6 +152,79 @@ SELECT d, strftime('%w', d) AS weekday FROM days;`,
 
   sections: [
     {
+      title: 'SQL Commands: DDL, DQL, DML, DCL & TCL',
+      after: 'What is SQL',
+      image: '/images/sql/sql-commands.svg',
+      content: `Every SQL statement belongs to one of five command groups. Knowing the group tells you **what the statement touches** and **how it behaves in a transaction**.
+
+| Group | Stands for | Acts on | Commands |
+|---|---|---|---|
+| **DDL** | Data Definition Language | structure (tables, views, indexes) | \`CREATE\`, \`ALTER\`, \`DROP\`, \`TRUNCATE\`, \`RENAME\`, \`COMMENT\` |
+| **DQL** | Data Query Language | reads rows | \`SELECT\` (with \`FROM\`, \`WHERE\`, \`JOIN\`, \`GROUP BY\`, \`HAVING\`, \`ORDER BY\`) |
+| **DML** | Data Manipulation Language | changes rows | \`INSERT\`, \`UPDATE\`, \`DELETE\`, \`MERGE\` / upsert |
+| **DCL** | Data Control Language | permissions | \`GRANT\`, \`REVOKE\` (\`DENY\` in SQL Server) |
+| **TCL** | Transaction Control Language | units of work | \`BEGIN\`, \`COMMIT\`, \`ROLLBACK\`, \`SAVEPOINT\` |
+
+Some books fold \`SELECT\` into DML; separating it as DQL makes the read/write split clearer.
+
+### DELETE vs TRUNCATE vs DROP
+
+| | \`DELETE\` (DML) | \`TRUNCATE\` (DDL) | \`DROP\` (DDL) |
+|---|---|---|---|
+| Removes | chosen rows (\`WHERE\`) | all rows | the whole table + its data |
+| Table still exists | yes | yes | no |
+| Fires row triggers | yes | no | no |
+| Speed on big tables | slow (row by row, logged) | fast (deallocates pages) | fast |
+| Resets identity | no | yes (most engines) | — |
+
+### Transactions and DDL
+
+DML is transactional everywhere. **DDL** auto-commits in Oracle and MySQL, but can be rolled back inside a transaction in PostgreSQL, SQL Server and SQLite.`,
+      code: `-- DDL: define structure
+CREATE TABLE accounts (
+  id      INTEGER PRIMARY KEY,
+  owner   TEXT NOT NULL,
+  balance REAL NOT NULL CHECK (balance >= 0)
+);
+ALTER TABLE accounts ADD COLUMN currency TEXT DEFAULT 'EUR';
+CREATE INDEX idx_accounts_owner ON accounts(owner);
+
+-- DML: change data
+INSERT INTO accounts (owner, balance) VALUES ('Ana', 500), ('Ben', 100), ('Cy', 0);
+UPDATE accounts SET balance = balance + 50 WHERE owner = 'Cy';
+DELETE FROM accounts WHERE balance = 0;              -- removes nothing: Cy now has 50
+
+-- TCL: move money atomically
+BEGIN TRANSACTION;
+UPDATE accounts SET balance = balance - 200 WHERE owner = 'Ana';
+UPDATE accounts SET balance = balance + 200 WHERE owner = 'Ben';
+SAVEPOINT before_fee;
+UPDATE accounts SET balance = balance - 5 WHERE owner = 'Ben';
+ROLLBACK TO before_fee;                              -- undo only the fee
+COMMIT;
+
+-- DQL: read data
+SELECT owner, balance, currency
+FROM accounts
+WHERE balance > 0
+ORDER BY balance DESC;
+
+-- DCL (server databases such as PostgreSQL / SQL Server / MySQL; SQLite has no users):
+-- GRANT SELECT, INSERT ON accounts TO reporting_app;
+-- REVOKE INSERT ON accounts FROM reporting_app;
+
+-- DDL: remove structure
+DROP INDEX idx_accounts_owner;`,
+      codeLabel: 'One example per command group',
+      codeLanguage: 'sql',
+      keyPoints: [
+        'DDL defines structure, DQL reads, DML changes rows, DCL controls access, TCL groups work into transactions.',
+        '`DELETE` removes chosen rows; `TRUNCATE` empties a table fast; `DROP` removes the table itself.',
+        'Use `BEGIN` / `COMMIT` / `ROLLBACK` (and `SAVEPOINT`) so related changes succeed or fail together.',
+        'DDL auto-commits in Oracle and MySQL but is transactional in PostgreSQL, SQL Server and SQLite.',
+      ],
+    },
+    {
       title: 'Aggregates, GROUP BY & HAVING',
       after: 'CRUD Operations & Filtering',
       content: `Aggregate functions collapse many rows into one value: \`COUNT\`, \`SUM\`, \`AVG\`, \`MIN\`, \`MAX\` (plus \`STRING_AGG\`/\`GROUP_CONCAT\` for text).

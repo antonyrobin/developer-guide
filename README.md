@@ -108,19 +108,6 @@ developer-guide/
 npm install
 ```
 
-### Configure Cloudflare Turnstile
-
-1. Create a Cloudflare Turnstile widget in your Cloudflare dashboard.
-2. Copy the site key for your domain.
-3. Create a local `.env` file in the project root.
-4. Set `VITE_TURNSTILE_SITE_KEY` to your Turnstile site key.
-
-```env
-VITE_TURNSTILE_SITE_KEY=your_cloudflare_turnstile_site_key
-```
-
-In development, the app falls back to Cloudflare's public test site key if `VITE_TURNSTILE_SITE_KEY` is not set. In production, you should always configure a real site key.
-
 ### Start the development server
 
 ```bash
@@ -179,12 +166,6 @@ The merge prints a warning if a referenced section title does not exist. Extensi
 - Keep course ids and section titles stable — they form the URLs.
 - Prefer structured sections with concise explanations, sample code, examples and key takeaways.
 - Examples that define `function App()` (React) or use HTML/JS/TS/Python/SQL get a **Try it** button automatically. Pure CSS examples need a `playground` override with the HTML to style.
-
-## Bot Protection
-
-The app now includes a client-side Cloudflare Turnstile widget in the footer. It runs in silent `interaction-only` mode, so most legitimate users pass without seeing a visible challenge. If Cloudflare considers the request suspicious, it can still present an interactive challenge inside the widget area.
-
-Because this project is currently frontend-only, the footer widget is informational and client-side only. It does not provide strong access control by itself. For real bot blocking, add a backend endpoint that validates Turnstile tokens server-side before serving protected API operations or privileged content.
 
 ## License
 

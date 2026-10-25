@@ -12,7 +12,7 @@ export const catalog = {
     "file": "aws",
     "title": "AWS",
     "description": "Amazon Web Services — the largest cloud platform.",
-    "sectionCount": 8
+    "sectionCount": 16
   },
   "azure-devops": {
     "id": "azure-devops",
@@ -26,7 +26,7 @@ export const catalog = {
     "file": "blazor",
     "title": "Blazor",
     "description": "Build interactive web UIs with C# instead of JavaScript.",
-    "sectionCount": 6
+    "sectionCount": 14
   },
   "cloudflare": {
     "id": "cloudflare",
@@ -75,7 +75,7 @@ export const catalog = {
     "file": "django",
     "title": "Django",
     "description": "Batteries-included Python web framework.",
-    "sectionCount": 6
+    "sectionCount": 14
   },
   "docker": {
     "id": "docker",
@@ -96,35 +96,35 @@ export const catalog = {
     "file": "dotnet-framework",
     "title": ".NET Framework (Legacy & Enterprise)",
     "description": "Development platform for building windows-based web and desktop applications.",
-    "sectionCount": 6
+    "sectionCount": 14
   },
   "elasticsearch": {
     "id": "elasticsearch",
     "file": "elasticsearch",
     "title": "Elasticsearch DB",
     "description": "Distributed, RESTful search and analytics engine.",
-    "sectionCount": 5
+    "sectionCount": 13
   },
   "etl": {
     "id": "etl",
     "file": "etl",
     "title": "ETL - Talend & SSIS",
     "description": "Extract, Transform, Load processes using Talend Open Studio and MS SSIS.",
-    "sectionCount": 4
+    "sectionCount": 12
   },
   "fastapi": {
     "id": "fastapi",
     "file": "fastapi",
     "title": "FastAPI",
     "description": "Modern, fast (high-performance) web framework for building APIs with Python.",
-    "sectionCount": 5
+    "sectionCount": 13
   },
   "flask": {
     "id": "flask",
     "file": "flask",
     "title": "Flask Framework",
     "description": "Lightweight WSGI web application framework for Python.",
-    "sectionCount": 5
+    "sectionCount": 13
   },
   "flutter": {
     "id": "flutter",
@@ -138,7 +138,7 @@ export const catalog = {
     "file": "gcp",
     "title": "GCP",
     "description": "Google Cloud Platform — built on Google infrastructure.",
-    "sectionCount": 7
+    "sectionCount": 15
   },
   "github-actions": {
     "id": "github-actions",
@@ -159,7 +159,7 @@ export const catalog = {
     "file": "graphql-grpc",
     "title": "GraphQL & gRPC",
     "description": "Modern API communication protocols: Query language for APIs vs. High-performance RPC.",
-    "sectionCount": 5
+    "sectionCount": 14
   },
   "html": {
     "id": "html",
@@ -201,7 +201,7 @@ export const catalog = {
     "file": "jmeter",
     "title": "Apache JMeter",
     "description": "Performance and Load Testing for Web Apps and APIs.",
-    "sectionCount": 6
+    "sectionCount": 13
   },
   "k6": {
     "id": "k6",
@@ -215,7 +215,7 @@ export const catalog = {
     "file": "kafka",
     "title": "Apache Kafka",
     "description": "Distributed event streaming platform used for high-performance data pipelines and streaming analytics.",
-    "sectionCount": 5
+    "sectionCount": 14
   },
   "kubernetes": {
     "id": "kubernetes",
@@ -229,21 +229,21 @@ export const catalog = {
     "file": "linux",
     "title": "Linux Administration & Deployment",
     "description": "Master the Linux command line, server management, and application deployment.",
-    "sectionCount": 4
+    "sectionCount": 14
   },
   "mocha": {
     "id": "mocha",
     "file": "mocha",
     "title": "Mocha JS Testing",
     "description": "A feature-rich JavaScript test framework running on Node.js.",
-    "sectionCount": 5
+    "sectionCount": 12
   },
   "mongodb": {
     "id": "mongodb",
     "file": "mongodb",
     "title": "MongoDB",
     "description": "NoSQL Document Database used for high volume data storage.",
-    "sectionCount": 5
+    "sectionCount": 12
   },
   "nextjs": {
     "id": "nextjs",
@@ -271,14 +271,14 @@ export const catalog = {
     "file": "opentelemetry",
     "title": "OpenTelemetry (Observability)",
     "description": "The industry standard for collecting traces, metrics, and logs in modern distributed systems.",
-    "sectionCount": 3
+    "sectionCount": 11
   },
   "owasp": {
     "id": "owasp",
     "file": "owasp",
     "title": "OWASP Top 10",
     "description": "A standard awareness document for developers and web application security.",
-    "sectionCount": 3
+    "sectionCount": 13
   },
   "php": {
     "id": "php",
@@ -292,7 +292,7 @@ export const catalog = {
     "file": "play-framework",
     "title": "Play Framework (Java)",
     "description": "Scalable, high-performance web framework for Java and Scala.",
-    "sectionCount": 4
+    "sectionCount": 13
   },
   "playwright": {
     "id": "playwright",
@@ -348,28 +348,28 @@ export const catalog = {
     "file": "selenium",
     "title": "Selenium Automation (Java)",
     "description": "Master web automation using Selenium WebDriver with Java and TestNG.",
-    "sectionCount": 5
+    "sectionCount": 13
   },
   "spring-boot": {
     "id": "spring-boot",
     "file": "springboot",
     "title": "Spring Boot",
     "description": "Java framework for enterprise applications.",
-    "sectionCount": 7
+    "sectionCount": 15
   },
   "sql": {
     "id": "sql",
     "file": "sql",
     "title": "SQL Database",
     "description": "Relational database management with structured queries.",
-    "sectionCount": 22
+    "sectionCount": 23
   },
   "ssrs": {
     "id": "ssrs",
     "file": "ssrs",
     "title": "SSRS Report Development",
     "description": "SQL Server Reporting Services for creating, deploying, and managing enterprise reports.",
-    "sectionCount": 5
+    "sectionCount": 13
   },
   "sys-arch": {
     "id": "sys-arch",

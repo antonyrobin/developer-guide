@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" role="img" aria-labelledby="t d">
+  <title id="t">SQL Commands</title>
+  <desc id="d">SQL commands grouped into five sublanguages: DDL, DQL, DML, DCL and TCL, with the commands in each.</desc>
+  <rect width="760" height="430" rx="12" fill="#0f172a"/>
+  <text x="380" y="30" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="bold" font-family="system-ui">SQL Commands</text>
+
+  <!-- Root -->
+  <rect x="305" y="46" width="150" height="38" rx="19" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="380" y="70" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="bold" font-family="system-ui">SQL</text>
+
+  <!-- Connectors -->
+  <g stroke="#475569" stroke-width="1.5" fill="none">
+    <path d="M380 84 V104"/>
+    <path d="M80 104 H680"/>
+    <path d="M80 104 V124"/><path d="M230 104 V124"/><path d="M380 104 V124"/><path d="M530 104 V124"/><path d="M680 104 V124"/>
+  </g>
+
+  <!-- DDL -->
+  <g font-family="system-ui">
+    <rect x="12" y="124" width="136" height="54" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="80" y="146" text-anchor="middle" fill="#3b82f6" font-size="14" font-weight="bold">DDL</text>
+    <text x="80" y="165" text-anchor="middle" fill="#94a3b8" font-size="9">Data Definition</text>
+    <rect x="12" y="186" width="136" height="168" rx="8" fill="#111c33" stroke="#1e3a8a"/>
+    <g font-family="monospace" font-size="11" fill="#e2e8f0" text-anchor="middle">
+      <text x="80" y="212">CREATE</text><text x="80" y="238">ALTER</text><text x="80" y="264">DROP</text>
+      <text x="80" y="290">TRUNCATE</text><text x="80" y="316">RENAME</text><text x="80" y="342">COMMENT</text>
+    </g>
+  </g>
+
+  <!-- DQL -->
+  <g font-family="system-ui">
+    <rect x="162" y="124" width="136" height="54" rx="8" fill="#1e293b" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="230" y="146" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="bold">DQL</text>
+    <text x="230" y="165" text-anchor="middle" fill="#94a3b8" font-size="9">Data Query</text>
+    <rect x="162" y="186" width="136" height="168" rx="8" fill="#0f2419" stroke="#14532d"/>
+    <g font-family="monospace" font-size="11" fill="#e2e8f0" text-anchor="middle">
+      <text x="230" y="212">SELECT</text>
+    </g>
+    <g font-size="9" fill="#94a3b8" text-anchor="middle">
+      <text x="230" y="238">FROM · WHERE</text><text x="230" y="258">JOIN · GROUP BY</text>
+      <text x="230" y="278">HAVING · ORDER BY</text><text x="230" y="298">LIMIT / TOP</text>
+      <text x="230" y="318">UNION · WITH (CTE)</text>
+    </g>
+  </g>
+
+  <!-- DML -->
+  <g font-family="system-ui">
+    <rect x="312" y="124" width="136" height="54" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="380" y="146" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="bold">DML</text>
+    <text x="380" y="165" text-anchor="middle" fill="#94a3b8" font-size="9">Data Manipulation</text>
+    <rect x="312" y="186" width="136" height="168" rx="8" fill="#2a1d0a" stroke="#78350f"/>
+    <g font-family="monospace" font-size="11" fill="#e2e8f0" text-anchor="middle">
+      <text x="380" y="212">INSERT</text><text x="380" y="238">UPDATE</text><text x="380" y="264">DELETE</text>
+      <text x="380" y="290">MERGE / UPSERT</text><text x="380" y="316">CALL</text><text x="380" y="342">LOCK TABLE</text>
+    </g>
+  </g>
+
+  <!-- DCL -->
+  <g font-family="system-ui">
+    <rect x="462" y="124" width="136" height="54" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+    <text x="530" y="146" text-anchor="middle" fill="#a78bfa" font-size="14" font-weight="bold">DCL</text>
+    <text x="530" y="165" text-anchor="middle" fill="#94a3b8" font-size="9">Data Control</text>
+    <rect x="462" y="186" width="136" height="168" rx="8" fill="#1c1533" stroke="#4c1d95"/>
+    <g font-family="monospace" font-size="11" fill="#e2e8f0" text-anchor="middle">
+      <text x="530" y="212">GRANT</text><text x="530" y="238">REVOKE</text><text x="530" y="264">DENY</text>
+    </g>
+    <text x="530" y="290" text-anchor="middle" fill="#94a3b8" font-size="9">(DENY: SQL Server)</text>
+  </g>
+
+  <!-- TCL -->
+  <g font-family="system-ui">
+    <rect x="612" y="124" width="136" height="54" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+    <text x="680" y="146" text-anchor="middle" fill="#f87171" font-size="14" font-weight="bold">TCL</text>
+    <text x="680" y="165" text-anchor="middle" fill="#94a3b8" font-size="9">Transaction Control</text>
+    <rect x="612" y="186" width="136" height="168" rx="8" fill="#2a1111" stroke="#7f1d1d"/>
+    <g font-family="monospace" font-size="11" fill="#e2e8f0" text-anchor="middle">
+      <text x="680" y="212">BEGIN</text><text x="680" y="238">COMMIT</text><text x="680" y="264">ROLLBACK</text>
+      <text x="680" y="290">SAVEPOINT</text><text x="680" y="316">RELEASE</text><text x="680" y="342">SET TRANSACTION</text>
+    </g>
+  </g>
+
+  <!-- Footer: what each group acts on -->
+  <g font-family="system-ui" font-size="10" text-anchor="middle">
+    <text x="80" y="378" fill="#93c5fd">structure</text>
+    <text x="230" y="378" fill="#86efac">read data</text>
+    <text x="380" y="378" fill="#fcd34d">change data</text>
+    <text x="530" y="378" fill="#c4b5fd">permissions</text>
+    <text x="680" y="378" fill="#fca5a5">units of work</text>
+    <text x="380" y="410" fill="#64748b" font-size="9">DDL usually auto-commits (Oracle, MySQL); PostgreSQL &amp; SQL Server can roll back DDL inside a transaction.</text>
+  </g>
+</svg>
