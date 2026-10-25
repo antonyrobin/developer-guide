@@ -1,83 +1,91 @@
-import { sdlcCourse } from './courses-data/sdlc';
-import { developmentStrategiesCourse } from './courses-data/development-strategies';
-import { htmlCourse } from './courses-data/html';
-import { cssCourse } from './courses-data/css';
-import { jsCourse } from './courses-data/javascript';
-import { oopsCourse } from './courses-data/oops';
-import { javaCourse } from './courses-data/java';
-import { csharpCourse } from './courses-data/csharp';
-import { pythonCourse } from './courses-data/python';
-import { reactCourse } from './courses-data/react';
-import { phpCourse } from './courses-data/php';
-import { sqlCourse } from './courses-data/sql';
-import { nosqlCourse } from './courses-data/nosql';
-import { dockerCourse } from './courses-data/docker';
-import { springBootCourse } from './courses-data/springboot';
-import { blazorCourse } from './courses-data/blazor';
-import { dotnetApiCourse } from './courses-data/dotnet-api';
-import { djangoCourse } from './courses-data/django';
-import { awsCourse } from './courses-data/aws';
-import { gcpCourse } from './courses-data/gcp';
-import { azureDevOpsCourse } from './courses-data/azure-devops';
-import { dataStructureCourse } from './courses-data/data-structures';
-import { systemArchitectureCourse } from './courses-data/system-architecture';
-import { designPatternsCourse } from './courses-data/design-patterns';
-import { githubCourse } from './courses-data/github';
-import { githubActionsCourse } from './courses-data/github-actions';
-import { postgresqlCourse } from './courses-data/postgresql';
-import { nextjsCourse } from './courses-data/nextjs';
-import { flutterCourse } from './courses-data/flutter';
-import { kubernetesCourse } from './courses-data/kubernetes';
-import { angularCourse } from './courses-data/angular';
-import { tailwindCourse } from './courses-data/tailwind-css';
-import { terraformCourse } from './courses-data/terraform';
-import { k6Course } from './courses-data/k6';
-import { cloudflareCourse } from './courses-data/cloudflare';
-import { playwrightCourse } from './courses-data/playwright';
-import { rabbitmqCourse } from './courses-data/rabbitmq';
-import { redisCourse } from './courses-data/redis';
-import { seleniumCourse } from './courses-data/selenium';
-import { jmeterCourse } from './courses-data/jmeter';
-import { mochaCourse } from './courses-data/mocha';
-import { ionicCourse } from './courses-data/ionic';
-import { flaskCourse } from './courses-data/flask';
-import { fastapiCourse } from './courses-data/fastapi';
-import { javaReportsCourse } from './courses-data/java-reports';
-import { ssrsCourse } from './courses-data/ssrs';
-import { etlCourse } from './courses-data/etl';
-import { mongodbCourse } from './courses-data/mongodb';
-import { elasticsearchCourse } from './courses-data/elasticsearch';
-import { graphqlGrpcCourse } from './courses-data/graphql-grpc';
-import { owaspCourse } from './courses-data/owasp';
-import { playFrameworkCourse } from './courses-data/play-framework';
-import { dotnetFrameworkCourse } from './courses-data/dotnet-framework';
-import { kafkaCourse } from './courses-data/kafka';
-import { openTelemetryCourse } from './courses-data/opentelemetry';
-import { linuxCourse } from './courses-data/linux';
+import { catalog } from './catalog.generated';
+import { mergeCourse } from './mergeCourse';
 
-
-export const courseGroups = [
-  { label: 'Fundamentals', courses: [sdlcCourse, developmentStrategiesCourse, oopsCourse, dataStructureCourse, designPatternsCourse, systemArchitectureCourse] },
-  { label: 'Web Essentials', courses: [htmlCourse, cssCourse, tailwindCourse, jsCourse] },
-  { label: 'Frontend Frameworks', courses: [reactCourse, angularCourse, nextjsCourse, ionicCourse, flutterCourse] },
-  { label: 'Backend Languages', courses: [javaCourse, csharpCourse, pythonCourse, phpCourse, javaReportsCourse] },
-  { label: 'Backend Frameworks', courses: [springBootCourse, dotnetApiCourse, blazorCourse, djangoCourse, flaskCourse, fastapiCourse, playFrameworkCourse, dotnetFrameworkCourse, graphqlGrpcCourse] },
-  { label: 'Databases', courses: [sqlCourse, postgresqlCourse, nosqlCourse, redisCourse, mongodbCourse, elasticsearchCourse, ssrsCourse, etlCourse] },
-  { label: 'Testing', courses: [playwrightCourse, seleniumCourse, k6Course, jmeterCourse, mochaCourse] },
+/*
+ * Navigation groups reference courses by id. Only lightweight metadata
+ * (id, title, description, sectionCount) is bundled up-front via the generated
+ * catalog; the full course content is code-split and loaded on demand with
+ * `loadCourse(id)`.
+ */
+const groupDefs = [
+  { label: 'Fundamentals', ids: ['sdlc', 'development-strategies', 'oops', 'data-structure', 'design-patterns', 'sys-arch'] },
+  { label: 'Web Essentials', ids: ['html', 'css', 'tailwind-css', 'javascript'] },
+  { label: 'Frontend Frameworks', ids: ['react', 'angular', 'nextjs', 'ionic', 'flutter'] },
+  { label: 'Backend Languages', ids: ['java', 'csharp', 'python', 'php', 'java-reports'] },
+  { label: 'Backend Frameworks', ids: ['spring-boot', 'dotnet-api', 'blazor', 'django', 'flask', 'fastapi', 'play-framework', 'dotnet-framework', 'graphql-grpc'] },
+  { label: 'Databases', ids: ['sql', 'postgresql', 'nosql', 'redis', 'mongodb', 'elasticsearch', 'ssrs', 'etl'] },
+  { label: 'Testing', ids: ['playwright', 'selenium', 'k6', 'jmeter', 'mocha'] },
   {
     label: 'Others',
     children: [
-      { label: 'DevOps & Cloud', courses: [linuxCourse, dockerCourse, kubernetesCourse, terraformCourse, githubCourse, githubActionsCourse, azureDevOpsCourse, awsCourse, gcpCourse, openTelemetryCourse] },
-      { label: 'Messaging & Caching', courses: [rabbitmqCourse, kafkaCourse] },
-      { label: 'Security & Performance', courses: [cloudflareCourse, owaspCourse] },
+      { label: 'DevOps & Cloud', ids: ['linux', 'docker', 'kubernetes', 'terraform', 'github', 'github-actions', 'azure-devops', 'aws', 'gcp', 'opentelemetry'] },
+      { label: 'Messaging & Caching', ids: ['rabbitmq', 'kafka'] },
+      { label: 'Security & Performance', ids: ['cloudflare', 'owasp'] },
     ],
   },
 ];
 
-export const courses = courseGroups.flatMap(g =>
-  g.courses
-    ? g.courses
-    : g.children
-      ? g.children.flatMap(c => c.courses)
-      : []
+const toMeta = (id, group) => {
+  const meta = catalog[id];
+  if (!meta) throw new Error(`Unknown course id "${id}" in courseGroups`);
+  return { ...meta, group };
+};
+
+export const courseGroups = groupDefs.map(g =>
+  g.children
+    ? { label: g.label, children: g.children.map(c => ({ label: c.label, courses: c.ids.map(id => toMeta(id, c.label)) })) }
+    : { label: g.label, courses: g.ids.map(id => toMeta(id, g.label)) }
 );
+
+/** Flat list of course metadata in navigation order. */
+export const courses = courseGroups.flatMap(g =>
+  g.courses ? g.courses : g.children.flatMap(c => c.courses)
+);
+
+const courseById = new Map(courses.map(c => [c.id, c]));
+
+export const getCourseMeta = (id) => courseById.get(id) || null;
+
+const dataModules = import.meta.glob('./courses-data/*.js');
+const extensionModules = import.meta.glob('./course-extensions/*.js');
+
+const cache = new Map();
+
+/** Synchronously returns a course that has already been loaded, or null. */
+export const getLoadedCourse = (id) => {
+  const entry = cache.get(id);
+  return entry && entry.value ? entry.value : null;
+};
+
+/** Loads (and caches) the full course content, merged with its extension module. */
+export function loadCourse(id) {
+  const meta = courseById.get(id);
+  if (!meta) return Promise.resolve(null);
+  if (cache.has(id)) return cache.get(id).promise;
+
+  const entry = {};
+  const loadData = dataModules[`./courses-data/${meta.file}.js`];
+  const loadExt = extensionModules[`./course-extensions/${id}.js`];
+
+  entry.promise = Promise.all([loadData(), loadExt ? loadExt() : null])
+    .then(([dataMod, extMod]) => {
+      const base = Object.values(dataMod).find(v => v && v.id && v.sections);
+      entry.value = { ...mergeCourse(base, extMod && extMod.default), group: meta.group };
+      return entry.value;
+    })
+    .catch(err => {
+      cache.delete(id);
+      throw err;
+    });
+
+  cache.set(id, entry);
+  return entry.promise;
+}
+
+/** Converts a section title into a URL-friendly slug. */
+export const slugify = (text) =>
+  String(text)
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
