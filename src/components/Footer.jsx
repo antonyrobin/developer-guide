@@ -23,7 +23,7 @@ const Footer = () => {
             <li><NavLink to="/nextjs">Next.js</NavLink></li>
             <li><NavLink to="/javascript">JavaScript</NavLink></li>
             <li><NavLink to="/dotnet-api">.NET Web API</NavLink></li>
-            <li><NavLink to="/springboot">Spring Boot</NavLink></li>
+            <li><NavLink to="/spring-boot">Spring Boot</NavLink></li>
           </ul>
         </div>
 

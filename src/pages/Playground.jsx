@@ -1,959 +1,406 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 import {
-  Play, RotateCcw, Copy, Check, Terminal, Code2, Loader2,
-  AlertTriangle, ChevronDown, Maximize2, Minimize2, Trash2
+  Play, Square, RotateCcw, Copy, Check, Terminal, Code2, Loader2,
+  AlertTriangle, Maximize2, Minimize2, Trash2, Share2, ExternalLink, BookOpen, Info,
 } from 'lucide-react';
+import CodeEditor from '../playground/CodeEditor';
+import { LANGUAGES, getLanguage } from '../playground/languages';
+import { executeCode, stopRunning } from '../playground/runners';
+import '../playground/playground.css';
 
-/* ───────────────────────────── language registry ───────────────────────────── */
-const LANGUAGES = [
-  {
-    id: 'html',
-    label: 'HTML',
-    icon: '🌐',
-    runnable: true,
-    defaultCode: `<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    .card {
-      background: white;
-      padding: 2rem 3rem;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-    h1 { color: #333; margin-bottom: 0.5rem; }
-    p { color: #666; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Hello, World! 👋</h1>
-    <p>Edit this HTML and click <strong>Run</strong> to see your changes.</p>
-  </div>
-</body>
-</html>`,
-  },
-  {
-    id: 'css',
-    label: 'CSS',
-    icon: '🎨',
-    runnable: true,
-    defaultCode: `/* Try editing the CSS below and click Run */
+const STORAGE_KEY = 'qdg-playground-v2';
 
-body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #0f172a;
-  font-family: 'Segoe UI', sans-serif;
-}
+/* ── persistence & sharing helpers ───────────────────────────────────────── */
 
-.box {
-  width: 200px;
-  height: 200px;
-  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
-  border-radius: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.25rem;
-  font-weight: 700;
-  box-shadow: 0 25px 50px rgba(139, 92, 246, 0.4);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-
-/* HTML structure (auto-applied):
-   <div class="box">CSS is Fun!</div>
-*/`,
-  },
-  {
-    id: 'javascript',
-    label: 'JavaScript',
-    icon: '⚡',
-    runnable: true,
-    defaultCode: `// JavaScript Playground
-// console.log() output appears in the panel below
-
-console.log("Hello, JavaScript! 🚀");
-
-// Variables and types
-const name = "QuickDevGuide";
-const year = new Date().getFullYear();
-console.log(\`Welcome to \${name} — \${year}\`);
-
-// Array methods
-const numbers = [1, 2, 3, 4, 5];
-const doubled = numbers.map(n => n * 2);
-console.log("Doubled:", doubled);
-
-// Object destructuring
-const user = { name: "Alice", role: "Developer", level: 42 };
-const { name: userName, role } = user;
-console.log(\`\${userName} is a \${role}\`);
-
-// Async simulation
-console.log("Fetching data...");
-setTimeout(() => {
-  console.log("✅ Data loaded successfully!");
-}, 500);`,
-  },
-  {
-    id: 'typescript',
-    label: 'TypeScript',
-    icon: '🔷',
-    runnable: true,
-    defaultCode: `// TypeScript Playground
-// Transpiled to JavaScript and executed in the browser
-
-interface User {
-  name: string;
-  age: number;
-  role: "admin" | "user" | "guest";
-}
-
-function greet(user: User): string {
-  return \`Hello \${user.name}! You are a \${user.role}.\`;
-}
-
-const alice: User = { name: "Alice", age: 30, role: "admin" };
-console.log(greet(alice));
-
-// Generics
-function identity<T>(value: T): T {
-  return value;
-}
-
-console.log(identity<number>(42));
-console.log(identity<string>("TypeScript is awesome!"));
-
-// Enum
-enum Direction {
-  Up = "UP",
-  Down = "DOWN",
-  Left = "LEFT",
-  Right = "RIGHT"
-}
-
-console.log("Direction:", Direction.Up);`,
-  },
-  {
-    id: 'react',
-    label: 'React JSX',
-    icon: '⚛️',
-    runnable: true,
-    defaultCode: `// React JSX Playground
-// Uses React 19 via CDN — write functional components!
-
-function App() {
-  const [count, setCount] = React.useState(0);
-  const [name, setName] = React.useState("World");
-
-  return (
-    <div style={{
-      fontFamily: "'Segoe UI', sans-serif",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      minHeight: "100vh",
-      background: "linear-gradient(135deg, #1e3a5f, #0f172a)",
-      color: "white"
-    }}>
-      <div style={{
-        background: "rgba(255,255,255,0.1)",
-        backdropFilter: "blur(10px)",
-        padding: "2rem 3rem",
-        borderRadius: "16px",
-        textAlign: "center",
-        border: "1px solid rgba(255,255,255,0.2)"
-      }}>
-        <h1>Hello, {name}! 👋</h1>
-        <input
-          value={name}
-          onChange={e => setName(e.target.value)}
-          placeholder="Type your name"
-          style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "8px",
-            border: "none",
-            marginBottom: "1rem",
-            fontSize: "1rem",
-            width: "100%",
-            boxSizing: "border-box"
-          }}
-        />
-        <p style={{ fontSize: "3rem", margin: "0.5rem 0" }}>{count}</p>
-        <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}>
-          <button onClick={() => setCount(c => c - 1)} style={btnStyle}>−</button>
-          <button onClick={() => setCount(0)} style={btnStyle}>Reset</button>
-          <button onClick={() => setCount(c => c + 1)} style={btnStyle}>+</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const btnStyle = {
-  padding: "0.5rem 1.25rem",
-  borderRadius: "8px",
-  border: "none",
-  background: "#3b82f6",
-  color: "white",
-  fontWeight: 700,
-  fontSize: "1rem",
-  cursor: "pointer"
+const readStorage = () => {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+};
+const writeStorage = (data) => {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { /* storage unavailable */ }
 };
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);`,
-  },
-  {
-    id: 'python',
-    label: 'Python',
-    icon: '🐍',
-    runnable: true,
-    wasmNote: 'Powered by Pyodide (loads ~11 MB on first use)',
-    defaultCode: `# Python Playground (powered by Pyodide)
-# Runs real CPython in your browser via WebAssembly
+const encodeCode = (text) => {
+  const bytes = new TextEncoder().encode(text);
+  let binary = '';
+  bytes.forEach(b => { binary += String.fromCharCode(b); });
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+};
+const decodeCode = (encoded) => {
+  const binary = atob(encoded.replace(/-/g, '+').replace(/_/g, '/'));
+  return new TextDecoder().decode(Uint8Array.from(binary, c => c.charCodeAt(0)));
+};
 
-print("Hello, Python! 🐍")
+/** Initial state: shared link (#lang=…&code=…) > "Try it" from a course > last session > defaults. */
+function getInitialState(location) {
+  const saved = readStorage();
+  const codes = {};
+  LANGUAGES.forEach(l => { codes[l.id] = saved.codes?.[l.id] ?? l.examples[0].code; });
+  let lang = LANGUAGES.some(l => l.id === saved.lang) ? saved.lang : 'html';
+  let source = null;
 
-# List comprehension
-squares = [x ** 2 for x in range(1, 11)]
-print(f"Squares: {squares}")
+  const hash = new URLSearchParams(location.hash.slice(1));
+  if (hash.get('lang') && hash.get('code')) {
+    try {
+      const id = getLanguage(hash.get('lang')).id;
+      codes[id] = decodeCode(hash.get('code'));
+      lang = id;
+      source = 'shared';
+    } catch { /* malformed link — ignore */ }
+  } else if (location.state && location.state.language && location.state.code) {
+    const id = getLanguage(location.state.language).id;
+    codes[id] = location.state.code;
+    lang = id;
+    source = 'course';
+  }
+  return { codes, lang, source };
+}
 
-# Dictionary
-user = {"name": "Alice", "role": "Developer", "level": 42}
-for key, value in user.items():
-    print(f"  {key}: {value}")
+/* ── output rendering ────────────────────────────────────────────────────── */
 
-# Classes
-class Animal:
-    def __init__(self, name, sound):
-        self.name = name
-        self.sound = sound
-
-    def speak(self):
-        return f"{self.name} says {self.sound}!"
-
-dog = Animal("Dog", "Woof")
-cat = Animal("Cat", "Meow")
-print(dog.speak())
-print(cat.speak())
-
-# Math
-import math
-print(f"Pi = {math.pi:.6f}")
-print(f"sqrt(144) = {math.sqrt(144)}")`,
-  },
-  {
-    id: 'sql',
-    label: 'SQL',
-    icon: '🗄️',
-    runnable: true,
-    wasmNote: 'Powered by sql.js (SQLite in the browser)',
-    defaultCode: `-- SQL Playground (powered by sql.js / SQLite)
--- A sample database is created automatically
-
-CREATE TABLE employees (
-  id    INTEGER PRIMARY KEY,
-  name  TEXT NOT NULL,
-  dept  TEXT NOT NULL,
-  salary REAL
+const ConsoleTable = ({ columns, rows }) => (
+  <div className="pg-table-wrap">
+    <table className="pg-table">
+      <thead><tr>{columns.map(c => <th key={c}>{c}</th>)}</tr></thead>
+      <tbody>
+        {rows.map((row, i) => (
+          <tr key={i}>{row.map((v, j) => <td key={j}>{v === null ? <em>NULL</em> : String(v)}</td>)}</tr>
+        ))}
+      </tbody>
+    </table>
+    <div className="pg-table-meta">{rows.length} row{rows.length === 1 ? '' : 's'}</div>
+  </div>
 );
 
-INSERT INTO employees VALUES (1, 'Alice',   'Engineering', 95000);
-INSERT INTO employees VALUES (2, 'Bob',     'Marketing',   72000);
-INSERT INTO employees VALUES (3, 'Charlie', 'Engineering', 88000);
-INSERT INTO employees VALUES (4, 'Diana',   'Sales',       67000);
-INSERT INTO employees VALUES (5, 'Eve',     'Engineering', 102000);
-INSERT INTO employees VALUES (6, 'Frank',   'Marketing',   78000);
-
--- Query: Average salary by department
-SELECT dept AS Department,
-       COUNT(*) AS Employees,
-       ROUND(AVG(salary), 2) AS Avg_Salary
-FROM employees
-GROUP BY dept
-ORDER BY Avg_Salary DESC;`,
-  },
-  {
-    id: 'php',
-    label: 'PHP',
-    icon: '🐘',
-    runnable: true,
-    wasmNote: 'Powered by php-wasm (loads on first use)',
-    defaultCode: `<?php
-// PHP Playground (powered by php-wasm)
-// Runs real PHP in your browser via WebAssembly
-
-echo "Hello, PHP! 🐘\\n\\n";
-
-// Variables and string interpolation
-$name = "QuickDevGuide";
-$year = date("Y");
-echo "Welcome to $name — $year\\n";
-
-// Arrays
-$fruits = ["Apple", "Banana", "Cherry", "Date"];
-echo "\\nFruits:\\n";
-foreach ($fruits as $index => $fruit) {
-    echo "  " . ($index + 1) . ". $fruit\\n";
-}
-
-// Associative arrays
-$user = [
-    "name" => "Alice",
-    "role" => "Developer",
-    "level" => 42
-];
-
-echo "\\nUser Info:\\n";
-foreach ($user as $key => $value) {
-    echo "  $key: $value\\n";
-}
-
-// Functions
-function factorial(int $n): int {
-    return $n <= 1 ? 1 : $n * factorial($n - 1);
-}
-
-echo "\\n10! = " . factorial(10) . "\\n";
-?>`,
-  },
-  {
-    id: 'java',
-    label: 'Java',
-    icon: '☕',
-    runnable: false,
-    defaultCode: `// Java — preview only (use a local JDK to compile & run)
-
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello, Java! ☕");
-
-        // Array
-        int[] numbers = {1, 2, 3, 4, 5};
-        int sum = 0;
-        for (int n : numbers) {
-            sum += n;
-        }
-        System.out.println("Sum: " + sum);
-
-        // String formatting
-        String name = "Alice";
-        int age = 30;
-        System.out.printf("%s is %d years old%n", name, age);
-
-        // ArrayList
-        var fruits = new java.util.ArrayList<String>();
-        fruits.add("Apple");
-        fruits.add("Banana");
-        fruits.add("Cherry");
-        fruits.forEach(f -> System.out.println("  → " + f));
-    }
-}`,
-  },
-  {
-    id: 'csharp',
-    label: 'C#',
-    icon: '🟣',
-    runnable: false,
-    defaultCode: `// C# — preview only (use dotnet CLI to compile & run)
-
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
-class Program
-{
-    static void Main()
-    {
-        Console.WriteLine("Hello, C#! 🟣");
-
-        // LINQ
-        var numbers = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        var evens = numbers.Where(n => n % 2 == 0).ToList();
-        Console.WriteLine($"Even numbers: {string.Join(", ", evens)}");
-
-        // Records (C# 10+)
-        var user = new User("Alice", "Developer");
-        Console.WriteLine(user);
-
-        // Pattern matching
-        object obj = 42;
-        string result = obj switch
-        {
-            int i when i > 0 => $"Positive integer: {i}",
-            string s         => $"String: {s}",
-            _                => "Unknown"
-        };
-        Console.WriteLine(result);
-    }
-
-    record User(string Name, string Role);
-}`,
-  },
-  {
-    id: 'dart',
-    label: 'Dart',
-    icon: '🎯',
-    runnable: false,
-    defaultCode: `// Dart — preview only (use dart CLI or DartPad to run)
-
-void main() {
-  print("Hello, Dart! 🎯");
-
-  // Variables
-  var name = 'Alice';
-  final age = 30;
-  const pi = 3.14159;
-  print('$name is $age years old. Pi = $pi');
-
-  // Collections
-  var fruits = ['Apple', 'Banana', 'Cherry'];
-  fruits.forEach((f) => print('  → $f'));
-
-  // Null safety
-  String? nullable;
-  print('Nullable is: \${nullable ?? "null"}');
-
-  // Classes
-  var dog = Animal('Buddy', 'Woof');
-  dog.speak();
-}
-
-class Animal {
-  final String name;
-  final String sound;
-
-  Animal(this.name, this.sound);
-
-  void speak() {
-    print('$name says $sound!');
-  }
-}`,
-  },
-];
-
-/* map language IDs to syntax-highlighter language names */
-const LANG_HIGHLIGHT_MAP = {
-  html: 'html', css: 'css', javascript: 'javascript', typescript: 'typescript',
-  react: 'jsx', python: 'python', sql: 'sql', php: 'php',
-  java: 'java', csharp: 'csharp', dart: 'dart',
-};
-
-/* ───────────────────────── execution engines ────────────────────────────── */
-
-/** HTML — render directly inside an iframe */
-function runHTML(code) {
-  return { type: 'html', html: code };
-}
-
-/** CSS — wrap in a HTML document with a sample element */
-function runCSS(code) {
-  /* Extract the comment hint for HTML structure, otherwise use default */
-  const htmlMatch = code.match(/\/\*[\s\S]*?HTML structure.*?:\s*([\s\S]*?)\*\//i);
-  const innerHtml = htmlMatch
-    ? htmlMatch[1].replace(/^\s*\*?\s*/gm, '').trim()
-    : '<div class="box">CSS is Fun!</div>';
-  return {
-    type: 'html',
-    html: `<!DOCTYPE html><html><head><style>${code}</style></head><body>${innerHtml}</body></html>`,
-  };
-}
-
-/** JavaScript — execute with captured console */
-function runJS(code) {
-  return new Promise((resolve) => {
-    const logs = [];
-    const fakeConsole = {
-      log: (...args) => logs.push({ level: 'log', text: args.map(formatArg).join(' ') }),
-      warn: (...args) => logs.push({ level: 'warn', text: args.map(formatArg).join(' ') }),
-      error: (...args) => logs.push({ level: 'error', text: args.map(formatArg).join(' ') }),
-      info: (...args) => logs.push({ level: 'info', text: args.map(formatArg).join(' ') }),
-      table: (data) => logs.push({ level: 'log', text: JSON.stringify(data, null, 2) }),
-      clear: () => { logs.length = 0; },
-    };
-
-    try {
-      // Wrap user code — forward console & capture return value
-      const wrapped = `
-        (function(console){
-          ${code}
-        })
-      `;
-      // eslint-disable-next-line no-eval
-      const fn = eval(wrapped);
-      const result = fn(fakeConsole);
-      if (result !== undefined) {
-        logs.push({ level: 'log', text: formatArg(result) });
-      }
-    } catch (err) {
-      logs.push({ level: 'error', text: `❌ ${err.name}: ${err.message}` });
-    }
-
-    /* Flush setTimeout output after 600ms */
-    setTimeout(() => {
-      resolve({ type: 'console', logs });
-    }, 650);
-  });
-}
-
-/** TypeScript — transpile via TypeScript compiler on CDN, then run as JS */
-async function runTS(code) {
-  if (!window.ts) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/typescript@5/lib/typescript.min.js';
-    document.head.appendChild(script);
-    await new Promise((r, rej) => { script.onload = r; script.onerror = rej; });
-  }
-  const js = window.ts.transpile(code, { target: window.ts.ScriptTarget.ES2020 });
-  return runJS(js);
-}
-
-/** React (JSX) — transpile with Babel standalone and render in iframe */
-function runReact(code) {
-  const html = `<!DOCTYPE html>
-<html><head>
-<script crossorigin src="https://cdn.jsdelivr.net/npm/react@19/umd/react.development.js"><\/script>
-<script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@19/umd/react-dom.development.js"><\/script>
-<script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"><\/script>
-<style>*{margin:0;padding:0;box-sizing:border-box;}</style>
-</head><body>
-<div id="root"></div>
-<script type="text/babel" data-type="module">
-${code}
-<\/script>
-</body></html>`;
-  return { type: 'html', html };
-}
-
-/** Python — Pyodide WASM */
-let pyodideReady = null;
-async function loadPyodide_() {
-  if (pyodideReady) return pyodideReady;
-  pyodideReady = (async () => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js';
-    document.head.appendChild(script);
-    await new Promise((r, rej) => { script.onload = r; script.onerror = rej; });
-    // eslint-disable-next-line no-undef
-    const py = await loadPyodide();
-    return py;
-  })();
-  return pyodideReady;
-}
-
-async function runPython(code) {
-  const py = await loadPyodide_();
-  const logs = [];
-  py.setStdout({ batched: (text) => logs.push({ level: 'log', text }) });
-  py.setStderr({ batched: (text) => logs.push({ level: 'error', text }) });
-  try {
-    await py.runPythonAsync(code);
-  } catch (err) {
-    logs.push({ level: 'error', text: `❌ ${err.message}` });
-  }
-  return { type: 'console', logs };
-}
-
-/** SQL — sql.js WASM */
-let sqlReady = null;
-async function loadSQL() {
-  if (sqlReady) return sqlReady;
-  sqlReady = (async () => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/sql.js@1/dist/sql-wasm.js';
-    document.head.appendChild(script);
-    await new Promise((r, rej) => { script.onload = r; script.onerror = rej; });
-    // eslint-disable-next-line no-undef
-    const SQL = await initSqlJs({ locateFile: f => `https://cdn.jsdelivr.net/npm/sql.js@1/dist/${f}` });
-    return new SQL.Database();
-  })();
-  return sqlReady;
-}
-
-async function runSQL(code) {
-  const db = await loadSQL();
-  const logs = [];
-  try {
-    // Reset database for a clean run each time
-    const freshSQL = await (async () => {
-      const script = document.querySelector('script[src*="sql-wasm"]');
-      // eslint-disable-next-line no-undef
-      const SQL = await initSqlJs({ locateFile: f => `https://cdn.jsdelivr.net/npm/sql.js@1/dist/${f}` });
-      return new SQL.Database();
-    })();
-    const results = freshSQL.exec(code);
-    if (results.length === 0) {
-      logs.push({ level: 'log', text: '✅ Query executed successfully (no rows returned).' });
-    }
-    results.forEach((result) => {
-      // Format as table
-      const cols = result.columns;
-      const widths = cols.map((c, i) =>
-        Math.max(c.length, ...result.values.map(r => String(r[i]).length))
-      );
-      const sep = widths.map(w => '─'.repeat(w + 2)).join('┼');
-      const header = cols.map((c, i) => ` ${c.padEnd(widths[i])} `).join('│');
-      logs.push({ level: 'info', text: header });
-      logs.push({ level: 'info', text: sep });
-      result.values.forEach((row) => {
-        const line = row.map((v, i) => ` ${String(v).padEnd(widths[i])} `).join('│');
-        logs.push({ level: 'log', text: line });
-      });
-    });
-    freshSQL.close();
-  } catch (err) {
-    logs.push({ level: 'error', text: `❌ ${err.message}` });
-  }
-  return { type: 'console', logs };
-}
-
-/** PHP — php-wasm */
-let phpReady = null;
-async function loadPHP() {
-  if (phpReady) return phpReady;
-  phpReady = (async () => {
-    const { PhpWeb } = await import('https://cdn.jsdelivr.net/npm/@aspect-build/aspect-php-wasm@0.0.8/PhpWeb.mjs');
-    const php = new PhpWeb();
-    await php.run('<?php echo ""; ?>');
-    return php;
-  })().catch(() => {
-    phpReady = null;
-    return null;
-  });
-  return phpReady;
-}
-
-async function runPHP(code) {
-  try {
-    const php = await loadPHP();
-    if (!php) {
-      // Fallback — show a simulation
-      return {
-        type: 'console',
-        logs: [{ level: 'warn', text: '⚠️ php-wasm could not load in your browser. Try using Chrome or Edge.' },
-               { level: 'info', text: 'PHP code is displayed for reference. Use a local PHP installation to run it.' }],
-      };
-    }
-    const output = await php.run(code);
-    const text = typeof output === 'string' ? output : (output?.text || '');
-    return {
-      type: 'console',
-      logs: text.split('\n').filter(Boolean).map(line => ({ level: 'log', text: line })),
-    };
-  } catch (err) {
-    return {
-      type: 'console',
-      logs: [{ level: 'error', text: `❌ ${err.message}` }],
-    };
-  }
-}
-
-function formatArg(arg) {
-  if (arg === null) return 'null';
-  if (arg === undefined) return 'undefined';
-  if (typeof arg === 'object') {
-    try { return JSON.stringify(arg, null, 2); } catch { return String(arg); }
-  }
-  return String(arg);
-}
-
-/* dispatcher */
-async function executeCode(langId, code) {
-  switch (langId) {
-    case 'html':       return runHTML(code);
-    case 'css':        return runCSS(code);
-    case 'javascript': return runJS(code);
-    case 'typescript': return runTS(code);
-    case 'react':      return runReact(code);
-    case 'python':     return runPython(code);
-    case 'sql':        return runSQL(code);
-    case 'php':        return runPHP(code);
-    default:           return { type: 'console', logs: [{ level: 'warn', text: `⚠️ ${langId} cannot be executed in the browser. Use a local compiler / runtime.` }] };
-  }
-}
-
-/* ─────────────────────────── Playground component ──────────────────────── */
+const PREFIX = { error: '✗', warn: '⚠', info: 'ℹ', log: '›' };
 
 const Playground = () => {
   useSEO({
     title: 'Code Playground',
-    description: 'Write, edit, and run code in 11+ languages directly in your browser. Supports HTML, CSS, JavaScript, TypeScript, React, Python, SQL, PHP and more.',
+    description: 'Write, edit, and run code in your browser with ready-made examples. Supports HTML, CSS, JavaScript, TypeScript, React, Python, SQL and PHP, plus Java, C# and Dart snippets.',
     keywords: 'code playground, online code editor, run code online, JavaScript, Python, HTML, CSS, SQL, PHP, TypeScript, React, try it yourself',
   });
 
-  const [selectedLang, setSelectedLang] = useState('html');
-  const [codes, setCodes] = useState(() => {
-    const map = {};
-    LANGUAGES.forEach(l => { map[l.id] = l.defaultCode; });
-    return map;
-  });
-  const [output, setOutput] = useState(null);
-  const [isRunning, setIsRunning] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [initial] = useState(() => getInitialState(location));
+  const [selectedLang, setSelectedLang] = useState(initial.lang);
+  const [codes, setCodes] = useState(initial.codes);
+  const [source, setSource] = useState(initial.source);
+  const [htmlOutput, setHtmlOutput] = useState(null);
+  const [logs, setLogs] = useState(null); // null = nothing run yet
+  const [status, setStatus] = useState('idle'); // idle | loading | running
+  const [copied, setCopied] = useState(null); // 'code' | 'link'
   const [isExpanded, setIsExpanded] = useState(false);
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-  const iframeRef = useRef(null);
-  const textareaRef = useRef(null);
-  const dropdownRef = useRef(null);
+  const [exampleIndex, setExampleIndex] = useState('');
+  const runIdRef = useRef(0);
+  const consoleEndRef = useRef(null);
 
-  const lang = LANGUAGES.find(l => l.id === selectedLang);
-  const code = codes[selectedLang] || '';
+  const lang = getLanguage(selectedLang);
+  const code = codes[selectedLang] ?? '';
 
-  /* close dropdown on outside click */
+  // Drop router state / hash once consumed so a refresh shows the saved session.
   useEffect(() => {
-    const handler = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setLangDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    if (location.state || location.hash) navigate('/playground', { replace: true, state: null });
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Persist the editor contents (debounced)
+  useEffect(() => {
+    const t = setTimeout(() => writeStorage({ lang: selectedLang, codes }), 400);
+    return () => clearTimeout(t);
+  }, [codes, selectedLang]);
+
+  // Stop any running worker when leaving the page
+  useEffect(() => () => { stopRunning(); }, []);
+
+  useEffect(() => {
+    consoleEndRef.current?.scrollIntoView({ block: 'nearest' });
+  }, [logs]);
+
+  // Keep the active language tab visible in the horizontally scrolling strip
+  useEffect(() => {
+    const strip = document.querySelector('.pg-langs');
+    const tab = strip?.querySelector('.pg-lang--active');
+    if (strip && tab) strip.scrollLeft = tab.offsetLeft - strip.offsetLeft - 16;
+  }, [selectedLang]);
 
   /* ── handlers ──────────────────────────────────────────────────────────── */
 
-  const handleCodeChange = useCallback((e) => {
-    setCodes(prev => ({ ...prev, [selectedLang]: e.target.value }));
+  const setCode = useCallback((value) => {
+    setCodes(prev => ({ ...prev, [selectedLang]: value }));
   }, [selectedLang]);
 
+  const resetOutput = () => { setHtmlOutput(null); setLogs(null); };
+
   const handleRun = useCallback(async () => {
-    setIsRunning(true);
-    if (lang.wasmNote) setIsLoading(true);
+    if (!lang.runnable) return;
+    const runId = ++runIdRef.current;
+    const emit = (entry) => {
+      if (runId !== runIdRef.current) return; // output from a stale run
+      setLogs(prev => (entry.clear ? [] : [...(prev || []), entry]));
+    };
+
+    setHtmlOutput(null);
+    setLogs([]);
+    setStatus(lang.wasmNote || lang.id === 'typescript' ? 'loading' : 'running');
     try {
-      const result = await executeCode(selectedLang, code);
-      setOutput(result);
-      setIsLoading(false);
-    } catch (err) {
-      setOutput({ type: 'console', logs: [{ level: 'error', text: `❌ Execution error: ${err.message}` }] });
-      setIsLoading(false);
-    }
-    setIsRunning(false);
-  }, [selectedLang, code, lang]);
-
-  const handleReset = useCallback(() => {
-    setCodes(prev => ({ ...prev, [selectedLang]: lang.defaultCode }));
-    setOutput(null);
-  }, [selectedLang, lang]);
-
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [code]);
-
-  const handleClear = useCallback(() => {
-    setOutput(null);
-  }, []);
-
-  const handleKeyDown = useCallback((e) => {
-    // Allow tab in textarea
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      const { selectionStart, selectionEnd } = e.target;
-      const newValue = code.substring(0, selectionStart) + '  ' + code.substring(selectionEnd);
-      setCodes(prev => ({ ...prev, [selectedLang]: newValue }));
-      requestAnimationFrame(() => {
-        e.target.selectionStart = e.target.selectionEnd = selectionStart + 2;
+      const result = await executeCode(lang.id, code, (entry) => {
+        setStatus(s => (s === 'loading' ? 'running' : s));
+        emit(entry);
       });
+      if (runId !== runIdRef.current) return;
+      if (result.type === 'html') {
+        setLogs(null);
+        setHtmlOutput({ html: result.html, key: runId });
+      }
+      if (result.stillRunning) return; // keep status 'running' so Stop stays available
+    } catch (err) {
+      emit({ level: 'error', text: `Execution error: ${err.message}` });
     }
-    // Ctrl+Enter to run
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      e.preventDefault();
-      handleRun();
-    }
-  }, [code, selectedLang, handleRun]);
+    if (runId === runIdRef.current) setStatus('idle');
+  }, [lang, code]);
 
-  /* compute line count for the gutter */
-  const lineCount = code.split('\n').length;
+  const handleStop = () => {
+    runIdRef.current++;
+    if (stopRunning()) setLogs(prev => [...(prev || []), { level: 'warn', text: 'Execution stopped.' }]);
+    setStatus('idle');
+  };
+
+  const selectLanguage = (id) => {
+    if (id === selectedLang) return;
+    handleStop();
+    setSelectedLang(id);
+    setExampleIndex('');
+    setSource(null);
+    resetOutput();
+  };
+
+  const loadExample = (value) => {
+    setExampleIndex(value);
+    if (value === '') return;
+    setCode(lang.examples[Number(value)].code);
+    setSource(null);
+    resetOutput();
+  };
+
+  const handleReset = () => {
+    setCode(lang.examples[0].code);
+    setExampleIndex('');
+    setSource(null);
+    resetOutput();
+  };
+
+  const flashCopied = (what) => {
+    setCopied(what);
+    setTimeout(() => setCopied(null), 1800);
+  };
+
+  const handleCopy = async () => {
+    try { await navigator.clipboard.writeText(code); flashCopied('code'); } catch { /* clipboard unavailable */ }
+  };
+
+  const handleShare = async () => {
+    const url = `${window.location.origin}/playground#lang=${lang.id}&code=${encodeCode(code)}`;
+    try { await navigator.clipboard.writeText(url); flashCopied('link'); } catch { window.prompt('Copy this link', url); }
+  };
+
+  // Ctrl/Cmd + Enter runs from anywhere on the page (the editor handles its own focus case)
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && !e.target.closest?.('.code-editor')) {
+        e.preventDefault();
+        handleRun();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [handleRun]);
+
+  // Escape exits fullscreen
+  useEffect(() => {
+    if (!isExpanded) return undefined;
+    const onKey = (e) => { if (e.key === 'Escape') setIsExpanded(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isExpanded]);
+
+  const busy = status !== 'idle';
 
   return (
-    <div className={`playground-page ${isExpanded ? 'playground-page--expanded' : ''}`}>
-      {/* Header */}
-      <div className="playground-header">
-        <div className="playground-header-left">
+    <div className={`playground-page pg ${isExpanded ? 'playground-page--expanded' : ''}`}>
+      <div className="pg-header">
+        <div className="pg-header-left">
           <Code2 className="icon-large text-primary" />
           <div>
             <h1 className="playground-title">Code Playground</h1>
-            <p className="playground-subtitle">Write, edit & run code in your browser</p>
+            <p className="playground-subtitle">Write, run and share code in your browser — pick an example to start.</p>
           </div>
         </div>
         <button
-          className="playground-expand-btn"
+          className="pg-icon-btn"
           onClick={() => setIsExpanded(!isExpanded)}
-          title={isExpanded ? 'Exit fullscreen' : 'Fullscreen'}
+          title={isExpanded ? 'Exit fullscreen (Esc)' : 'Fullscreen'}
+          aria-label={isExpanded ? 'Exit fullscreen' : 'Fullscreen'}
         >
           {isExpanded ? <Minimize2 className="icon" /> : <Maximize2 className="icon" />}
         </button>
       </div>
 
-      {/* Language selector + actions */}
-      <div className="playground-toolbar">
-        <div className="playground-lang-selector" ref={dropdownRef}>
+      {/* Language tabs */}
+      <div className="pg-langs" role="tablist" aria-label="Language">
+        {LANGUAGES.map(l => (
           <button
-            className="playground-lang-btn"
-            onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+            key={l.id}
+            role="tab"
+            aria-selected={l.id === selectedLang}
+            className={`pg-lang ${l.id === selectedLang ? 'pg-lang--active' : ''}`}
+            onClick={() => selectLanguage(l.id)}
           >
-            <span className="playground-lang-icon">{lang.icon}</span>
-            <span>{lang.label}</span>
-            <ChevronDown className={`icon-small playground-chevron ${langDropdownOpen ? 'playground-chevron--open' : ''}`} />
+            <span aria-hidden="true">{l.icon}</span>
+            <span>{l.label}</span>
+            {!l.runnable && <span className="pg-lang-badge">view</span>}
           </button>
-          {langDropdownOpen && (
-            <div className="playground-lang-dropdown">
-              {LANGUAGES.map(l => (
-                <button
-                  key={l.id}
-                  className={`playground-lang-option ${l.id === selectedLang ? 'playground-lang-option--active' : ''}`}
-                  onClick={() => { setSelectedLang(l.id); setLangDropdownOpen(false); setOutput(null); }}
-                >
-                  <span className="playground-lang-icon">{l.icon}</span>
-                  <span>{l.label}</span>
-                  {!l.runnable && <span className="playground-lang-badge">Preview</span>}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        ))}
+      </div>
 
-        <div className="playground-actions">
-          <button className="playground-action-btn playground-action-btn--copy" onClick={handleCopy} title="Copy code">
-            {copied ? <Check className="icon-small" /> : <Copy className="icon-small" />}
-            <span>{copied ? 'Copied!' : 'Copy'}</span>
+      {/* Toolbar */}
+      <div className="pg-toolbar">
+        <label className="pg-example-select">
+          <BookOpen className="icon-small" />
+          <select value={exampleIndex} onChange={e => loadExample(e.target.value)} aria-label="Load an example">
+            <option value="">Examples ({lang.examples.length})…</option>
+            {lang.examples.map((ex, i) => <option key={ex.title} value={i}>{ex.title}</option>)}
+          </select>
+        </label>
+
+        <div className="pg-actions">
+          <button className="pg-btn" onClick={handleCopy} title="Copy code">
+            {copied === 'code' ? <Check className="icon-small" /> : <Copy className="icon-small" />}
+            <span>{copied === 'code' ? 'Copied' : 'Copy'}</span>
           </button>
-          <button className="playground-action-btn playground-action-btn--reset" onClick={handleReset} title="Reset to default">
+          <button className="pg-btn" onClick={handleShare} title="Copy a shareable link to this code">
+            {copied === 'link' ? <Check className="icon-small" /> : <Share2 className="icon-small" />}
+            <span>{copied === 'link' ? 'Link copied' : 'Share'}</span>
+          </button>
+          <button className="pg-btn" onClick={handleReset} title="Reset to the default example">
             <RotateCcw className="icon-small" />
             <span>Reset</span>
           </button>
-          <button
-            className={`playground-action-btn playground-action-btn--run ${!lang.runnable ? 'playground-action-btn--disabled' : ''}`}
-            onClick={handleRun}
-            disabled={isRunning || !lang.runnable}
-            title={lang.runnable ? 'Run code (Ctrl+Enter)' : `${lang.label} cannot run in the browser`}
-          >
-            {isRunning ? <Loader2 className="icon-small playground-spin" /> : <Play className="icon-small" />}
-            <span>{isRunning ? 'Running…' : 'Run'}</span>
-          </button>
+          {lang.runnable ? (
+            busy && lang.id !== 'html' && lang.id !== 'css' && lang.id !== 'react' ? (
+              <button className="pg-btn pg-btn--stop" onClick={handleStop} title="Stop execution">
+                <Square className="icon-small" />
+                <span>Stop</span>
+              </button>
+            ) : (
+              <button className="pg-btn pg-btn--run" onClick={handleRun} title="Run (Ctrl+Enter)">
+                <Play className="icon-small" />
+                <span>Run</span>
+              </button>
+            )
+          ) : (
+            <a className="pg-btn pg-btn--run" href={lang.externalRunner.url} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="icon-small" />
+              <span>{lang.externalRunner.label}</span>
+            </a>
+          )}
         </div>
       </div>
 
-      {/* WASM hint */}
-      {lang.wasmNote && (
-        <div className="playground-wasm-note">
-          <AlertTriangle className="icon-small" />
-          <span>{lang.wasmNote}</span>
+      {(source || lang.wasmNote || lang.hint) && (
+        <div className="pg-notes">
+          {source === 'course' && <div className="pg-note pg-note--info"><Info className="icon-small" /> Loaded from a course example — edit it and press Run.</div>}
+          {source === 'shared' && <div className="pg-note pg-note--info"><Info className="icon-small" /> Loaded from a shared link.</div>}
+          {lang.hint && <div className="pg-note"><Info className="icon-small" /> {lang.hint}</div>}
+          {lang.wasmNote && <div className="pg-note pg-note--warn"><AlertTriangle className="icon-small" /> {lang.wasmNote}</div>}
         </div>
       )}
 
-      {/* Editor + Output split */}
-      <div className="playground-split">
-        {/* Code editor pane */}
-        <div className="playground-editor-pane">
-          <div className="playground-editor-header">
+      <div className="pg-split">
+        <section className="pg-pane" aria-label="Editor">
+          <div className="pg-pane-header">
             <Terminal className="icon-small" />
-            <span>{lang.label} Editor</span>
+            <span>{lang.label}</span>
+            <span className="pg-pane-hint">{lang.runnable ? 'Ctrl + Enter to run · Tab to indent' : 'Read & edit — run it with the link above'}</span>
           </div>
-          <div className="playground-editor-body">
-            <div className="playground-line-numbers" aria-hidden="true">
-              {Array.from({ length: lineCount }, (_, i) => (
-                <div key={i} className="playground-line-number">{i + 1}</div>
-              ))}
-            </div>
-            <textarea
-              ref={textareaRef}
-              className="playground-textarea"
-              value={code}
-              onChange={handleCodeChange}
-              onKeyDown={handleKeyDown}
-              spellCheck={false}
-              autoCapitalize="off"
-              autoCorrect="off"
-              autoComplete="off"
-            />
-          </div>
-        </div>
+          <CodeEditor
+            value={code}
+            onChange={setCode}
+            language={lang.highlight}
+            onRun={handleRun}
+            label={`${lang.label} code editor`}
+          />
+        </section>
 
-        {/* Output pane */}
-        <div className="playground-output-pane">
-          <div className="playground-output-header">
-            <div className="playground-output-header-left">
-              <div className="playground-output-dot playground-output-dot--red" />
-              <div className="playground-output-dot playground-output-dot--yellow" />
-              <div className="playground-output-dot playground-output-dot--green" />
-              <span>Output</span>
-            </div>
-            {output && (
-              <button className="playground-clear-btn" onClick={handleClear} title="Clear output">
+        <section className="pg-pane pg-pane--output" aria-label="Output" aria-live="polite">
+          <div className="pg-pane-header">
+            <span className="playground-output-dot playground-output-dot--red" />
+            <span className="playground-output-dot playground-output-dot--yellow" />
+            <span className="playground-output-dot playground-output-dot--green" />
+            <span>Output</span>
+            {status === 'running' && <span className="pg-status"><Loader2 className="icon-xs playground-spin" /> running</span>}
+            {(logs || htmlOutput) && (
+              <button className="pg-icon-btn pg-icon-btn--sm" onClick={resetOutput} title="Clear output" aria-label="Clear output">
                 <Trash2 className="icon-small" />
               </button>
             )}
           </div>
-          <div className="playground-output-body">
-            {isLoading && (
+          <div className="pg-output">
+            {status === 'loading' && (
               <div className="playground-loading">
                 <Loader2 className="icon-large playground-spin" />
                 <span>Loading runtime…</span>
               </div>
             )}
 
-            {!output && !isLoading && (
+            {!logs && !htmlOutput && status === 'idle' && (
               <div className="playground-output-empty">
                 <Play className="icon-huge" style={{ opacity: 0.15 }} />
-                <p>Click <strong>Run</strong> to see the output here</p>
-                {lang.runnable && <p className="playground-shortcut">or press <kbd>Ctrl</kbd> + <kbd>Enter</kbd></p>}
-                {!lang.runnable && (
+                {lang.runnable ? (
+                  <>
+                    <p>Click <strong>Run</strong> to see the output here</p>
+                    <p className="playground-shortcut">or press <kbd>Ctrl</kbd> + <kbd>Enter</kbd></p>
+                  </>
+                ) : (
                   <p className="playground-not-runnable">
                     <AlertTriangle className="icon-small" />
-                    {lang.label} cannot be executed in the browser — use a local compiler
+                    {lang.label} needs a compiler — use <a href={lang.externalRunner.url} target="_blank" rel="noopener noreferrer">{lang.externalRunner.label}</a>.
                   </p>
                 )}
               </div>
             )}
 
-            {output && output.type === 'html' && (
+            {htmlOutput && (
               <iframe
-                ref={iframeRef}
+                key={htmlOutput.key}
                 className="playground-iframe"
-                srcDoc={output.html}
-                sandbox="allow-scripts allow-modals"
-                title="Output"
+                srcDoc={htmlOutput.html}
+                sandbox="allow-scripts allow-modals allow-forms"
+                title="Output preview"
               />
             )}
 
-            {output && output.type === 'console' && (
+            {logs && status !== 'loading' && (
               <div className="playground-console">
-                {output.logs.map((entry, i) => (
-                  <div key={i} className={`playground-console-line playground-console-line--${entry.level}`}>
-                    <span className="playground-console-prefix">
-                      {entry.level === 'error' ? '✗' : entry.level === 'warn' ? '⚠' : entry.level === 'info' ? 'ℹ' : '›'}
-                    </span>
-                    <pre className="playground-console-text">{entry.text}</pre>
-                  </div>
-                ))}
+                {logs.length === 0 && status === 'idle' && <div className="pg-console-empty">No output.</div>}
+                {logs.map((entry, i) =>
+                  entry.level === 'table' ? (
+                    <ConsoleTable key={i} columns={entry.columns} rows={entry.rows} />
+                  ) : (
+                    <div key={i} className={`playground-console-line playground-console-line--${entry.level}`}>
+                      <span className="playground-console-prefix">{PREFIX[entry.level] || '›'}</span>
+                      <pre className="playground-console-text">{entry.text}</pre>
+                    </div>
+                  )
+                )}
+                <div ref={consoleEndRef} />
               </div>
             )}
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

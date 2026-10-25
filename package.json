@@ -5,7 +5,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "catalog": "node scripts/generate-catalog.mjs",
+    "predev": "npm run catalog",
     "dev": "vite",
+    "prebuild": "npm run catalog",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

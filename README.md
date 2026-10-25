@@ -18,27 +18,27 @@ The project is designed for learners and working developers who want short expla
 ### Content and architecture
 
 - Course content is stored as JavaScript modules in `src/data/courses-data`.
-- A central course registry in `src/data/courses.js` assembles all course definitions.
+- `src/data/courses.js` defines the navigation groups and lazily loads each course on demand; optional modules in `src/data/course-extensions` add sections and examples.
 - Static visual assets are served from `public/images`.
 - The app is a static SPA with no backend or database dependency.
 - SEO metadata is managed on the client through the custom `useSEO` hook.
 
 ## Functionalities
 
-QuickDevGuide currently includes 25 curated course guides covering topics such as SDLC, HTML, CSS, JavaScript, OOP, Java, C#, Python, React, PHP, SQL, NoSQL, Docker, Spring Boot, Blazor, .NET API, Django, AWS, GCP, Azure DevOps, data structures, system architecture, design patterns, GitHub, and GitHub Actions.
+QuickDevGuide currently includes 56 curated course guides covering topics such as SDLC, HTML, CSS, JavaScript, OOP, Java, C#, Python, React, PHP, SQL, NoSQL, Docker, Spring Boot, Blazor, .NET API, Django, AWS, GCP, Azure DevOps, data structures, system architecture, design patterns, GitHub, and GitHub Actions.
 
 ### User-facing features
 
-- Home page with a course catalog and quick entry points into learning tracks.
-- Dedicated route for each course using dynamic routing by course id.
-- Section-based course navigation so readers can move topic by topic.
-- Search overlay with keyboard shortcut support using `Ctrl+K` or `Cmd+K`.
-- Quick access links to official documentation, tutorials, and exercises where available.
-- Inline code examples with copy-to-clipboard support.
-- Key takeaway blocks for rapid revision.
-- SEO-friendly page titles and meta descriptions per route.
+- Home page with a course catalog, category quick-jump chips and topic counts.
+- Deep-linkable topics: every section has its own URL (`/java/generics`), so the back button and bookmarks work.
+- Three-tier search (`Ctrl+K` / `Cmd+K`): matching **courses** appear instantly, then matching **topics** (section titles), then matching **content** (explanations, code, examples, key points). Topics and content are searched lazily and the search is cancelled as soon as a result is clicked. Content hits open the topic with the search term highlighted.
+- Course pages with breadcrumb, progress, topic filter, "On this page" table of contents, styled tables and callouts.
+- Code blocks with syntax highlighting, line numbers, **Copy** and **Try it** (opens the snippet in the Playground).
+- Worked **Examples** per topic, shown as tabs, with explanations and expected output.
+- Code Playground: HTML, CSS, JavaScript, TypeScript, React, Python (Pyodide), SQL (SQLite) and PHP (php-wasm) run in the browser; Java, C# and Dart are editable with links to official online runners. Ready-made examples per language, shareable links, saved sessions, and a Stop button for runaway JavaScript (runs in a Web Worker).
+- Responsive layout from phones to wide screens; keyboard and screen-reader friendly.
+- SEO-friendly page titles and meta descriptions per course and topic.
 - Privacy Policy and Terms of Service pages.
-- Responsive navigation for desktop and mobile layouts.
 
 ### How the content works
 
@@ -48,9 +48,21 @@ Each course object defines its own:
 - `title` and `description` for listing and metadata.
 - `sections` for the actual learning content.
 - Optional resource links such as official docs, tutorials, and exercises.
-- Optional images, code samples, and key points for each section.
 
-This keeps the application logic simple while making it easy to expand the knowledge base by adding or updating course data modules.
+Each section supports:
+
+| Field | Purpose |
+|---|---|
+| `title` | Topic name (also its URL slug) |
+| `content` | Markdown (GitHub-flavoured: tables, fenced code, callouts with `>`) |
+| `image` | Optional diagram under `public/images` |
+| `code`, `codeLabel`, `codeLanguage` | Main code sample; language defaults per course |
+| `examples` | `[{ title, language, code, explanation?, output?, playground? }]` shown as tabs |
+| `keyPoints` | Key takeaways list |
+
+### Performance
+
+Only lightweight course metadata (`src/data/catalog.generated.js`) ships in the initial bundle. Each course's content is a separate chunk loaded on demand, and the Playground, legal pages and Markdown renderer are lazy-loaded too.
 
 ## Project Structure
 
@@ -58,13 +70,22 @@ This keeps the application logic simple while making it easy to expand the knowl
 developer-guide/
 |- public/
 |  |- images/
+|- scripts/
+|  |- generate-catalog.mjs      # builds catalog.generated.js (runs before dev/build)
 |- src/
 |  |- components/
+|  |  |- course/                # Markdown, CodeBlock, Examples, syntax highlighter
+|  |  |- Header.jsx, SearchModal.jsx, Footer.jsx, ...
 |  |- data/
-|  |  |- courses-data/
-|  |  |- courses.js
-|  |- hooks/
+|  |  |- courses-data/          # one module per course
+|  |  |- course-extensions/     # extra sections & examples merged into a course
+|  |  |- courses.js             # navigation groups + lazy loadCourse()
+|  |  |- catalog.generated.js   # generated metadata (do not edit)
+|  |  |- mergeCourse.js
+|  |- playground/               # Playground languages, runners, editor
+|  |- search/                   # tiered, cancellable search engine
 |  |- pages/
+|  |- styles/guide.css
 |  |- App.jsx
 |  |- index.css
 |  |- main.jsx
@@ -130,17 +151,34 @@ npm run lint
 
 ### Adding a new course
 
-1. Create a new course module in `src/data/courses-data`.
-2. Export the course object from that module.
-3. Import it into `src/data/courses.js`.
-4. Add it to the exported `courses` array.
-5. Add any related image assets under `public/images` if needed.
+1. Create a course module in `src/data/courses-data` exporting the course object.
+2. Add its `id` to the right group in `groupDefs` in `src/data/courses.js`.
+3. Run `npm run catalog` (also runs automatically before `npm run dev` / `npm run build`).
+4. Add any related image assets under `public/images` if needed.
+
+### Adding sections or examples to an existing course
+
+Create or edit `src/data/course-extensions/<course-id>.js`:
+
+```js
+export default {
+  // Extra worked examples appended to existing sections (matched by title)
+  examples: {
+    'Promises': [{ title: 'Retry with backoff', language: 'javascript', code: '...' }],
+  },
+  // New sections, inserted after the named section (default: before "Best Practices")
+  sections: [{ title: 'Generics', after: 'Classes, Interfaces & Inheritance', content: '...', code: '...' }],
+};
+```
+
+The merge prints a warning if a referenced section title does not exist. Extensions currently enrich HTML, CSS, JavaScript, OOP, Java, Python, SQL, React and C#.
 
 ### Updating existing content
 
-- Edit the relevant module in `src/data/courses-data`.
-- Keep route ids stable if existing links should continue to work.
-- Prefer structured sections with concise explanations, sample code, and key takeaways.
+- Edit the relevant module in `src/data/courses-data` or its extension.
+- Keep course ids and section titles stable — they form the URLs.
+- Prefer structured sections with concise explanations, sample code, examples and key takeaways.
+- Examples that define `function App()` (React) or use HTML/JS/TS/Python/SQL get a **Try it** button automatically. Pure CSS examples need a `playground` override with the HTML to style.
 
 ## Bot Protection
 

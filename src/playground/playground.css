@@ -1,0 +1,249 @@
+/* Playground layout (loaded with the lazy Playground chunk). */
+
+.pg { gap: 0.875rem; }
+.pg.playground-page--expanded { padding: 1rem; height: 100vh; overflow: hidden; }
+.pg.playground-page--expanded .pg-split { flex: 1; min-height: 0; height: auto; }
+
+.pg-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.pg-header-left { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+
+.pg-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: var(--radius, 0.75rem);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  background: white;
+  transition: var(--transition);
+}
+.pg-icon-btn:hover { color: var(--primary); border-color: var(--primary); }
+.pg-icon-btn--sm { width: 1.875rem; height: 1.875rem; margin-left: auto; background: transparent; border-color: #334155; color: #94a3b8; }
+.pg-icon-btn--sm:hover { color: white; border-color: #64748b; }
+
+/* Language tabs — horizontally scrollable on small screens */
+.pg-langs {
+  display: flex;
+  gap: 0.375rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scrollbar-width: thin;
+}
+.pg-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: white;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+.pg-lang:hover { border-color: var(--primary); color: var(--primary); }
+.pg-lang--active { background: var(--primary); border-color: var(--primary); color: white; }
+.pg-lang--active:hover { color: white; }
+.pg-lang-badge {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--bg-sub);
+  color: var(--text-secondary);
+}
+.pg-lang--active .pg-lang-badge { background: rgba(255, 255, 255, 0.2); color: white; }
+
+/* Toolbar */
+.pg-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.625rem; }
+.pg-example-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.75rem;
+  height: 2.375rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 0.5rem);
+  background: white;
+  color: var(--text-secondary);
+  min-width: 0;
+  flex: 1 1 14rem;
+  max-width: 24rem;
+}
+.pg-example-select:focus-within { border-color: var(--primary); }
+.pg-example-select select {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.pg-actions { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.pg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 2.375rem;
+  padding: 0 0.875rem;
+  border-radius: var(--radius-sm, 0.5rem);
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+.pg-btn:hover { border-color: var(--primary); color: var(--primary); }
+.pg-btn--run { background: #16a34a; border-color: #16a34a; color: white; }
+.pg-btn--run:hover { background: #15803d; border-color: #15803d; color: white; }
+.pg-btn--stop { background: #dc2626; border-color: #dc2626; color: white; }
+.pg-btn--stop:hover { background: #b91c1c; color: white; }
+
+.pg-notes { display: flex; flex-direction: column; gap: 0.375rem; }
+.pg-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm, 0.5rem);
+  background: var(--bg-sub);
+  border: 1px solid var(--border);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+.pg-note svg { flex-shrink: 0; margin-top: 2px; }
+.pg-note--info { background: var(--accent); border-color: #c7d2fe; color: var(--secondary); }
+.pg-note--warn { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+
+/* Editor + output */
+.pg-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+@media (min-width: 1024px) {
+  .pg-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); height: clamp(480px, calc(100vh - 19rem), 900px); }
+}
+
+.pg-pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: var(--radius-lg, 1rem);
+  overflow: hidden;
+}
+.pg-pane-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background: #111827;
+  border-bottom: 1px solid #1e293b;
+  color: #cbd5e1;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  min-height: 2.75rem;
+}
+.pg-pane-hint { margin-left: auto; font-weight: 500; color: #64748b; font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pg-status { display: inline-flex; align-items: center; gap: 0.3rem; color: #38bdf8; font-weight: 500; font-size: 0.75rem; margin-left: 0.5rem; }
+
+.pg-output { flex: 1; min-height: 260px; overflow: auto; display: flex; flex-direction: column; background: #0b1120; }
+.pg-pane--output .playground-iframe { min-height: 260px; }
+.pg-console-empty { padding: 0.5rem 1rem; color: #64748b; font-family: var(--font-mono); font-size: 0.8125rem; }
+
+/* SQL result tables */
+.pg-table-wrap { margin: 0.5rem 1rem 0.75rem; overflow-x: auto; }
+.pg-table { border-collapse: collapse; font-family: var(--font-mono); font-size: 0.8125rem; color: #e2e8f0; }
+.pg-table th, .pg-table td { padding: 0.35rem 0.75rem; border: 1px solid #334155; text-align: left; white-space: nowrap; }
+.pg-table th { background: #1e293b; color: #38bdf8; font-weight: 600; }
+.pg-table em { color: #64748b; }
+.pg-table-meta { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; font-family: var(--font-mono); }
+
+/* Code editor: transparent textarea over highlighted code */
+.code-editor {
+  --editor-font-size: 0.875rem;
+  --editor-line-height: 1.6;
+  --editor-pad: 0.875rem;
+  flex: 1;
+  display: flex;
+  min-height: 320px;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: var(--editor-font-size);
+  line-height: var(--editor-line-height);
+}
+@media (max-width: 1023px) { .code-editor { height: 55vh; flex: none; } }
+
+.code-editor-gutter {
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: var(--editor-pad) 0.625rem var(--editor-pad) 0.5rem;
+  text-align: right;
+  color: #475569;
+  user-select: none;
+  background: #0f172a;
+  border-right: 1px solid #1e293b;
+  min-width: 2.75rem;
+}
+.code-editor-area { position: relative; flex: 1; min-width: 0; }
+.code-editor-highlight,
+.code-editor-input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: var(--editor-pad);
+  font: inherit;
+  line-height: inherit;
+  white-space: pre;
+  tab-size: 2;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+.code-editor-highlight { overflow: hidden; pointer-events: none; color: #d4d4d4; }
+/* The Prism theme sets its own font metrics — they must match the textarea exactly. */
+.code-editor-highlight pre, .code-editor-highlight code {
+  white-space: pre !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  tab-size: 2 !important;
+}
+.code-editor-input {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  overflow: auto;
+  background: transparent;
+  color: transparent;
+  caret-color: #f8fafc;
+  -webkit-text-fill-color: transparent;
+}
+.code-editor-input::selection { background: rgba(56, 189, 248, 0.3); -webkit-text-fill-color: transparent; }
+
+@media (max-width: 640px) {
+  .pg-header .playground-subtitle { display: none; }
+  .pg-actions { width: 100%; }
+  .pg-btn { flex: 1; justify-content: center; padding: 0 0.5rem; }
+  .pg-btn span { display: none; }
+  .pg-btn--run span, .pg-btn--stop span { display: inline; }
+  .pg-example-select { max-width: none; }
+  .code-editor { --editor-font-size: 0.8125rem; }
+}

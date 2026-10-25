@@ -1,337 +1,386 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import { courses } from '../data/courses';
-import { ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
+import { useParams, Navigate, NavLink, useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  ExternalLink, CheckCircle, Code, Layers, Info, BookOpen, Globe, PenTool,
+  ChevronDown, ChevronUp, ChevronRight, Search, ListTree, Clock, X,
+} from 'lucide-react';
+import { getCourseMeta, getLoadedCourse, loadCourse, slugify } from '../data/courses';
+import { courseKeywords, getLanguage } from '../data/courseMeta';
 import { useSEO } from '../hooks/useSEO';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import Markdown from '../components/course/Markdown';
+import { extractHeadings } from '../components/course/courseContent';
+import CodeBlock from '../components/course/CodeBlock';
+import Examples from '../components/course/Examples';
 
-/* Course-specific SEO keywords map */
-const courseKeywords = {
-  sdlc: 'SDLC, software development life cycle, agile, scrum, waterfall, kanban, V-model, sprint, software engineering',
-  html: 'HTML, HTML5, web development, semantic HTML, forms, tables, accessibility, markup language',
-  css: 'CSS, CSS3, flexbox, grid, responsive design, animations, media queries, web styling',
-  javascript: 'JavaScript, ES6, DOM, async await, promises, closures, prototypes, web development',
-  oops: 'OOP, object oriented programming, classes, inheritance, polymorphism, encapsulation, abstraction, SOLID principles',
-  java: 'Java, JVM, Spring, collections framework, lambda expressions, stream API, collectors, functional interface, multithreading, virtual threads, LTS versions, enterprise programming',
-  csharp: 'C#, .NET, LINQ, async programming, entity framework, object oriented, Microsoft development',
-  python: 'Python, Django, Flask, data science, machine learning, automation, scripting, pip',
-  react: 'React, JSX, hooks, useState, useEffect, components, virtual DOM, frontend framework',
-  php: 'PHP, Laravel, Composer, server-side scripting, web development, MySQL, Eloquent ORM',
-  sql: 'SQL, database, PostgreSQL, MySQL, joins, indexes, normalization, stored procedures, queries',
-  nosql: 'NoSQL, MongoDB, Redis, document database, key-value store, schema design, aggregation',
-  redis: 'Redis, in-memory cache, key lifecycle, eviction policies, allkeys-lru, sliding window rate limiter, pub sub, clustering',
-  rabbitmq: 'RabbitMQ, message broker, AMQP, MassTransit, quorum queues, lazy queues, DLQ, email broadcast, PII encryption',
-  terraform: 'Terraform, Infrastructure as Code, HCL, OpenTofu, multi-environment, workspaces, Terragrunt, cloud architecture',
-  docker: 'Docker, containers, Dockerfile, Docker Compose, DevOps, microservices, deployment',
-  'spring-boot': 'Spring Boot, Java framework, REST API, Spring MVC, JPA, microservices, enterprise Java',
-  blazor: 'Blazor, C# web, WebAssembly, .NET frontend, Razor components, SignalR',
-  'dotnet-api': '.NET Core, Web API, REST, C# backend, Entity Framework, middleware, authentication',
-  django: 'Django, Python web framework, ORM, templates, REST framework, admin panel, MVT',
-  aws: 'AWS, Amazon Web Services, EC2, S3, Lambda, cloud computing, serverless, IAM',
-  gcp: 'GCP, Google Cloud Platform, Cloud Run, BigQuery, Pub/Sub, Kubernetes, cloud services',
-  'data-structure': 'data structures, algorithms, arrays, linked lists, trees, graphs, hash tables, sorting',
-  'sys-arch': 'system architecture, microservices, scalability, load balancing, caching, message queues, design',
-  'design-patterns': 'design patterns, singleton, factory, observer, strategy, SOLID, Gang of Four, software design',
-  github: 'GitHub, Git, version control, repositories, pull requests, branches, collaboration',
-  'github-actions': 'GitHub Actions, CI/CD, workflows, YAML, automation, continuous integration, deployment',
-  'azure-devops': 'Azure DevOps, pipelines, boards, repos, CI/CD, Microsoft DevOps, agile project management',
-  nextjs: 'Next.js, React framework, SSR, SSG, ISR, App Router, Server Components, API routes, middleware, Vercel',
-  flutter: 'Flutter, Dart, cross-platform, mobile development, widget, Riverpod, GoRouter, Firebase, barcode scanning, POS, Material Design',
-  kubernetes: 'Kubernetes, K8s, container orchestration, pods, deployments, services, Helm, kubectl, HPA, auto-scaling, microservices',
-  angular: 'Angular, TypeScript, components, services, dependency injection, RxJS, signals, NgModule, standalone, Google framework',
-  'tailwind-css': 'Tailwind CSS, utility-first, responsive design, dark mode, flexbox, grid, custom theme, PostCSS'
+/** Loads full course content lazily; returns the cached course synchronously when available. */
+function useCourse(id) {
+  const [state, setState] = useState(() => ({ id, course: getLoadedCourse(id), error: null }));
+
+  useEffect(() => {
+    if (getLoadedCourse(id)) return undefined;
+    let cancelled = false;
+    loadCourse(id)
+      .then(course => { if (!cancelled) setState({ id, course, error: null }); })
+      .catch(error => { if (!cancelled) setState({ id, course: null, error }); });
+    return () => { cancelled = true; };
+  }, [id]);
+
+  // The cache is the source of truth; state only triggers the re-render once loading finishes.
+  const cached = getLoadedCourse(id);
+  if (cached) return { course: cached, error: null };
+  return state.id === id ? { course: state.course, error: state.error } : { course: null, error: null };
+}
+
+/**
+ * Highlights matches of `query` inside `root` using the CSS Custom Highlight API
+ * (no DOM mutation, so React stays in control of the tree) and scrolls to the
+ * first match. Returns a cleanup function.
+ */
+function highlightQuery(root, query) {
+  if (!root || !query) return undefined;
+  const tokens = query.toLowerCase().split(/\s+/).filter(t => t.length > 1);
+  if (!tokens.length) return undefined;
+
+  const ranges = [];
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: (node) =>
+      node.nodeValue.trim() && !node.parentElement.closest('button, nav')
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_REJECT,
+  });
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    const text = node.nodeValue.toLowerCase();
+    for (const token of tokens) {
+      let pos = text.indexOf(token);
+      while (pos !== -1) {
+        const range = document.createRange();
+        range.setStart(node, pos);
+        range.setEnd(node, pos + token.length);
+        ranges.push(range);
+        pos = text.indexOf(token, pos + token.length);
+      }
+    }
+  }
+  if (!ranges.length) return undefined;
+
+  const first = ranges[0].getBoundingClientRect();
+  window.scrollTo({ top: Math.max(0, window.scrollY + first.top - window.innerHeight / 3) });
+
+  if (typeof CSS === 'undefined' || !CSS.highlights || typeof Highlight === 'undefined') return undefined;
+  CSS.highlights.set('search-hit', new Highlight(...ranges));
+  return () => CSS.highlights.delete('search-hit');
+}
+
+const readingMinutes = (section) => {
+  const words = [section.content, section.code, ...(section.keyPoints || []), ...(section.examples || []).map(e => `${e.explanation || ''} ${e.code}`)]
+    .join(' ')
+    .split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
 };
 
-const getLanguage = (courseId) => {
-  const map = {
-    javascript: 'javascript',
-    react: 'jsx',
-    html: 'html',
-    css: 'css',
-    python: 'python',
-    java: 'java',
-    csharp: 'csharp',
-    php: 'php',
-    sql: 'sql',
-    nosql: 'javascript',
-    redis: 'bash',
-    rabbitmq: 'javascript',
-    terraform: 'hcl',
-    docker: 'bash',
-    'spring-boot': 'java',
-    blazor: 'csharp',
-    'dotnet-api': 'csharp',
-    django: 'python',
-    aws: 'bash',
-    gcp: 'bash',
-    github: 'bash',
-    'github-actions': 'yaml',
-    'azure-devops': 'yaml',
-    'data-structure': 'javascript',
-    'sys-arch': 'text',
-    'design-patterns': 'javascript',
-    oops: 'javascript',
-    sdlc: 'text',
-    nextjs: 'tsx',
-    flutter: 'dart',
-    kubernetes: 'yaml',
-    angular: 'typescript',
-    'tailwind-css': 'html'
-  };
-  return map[courseId] || 'javascript';
-};
+const CourseSkeleton = () => (
+  <div className="course-page-layout" aria-busy="true">
+    <aside className="sidebar sidebar--skeleton">
+      <div className="skeleton skeleton-line" /><div className="skeleton skeleton-line" /><div className="skeleton skeleton-line" />
+    </aside>
+    <div className="course-main">
+      <div className="skeleton skeleton-badge" />
+      <div className="skeleton skeleton-title" />
+      <div className="skeleton skeleton-line" /><div className="skeleton skeleton-line" /><div className="skeleton skeleton-line short" />
+    </div>
+  </div>
+);
 
 const CoursePage = () => {
-  const { id } = useParams();
-  const course = courses.find((c) => c.id === id);
-  const [activeTab, setActiveTab] = useState(0);
-  const [prevId, setPrevId] = useState(id);
+  const { id, section: sectionSlug } = useParams();
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('q') || '';
+  const navigate = useNavigate();
+  const meta = getCourseMeta(id);
+  const { course, error } = useCourse(id);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [topicFilter, setTopicFilter] = useState('');
+  const [activeHeading, setActiveHeading] = useState('');
+  const articleRef = useRef(null);
 
-  // Reset tab synchronously when the course changes (before render completes)
+  const activeTab = useMemo(() => {
+    if (!course || !sectionSlug) return 0;
+    const idx = course.sections.findIndex(s => slugify(s.title) === sectionSlug);
+    return idx === -1 ? 0 : idx;
+  }, [course, sectionSlug]);
+
+  const section = course ? course.sections[activeTab] : null;
+
+  useSEO({
+    title: meta ? (section && activeTab > 0 ? `${section.title} — ${meta.title}` : meta.title) : null,
+    description: meta ? `Learn ${meta.title}${section ? ` — ${section.title}` : ''}. ${meta.description} Concise explanations, code examples, and visual diagrams on QuickDevGuide.` : null,
+    keywords: meta ? (courseKeywords[meta.id] || `${meta.title}, programming, developer guide, tutorial`) : null,
+  });
+
+  // Reset per-course UI state when switching courses
+  const [prevId, setPrevId] = useState(id);
   if (id !== prevId) {
     setPrevId(id);
-    setActiveTab(0);
+    setTopicFilter('');
     setIsSidebarOpen(false);
   }
 
-  useSEO({
-    title: course ? course.title : null,
-    description: course ? `Learn ${course.title} — ${course.description} Concise explanations, code examples, and visual diagrams on QuickDevGuide.` : null,
-    keywords: course ? (courseKeywords[course.id] || `${course.title}, programming, developer guide, tutorial`) : null
-  });
-
+  // Scroll to top when the course or section changes (unless we are jumping to a search hit)
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
+    if (!query) window.scrollTo({ top: 0 });
+  }, [id, activeTab, query]);
 
-  if (!course) return <Navigate to="/" />;
+  // Highlight the search term that brought the user here
+  useLayoutEffect(() => {
+    if (!section || !query) return undefined;
+    return highlightQuery(articleRef.current, query);
+  }, [section, query]);
 
-  const section = course.sections[activeTab];
+  const headings = useMemo(() => {
+    if (!section) return [];
+    const list = extractHeadings(section.content);
+    if (section.code) list.push({ level: 2, text: section.codeLabel || 'Code Example', id: 'code-example' });
+    if (section.examples && section.examples.length) list.push({ level: 2, text: 'Examples', id: 'examples' });
+    if (section.keyPoints && section.keyPoints.length) list.push({ level: 2, text: 'Key Takeaways', id: 'key-takeaways' });
+    return list;
+  }, [section]);
+
+  // Scroll-spy for the "On this page" panel
+  useEffect(() => {
+    if (!headings.length || typeof IntersectionObserver === 'undefined') return undefined;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActiveHeading(visible[0].target.id);
+      },
+      { rootMargin: '-80px 0px -65% 0px' }
+    );
+    headings.forEach(h => {
+      const el = document.getElementById(h.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [headings]);
+
+  if (!meta) return <Navigate to="/" replace />;
+  if (error) {
+    return (
+      <div className="course-error">
+        <h1>Couldn’t load {meta.title}</h1>
+        <p>Please check your connection and try again.</p>
+        <button className="btn-primary" onClick={() => window.location.reload()}>Retry</button>
+      </div>
+    );
+  }
+  if (!course) return <CourseSkeleton />;
+
+  const goTo = (idx) => {
+    setIsSidebarOpen(false);
+    navigate(idx === 0 ? `/${id}` : `/${id}/${slugify(course.sections[idx].title)}`);
+  };
+
+  const filterTokens = topicFilter.toLowerCase().split(/\s+/).filter(Boolean);
+  const visibleSections = course.sections
+    .map((sec, idx) => ({ sec, idx }))
+    .filter(({ sec }) => filterTokens.every(t => sec.title.toLowerCase().includes(t)));
+
+  const sectionLanguage = section.codeLanguage || getLanguage(id);
+  const progress = Math.round(((activeTab + 1) / course.sections.length) * 100);
 
   return (
-    <div className="course-page-layout">
+    <div className={`course-page-layout ${headings.length > 1 ? 'course-page-layout--toc' : ''}`}>
       {/* Left Sidebar */}
-      <aside className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-        <button className="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-          <h3 className="sidebar-title">
+      <aside className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`} aria-label={`${course.title} topics`}>
+        <button className="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)} aria-expanded={isSidebarOpen}>
+          <span className="sidebar-title">
             <Layers className="icon" />
             <span>{course.title}</span>
-          </h3>
-          {isSidebarOpen ? <ChevronUp className="icon sidebar-toggle-icon" /> : <ChevronDown className="icon sidebar-toggle-icon" />}
+          </span>
+          <span className="sidebar-toggle-meta">
+            <span className="sidebar-toggle-progress">{activeTab + 1}/{course.sections.length}</span>
+            {isSidebarOpen ? <ChevronUp className="icon sidebar-toggle-icon" /> : <ChevronDown className="icon sidebar-toggle-icon" />}
+          </span>
         </button>
+        <div className="sidebar-progress" aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
         <div className="sidebar-collapsible">
+          {course.sections.length > 8 && (
+            <label className="sidebar-filter">
+              <Search className="icon-xs" />
+              <input
+                type="text"
+                placeholder="Filter topics…"
+                value={topicFilter}
+                onChange={e => setTopicFilter(e.target.value)}
+                aria-label="Filter topics"
+              />
+              {topicFilter && (
+                <button type="button" onClick={() => setTopicFilter('')} aria-label="Clear filter"><X className="icon-xs" /></button>
+              )}
+            </label>
+          )}
           <nav className="sidebar-nav">
-            {course.sections.map((sec, idx) => (
+            {visibleSections.map(({ sec, idx }) => (
               <button
-                key={idx}
-                onClick={() => { setActiveTab(idx); setIsSidebarOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                key={sec.title}
+                onClick={() => goTo(idx)}
                 className={`sidebar-nav-btn ${activeTab === idx ? 'active' : ''}`}
+                aria-current={activeTab === idx ? 'page' : undefined}
               >
-                {sec.title}
+                <span className="sidebar-nav-index">{idx + 1}</span>
+                <span className="sidebar-nav-label">{sec.title}</span>
               </button>
             ))}
+            {visibleSections.length === 0 && <p className="sidebar-empty">No topics match “{topicFilter}”.</p>}
           </nav>
 
-        {/* Resource Links */}
-        {(course.officialDocs || course.tutorialLink || course.exerciseLink) && (
+          {(course.officialDocs || course.tutorialLink || course.exerciseLink) && (
+            <div className="sidebar-info">
+              <h4 className="sidebar-links-heading">Resources</h4>
+              <div className="sidebar-links">
+                {course.officialDocs && (
+                  <a href={course.officialDocs} target="_blank" rel="noopener noreferrer" className="sidebar-resource-link">
+                    <Globe className="icon-small" />
+                    <span>Official Docs</span>
+                    <ExternalLink className="icon-small" />
+                  </a>
+                )}
+                {course.tutorialLink && (
+                  <a href={course.tutorialLink} target="_blank" rel="noopener noreferrer" className="sidebar-resource-link">
+                    <BookOpen className="icon-small" />
+                    <span>Tutorial Guide</span>
+                    <ExternalLink className="icon-small" />
+                  </a>
+                )}
+                {course.exerciseLink && (
+                  <a href={course.exerciseLink} target="_blank" rel="noopener noreferrer" className="sidebar-resource-link">
+                    <PenTool className="icon-small" />
+                    <span>Exercises</span>
+                    <ExternalLink className="icon-small" />
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="sidebar-info">
-            <h4 className="sidebar-links-heading">Resources</h4>
-            <div className="sidebar-links">
-              {course.officialDocs && (
-                <a href={course.officialDocs} target="_blank" rel="noopener noreferrer" className="sidebar-resource-link">
-                  <Globe className="icon-small" />
-                  <span>Official Docs</span>
-                  <ExternalLink className="icon-small" />
-                </a>
-              )}
-              {course.tutorialLink && (
-                <a href={course.tutorialLink} target="_blank" rel="noopener noreferrer" className="sidebar-resource-link">
-                  <BookOpen className="icon-small" />
-                  <span>Tutorial Guide</span>
-                  <ExternalLink className="icon-small" />
-                </a>
-              )}
-              {course.exerciseLink && (
-                <a href={course.exerciseLink} target="_blank" rel="noopener noreferrer" className="sidebar-resource-link">
-                  <PenTool className="icon-small" />
-                  <span>Exercises</span>
-                  <ExternalLink className="icon-small" />
-                </a>
-              )}
+            <div className="info-box">
+              <Info className="icon text-primary" style={{ flexShrink: 0 }} />
+              <p>Quick-reference guide for fast recall. Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to search every course.</p>
             </div>
           </div>
-        )}
-
-        <div className="sidebar-info">
-          <div className="info-box">
-            <Info className="icon text-primary" style={{flexShrink:0}} />
-            <p>Quick-reference guide for fast recall. Bookmark this page for future use.</p>
-          </div>
-        </div>
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className="course-main">
-          <div
-            key={id + activeTab}
-            className="course-content-wrapper animate-content-in"
-          >
-            {/* Header */}
-            <div className="course-header-info">
+      <article className="course-main" ref={articleRef}>
+        <div key={id + activeTab} className="course-content-wrapper animate-content-in">
+          <nav className="breadcrumb" aria-label="Breadcrumb">
+            <NavLink to="/">Home</NavLink>
+            <ChevronRight className="icon-xs" />
+            <span>{course.group}</span>
+            <ChevronRight className="icon-xs" />
+            <NavLink to={`/${id}`}>{course.title}</NavLink>
+          </nav>
+
+          <header className="course-header-info">
+            <div className="course-header-meta">
               <span className="badge">{course.title}</span>
-              <h1 className="course-heading">{section.title}</h1>
+              <span className="course-meta-item">Topic {activeTab + 1} of {course.sections.length}</span>
+              <span className="course-meta-item"><Clock className="icon-xs" /> {readingMinutes(section)} min read</span>
             </div>
+            <h1 className="course-heading">{section.title}</h1>
+          </header>
 
-            {/* Main Content Text */}
-            <div className="course-body-text">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  h1: ({node: _node, ...props}) => <h1 className="course-heading mt-6 mb-4" style={{ marginTop: '1.5rem', marginBottom: '1rem' }} {...props} />,
-                  h2: ({node: _node, ...props}) => <h2 className="content-subheading-lg mt-6" style={{ marginTop: '1.5rem' }} {...props} />,
-                  h3: ({node: _node, ...props}) => <h3 className="content-subheading mt-4" style={{ marginTop: '1rem' }} {...props} />,
-                  h4: ({node: _node, ...props}) => <h4 className="font-bold mt-4" style={{ marginTop: '1rem' }} {...props} />,
-                  p: ({node: _node, ...props}) => <p className="course-paragraph my-2" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
-                  ul: ({node: _node, ...props}) => <ul className="course-paragraph my-2" style={{ listStyleType: 'disc', paddingLeft: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
-                  ol: ({node: _node, ...props}) => <ol className="course-paragraph my-2" style={{ listStyleType: 'decimal', paddingLeft: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }} {...props} />,
-                  li: ({node: _node, ...props}) => <li className="mb-1" style={{ marginBottom: '0.25rem' }} {...props} />,
-                  a: ({node: _node, ...props}) => <a className="content-link" target="_blank" rel="noopener noreferrer" {...props} />,
-                  strong: ({node: _node, ...props}) => <strong style={{ color: 'var(--text-primary)', fontWeight: 700 }} {...props} />,
-                  em: ({node: _node, ...props}) => <em style={{ fontStyle: 'italic', color: 'var(--text-primary)' }} {...props} />,
-                  code({node: _node, inline, className, children, ...props}) {
-                    const match = /language-(\w+)/.exec(className || '')
-                    return !inline && match ? (
-                      <div className="code-section" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-                        <div className="code-block-container" style={{ position: 'relative' }}>
-                          <SyntaxHighlighter
-                            language={match[1]}
-                            style={vscDarkPlus}
-                            customStyle={{ margin: 0, padding: 0, background: 'transparent', fontSize: '0.875rem' }}
-                            codeTagProps={{ style: { fontFamily: 'var(--font-mono)' } }}
-                            {...props}
-                          >
-                            {String(children).replace(/\n$/, '')}
-                          </SyntaxHighlighter>
-                          <button
-                            className="btn-copy"
-                            onClick={() => navigator.clipboard.writeText(String(children))}
-                          >
-                            Copy
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <code className="inline-code" {...props}>
-                        {children}
-                      </code>
-                    )
-                  },
-                  img: ({node: _node, ...props}) => (
-                    <div className="course-image-container my-4" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-                      <img className="course-image" {...props} />
-                    </div>
-                  )
-                }}
-              >
-                {section.content}
-              </ReactMarkdown>
+          {query && (
+            <div className="search-context-banner">
+              <Search className="icon-xs" />
+              <span>Showing matches for <strong>“{query}”</strong></span>
+              <button type="button" onClick={() => navigate({ search: '' }, { replace: true })}>Clear</button>
             </div>
+          )}
 
-            {/* Image */}
-            {section.image && (
-              <div className="course-image-container">
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  className="course-image"
-                />
-              </div>
-            )}
-
-            {/* Code Block */}
-            {section.code && (
-              <div className="code-section">
-                <h3 className="section-subtitle">
-                  <Code className="icon text-primary" />
-                  <span>{section.codeLabel || 'Code Example'}</span>
-                </h3>
-                <div className="code-block-container">
-                  <SyntaxHighlighter
-                    language={getLanguage(id)}
-                    style={vscDarkPlus}
-                    customStyle={{
-                      margin: 0,
-                      padding: 0,
-                      background: 'transparent',
-                      fontSize: '0.875rem'
-                    }}
-                    codeTagProps={{
-                      style: {
-                        fontFamily: 'var(--font-mono)'
-                      }
-                    }}
-                  >
-                    {section.code}
-                  </SyntaxHighlighter>
-                  <button
-                    className="btn-copy"
-                    onClick={() => {
-                      navigator.clipboard.writeText(section.code);
-                    }}
-                  >
-                    Copy
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Key Points */}
-            {section.keyPoints && section.keyPoints.length > 0 && (
-              <div className="key-points-full">
-                <h3 className="section-subtitle">
-                  <CheckCircle className="icon text-success" />
-                  <span>Key Takeaways</span>
-                </h3>
-                <div className="key-points-list">
-                  {section.keyPoints.map((point, i) => (
-                    <div key={i} className="key-point-item">
-                      <CheckCircle className="icon-small text-success" style={{flexShrink:0, marginTop:'2px'}} />
-                      <span>{point}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Navigation */}
-            <div className="course-nav-buttons">
-              {activeTab > 0 && (
-                <button
-                  className="btn-secondary"
-                  onClick={() => { setActiveTab(activeTab - 1); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                >
-                  <span className="nav-btn-arrow">←</span>
-                  <span className="nav-btn-text">{course.sections[activeTab - 1].title}</span>
-                </button>
-              )}
-              {activeTab < course.sections.length - 1 && (
-                <button
-                  className="btn-primary"
-                  onClick={() => { setActiveTab(activeTab + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  style={{marginLeft: 'auto'}}
-                >
-                  <span className="nav-btn-text">{course.sections[activeTab + 1].title}</span>
-                  <span className="nav-btn-arrow">→</span>
-                </button>
-              )}
-            </div>
+          <div className="course-body-text">
+            <Markdown>{section.content}</Markdown>
           </div>
-      </div>
+
+          {section.image && (
+            <figure className="course-image-container">
+              <img src={section.image} alt={section.title} className="course-image" loading="lazy" decoding="async" />
+            </figure>
+          )}
+
+          {section.code && (
+            <section className="code-section" id="code-example">
+              <h2 className="section-subtitle">
+                <Code className="icon text-primary" />
+                <span>{section.codeLabel || 'Code Example'}</span>
+              </h2>
+              <CodeBlock code={section.code} language={sectionLanguage} />
+            </section>
+          )}
+
+          <Examples examples={section.examples} defaultLanguage={sectionLanguage} />
+
+          {section.keyPoints && section.keyPoints.length > 0 && (
+            <section className="key-points-full" id="key-takeaways">
+              <h2 className="section-subtitle">
+                <CheckCircle className="icon text-success" />
+                <span>Key Takeaways</span>
+              </h2>
+              <ul className="key-points-list">
+                {section.keyPoints.map((point, i) => (
+                  <li key={i} className="key-point-item">
+                    <CheckCircle className="icon-small text-success" style={{ flexShrink: 0, marginTop: '3px' }} />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <nav className="course-nav-buttons" aria-label="Topic navigation">
+            {activeTab > 0 ? (
+              <button className="course-nav-card" onClick={() => goTo(activeTab - 1)}>
+                <span className="course-nav-dir">← Previous</span>
+                <span className="course-nav-title">{course.sections[activeTab - 1].title}</span>
+              </button>
+            ) : <span />}
+            {activeTab < course.sections.length - 1 && (
+              <button className="course-nav-card course-nav-card--next" onClick={() => goTo(activeTab + 1)}>
+                <span className="course-nav-dir">Next →</span>
+                <span className="course-nav-title">{course.sections[activeTab + 1].title}</span>
+              </button>
+            )}
+          </nav>
+        </div>
+      </article>
+
+      {/* On this page */}
+      {headings.length > 1 && (
+        <aside className="toc" aria-label="On this page">
+          <h4 className="toc-title"><ListTree className="icon-xs" /> On this page</h4>
+          <ul>
+            {headings.map(h => (
+              <li key={h.id} className={`toc-item toc-item--l${h.level}`}>
+                <a
+                  href={`#${h.id}`}
+                  className={activeHeading === h.id ? 'active' : ''}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    setActiveHeading(h.id);
+                  }}
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
     </div>
   );
 };
