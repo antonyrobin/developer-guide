@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-
-const SITE_NAME = 'QuickDevGuide';
-const SITE_SUFFIX = 'QuickDevGuide | Developer Quick Reference';
+import { SITE_URL, SITE_NAME, DEFAULT_IMAGE, HOME_SEO } from '../data/seo';
 
 function setMeta(name, content, attr = 'name') {
   let el = document.querySelector(`meta[${attr}="${name}"]`);
@@ -13,9 +11,43 @@ function setMeta(name, content, attr = 'name') {
   el.setAttribute('content', content);
 }
 
-export function useSEO({ title, description, keywords }) {
+function setCanonical(href) {
+  let el = document.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement('link');
+    el.setAttribute('rel', 'canonical');
+    document.head.appendChild(el);
+  }
+  el.setAttribute('href', href);
+}
+
+function setJsonLd(data) {
+  let el = document.getElementById('page-jsonld');
+  if (!data) {
+    if (el) el.remove();
+    return;
+  }
+  if (!el) {
+    el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.id = 'page-jsonld';
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
+}
+
+/**
+ * Sets per-page title, description, keywords, canonical URL, Open Graph /
+ * Twitter tags and JSON-LD. `path` is the canonical path ("/react", "/react/hooks").
+ */
+export function useSEO({ title, description, keywords, path, jsonLd, type = 'website' }) {
+  const jsonLdKey = jsonLd ? JSON.stringify(jsonLd) : '';
+
   useEffect(() => {
-    document.title = title ? `${title} | ${SITE_SUFFIX}` : SITE_SUFFIX;
+    const pageTitle = title ? `${title} | ${SITE_NAME}` : HOME_SEO.title;
+    document.title = pageTitle;
+    setMeta('og:title', pageTitle, 'property');
+    setMeta('twitter:title', pageTitle);
 
     if (description) {
       setMeta('description', description);
@@ -23,12 +55,17 @@ export function useSEO({ title, description, keywords }) {
       setMeta('twitter:description', description);
     }
 
-    if (keywords) {
-      setMeta('keywords', keywords);
+    if (keywords) setMeta('keywords', keywords);
+
+    if (path !== undefined) {
+      const url = `${SITE_URL}${path === '/' ? '/' : path}`;
+      setCanonical(url);
+      setMeta('og:url', url, 'property');
     }
 
-    const pageTitle = title ? `${title} | ${SITE_SUFFIX}` : SITE_SUFFIX;
-    setMeta('og:title', pageTitle, 'property');
-    setMeta('twitter:title', pageTitle);
-  }, [title, description, keywords]);
+    setMeta('og:type', type, 'property');
+    setMeta('og:image', DEFAULT_IMAGE, 'property');
+    setMeta('twitter:image', DEFAULT_IMAGE);
+    setJsonLd(jsonLdKey ? JSON.parse(jsonLdKey) : null);
+  }, [title, description, keywords, path, type, jsonLdKey]);
 }

@@ -10,6 +10,7 @@
     "dev": "vite",
     "prebuild": "npm run catalog",
     "build": "vite build",
+    "postbuild": "node scripts/generate-seo.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
