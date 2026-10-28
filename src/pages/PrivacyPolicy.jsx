@@ -6,6 +6,7 @@ import { useSEO } from '../hooks/useSEO';
 const PrivacyPolicy = () => {
   useSEO({
     title: 'Privacy Policy',
+    path: '/privacy-policy',
     description: 'QuickDevGuide Privacy Policy — Learn how we collect, use, and protect your personal information when you use our developer reference guide.',
     keywords: 'privacy policy, data protection, cookies, QuickDevGuide'
   });

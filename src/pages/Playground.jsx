@@ -77,9 +77,10 @@ const PREFIX = { error: '✗', warn: '⚠', info: 'ℹ', log: '›' };
 
 const Playground = () => {
   useSEO({
-    title: 'Code Playground',
+    title: 'Online Code Playground — Run JavaScript, Python, SQL, HTML & CSS',
+    path: '/playground',
     description: 'Write, edit, and run code in your browser with ready-made examples. Supports HTML, CSS, JavaScript, TypeScript, React, Python, SQL and PHP, plus Java, C# and Dart snippets.',
-    keywords: 'code playground, online code editor, run code online, JavaScript, Python, HTML, CSS, SQL, PHP, TypeScript, React, try it yourself',
+    keywords: 'code playground, online code editor, online compiler, run code online, JavaScript playground, Python online, SQL online, HTML CSS editor, live code editor, TypeScript playground, React playground, PHP online, try it yourself, browser IDE',
   });
 
   const location = useLocation();

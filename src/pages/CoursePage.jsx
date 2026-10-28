@@ -5,7 +5,8 @@ import {
   ChevronDown, ChevronUp, ChevronRight, Search, ListTree, Clock, X,
 } from 'lucide-react';
 import { getCourseMeta, getLoadedCourse, loadCourse, slugify } from '../data/courses';
-import { courseKeywords, getLanguage } from '../data/courseMeta';
+import { getLanguage } from '../data/courseMeta';
+import { getCourseSEO, getSectionSEO, courseJsonLd } from '../data/seo';
 import { useSEO } from '../hooks/useSEO';
 import Markdown from '../components/course/Markdown';
 import { extractHeadings } from '../components/course/courseContent';
@@ -112,10 +113,18 @@ const CoursePage = () => {
 
   const section = course ? course.sections[activeTab] : null;
 
+  const isSectionPage = Boolean(section && activeTab > 0);
+  const sectionPath = isSectionPage ? `/${id}/${slugify(section.title)}` : `/${id}`;
+  const seo = meta ? (isSectionPage ? getSectionSEO(meta, section) : getCourseSEO(meta)) : {};
   useSEO({
-    title: meta ? (section && activeTab > 0 ? `${section.title} — ${meta.title}` : meta.title) : null,
-    description: meta ? `Learn ${meta.title}${section ? ` — ${section.title}` : ''}. ${meta.description} Concise explanations, code examples, and visual diagrams on QuickDevGuide.` : null,
-    keywords: meta ? (courseKeywords[meta.id] || `${meta.title}, programming, developer guide, tutorial`) : null,
+    title: seo.title || null,
+    description: seo.description || null,
+    keywords: seo.keywords || null,
+    path: meta ? sectionPath : undefined,
+    type: isSectionPage ? 'article' : 'website',
+    jsonLd: meta
+      ? courseJsonLd(meta, isSectionPage ? { section, sectionPath } : { sections: course ? course.sections : undefined })
+      : null,
   });
 
   // Reset per-course UI state when switching courses

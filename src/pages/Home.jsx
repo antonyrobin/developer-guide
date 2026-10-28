@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { courses, courseGroups, slugify } from '../data/courses';
 import { BookOpen, Rocket, Terminal, Database, Cloud, Layout, Code2, Play, Search, Layers, FlaskConical, ArrowRight } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
+import { HOME_SEO, websiteJsonLd } from '../data/seo';
 import { openSearch } from '../search/searchEvents';
 
 const groupIcon = (label) => {
@@ -15,8 +16,10 @@ const groupIcon = (label) => {
 const Home = () => {
   useSEO({
     title: null,
-    description: `QuickDevGuide — A curated developer quick-reference guide with concise explanations, code examples, and visual diagrams across ${courses.length}+ technologies including JavaScript, React, Java, Python, SQL, Docker, AWS, and more.`,
-    keywords: 'developer guide, programming tutorial, quick reference, JavaScript, React, Java, Python, C#, SQL, Docker, AWS, GCP, HTML, CSS, OOP, SDLC, Spring Boot, .NET, Django, design patterns, data structures, system architecture, GitHub Actions, Azure DevOps'
+    description: HOME_SEO.description,
+    keywords: HOME_SEO.keywords,
+    path: '/',
+    jsonLd: websiteJsonLd(),
   });
 
   const totalTopics = courses.reduce((sum, c) => sum + c.sectionCount, 0);
