@@ -315,6 +315,14 @@ button {
   .mobile-menu-btn { display: none; }
 }
 
+/* Very narrow phones: tighten the header so logo + actions fit in one row */
+@media (max-width: 380px) {
+  .header-container { padding: 0 0.75rem; gap: 0.5rem; }
+  .logo { font-size: 1.15rem; gap: 0.35rem; }
+  .logo .icon-large { width: 1.6rem; height: 1.6rem; }
+  .header-actions { gap: 0.25rem; }
+}
+
 .mobile-menu {
   position: fixed;
   top: 4rem;
@@ -574,6 +582,7 @@ button {
   align-items: center;
   text-align: center;
   gap: 1.5rem;
+  width: 100%;
   max-width: 56rem;
   margin: 0 auto;
 }
@@ -1631,6 +1640,7 @@ button {
 .legal-content {
   color: var(--text-primary);
   line-height: 1.8;
+  overflow-wrap: anywhere;
 }
 
 .legal-section {
