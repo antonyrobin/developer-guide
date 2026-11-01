@@ -47,12 +47,13 @@ kbd {
 }
 .skip-link:focus { top: 0.5rem; }
 
-/* ── Header: switch to the hamburger below 1280px so groups never overflow ── */
-@media (max-width: 1279px) {
+/* ── Header: switch to the hamburger below 1440px so groups never overflow ──
+   (the full nav row needs ~1400px; at 1280–1439 it pushed search off-screen) */
+@media (max-width: 1439px) {
   .desktop-nav { display: none !important; }
   .mobile-menu-btn { display: flex !important; }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1440px) {
   .mobile-menu-btn { display: none !important; }
 }
 
@@ -80,7 +81,7 @@ kbd {
   .search-trigger-kbd { display: inline; }
 }
 /* With the full nav visible there is only room for a compact trigger. */
-@media (min-width: 1280px) {
+@media (min-width: 1440px) {
   .search-trigger { min-width: 0; border-color: transparent; background: transparent; }
   .search-trigger-text, .search-trigger-kbd { display: none; }
   .desktop-nav { gap: 0.25rem; }

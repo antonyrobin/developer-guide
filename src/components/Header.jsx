@@ -36,7 +36,7 @@ const Header = () => {
   // Close mobile menu on resize to desktop; lock body scroll while it is open
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1280) setIsMenuOpen(false);
+      if (window.innerWidth >= 1440) setIsMenuOpen(false);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
